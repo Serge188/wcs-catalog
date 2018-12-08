@@ -20,22 +20,17 @@ export class AuthenticationService {
   }
 
   login(usernameOrEmail: string, password: string) {
-    console.log("qwe");
     return this.http.post<any>(`http://localhost:8080/api/auth/signin`, { usernameOrEmail, password })
       .pipe(map(user => {
-        // login successful if there's a jwt token in the response
-        if (user && user.token) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
+        if (user && user.accessToken) {
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.currentUserSubject.next(user);
         }
-
         return user;
       }));
   }
 
   logout() {
-    // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
