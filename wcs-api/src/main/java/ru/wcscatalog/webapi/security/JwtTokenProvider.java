@@ -1,18 +1,24 @@
 package ru.wcscatalog.webapi.security;
 
 import io.jsonwebtoken.*;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
 @Component
+@ComponentScan(basePackages = "ru.wcscatalog")
+@PropertySource(value = { "classpath:application.properties" })
 public class JwtTokenProvider {
-//    @Value("${app.jwtSecret}")
-    private String jwtSecret = "JWTSuperSecretKey";
+    @Autowired
+    private Environment environment;
 
-//    @Value("${app.jwtExpirationInMs}")
+    private String jwtSecret = "aasciida";
+
     private int jwtExpirationInMs = 604800000;
 
     public String generateToken(Authentication authentication) {

@@ -1,12 +1,9 @@
 package ru.wcscatalog.webapi.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import ru.wcscatalog.core.model.User;
-import ru.wcscatalog.core.repository.IUserRepository;
 import ru.wcscatalog.core.repository.UserRepository;
 
 import javax.transaction.Transactional;
@@ -15,13 +12,16 @@ import javax.transaction.Transactional;
 @ComponentScan(basePackages = "ru.wcscatalog")
 public class CustomUserDetailsService implements ICustomUserDetailsService {
 
-    @Autowired
-    IUserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public CustomUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String userName) {
-        User user = userRepository.findUserByUserName(userName);
+    public UserDetails loadUserByUsername(String username) {
+        User user = userRepository.findByUsername(username);
         return UserPrincipal.create(user);
     }
 

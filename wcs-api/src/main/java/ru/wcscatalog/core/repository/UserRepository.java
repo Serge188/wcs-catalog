@@ -1,72 +1,66 @@
 package ru.wcscatalog.core.repository;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ru.wcscatalog.core.dao.Dao;
 import ru.wcscatalog.core.model.User;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
-public class UserRepository implements IUserRepository{
-//    @Autowired
-//    Dao dao;
+public class UserRepository {
 
-    @Autowired
-    SessionFactory sessionFactory;
+    private final EntityManagerFactory entityManagerFactory;
 
-    @SuppressWarnings("unchecked")
-    public List<User> getUsers() {
-        Session session;
-        try {
-            session = sessionFactory.getCurrentSession();
-        } catch (Exception e) {
-            session = sessionFactory.openSession();
-        }
-        return session.createQuery("from User").list();
+    private EntityManager entityManager;
+    private CriteriaBuilder criteriaBuilder;
+    private CriteriaQuery<User> criteriaQuery;
+    private Root<User> root;
+
+
+    public UserRepository(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+        buildCriteriaQuery();
     }
 
-    @Override
-    public List<User> findByIdIn(List<Long> userIds) {
-        return null;
-    }
 
-    @Override
-    public Optional<User> findByUsername(String username) {
-        return Optional.empty();
-    }
-
-    @Override
     public Boolean existsByUsername(String username) {
         return false;
     }
 
-    public User findUserByUserName(String userName) {
-        List<User> usersList = getUsers();
-        for (User user: usersList) {
-            if (user.getName().equals(userName)) {
-                return user;
-            }
-        }
-        return null;
+    public User findByUsername(String username) {
+        criteriaQuery.where(criteriaBuilder.equal(root.get("username"), username));
+        Query query = entityManager.createQuery(criteriaQuery);
+        return (User) query.getSingleResult();
     }
 
-    @Override
     public User findUserById(Long id) {
-        List<User> users = getUsers();
-        for (User user: users) {
-            if (user.getId() == id) {
-                return user;
-            }
-        }
-        return null;
+        criteriaQuery.where(criteriaBuilder.equal(root.get("id"), id));
+        Query query = entityManager.createQuery(criteriaQuery);
+        return (User) query.getSingleResult();
     }
 
-    @Override
+    @Transactional
     public User save(User user) {
+        if (!entityManager.getTransaction().isActive()) {
+            entityManager.getTransaction().begin();
+        }
+        entityManager.persist(user);
+        entityManager.getTransaction().commit();
         return user;
+    }
+
+    private void buildCriteriaQuery() {
+        if (entityManager == null) {
+            entityManager = entityManagerFactory.createEntityManager();
+        }
+        criteriaBuilder = entityManager.getCriteriaBuilder();
+        criteriaQuery = criteriaBuilder.createQuery(User.class);
+        root = criteriaQuery.from(User.class);
     }
 }
