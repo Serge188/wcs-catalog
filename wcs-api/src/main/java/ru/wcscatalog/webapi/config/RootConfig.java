@@ -10,13 +10,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 @ComponentScan(basePackages = "ru.wcscatalog")
 public class RootConfig implements WebMvcConfigurer{
-    private final long MAX_AGE_SECS = 3600;
+//    private final long MAX_AGE_SECS = 3600;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("*")
                 .allowedMethods("HEAD", "OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE")
-                .maxAge(MAX_AGE_SECS);
+//                .maxAge(MAX_AGE_SECS);
+                .maxAge(3600);
     }
 }

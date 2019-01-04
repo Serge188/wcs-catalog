@@ -11,6 +11,9 @@ import { AlertComponent } from './alert/alert.component';
 import {ErrorInterceptor} from "./_helpers/error.interceptor";
 import {JwtInterceptor} from "./_helpers/jwt.interceptor";
 import {FormsModule} from "@angular/forms";
+import { MainPageComponent } from './main-page/main-page.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {CarouselModule} from "ngx-owl-carousel-o";
 
 @NgModule({
   declarations: [
@@ -18,13 +21,16 @@ import {FormsModule} from "@angular/forms";
     FirstComponentComponent,
     SecondComponentComponent,
     LoginComponent,
-    AlertComponent
+    AlertComponent,
+    MainPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    CarouselModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
