@@ -1,6 +1,7 @@
 package ru.wcscatalog.core.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -13,11 +14,12 @@ public class Product {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name="main_image")
-    private String mainImage;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="main_image_id")
+    private Image mainImage;
 
-    @Column(name="images")
-    private String images;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.LAZY)
+    private List<Image> images;
 
     @Column(name="alias_name", nullable = false)
     private String alias;
@@ -46,6 +48,14 @@ public class Product {
     @Column(name="is_popular")
     private Boolean popular;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="category_id")
+    private Category category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="factory_id")
+    private Factory factory;
+
     protected Product() {}
 
     public Long getId() {
@@ -64,19 +74,19 @@ public class Product {
         this.title = title;
     }
 
-    public String getMainImage() {
+    public Image getMainImage() {
         return mainImage;
     }
 
-    public void setMainImage(String mainImage) {
+    public void setMainImage(Image mainImage) {
         this.mainImage = mainImage;
     }
 
-    public String getImages() {
+    public List<Image> getImages() {
         return images;
     }
 
-    public void setImages(String images) {
+    public void setImages(List<Image> images) {
         this.images = images;
     }
 
@@ -150,5 +160,21 @@ public class Product {
 
     public void setPopular(Boolean popular) {
         this.popular = popular;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    public void setFactory(Factory factory) {
+        this.factory = factory;
     }
 }

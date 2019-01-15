@@ -1,6 +1,7 @@
 package ru.wcscatalog.core.repository;
 
 import org.springframework.stereotype.Repository;
+import ru.wcscatalog.core.dto.CategoryEntry;
 import ru.wcscatalog.core.model.Category;
 
 import javax.persistence.EntityManager;
@@ -10,6 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class CategoriesRepository {
@@ -24,9 +26,11 @@ public class CategoriesRepository {
         buildCriteriaQuery();
     }
 
-    public List<Category> getCategories() {
+    public List<CategoryEntry> getCategories() {
         Query query = entityManager.createQuery(criteriaQuery);
-        return query.getResultList();
+        List<Category> categories = query.getResultList();
+        List<CategoryEntry> entries = categories.stream().map(CategoryEntry::fromCategory).collect(Collectors.toList());
+        return entries;
     }
 
     private void buildCriteriaQuery() {

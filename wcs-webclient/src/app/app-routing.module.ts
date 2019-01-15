@@ -5,11 +5,13 @@ import {SecondComponentComponent} from "./second-component/second-component.comp
 import {LoginComponent} from "./login/login.component";
 import {AuthGuard} from "./_guards/auth.guard";
 import {MainPageComponent} from "./main-page/main-page.component";
+import {AdminPanelComponent} from "./admin-panel/admin-panel.component";
 
 const routes: Routes = [
   {path: '', component: MainPageComponent },
   {path: 'secondPage', component: SecondComponentComponent, canActivate: [AuthGuard] },
-  {path: 'login', component: LoginComponent }
+  {path: 'login', component: LoginComponent },
+  {path: 'manager', component: AdminPanelComponent }
 ];
 
 @NgModule({

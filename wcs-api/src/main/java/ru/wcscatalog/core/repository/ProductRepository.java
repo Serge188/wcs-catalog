@@ -2,17 +2,21 @@ package ru.wcscatalog.core.repository;
 
 import org.springframework.stereotype.Repository;
 import ru.wcscatalog.core.dto.ProductEntry;
+import ru.wcscatalog.core.dto.SaleOfferEntry;
 import ru.wcscatalog.core.model.Category;
 import ru.wcscatalog.core.model.Product;
+import ru.wcscatalog.core.model.SaleOffer;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -20,37 +24,47 @@ public class ProductRepository {
     private final EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
     private CriteriaBuilder criteriaBuilder;
-    private CriteriaQuery<Product> criteriaQuery;
-    private Root<Product> root;
 
     public ProductRepository(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
-        buildCriteriaQuery();
+        initializeCriteriaBuilder();
     }
 
     public List<ProductEntry> getPopularProducts() {
-//        if (entityManager == null) {
-//            entityManager = entityManagerFactory.createEntityManager();
-//        }
-//        criteriaBuilder = entityManager.getCriteriaBuilder();
-//        criteriaQuery = criteriaBuilder.createQuery(Product.class);
-//        root = criteriaQuery.from(Product.class);
-//        criteriaQuery.where(criteriaBuilder.equal(root.get("popular"), true));
+        CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
+        Root<Product> root = criteriaQuery.from(Product.class);
+        criteriaQuery.where(criteriaBuilder.equal(root.get("popular"), true));
         Query query = entityManager.createQuery(criteriaQuery);
         List<Product> products = query.getResultList();
         List<ProductEntry> entries = new ArrayList<>();
         for (Product p: products) {
             entries.add(ProductEntry.fromProduct(p));
         }
+        fillSaleOffers(entries);
         return entries;
     }
 
-    private void buildCriteriaQuery() {
+    private void initializeCriteriaBuilder() {
         if (entityManager == null) {
             entityManager = entityManagerFactory.createEntityManager();
         }
         criteriaBuilder = entityManager.getCriteriaBuilder();
-        criteriaQuery = criteriaBuilder.createQuery(Product.class);
-        root = criteriaQuery.from(Product.class);
+    }
+
+    private void fillSaleOffers(List<ProductEntry> products) {
+        CriteriaQuery<SaleOffer> criteriaQuery = criteriaBuilder.createQuery(SaleOffer.class);
+        Root<SaleOffer> offer = criteriaQuery.from(SaleOffer.class);
+        Join product = offer.join("product");
+        criteriaQuery.where(criteriaBuilder.equal(product.get("popular"), true));
+        Query query = entityManager.createQuery(criteriaQuery);
+        List<SaleOffer> offers = query.getResultList();
+        products.forEach(p -> {
+            List<SaleOfferEntry> so = offers
+                    .stream()
+                    .filter(x -> x.getProduct().getId().equals(p.getId()))
+                    .map(SaleOfferEntry::fromSaleOffer)
+                    .collect(Collectors.toList());
+            p.setSaleOffers(so);
+        });
     }
 }

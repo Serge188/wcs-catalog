@@ -3,8 +3,8 @@ package ru.wcscatalog.core.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "categories")
-public class Category {
+@Table(name = "factories")
+public class Factory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -16,17 +16,12 @@ public class Category {
     @Column(name = "alias")
     private String alias;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_category_id")
-    private Category parentCategory;
+    @Column(name="is_popular")
+    private Boolean popular;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="image_id")
     private Image image;
-
-    @Column(name="is_popular")
-    private Boolean popular;
-
 
     public long getId() {
         return id;
@@ -50,14 +45,6 @@ public class Category {
 
     public void setAlias(String alias) {
         this.alias = alias;
-    }
-
-    public Category getParentCategory() {
-        return parentCategory;
-    }
-
-    public void setParentCategory(Category parentCategory) {
-        this.parentCategory = parentCategory;
     }
 
     public Image getImage() {

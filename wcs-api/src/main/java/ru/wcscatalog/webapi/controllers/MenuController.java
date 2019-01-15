@@ -23,18 +23,7 @@ public class MenuController {
 
     @GetMapping("/sideMenuCategories")
     public ResponseEntity<List<CategoryEntry>> getSideMenuItems() {
-        List<Category> categories = categoriesRepository.getCategories();
-        List<CategoryEntry> categoryEntries = new ArrayList<>();
-        for (Category category: categories) {
-            CategoryEntry entry = new CategoryEntry();
-            entry.setId(category.getId());
-            entry.setLink(category.getLink());
-            entry.setTitle(category.getTitle());
-            if (category.getParentCategory() != null) {
-                entry.setParentCategoryId(category.getParentCategory().getId());
-            }
-            categoryEntries.add(entry);
-        }
-        return ResponseEntity.ok(categoryEntries);
+        List<CategoryEntry> categories = categoriesRepository.getCategories();
+        return ResponseEntity.ok(categories);
     }
 }

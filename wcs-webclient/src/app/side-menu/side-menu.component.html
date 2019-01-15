@@ -1,0 +1,64 @@
+<div id="menu" class="menu js-menu hidden-print">
+  <div class="centering">
+    <div class="centeringin clearfix">
+      <div class="b-mmenu type1">
+        <div class="catalogmenu2_column">
+          <ul class="catalogmenu2 clearfix">
+            <li class="parent">
+              <a href="/catalog/" class="parent">
+                Каталог товаров
+                <svg class="svg-icon menu">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-menu">
+                    <svg viewBox="0 0 32 32" id="svg-menu" width="100%" height="100%">
+                      <rect width="32" height="4"></rect>
+                      <rect y="14" width="32" height="4"></rect>
+                      <rect y="28" width="32" height="4"></rect>
+                    </svg>
+                  </use>
+                </svg>
+              </a>
+              <ul class="first clearfix lvl1 rs-show">
+                <li class="first" *ngFor="let cat of categories">
+                  <a href="{{cat.link}}" class="first" title="{{cat.title}}">
+                    <span>{{cat.title}}</span>
+                    <svg class="svg-icon arrow">
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-right"></use>
+                    </svg>
+                  </a>
+                  <ul class="lvl2 lvl2-count-4">
+                    <div class="mrow" *ngFor="let subCat of cat.childCategories">
+                      <a href="{{subCat.link}}" class="sub" title="{{subCat.title}}">
+                        <span>{{subCat.title}}</span>
+                      </a>
+                    </div>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div id="title-search" class="searchinhead nowrap js-pseudo-focus-blur">
+          <form class="js-form" action="/search/" data-starthidden="N" data-showsearchbar="" data-window-width-jsopenser="">
+            <div class="searchinhead__flex">
+              <label class="searchinhead__flexbox searchinhead__zoom js-pseudo-border-top js-pseudo-border-bottom js-pseudo-border-left" for="submit_search_title_wovmoB">
+                <svg class="svg-icon">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-search">
+                    <svg viewBox="0 0 56.966 56.966" id="svg-search" width="100%" height="100%">
+                      <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23
+                          s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92
+                          c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17
+                          s-17-7.626-17-17S14.61,6,23.984,6z"></path>
+                    </svg>
+                  </use>
+                </svg>
+              </label>
+              <div class="searchinhead__flexbox searchinhead__aroundtext js-pseudo-border-top js-pseudo-border-bottom"><input id="title-search-input" class="searchinhead__input js-pseudo-focus-blur-input" type="text" name="q" value="" size="40" maxlength="50" autocomplete="off" placeholder="Введите название товара или артикул" /></div>
+              <input class="nonep" type="submit" name="s" id="submit_search_title_wovmoB" value="Поиск" />
+              <label class="searchinhead__flexbox searchinhead__enter js-search-btn" for="submit_search_title_wovmoB"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-search"></use></svg></label>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

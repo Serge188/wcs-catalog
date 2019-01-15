@@ -8,43 +8,44 @@ import javax.persistence.Column;
 import javax.persistence.ManyToOne;
 
 public class SaleOfferEntry {
-    private long id;
-    private float price;
-    private String mainImage;
-    private long productId;
+    private Long id;
+    private Float price;
+    private ImageEntry mainImage;
+    private Long productId;
     private OfferOptionEntry offerOption;
     private String optionValue;
-    private float discountPrice;
+    private Float discountPrice;
+    private ImageEntry buttonImage;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
-    public String getMainImage() {
+    public ImageEntry getMainImage() {
         return mainImage;
     }
 
-    public void setMainImage(String mainImage) {
+    public void setMainImage(ImageEntry mainImage) {
         this.mainImage = mainImage;
     }
 
-    public long getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(long productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
@@ -64,12 +65,20 @@ public class SaleOfferEntry {
         this.optionValue = optionValue;
     }
 
-    public float getDiscountPrice() {
+    public Float getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(float discountPrice) {
+    public void setDiscountPrice(Float discountPrice) {
         this.discountPrice = discountPrice;
+    }
+
+    public ImageEntry getButtonImage() {
+        return buttonImage;
+    }
+
+    public void setButtonImage(ImageEntry buttonImage) {
+        this.buttonImage = buttonImage;
     }
 
     public static SaleOfferEntry fromSaleOffer(SaleOffer offer) {
@@ -77,11 +86,12 @@ public class SaleOfferEntry {
             SaleOfferEntry entry = new SaleOfferEntry();
             entry.setId(offer.getId());
             entry.setPrice(offer.getPrice());
-            entry.setMainImage(offer.getMainImage());
+            entry.setMainImage(ImageEntry.fromImage(offer.getMainImage()));
             entry.setProductId(offer.getProduct().getId());
             entry.setOfferOption(OfferOptionEntry.fromOfferOption(offer.getOfferOption()));
             entry.setOptionValue(offer.getOptionValue());
             entry.setDiscountPrice(offer.getDiscountPrice());
+            entry.setButtonImage(ImageEntry.fromImage(offer.getButtonImage()));
             return entry;
         }
         return null;

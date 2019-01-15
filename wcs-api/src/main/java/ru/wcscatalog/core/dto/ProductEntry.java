@@ -1,16 +1,18 @@
 package ru.wcscatalog.core.dto;
 
+import ru.wcscatalog.core.model.Image;
 import ru.wcscatalog.core.model.Product;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductEntry {
     private Long id;
     private String title;
-    private String mainImage;
-    private List<String> images;
+    private ImageEntry mainImage;
+    private List<ImageEntry> images;
     private String alias;
     private String descritpion;
     private Boolean productOfDay;
@@ -22,8 +24,10 @@ public class ProductEntry {
     private Boolean popular;
     private String altTitle;
     private String shortDescription;
+    private CategoryEntry category;
+    private FactoryEntry factory;
 
-    private List<SaleOfferEntry> saleOffers;
+    private List<SaleOfferEntry> saleOffers = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -41,19 +45,19 @@ public class ProductEntry {
         this.title = title;
     }
 
-    public String getMainImage() {
+    public ImageEntry getMainImage() {
         return mainImage;
     }
 
-    public void setMainImage(String mainImage) {
+    public void setMainImage(ImageEntry mainImage) {
         this.mainImage = mainImage;
     }
 
-    public List<String> getImages() {
+    public List<ImageEntry> getImages() {
         return images;
     }
 
-    public void setImages(List<String> images) {
+    public void setImages(List<ImageEntry> images) {
         this.images = images;
     }
 
@@ -153,21 +157,28 @@ public class ProductEntry {
         this.shortDescription = shortDescription;
     }
 
+    public CategoryEntry getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryEntry category) {
+        this.category = category;
+    }
+
+    public FactoryEntry getFactory() {
+        return factory;
+    }
+
+    public void setFactory(FactoryEntry factory) {
+        this.factory = factory;
+    }
+
     public static ProductEntry fromProduct(Product product) {
         if (product != null) {
             ProductEntry entry = new ProductEntry();
             entry.setId(product.getId());
             entry.setTitle(product.getTitle());
-            entry.setMainImage(product.getMainImage());
-            List<String> imagesList = new ArrayList<>();
-            if (imagesList != null) {
-                if (imagesList.contains(";")) {
-                    Collections.addAll(imagesList, product.getImages().split(";"));
-                } else {
-                    imagesList.add(product.getImages());
-                }
-            }
-            entry.setImages(imagesList);
+            entry.setMainImage(ImageEntry.fromImage(product.getMainImage()));
             entry.setAlias(product.getAlias());
             entry.setDescritpion(product.getDescription());
             entry.setProductOfDay(product.isProductOfDay());
@@ -183,6 +194,8 @@ public class ProductEntry {
             } else {
                 entry.setShortDescription(product.getDescription());
             }
+            entry.setCategory(CategoryEntry.fromCategory(product.getCategory()));
+            entry.setFactory(FactoryEntry.fromFactory(product.getFactory()));
             return entry;
         }
         return null;

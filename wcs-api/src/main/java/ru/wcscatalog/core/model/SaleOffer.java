@@ -10,13 +10,14 @@ public class SaleOffer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private long id;
+    private Long id;
 
     @Column(name="price")
-    private float price;
+    private Float price;
 
-    @Column(name="main_image")
-    private String mainImage;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="main_image_id")
+    private Image mainImage;
 
     @ManyToOne(targetEntity = Product.class)
     @JoinColumn(name="product_id")
@@ -30,29 +31,33 @@ public class SaleOffer {
     private String optionValue;
 
     @Column(name="discount_price")
-    private float discountPrice;
+    private Float discountPrice;
 
-    public long getId() {
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="button_img_id")
+    private Image buttonImage;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
-    public String getMainImage() {
+    public Image getMainImage() {
         return mainImage;
     }
 
-    public void setMainImage(String mainImage) {
+    public void setMainImage(Image mainImage) {
         this.mainImage = mainImage;
     }
 
@@ -80,11 +85,19 @@ public class SaleOffer {
         this.optionValue = optionValue;
     }
 
-    public float getDiscountPrice() {
+    public Float getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(float discountPrice) {
+    public void setDiscountPrice(Float discountPrice) {
         this.discountPrice = discountPrice;
+    }
+
+    public Image getButtonImage() {
+        return buttonImage;
+    }
+
+    public void setButtonImage(Image buttonImage) {
+        this.buttonImage = buttonImage;
     }
 }

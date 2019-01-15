@@ -1,7 +1,10 @@
+import {SaleOfferEntry} from "./sale-offer-entry";
+import {ImageEntry} from "./image-entry";
+
 export class ProductEntry {
   id?: number;
   title?: string;
-  mainImage?: string;
+  mainImage?: ImageEntry;
   images?: string[];
   alias?: string;
   description?: string;
@@ -16,4 +19,8 @@ export class ProductEntry {
   link?: string;
   altTitle?: string;
   discount?: string;
+  saleOffers?: SaleOfferEntry[] = [];
+  currentOffer?: SaleOfferEntry;
+  optionsAreImages?: boolean;
+  offerCurrentImage?: ImageEntry;
 }

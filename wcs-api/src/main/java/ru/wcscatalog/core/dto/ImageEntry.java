@@ -1,36 +1,15 @@
-package ru.wcscatalog.core.model;
+package ru.wcscatalog.core.dto;
 
-import javax.persistence.*;
+import ru.wcscatalog.core.model.Image;
 
-@Entity
-@Table(name = "images")
-public class Image {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+public class ImageEntry {
     private long id;
-
-    @Column(name="img_base")
     private String baseImageLink;
-
-    @Column(name="img_card")
     private String cardImageLink;
-
-    @Column(name="img_gallery")
     private String galleryImageLink;
-
-    @Column(name="img_preview")
     private String previewImageLink;
-
-    @Column(name="img_option")
     private String optionImageLink;
-
-    @Column(name="img_category")
     private String categoryImageLink;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
 
     public long getId() {
         return id;
@@ -88,11 +67,18 @@ public class Image {
         this.categoryImageLink = categoryImageLink;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
+    public static ImageEntry fromImage(Image image) {
+        if (image != null) {
+            ImageEntry entry = new ImageEntry();
+            entry.setId(image.getId());
+            entry.setBaseImageLink(image.getBaseImageLink());
+            entry.setCardImageLink(image.getCardImageLink());
+            entry.setGalleryImageLink(image.getGalleryImageLink());
+            entry.setPreviewImageLink(image.getPreviewImageLink());
+            entry.setOptionImageLink(image.getOptionImageLink());
+            entry.setCategoryImageLink(image.getCategoryImageLink());
+            return entry;
+        }
+        return null;
     }
 }

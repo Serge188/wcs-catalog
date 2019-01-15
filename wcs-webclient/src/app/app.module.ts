@@ -14,6 +14,11 @@ import {FormsModule} from "@angular/forms";
 import { MainPageComponent } from './main-page/main-page.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CarouselModule} from "ngx-owl-carousel-o";
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { HeaderComponent } from './header/header.component';
+import { FixedHeaderComponent } from './fixed-header/fixed-header.component';
+import { SideMenuComponent } from './side-menu/side-menu.component';
+import { ProductPageComponent } from './product-page/product-page.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +27,12 @@ import {CarouselModule} from "ngx-owl-carousel-o";
     SecondComponentComponent,
     LoginComponent,
     AlertComponent,
-    MainPageComponent
+    MainPageComponent,
+    AdminPanelComponent,
+    HeaderComponent,
+    FixedHeaderComponent,
+    SideMenuComponent,
+    ProductPageComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,245 @@
+<div id="header-fly" class="header-fly js-header-fly text-left b-mmenu hidden-print">
+  <!-- fly__shadow -->
+  <div class="header-fly__shadow">
+    <div class="centering header-fly__white-bg">
+      <div class="centeringin clearfix">
+        <div class="header-fly__panel">
+          <div class="header-fly__block logo logo-left hidden-xs">
+            <a href="/"><img src="/assets/img/logo.png" alt=""></a>
+          </div>
+          <div class="header-fly__block header-fly__menu">
+            <div class="hamburger js-hamburger js-fly-menu js-fly-menu-parent">
+              <div class="hamburger-box">
+                <div class="hamburger-inner"></div>
+              </div>
+              <span class="hamburger-name hidden-xs">Меню</span>
+            </div>
+          </div>
+          <div class="header-fly__block logo logo-center visible-xs">
+            <a href="/"><img src="/assets/img/logo.png" srcset="/include/logo_retina.png 2x" alt=""></a>
+          </div>
+          <div class="header-fly__block phone link-dashed hidden-xs">
+            <a href="tel:80000000000">8 (000) 000 00 00</a>
+          </div>
+          <div class="header-fly__block callback link-dashed hidden-xs">
+            <a class="fancyajax fancybox.ajax recall" href="/include/popup/recall/?AJAX_CALL=Y"
+               title="Заказать звонок">Заказать звонок</a>
+          </div>
+          <div class="header-fly__block search">
+            <ul
+              class="nav navbar-nav navbar-border-bottom navbar-right list-unstyled search-bar js-search-bar js-search-bar-mobile">
+              <li>
+                  <span class="searchinhead__btn js-show-search-bar"><svg class="svg-icon"><use
+                    xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-search"></use></svg></span>
+                <div class="search-open open js-search-open js-mobile">
+
+                  <div id="title-search-fly" class="searchinhead nowrap js-pseudo-focus-blur">
+                    <form class="js-form" action="/search/" data-starthidden="N" data-showsearchbar="1"
+                          data-window-width-jsopenser="992">
+                      <div class="searchinhead__flex">
+                        <label
+                          class="searchinhead__flexbox searchinhead__zoom js-pseudo-border-top js-pseudo-border-bottom js-pseudo-border-left"
+                          for="submit_search_title_XdqEv1">
+                          <svg class="svg-icon">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-search"></use>
+                          </svg>
+                        </label>
+                        <div
+                          class="searchinhead__flexbox searchinhead__aroundtext js-pseudo-border-top js-pseudo-border-bottom">
+                          <input id="title-search-input-fly" class="searchinhead__input js-pseudo-focus-blur-input"
+                                 type="text" name="q" value="" size="40" maxlength="50" autocomplete="off"
+                                 placeholder="Введите название товара или артикул"/></div>
+                        <input class="nonep" type="submit" name="s" id="submit_search_title_XdqEv1" value="Поиск"/>
+                        <label class="searchinhead__flexbox searchinhead__enter js-search-btn"
+                               for="submit_search_title_XdqEv1">
+                          <svg class="svg-icon">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-search"></use>
+                          </svg>
+                        </label>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /fly__shadow -->
+
+  <!-- fly shade -->
+  <div class="header-fly__menu-shade js-menu-shade">
+    <div class="header-fly__footer header-fly__subopen-hide header-fly__white-bg hidden-sm hidden-md hidden-lg">
+      <span class="header-fly__footer-block"></span>
+      <span class="header-fly__footer-block">
+          <a href="tel:80000000000">8 (000) 000 00 00</a>
+        </span>
+      <span class="header-fly__footer-block">09:00-22:00</span>
+      <span class="header-fly__footer-block">
+          <a class="fancyajax fancybox.ajax recall" href="#" title="Заказать звонок">Заказать звонок</a>
+        </span>
+    </div>
+  </div>
+  <!-- /fly shade -->
+</div>
+<!-- /header fly -->
+<!-- tpanel1 -->
+<div id="tpanel" class="tpanel js-tpanel mod-background hidden-print">
+  <div class="tline"></div>
+  <div class="centering">
+    <div class="centeringin clearfix">
+      <div class="authandlocation nowrap">
+        <div class="b-location" id="topline-location">
+          <span>Ваш город: </span>
+          <!--'start_frame_cache_topline-location'-->
+          <a class="b-topline-location__link fancyajax fancybox.ajax big" href="/include/popup/mycity/" title="Ваш город?">
+            Калуга
+            <svg class="svg-icon">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-filled-down"></use>
+            </svg>
+          </a>
+          <div class="b-location-confirm" id="location_confirm" style="display: none">
+            <div class="b-location-confirm__triangle"></div>
+            <div class="b-location-confirm__your">Ваш город Калуга?</div>
+            <div class="b-location-confirm__controls">
+              <a class="btn btn-primary" onclick="RS.Location.hideConfirm(); return false;" href="">Верно</a>
+              <a class="btn btn-default fancyajax fancybox.ajax big" href="/include/popup/mycity/" title="Ваш город?">Найти</a>
+            </div>
+          </div>
+          <!--'end_frame_cache_topline-location'-->
+        </div>
+        <div class="authinhead" id="inheadauthform_8k8aZS">
+          <!--'start_frame_cache_inheadauthform'-->
+          <div class="authinheadinner guest">
+            <svg class="svg-icon">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-lock"></use>
+            </svg>
+            <a href="/auth/">Вход</a> | <a href="/auth/?register=yes">Регистрация</a>
+          </div>
+          <!--'end_frame_cache_inheadauthform'-->
+        </div>
+      </div>
+      <div class="tpanel_menu clearfix mobile_hide">
+        <a href="https://www.redsign.ru/templates/store/gopro/redsign.profurniture/">О решении</a>
+        <a href="/about/">О компании</a>
+        <a href="/vendors/">Вендорам</a>
+        <a href="/suppliers/">Поставщикам</a>
+        <a href="/docs/">Образцы документов</a>
+        <a href="/news/">Новости</a>
+        <a href="/action/">Акции</a>
+        <a href="/delivery/">Доставка</a>
+        <a href="/payment/">Оплата</a>
+        <a href="/shops/">Наши магазины</a>
+        <a href="/contacts/">Контакты</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /tpanel1 -->
+
+
+<!-- header type1 -->
+<div id="header" class="header js-header">
+  <div class="centering">
+    <div class="centeringin clearfix">
+      <div class="logo column1">
+        <div class="column1inner">
+          <a href="/"><img src="/assets/img/logo.png" alt="">
+          </a>
+        </div>
+      </div>
+      <div class="phone column1 nowrap">
+        <div class="column1inner">
+          <svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-handphone">
+            <svg viewBox="0 0 16.877 16.877" id="svg-handphone" width="100%" height="100%">
+              <path d="M5.301,5.587L1.404,1.688c0.503-0.503,1.005-1.007,1.509-1.511C3.146-0.056,3.522-0.06,3.756,0.17l3.036,3.039
+                  c0.232,0.232,0.232,0.614-0.003,0.848L6.124,4.721L5.505,5.34C5.429,5.417,5.36,5.499,5.301,5.587z M8.507,11.938
+                  c-0.638-0.549-1.25-1.132-1.844-1.725C6.07,9.616,5.489,9.006,4.939,8.365c-0.45-0.52-0.538-1.273-0.303-1.907L0.636,2.457
+                  c-0.931,0.957-0.812,3.33,0.208,5.415c0.438,0.902,1.006,1.716,1.593,2.49c0.586,0.768,1.229,1.494,1.906,2.176
+                  c0.679,0.681,1.401,1.327,2.171,1.913c0.774,0.589,1.59,1.153,2.486,1.59c2.088,1.019,4.462,1.131,5.418,0.199l-4.001-4.001
+                  C9.783,12.474,9.029,12.387,8.507,11.938z M16.702,13.119l-3.036-3.037c-0.233-0.23-0.615-0.23-0.848,0.003h-0.002l-0.667,0.666
+                  l-0.615,0.618c-0.076,0.076-0.159,0.143-0.247,0.205l3.896,3.898c0.504-0.505,1.007-1.007,1.512-1.51
+                  C16.93,13.729,16.935,13.352,16.702,13.119z"></path>
+            </svg>
+          </use></svg>
+          <a href="tel:80000000000">8 (000) 000 00 01</a>
+        </div>
+      </div>
+      <!--<div class="callback column1 nowrap hidden-print">-->
+      <!--<div class="column1inner">-->
+      <!--<a class="fancyajax fancybox.ajax big" href="/include/popup/nasvyazi/" title="Мы всегда на связи">-->
+      <!--Свяжитесь с нами-->
+      <!--<svg class="svg-icon">-->
+      <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-filled-down"></use>-->
+      <!--</svg></a>-->
+      <!--</div>-->
+      <!--</div>-->
+      <div class="favorite column1 nowrap hidden-print">
+        <div class="column1inner">
+          <div class="rsfavorite">
+            <a id="inheadfavorite" href="/personal/favorite/">
+              <!--'start_frame_cache_inheadfavorite'-->
+              <svg class="svg-icon">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-favorite-list">
+                  <svg viewBox="0 0 60 60" id="svg-favorite-list" width="100%" height="100%">
+                    <path d="M36.5,22h-25c-0.553,0-1,0.448-1,1s0.447,1,1,1h25c0.553,0,1-0.448,1-1S37.053,22,36.5,22z"></path>
+                    <path d="M11.5,16h10c0.553,0,1-0.448,1-1s-0.447-1-1-1h-10c-0.553,0-1,0.448-1,1S10.948,16,11.5,16z"></path>
+                    <path d="M37.5,31c0-0.552-0.447-1-1-1h-25c-0.553,0-1,0.448-1,1s0.447,1,1,1h25C37.053,32,37.5,31.552,37.5,31z"></path>
+                    <path d="M29.5,39c0-0.552-0.447-1-1-1h-17c-0.553,0-1,0.448-1,1s0.447,1,1,1h17C29.053,40,29.5,39.552,29.5,39z"></path>
+                    <path d="M11.5,46c-0.553,0-1,0.448-1,1s0.447,1,1,1h14c0.553,0,1-0.448,1-1s-0.447-1-1-1H11.5z"></path>
+                    <path d="M2.5,2h29v14h14v17h2V14.586L32.914,0H0.5v60h37v-2h-35V2z M33.5,3.414L44.086,14H33.5V3.414z"></path>
+                    <path d="M59.454,42.052C59.055,37.963,56.003,35,52.184,35c-2.396,0-4.407,1.449-5.684,3.212C45.224,36.449,43.212,35,40.817,35
+                        c-3.819,0-6.871,2.963-7.271,7.052c-0.042,0.267-0.144,1.22,0.226,2.709c0.546,2.198,1.801,4.193,3.631,5.77l9.098,7.786l9.1-7.788
+                        c1.828-1.575,3.083-3.569,3.629-5.767C59.598,43.272,59.496,42.319,59.454,42.052z M57.287,44.28
+                        c-0.445,1.793-1.479,3.431-2.99,4.732L46.5,55.684l-7.795-6.67c-1.513-1.304-2.547-2.941-2.992-4.735
+                        c-0.302-1.214-0.194-1.898-0.194-1.898l0.016-0.105C35.78,39.654,37.672,37,40.817,37c2.189,0,3.974,1.811,4.77,3.606l0.914,2.06
+                        l0.914-2.06C48.21,38.811,49.995,37,52.184,37c3.145,0,5.037,2.654,5.295,5.366C57.481,42.373,57.591,43.058,57.287,44.28z"></path>
+                  </svg>
+                </use>
+              </svg>
+              <div class="title opensansbold">Избранное</div>
+              <div class="descr">Товаров&nbsp;(<span id="favorinfo">0</span>)</div>
+              <!--'end_frame_cache_inheadfavorite'-->	</a>
+          </div>
+        </div>
+      </div>
+      <div class="basket column1 nowrap hidden-print">
+        <div class="column1inner">
+
+          <div class="header-basket">
+            <a class="header-basket__link" href="/personal/cart/">
+              <svg class="svg-icon">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-cart-3">
+                  <svg viewBox="0 0 64 64" id="svg-cart-3" width="100%" height="100%">
+                    <path d="M62.534359,20.2339001c-0.4531021-0.6221008-1.180584-0.9937-1.9462013-0.9937H23.5138588c-0.5527,0-1,0.4477997-1,1
+                          c0,0.5522995,0.4473,1,1,1h37.0742989c0.1298027,0,0.25,0.0620003,0.3300018,0.1709003
+                          c0.0800972,0.1103992,0.1035004,0.2544003,0.0625,0.3876991l-5.5615005,18.0000019
+                          C55.1965599,40.517601,54.5509605,41,53.8126602,41H21.6662598c-0.8213005,0-1.5293007-0.5684013-1.7227001-1.3809013
+                          L12.6056595,8.6968002C12.3703594,7.6978002,11.4924593,7,10.4709597,7H2.0002599C1.4474601,7,1.00026,7.4478002,1.00026,8
+                          s0.4472001,1,0.9999999,1h8.4706993c0.0879002,0,0.1669998,0.0654001,0.1884003,0.1571999l7.3389006,30.9229012
+                          C18.4054604,41.7998009,19.914259,43,21.6662598,43h32.1464005c1.6211967,0,3.0341988-1.0488014,3.5166969-2.6104012
+                          l5.5615005-17.9994984C63.1183586,21.6581993,62.9845581,20.8516006,62.534359,20.2339001z"></path>
+                    <path d="M29.5793591,33c-0.5527992,0-1,0.4473-1,1s0.4472008,1,1,1h20.8417988c0.5527,0,1-0.4473,1-1s-0.4473-1-1-1H29.5793591z"></path>
+                    <path d="M53.5050583,28c0-0.5522003-0.4472008-1-1-1H27.4953594c-0.5527992,0-1,0.4477997-1,1s0.4472008,1,1,1h25.0096989
+		                      C53.0578575,29,53.5050583,28.5522003,53.5050583,28z"></path>
+                    <path d="M30.0002594,47c-2.7569008,0-5,2.2431984-5,5s2.2430992,5,5,5c2.7568016,0,5-2.2431984,5-5S32.757061,47,30.0002594,47z
+		                      M30.0002594,55c-1.6543007,0-3-1.3456993-3-3s1.3456993-3,3-3s3,1.3456993,3,3S31.6545601,55,30.0002594,55z"></path>
+                    <path d="M46.0002594,47c-2.7569008,0-5,2.2431984-5,5s2.2430992,5,5,5c2.7567978,0,5-2.2431984,5-5S48.7570572,47,46.0002594,47z
+		                      M46.0002594,55c-1.6543007,0-3-1.3456993-3-3s1.3456993-3,3-3s3,1.3456993,3,3S47.6545601,55,46.0002594,55z"></path>
+                  </svg>
+                </use>
+              </svg>
+              <div class="header-basket__info">
+                <div class="header-basket__title opensansbold">Корзина</div>
+                <div id="basketinfo" class="header-basket__descr">Ваша корзина пуста</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /header type1 -->
