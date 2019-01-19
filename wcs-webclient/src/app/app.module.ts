@@ -19,6 +19,8 @@ import { HeaderComponent } from './header/header.component';
 import { FixedHeaderComponent } from './fixed-header/fixed-header.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { ProductPageComponent } from './product-page/product-page.component';
+import { FooterComponent } from './footer/footer.component';
+import { ProductsListComponent } from './products-list/products-list.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { ProductPageComponent } from './product-page/product-page.component';
     HeaderComponent,
     FixedHeaderComponent,
     SideMenuComponent,
-    ProductPageComponent
+    ProductPageComponent,
+    FooterComponent,
+    ProductsListComponent
   ],
   imports: [
     BrowserModule,

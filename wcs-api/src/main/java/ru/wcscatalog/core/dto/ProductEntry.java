@@ -1,20 +1,17 @@
 package ru.wcscatalog.core.dto;
 
-import ru.wcscatalog.core.model.Image;
 import ru.wcscatalog.core.model.Product;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProductEntry {
     private Long id;
     private String title;
     private ImageEntry mainImage;
-    private List<ImageEntry> images;
+    private List<ImageEntry> images = new ArrayList<>();
     private String alias;
-    private String descritpion;
+    private String description;
     private Boolean productOfDay;
     private Boolean newProduct;
     private Boolean hit;
@@ -26,6 +23,7 @@ public class ProductEntry {
     private String shortDescription;
     private CategoryEntry category;
     private FactoryEntry factory;
+    private Float discount;
 
     private List<SaleOfferEntry> saleOffers = new ArrayList<>();
 
@@ -69,12 +67,12 @@ public class ProductEntry {
         this.alias = alias;
     }
 
-    public String getDescritpion() {
-        return descritpion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescritpion(String descritpion) {
-        this.descritpion = descritpion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Boolean isProductOfDay() {
@@ -173,6 +171,14 @@ public class ProductEntry {
         this.factory = factory;
     }
 
+    public Float getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Float discount) {
+        this.discount = discount;
+    }
+
     public static ProductEntry fromProduct(Product product) {
         if (product != null) {
             ProductEntry entry = new ProductEntry();
@@ -180,7 +186,7 @@ public class ProductEntry {
             entry.setTitle(product.getTitle());
             entry.setMainImage(ImageEntry.fromImage(product.getMainImage()));
             entry.setAlias(product.getAlias());
-            entry.setDescritpion(product.getDescription());
+            entry.setDescription(product.getDescription());
             entry.setProductOfDay(product.isProductOfDay());
             entry.setNewProduct(product.isNewProduct());
             entry.setHit(product.isHit());
@@ -193,6 +199,9 @@ public class ProductEntry {
                 entry.setShortDescription(product.getDescription().substring(0, 159) + "...");
             } else {
                 entry.setShortDescription(product.getDescription());
+            }
+            if (product.getImages() != null) {
+                product.getImages().forEach(image -> entry.getImages().add(ImageEntry.fromImage(image)));
             }
             entry.setCategory(CategoryEntry.fromCategory(product.getCategory()));
             entry.setFactory(FactoryEntry.fromFactory(product.getFactory()));

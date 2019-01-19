@@ -17,7 +17,7 @@
                   </use>
                 </svg>
               </a>
-              <ul class="first clearfix lvl1 rs-show">
+              <ul class="first clearfix lvl1" [ngClass]="getMenuClass()">
                 <li class="first" *ngFor="let cat of categories">
                   <a href="{{cat.link}}" class="first" title="{{cat.title}}">
                     <span>{{cat.title}}</span>

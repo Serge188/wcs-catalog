@@ -1,0 +1,302 @@
+<div class="tab-pane-in">
+  <div class="tab-pane-in2">
+    <div class="tab-sorter">
+      <div class="b-sorter js-sorter clearfix" data-ajaxpagesid="ajaxpages_main">
+        <div class="b-sorter__template hidden-print">
+          <a
+            id="list-switcher"
+            class="js-sorter__a"
+            href="#"
+            data-fvalue="table"
+            title="Список"
+            (click)="changeView('LIST', $event)">
+            <svg class="svg-icon icon-table">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-view-table">
+                <svg viewBox="0 0 14 14" id="svg-4x-view-table" width="100%" height="100%">
+                  <path d="M13,1V3H1V1H13m0,5V8H1V6H13m0,5v2H1V11H13M14,0H0V4H14V0Zm0,5H0V9H14V5Zm0,5H0v4H14V10Z"></path>
+                </svg>
+              </use>
+            </svg>
+            <span>Список</span></a>
+          <a
+            id="gallery-switcher"
+            class="js-sorter__a"
+            href="#"
+            data-fvalue="gallery"
+            (click)="changeView('GALLERY', $event)"
+            title="Галерея">
+            <svg class="svg-icon icon-gallery">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-view-gallery">
+                <svg viewBox="0 0 14 14" id="svg-4x-view-gallery" width="100%" height="100%">
+                  <path d="M13,1V3H7V1h6M3,1V3H1V1H3M13,6V8H7V6h6M3,6V8H1V6H3m10,5v2H7V11h6M3,11v2H1V11H3M14,0H6V4h8V0ZM4,0H0V4H4V0ZM14,5H6V9h8V5ZM4,5H0V9H4V5Zm10,5H6v4h8V10ZM4,10H0v4H4V10Z"></path>
+                </svg>
+              </use>
+            </svg>
+            <span>Галерея</span>
+          </a>
+          <a
+            id="card-switcher"
+            class="selected js-sorter__a"
+            href="#"
+            data-fvalue="showcase"
+            title="Витрина"
+            (click)="changeView('CARD', $event)">
+            <svg class="svg-icon icon-showcase">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-view-showcase">
+                <svg viewBox="0 0 14 14" id="svg-4x-view-showcase" width="100%" height="100%">
+                  <path d="M13,1V5H9V1h4M5,1V5H1V1H5m8,8v4H9V9h4M5,9v4H1V9H5m9-9H8V6h6V0ZM6,0H0V6H6V0Zm8,8H8v6h6V8ZM6,8H0v6H6V8Z"></path>
+                </svg>
+              </use>
+            </svg>
+            <span>Витрина</span></a>
+        </div>
+      </div>
+    </div>
+    <div id="ajaxpages_main" class="ajaxpages_main">
+      <!-- showcase -->
+      <div class="gopro-container">
+        <div class="list-showcase view-showcase row" id="view-showcase" *ngIf="view === 'CARD'">
+          <div class="js-element da2 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-5rs mod-short"
+               *ngFor="let p of products">
+            <div class="list-showcase__inner js-element__shadow">
+              <!-- part main -->
+              <div class="list-showcase__part-main">
+                <div class="list-showcase__mix">
+                  <div class="list-showcase__picture">
+                    <a href="{{p.link}}">
+                      <img class="js-list-picture js-lazy lazy-animation"
+                           src="/assets/img/catalog/198_132/empty.png"
+                           data-src="{{getCardImageLink(p)}}"
+                           alt="{{p.altTitle}}"/>
+                    </a>
+                  </div>
+                  <div class="list-showcase__timer-stickers">
+                    <div class="list-showcase__stickers">
+                      <div class="c-stickers">
+                        <span class="c-stickers__sticker c-stickers__da2" *ngIf="p.productOfDay">Товар дня</span>
+                        <span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__new" *ngIf="p.newProduct">Новинка</span>
+                        <span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__hit" *ngIf="p.hit">Хит</span>
+                        <span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value" *ngIf="p.discountPrice">
+                                    -<span class="js-discount-value">{{p.discount}}</span>%
+                                  </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="list-showcase__compare">
+                    <a rel="nofollow" class="c-compare js-add2compare" href="/?action=ADD_TO_COMPARE_LIST&amp;id=117">
+                      <svg class="svg-icon">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use>
+                      </svg>
+                    </a>
+                  </div>
+                  <div class="list-showcase__favorite">
+                    <a rel="nofollow" class="c-favorite js-add2favorite"
+                       href="{{p.link}}">
+                      <svg class="svg-icon">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+                <div class="list-showcase__name-rating">
+                  <div class="list-showcase__name">
+                    <a href="{{p.link}}">{{p.title}}</a>
+                  </div>
+                  <div class="list-showcase__rating">
+                  </div>
+                </div>
+                <div class="list-showcase__prices">
+                  <div class="c-prices js-prices view-list page-list product-alone multyprice-no">
+                              <span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE">
+                                <span class="c-prices__name">Розничная цена:</span>
+                                <span class="c-prices__value js-prices_pdv_BASE" *ngIf="hasDiscount(p)">{{p.discountPrice}} руб.</span>
+                                <span class="c-prices__value js-prices_pdv_BASE" *ngIf="!hasDiscount(p)">{{p.price}} руб.</span>
+                                <span class="c-prices__value-old-before" *ngIf="hasDiscount(p)">
+                                  <span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE">
+                                    {{p.price}} руб.
+                                  </span>
+                                </span>
+                              </span>
+                  </div>
+                </div>
+                <div class="list-showcase__pay hidden-xs hidden-sm hidden-print">
+                  <!--noindex-->
+                  <div class="b-pay">
+                    <form class="b-pay__form js-pay__form js-buyform117 js-synchro clearfix"
+                          name="add2basketform">
+                      <input type="hidden" name="action" value="ADD2BASKET">
+                      <input type="hidden" name="id" class="js-add2basketpid" value="116">
+                      <span class="b-pay__inner">
+                                  <span class="b-pay__quantity"></span>
+                                  <span class="b-pay__buttons">
+                                      <a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary" href="#"
+                                         title="В корзину">В корзину</a>
+                                      <a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken"
+                                         href="/personal/cart/" title="В корзине">В корзине</a>
+                                  </span>
+                                </span>
+                      <input type="submit" name="submit" class="nonep" value=""/>
+                    </form>
+                  </div>
+                  <!--/noindex-->
+                </div>
+                <div class="list-showcase__pay-mobile hidden-md hidden-lg">
+                  <a class="btn-primary" href="{{p.link}}">Подробнее</a>
+                </div>
+              </div>
+              <!-- /part main -->
+
+              <!-- part extended -->
+              <div class="list-showcase__part-extended">
+                <div class="list-showcase__attributes">
+                  <div class="c-attributes view-buttons  js-attributes" data-view="buttons">
+                    <!-- prop -->
+                    <div class="c-attributes__prop js-attributes__prop close" *ngIf="productHasOptions(p)" [ngClass]="getOptionsClass(p)">
+                                <span class="c-attributes__select js-attributes__select"><!-- name-current-value -->
+                                  <span class="c-attributes__name-current-value">
+                                    <span class="c-attributes__name">{{p.currentOffer.offerOption.title}}: </span>
+                                    <span class="c-attributes__current-value js-attributes__curent-value">
+                                      <span class="c-attributes__current-value__pseudo-option">
+                                        <span class="c-attributes__value-pic js-attributes__set-value-pic"
+                                              style="background-image:url('/upload/uf/f5d/f5de333248c540c800face7a41d37b19.jpg');"
+                                              title="Коричневый"></span>
+                                        <span class="c-attributes__value js-attributes__set-value-text">{{p.currentOffer.optionValue}}</span>
+                                        <svg class="c-attributes__arrow svg-icon">
+                                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use>
+                                        </svg>
+                                      </span>
+                                    </span>
+                                  </span>
+                                  <span class="c-attributes__options js-attributes__options">
+                                    <!--<span class="c-attributes__option js-attributes__option  selected" data-value="3">-->
+                                    <!--<span class="c-attributes__value c-attributes__option__value js-attributes__value-text">3</span>-->
+                                    <!--</span>-->
+                                    <span class="c-attributes__option js-attributes__option"
+                                          *ngFor="let offer of p.saleOffers"
+                                          (click)="setCurrentOffer(p, offer)" [ngClass]="getOfferClass(p, offer)">
+                                      <span class="c-attributes__value-pic js-attributes__value-pic"
+                                            [ngStyle]="getOptionButtonStyle(offer)" *ngIf="p.optionsAreImages"
+                                            title="{{offer.optionValue}}"></span>
+                                      <span class="c-attributes__value c-attributes__option__value js-attributes__value-text">{{offer.optionValue}}</span>
+                                    </span>
+                                  </span>
+                                </span>
+                    </div><!-- /prop -->
+                  </div>
+                </div>
+                <div class="list-showcase__preview-text">
+                  <div class="list-showcase__preview-text__text">
+                    {{p.shortDescription}}
+                  </div>
+                  <div class="list-showcase__preview-text__more">
+                    <a href="{{p.link}}" title="">Подробнее</a>
+                  </div>
+                </div>
+              </div>
+              <!-- /part extended -->
+            </div>
+          </div><!-- /element -->
+          <!-- element -->
+        </div></div><!-- showcase -->
+      <div class="list-gallery view-gallery row" id="view-gallery" *ngIf="view === 'GALLERY'">
+        <div class="row no-gutter list-thead list-gallery__thead hidden-xs">
+                      <span class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
+                        <span class="list-thead__tr">
+                          <span class="list-thead__td">Фото</span>
+                        </span>
+                      </span>
+          <span class="col-xs-9 col-sm-10 col-md-10 col-lg-10">
+                        <span class="row">
+                          <span class="col-xs-12 col-sm-4 col-md-5 col-lg-5">
+                            <span class="list-thead__tr">
+                              <span class="list-thead__td list-gallery__thead__product">Товар</span>
+                            </span>
+                          </span>
+                          <span class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            <span class="list-thead__tr">
+                              <span class="list-thead__td">Цена</span>
+                            </span>
+                          </span>
+                          <span class=""></span>
+                        </span>
+                      </span>
+        </div>
+        <div class="js-element da2 list-element list-gallery__element" *ngFor="let p of products">
+          <div class="list-gallery__inner js-element__shadow">
+            <div class="row no-gutter">
+              <div class="list-gallery__left-side col-xs-3 col-sm-2 col-md-2 col-lg-2">
+                <div class="list-gallery__picture">
+                  <a href="{{p.link}}">
+                    <img class="js-list-picture js-lazy" src="{{p.mainImage.galleryImageLink}}" alt="{{p.altTitle}}" style="">
+                  </a>
+                </div>
+              </div>
+              <div class="list-gallery__right-side col-xs-9 col-sm-10 col-md-10 col-lg-10">
+                <div class="row">
+                  <div class="list-gallery__over-mix col-xs-12 col-sm-4 col-md-5 col-lg-5">
+                    <!-- mix -->
+                    <div class="list-gallery__mix">
+                      <div class="list-gallery__stickers hidden-xs">
+                        <div class="c-stickers">
+                          <span class="c-stickers__sticker c-stickers__da2" *ngIf="p.productOfDay">Товар дня</span>
+                          <span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__new" *ngIf="p.newProduct">Новинка</span>
+                          <span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__hit" *ngIf="p.hit">Хит</span>
+                          <span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value"
+                                *ngIf="p.discountPrice">
+                                        -<span class="js-discount-value">{{p.discount}}</span>%
+                                      </span>
+                        </div>
+                      </div>
+
+                      <div class="list-gallery__name-rating-article">
+                        <div class="list-gallery__name-rating">
+                                      <span class="list-gallery__name">
+                                        <a href="{{p.link}}">{{p.title}}</a>
+                                      </span>
+                          <span class="list-gallery__rating hidden-xs"></span>
+                        </div>
+                        <div class="list-gallery__article hidden-xs hidden-sm">
+                                      <span class="c-article js-article js-article-invisible"><span class="c-article__title">Артикул:</span>
+                                        <span class="c-article__value js-article__value"></span>
+                                      </span>
+                        </div>
+                      </div>
+                      <div class="list-gallery__compare-favorite hidden-xs">
+                                  <span class="list-gallery__compare">
+                                <a rel="nofollow" class="c-compare js-add2compare" href="/?AJAX_CALL=Y&amp;sorterchange=ajaxpages_main&amp action=ADD_TO_COMPARE_LIST&amp;id=117">
+                                  <svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg><span class="c-compare__title">Сравнить</span><span class="c-compare__title-in">В сравнении</span></a>
+                              </span>
+                        <span class="list-gallery__favorite">
+			<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_kabineta/kresla_office/kreslo_van_gog/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg><span class="c-favorite__title">В закладки</span><span class="c-favorite__title-in">В закладках</span></a>
+		</span>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="list-gallery__prices">
+                      <div class="c-prices js-prices view-list page-list product-multiple multyprice-no">
+                                    <span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE">
+                                      <span class="c-prices__name">Розничная цена:</span>
+                                      <span class="c-prices__value js-prices_pdv_BASE" *ngIf="!hasDiscount(p)">{{p.price}} руб.</span>
+                                      <span class="c-prices__value js-prices_pdv_BASE" *ngIf="hasDiscount(p)">{{p.discountPrice}} руб.</span>
+                                    </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                    <div class="list-gallery__more hidden-print">
+                      <a class="btn-primary waves-effect" href="{{p.link}}">Подробнее</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

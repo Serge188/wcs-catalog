@@ -5,7 +5,7 @@ export class ProductEntry {
   id?: number;
   title?: string;
   mainImage?: ImageEntry;
-  images?: string[];
+  images?: ImageEntry[];
   alias?: string;
   description?: string;
   shortDescription?: string;

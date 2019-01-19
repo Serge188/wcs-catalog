@@ -1,0 +1,586 @@
+<app-header></app-header>
+
+<app-side-menu [hideMenu]="true"></app-side-menu>
+
+<div id="title" class="title">
+  <div class="centering">
+    <div class="centeringin clearfix">
+      <ul class="rsbreadcrumb list-unstyled"><li id="bx_breadcrumb_0" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" itemref="bx_breadcrumb_1">
+        <a href="/" title="Главная" itemprop="url"><span itemprop="title">Главная</span></a>
+      </li><li class="rsbreadcrumb__free"><span>/</span></li><li id="bx_breadcrumb_1" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" itemprop="child" itemref="bx_breadcrumb_2">
+        <a href="/catalog/" title="Каталог" itemprop="url"><span itemprop="title">Каталог</span></a>
+      </li><li class="rsbreadcrumb__free"><span>/</span></li><li id="bx_breadcrumb_2" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" itemprop="child" itemref="bx_breadcrumb_3">
+        <a href="/catalog/mebel_dlya_gostinnoy/" title="Мебель для гостинной (демо-товары)" itemprop="url"><span itemprop="title">Мебель для гостинной (демо-товары)</span></a>
+      </li><li class="rsbreadcrumb__free"><span>/</span></li><li id="bx_breadcrumb_3" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" itemprop="child">
+        <a href="/catalog/mebel_dlya_gostinnoy/stulya/" title="Стулья" itemprop="url"><span itemprop="title">Стулья</span></a>
+      </li><li class="rsbreadcrumb__free"><span>/</span></li><li>Стул "Чикаго"</li></ul>
+      <h1 class="pagetitle">{{product.title}}</h1>
+    </div>
+  </div>
+</div>
+<div id="content" class="content">
+  <div class="centering">
+    <div class="centeringin clearfix">
+
+      <!-- detail -->
+      <div class="js-detail js-element js-elementid58 detail b-product-detail clearfix "
+           data-detail="/catalog/mebel_dlya_gostinnoy/stulya/stul_chikago/"
+           data-elementname="Стул &quot;Чикаго&quot;">
+        <div class="detail__inner js-element__shadow">
+          <div class="detail__anchor js-detail-anchor hidden-xs">
+            <a class="detail__anchor__link link-dashed js-easy-scroll" href="#detailtext" data-es-offset="-135">Описание</a>
+            <a class="detail__anchor__link link-dashed js-easy-scroll" href="#properties" data-es-offset="-135">Характеристики</a>
+            <!--<a class="detail__anchor__link link-dashed js-easy-scroll" href="#deliverycost" data-es-offset="-135">Доставка</a>-->
+            <!--<a class="detail__anchor__link link-dashed js-easy-scroll" href="#stocks" data-es-offset="-135">Наличие</a>-->
+            <!--<a class="detail__anchor__link link-dashed js-easy-scroll" href="#review">Отзывы (<span class="js-detailelement-review-count">0</span>)</a>-->
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5 b-print__product-page__pictures">
+              <!-- picture -->
+              <div class="detail__pic">
+                <div class="detail__stickers">
+                  <div class="c-stickers">
+                    <span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__da2" *ngIf="product.productOfDay">Товар дня</span>
+                    <!--<span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__qb">Успей купить</span>-->
+                    <span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__new" *ngIf="product.newProduct">Новинка</span>
+                    <span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__hit" *ngIf="product.hit">Хит</span>
+                    <span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__action" *ngIf="product.promo">Акция</span>
+                    <span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value" *ngIf="product.discountPrice">
+                         -<span class="js-discount-value">{{product.discount}}</span>%
+                    </span>
+                  </div>
+                </div>
+                <div class="detail__pic__inner">
+                  <div class="detail__pic__carousel js-picslider owl-loaded owl-drag owl-carousel">
+                    <div class="owl-stage-outer">
+                      <!--<div class="owl-stage" style="transform: translate3d(-890px, 0px, 0px); transition: all 0s ease 0s; width: 2670px;">-->
+                      <div class="owl-stage">
+                        <div class="owl-item" style="width: 425px; margin-right: 20px;">
+                          <a class="js_picture_glass detail__pic__a js-picslide-a" href="{{getBaseImageLink()}}">
+                            <img class="detail__pic__img" src="{{getBaseImageLink()}}" alt="{{product.altTitle}}" title="{{product.altTitle}}">
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="owl-nav disabled">
+                      <div class="owl-prev">prev</div>
+                      <div class="owl-next">next</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="detail__pic__zoom hidden-xs hidden-print">
+                  <svg class="svg-icon">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-search"></use>
+                  </svg>Для увеличения картинки нажмите на изображение</div>
+                <div class="scroll-wrapper detail__pic__preview js-scroll scrollbar-inner" style="position: relative;" *ngIf="product.images.length > 0">
+                  <div class="detail__pic__preview js-scroll scrollbar-inner scroll-content" style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 80px;">
+                    <div class="detail__pic__dots js-detail-dots owl-carousel">
+                      <div class="owl-dot active" *ngFor="let img of product.images">
+                        <img class="owl-preview" src="{{img.previewImageLink}}">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="scroll-element scroll-x" style="">
+                    <div class="scroll-element_outer">
+                      <div class="scroll-element_size"></div>
+                      <div class="scroll-element_track"></div>
+                      <div class="scroll-bar" style="width: 100px;"></div>
+                    </div>
+                  </div>
+                  <div class="scroll-element scroll-y" style="">
+                    <div class="scroll-element_outer">
+                      <div class="scroll-element_size"></div>
+                      <div class="scroll-element_track"></div>
+                      <div class="scroll-bar" style="height: 100px;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /picture -->
+
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 b-print__product-page__info detail__static-xs">
+
+              <div class="row">
+                <div class="col-xs-12 detail__static-xs">
+
+                  <!-- article & rating & brand -->
+                  <!--<div class="detail__article-rating-brand">-->
+                    <!--<span class="detail__article">-->
+                      <!--<span class="c-article js-article">-->
+                        <!--<span class="c-article__title">Артикул: </span>-->
+                        <!--<span class="c-article__value js-article__value" data-prodarticle="086690">086690</span>-->
+                      <!--</span>-->
+                    <!--</span>-->
+                    <!--<span class="detail__rating"></span>-->
+                    <!--<span class="detail__brand"></span>-->
+                  <!--</div>-->
+                  <!-- /article & rating & brand -->
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-12">
+
+                  <!-- prices -->
+                  <div class="detail__prices">
+                    <span class="detail__prices__title">Цена</span>
+                    <div class="c-prices js-prices view-list page-detail product-alone multyprice-no">
+                      <span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE">
+                        <span class="c-prices__name">Розничная цена:</span>
+                        <span class="c-prices__value js-prices_pdv_BASE" *ngIf="product.discountPrice == null">{{product.price}} руб.</span>
+                        <span class="c-prices__value js-prices_pdv_BASE" *ngIf="product.discountPrice != null">{{product.discountPrice}} руб.</span>
+                        <span class="c-prices__value-old-before">
+                          <span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE">{{product.price}} руб.</span>
+                        </span>
+                        <span class="c-prices__discount js-prices-discount js-prices_pd_BASE_hide" *ngIf="economy != null">
+                          <span class="c-prices__value-discount-name">экономия</span>
+                          <span class="c-prices__value-discount js-prices_pd_BASE">{{economy}} руб.</span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <!-- /prices -->
+
+                  <!-- prices note -->
+                  <div class="detail__prices-note">
+                  </div>
+                  <!-- /prices note -->
+
+                  <!-- attributes -->
+                  <div class="detail__attributes">
+
+                    <div class="c-attributes view-list  js-attributes" data-view="list">
+                      <!-- prop -->
+                      <div id="options-selector"
+                           class="c-attributes__prop js-attributes__prop js-attributes__code__COLOR_DIRECTORY is-pic js-pic close"
+                           data-code="COLOR_DIRECTORY">
+                      <span id="optionsContainer" class="c-attributes__select js-attributes__select"><!-- name-current-value -->
+                        <span class="c-attributes__name-current-value">
+                          <span class="c-attributes__name">Цвет: </span>
+                          <span class="c-attributes__current-value js-attributes__curent-value" (click)="switchOptionsWindow()">
+                            <span class="c-attributes__current-value__pseudo-option">
+                              <span class="c-attributes__value-pic js-attributes__set-value-pic" style="background-image:url('/upload/uf/6b0/6b0ef92abe657d93b6a564db6e6ab0b0.jpg');" title="Бежевый"></span>
+                              <span class="c-attributes__value js-attributes__set-value-text">Бежевый</span>
+                              <svg class="c-attributes__arrow svg-icon">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use>
+                              </svg>
+                            </span>
+                          </span>
+                        </span>
+                        <!-- /name-current-value -->
+                        <!-- options -->
+                        <span id="options-window" class="c-attributes__options js-attributes__options" *ngIf="productHasOptions">
+                          <span class="c-attributes__option js-attributes__option" *ngFor="let offer of product.saleOffers" (click)="selectOption(offer)" data-value="Белый" data-value-pic="/upload/uf/2e3/2e3fb12bf845f48d1dcd81c6c74e9f6e.jpg">
+                            <!--<span class="c-attributes__value-pic js-attributes__value-pic" style="background-image:url('/upload/uf/2e3/2e3fb12bf845f48d1dcd81c6c74e9f6e.jpg');" title="Белый"></span>-->
+                            <span class="js-attributes__value-pic" [ngClass]="getOptionButtonClass(offer)"
+                                  [ngStyle]="getOptionButtonStyle(offer)" title="{{offer.optionValue}}"></span>
+                            <span class="c-attributes__value c-attributes__option__value js-attributes__value-text">{{offer.optionValue}}</span>
+                          </span>
+                          <!--<span class="c-attributes__option js-attributes__option " data-value="Коричневый" data-value-pic="/upload/uf/f5d/f5de333248c540c800face7a41d37b19.jpg">-->
+                            <!--<span class="c-attributes__value-pic js-attributes__value-pic" style="background-image:url('/upload/uf/f5d/f5de333248c540c800face7a41d37b19.jpg');" title="Коричневый"></span>-->
+                            <!--<span class="c-attributes__value c-attributes__option__value js-attributes__value-text">Коричневый</span>-->
+                          <!--</span>-->
+                          <!--<span class="c-attributes__option js-attributes__option " data-value="Кремовый" data-value-pic="/upload/uf/c3d/c3d62ec1901a955c1c778758e16ef77a.jpg">-->
+                            <!--<span class="c-attributes__value-pic js-attributes__value-pic" style="background-image:url('/upload/uf/c3d/c3d62ec1901a955c1c778758e16ef77a.jpg');" title="Кремовый"></span>-->
+                            <!--<span class="c-attributes__value c-attributes__option__value js-attributes__value-text">Кремовый</span>-->
+                          <!--</span>-->
+                          <!--<span class="c-attributes__option js-attributes__option  selected" data-value="Бежевый" data-value-pic="/upload/uf/6b0/6b0ef92abe657d93b6a564db6e6ab0b0.jpg">-->
+                            <!--<span class="c-attributes__value-pic js-attributes__value-pic" style="background-image:url('/upload/uf/6b0/6b0ef92abe657d93b6a564db6e6ab0b0.jpg');" title="Бежевый"></span>-->
+                            <!--<span class="c-attributes__value c-attributes__option__value js-attributes__value-text">Бежевый</span>-->
+                          <!--</span>-->
+                        </span><!-- /options -->
+                      </span>
+                      </div><!-- /prop -->
+                    </div>
+                  </div>
+                  <!-- /attributes -->
+
+                  <!-- changelable props -->
+                  <div class="detail__changelable-props">
+
+                  </div>
+                  <!-- /changelable props -->
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-12">
+
+                  <!-- preview text -->
+                  <div class="detail__previewtext hidden-xs">
+                    {{product.description}}
+                    <div class="detail__previewtext__go-to">
+                      <a class="link-dashed m-color-primary js-easy-scroll" href="#detailtext" data-es-offset="-135">
+                        Подробнее
+                      </a>
+                    </div>
+                  </div>
+                  <!-- /preview text -->
+
+                  <!-- size table -->
+                  <div class="detail__size-table"></div>
+                  <!-- /size table -->
+
+                  <!-- pay && stores -->
+                  <div class="detail__pay-stores">
+                    <div class="detail__pay">
+
+                      <!--noindex-->
+                      <div class="b-pay">
+                        <form class="b-pay__form js-pay__form js-buyform58 js-synchro clearfix" name="add2basketform">
+                          <input type="hidden" name="action" value="ADD2BASKET">
+                          <!--<input type="hidden" name="id" class="js-add2basketpid" value="58">-->
+                          <span class="b-pay__inner">
+                          <span class="b-pay__quantity">
+                          <span class="c-quantity">
+                              <span class="c-quantity__inner">
+                                  <a class="c-quantity__minus js-minus waves-effect"></a>
+                                  <input type="text" class="c-quantity__value js-quantity" name="quantity" value="1" data-ratio="1">
+                                          <span class="c-quantity__measure js-measurename">шт</span>
+                                          <a class="c-quantity__plus js-plus waves-effect"></a>
+                                  </span>
+                              </span>
+                          </span>
+            <span class="b-pay__buttons">
+                <a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary waves-effect" href="#" title="В корзину">
+                  В корзину
+                </a>
+                <span id="_subscribe_link" class="b-pay__button b-pay__add2subscribe js-product-subscribe btn-default add2subscribe bx-catalog-subscribe-button waves-effect" data-item="58" style="" title="">
+                  Подписаться
+                </span>
+                <input type="hidden" id="_subscribe_link_hidden">
+                  <a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken waves-effect" href="/personal/cart/" title="В корзине">
+                    В корзине
+                  </a>
+                  <a rel="nofollow" class="b-pay__button b-pay__buy1click js-buy1click fancyajax fancybox.ajax btn-default waves-effect" href="/include/popup/buy1click/" title="Купить в 1 клик" data-insertdata="{&quot;RS_ORDER_IDS&quot;:58}">
+                    Купить в 1 клик
+                  </a>
+            </span>
+        </span>
+      <input type="submit" name="submit" class="nonep" value="">
+    </form>
+  </div>
+  <!--/noindex-->
+</div>
+  <div class="detail__stores">
+    <div class="b-stores js-stores" data-page="detail">
+      <div class="b-stores__inner">
+        <span class="js-stores__title">В наличии</span>
+        <a class="b-stores__genamount js-easy-scroll" href="#stocks" title="" data-es-offset="-135">
+          <span class="js-stores__value">
+            <svg class="svg-icon isset">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-available"></use>
+            </svg>
+            <span class="sub">много</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+                  <!-- /pay && stores -->
+
+                  <!-- compare && favorite && cheaper -->
+                  <div class="detail__compare-favorite-cheaper hidden-print">
+
+        <span class="detail__compare">
+        <a rel="nofollow" class="c-compare js-add2compare" href="/catalog/mebel_dlya_gostinnoy/stulya/stul_chikago/?action=ADD_TO_COMPARE_LIST&amp;id="><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg><span class="c-compare__title">Сравнить</span><span class="c-compare__title-in">В сравнении</span></a>
+    </span>
+
+                    <span class="detail__favorite">
+        <a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_gostinnoy/stulya/stul_chikago/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg><span class="c-favorite__title">В закладки</span><span class="c-favorite__title-in">В закладках</span></a>
+    </span>
+
+                    <!--<span class="detail__cheaper">-->
+        <!--<a rel="nofollow" class="c-cheaper js-cheaper fancyajax fancybox.ajax" href="/include/popup/cheaper/" title="Хотите дешевле?"><span class="c-cheaper__icon"><span class="c-cheaper__icon-in">%</span></span><span class="c-cheaper__title">Хотите дешевле?</span></a>-->
+    <!--</span>-->
+
+                  </div>
+                  <!-- /compare && favorite && cheaper -->
+
+                  <!-- social -->
+                  <!--<div class="detail__social">-->
+
+                    <!--<div class="c-ya-share">-->
+                      <!--<div class="ya-share2 ya-share2_inited" data-services="collections,vkontakte,facebook,moimir,gplus,twitter" data-lang="ru" data-size="s" data-copy="first" data-image="http://casapro.redsign.ru/upload/iblock/26f/26fffc8e1f52bb1636075de8765c482e.JPG"><div class="ya-share2__container ya-share2__container_size_s"><ul class="ya-share2__list ya-share2__list_direction_horizontal"><li class="ya-share2__item ya-share2__item_service_collections"><a class="ya-share2__link" href="https://yandex.ru/collections/share/?url=http%3A%2F%2Fcasapro.redsign.ru%2Fcatalog%2Fmebel_dlya_gostinnoy%2Fstulya%2Fstul_chikago%2F&amp;image=http%3A%2F%2Fcasapro.redsign.ru%2Fupload%2Fiblock%2F26f%2F26fffc8e1f52bb1636075de8765c482e.JPG&amp;description=%D0%A1%D1%82%D1%83%D0%BB%20%22%D0%A7%D0%B8%D0%BA%D0%B0%D0%B3%D0%BE%22&amp;utm_source=share2" rel="nofollow noopener" target="_blank" title="Яндекс.Коллекции"><span class="ya-share2__badge"><span class="ya-share2__icon"></span></span><span class="ya-share2__title">Яндекс.Коллекции</span></a></li><li class="ya-share2__item ya-share2__item_service_vkontakte"><a class="ya-share2__link" href="https://vk.com/share.php?url=http%3A%2F%2Fcasapro.redsign.ru%2Fcatalog%2Fmebel_dlya_gostinnoy%2Fstulya%2Fstul_chikago%2F&amp;title=%D0%A1%D1%82%D1%83%D0%BB%20%22%D0%A7%D0%B8%D0%BA%D0%B0%D0%B3%D0%BE%22&amp;image=http%3A%2F%2Fcasapro.redsign.ru%2Fupload%2Fiblock%2F26f%2F26fffc8e1f52bb1636075de8765c482e.JPG&amp;utm_source=share2" rel="nofollow noopener" target="_blank" title="ВКонтакте"><span class="ya-share2__badge"><span class="ya-share2__icon"></span><span class="ya-share2__counter"></span></span><span class="ya-share2__title">ВКонтакте</span></a></li><li class="ya-share2__item ya-share2__item_service_facebook"><a class="ya-share2__link" href="https://www.facebook.com/sharer.php?src=sp&amp;u=http%3A%2F%2Fcasapro.redsign.ru%2Fcatalog%2Fmebel_dlya_gostinnoy%2Fstulya%2Fstul_chikago%2F&amp;title=%D0%A1%D1%82%D1%83%D0%BB%20%22%D0%A7%D0%B8%D0%BA%D0%B0%D0%B3%D0%BE%22&amp;picture=http%3A%2F%2Fcasapro.redsign.ru%2Fupload%2Fiblock%2F26f%2F26fffc8e1f52bb1636075de8765c482e.JPG&amp;utm_source=share2" rel="nofollow noopener" target="_blank" title="Facebook"><span class="ya-share2__badge"><span class="ya-share2__icon"></span><span class="ya-share2__counter"></span></span><span class="ya-share2__title">Facebook</span></a></li><li class="ya-share2__item ya-share2__item_service_moimir"><a class="ya-share2__link" href="https://connect.mail.ru/share?url=http%3A%2F%2Fcasapro.redsign.ru%2Fcatalog%2Fmebel_dlya_gostinnoy%2Fstulya%2Fstul_chikago%2F&amp;title=%D0%A1%D1%82%D1%83%D0%BB%20%22%D0%A7%D0%B8%D0%BA%D0%B0%D0%B3%D0%BE%22&amp;utm_source=share2" rel="nofollow noopener" target="_blank" title="Мой Мир"><span class="ya-share2__badge"><span class="ya-share2__icon"></span><span class="ya-share2__counter"></span></span><span class="ya-share2__title">Мой Мир</span></a></li><li class="ya-share2__item ya-share2__item_service_twitter"><a class="ya-share2__link" href="https://twitter.com/intent/tweet?text=%D0%A1%D1%82%D1%83%D0%BB%20%22%D0%A7%D0%B8%D0%BA%D0%B0%D0%B3%D0%BE%22&amp;url=http%3A%2F%2Fcasapro.redsign.ru%2Fcatalog%2Fmebel_dlya_gostinnoy%2Fstulya%2Fstul_chikago%2F&amp;utm_source=share2" rel="nofollow noopener" target="_blank" title="Twitter"><span class="ya-share2__badge"><span class="ya-share2__icon"></span></span><span class="ya-share2__title">Twitter</span></a></li></ul></div></div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!-- /social -->
+
+                  <!-- product in action -->
+                  <div class="detail__product-in-action"></div>
+                  <!-- /product in action -->
+
+                  <!-- delivery cost -->
+                  <!--<div class="detail__delivery-cost">-->
+                    <!--<div class="product-delivery media">-->
+                      <!--<div class="media-left product-delivery__pic hidden-xs">-->
+                        <!--<img src="/bitrix/templates/profurniture_default/assets/img/delivery.png" alt="" title="">-->
+                      <!--</div>-->
+                      <!--<div class="media-body product-delivery__body">-->
+                        <!--<div id="delivery_block" class="product-delivery__block" style="height: auto;">        <div class="product-delivery__title">-->
+                          <!--Доставка            в город Москва:         </div>-->
+                          <!--<ul class="product-delivery__list" id="delivery_block_list" style="position: static; left: 0px;">-->
+                            <!--<li><span class="product-delivery__name">По почте: </span>75 руб.( от 9 до 15 дней )</li>-->
+                            <!--<li><span class="product-delivery__name">Доставка курьером: </span>15 руб.( от 3 до 7 дней )</li>-->
+                            <!--<li><span class="product-delivery__name">Самовывоз: </span>0 руб.</li>-->
+                            <!--<li class="product-delivery__information">-->
+                              <!--<br>-->
+                              <!--Информация о                                             <a href="/delivery/">доставке</a>                                                                и                                                                <a href="/payment/">оплате</a>                                    </li>-->
+                          <!--</ul>-->
+                        <!--</div>-->
+
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!-- /delivery cost -->
+
+                  <!-- detail features -->
+                  <div class="detail__detail-features"></div>
+                  <!-- /detail features -->
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /detail -->
+
+      <div class="clear"></div>
+
+      <!-- tab navs -->
+      <ul class="nav nav-tabs js-detail-tabs hidden-print" role="tablist">
+        <li id="description-tab" role="presentation" class="active">
+          <a href="" (click)="changeTab('description', $event)">
+            Описание
+          </a>
+        </li>
+        <li id="properties-tab" role="presentation">
+          <a href="" (click)="changeTab('properties', $event)">
+            Характеристики
+          </a>
+        </li>
+        <!--<li role="presentation">-->
+          <!--<a href="#deliverycost" aria-controls="home" role="tab" data-toggle="tab">-->
+            <!--Доставка-->
+          <!--</a>-->
+        <!--</li>-->
+        <!--<li role="presentation">-->
+          <!--<a href="#stocks" aria-controls="home" role="tab" data-toggle="tab">-->
+            <!--Наличие-->
+          <!--</a>-->
+        <!--</li>-->
+        <!--<li role="presentation">-->
+          <!--<a href="#review" aria-controls="home" role="tab" data-toggle="tab">-->
+            <!--Отзывы (<span class="js-detailelement-review-count">0</span>)-->
+          <!--</a>-->
+        <!--</li>-->
+      </ul>
+      <!-- /tab navs -->
+
+      <!-- tabs content -->
+      <div class="tab-content detail__tabs-content">
+
+        <div class="tab-pane active" role="tabpanel" id="detailtext" *ngIf="!showProperties">
+          <div class="tab-pane-in">
+            <div class="b-print__tab-name clearfix">
+              <div class="b-sorter__block-name visible-print-block">Описание</div>
+            </div>
+            <div class="tab-pane-in2">
+              {{product.description}}
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane active" role="tabpanel" id="properties" *ngIf="showProperties">
+          <div class="tab-pane-in">
+            <div class="b-print__tab-name clearfix">
+              <div class="b-sorter__block-name visible-print-block">
+                Характеристики
+              </div>
+            </div>
+            <div class="tab-pane-in2">
+              Здесь будут характеристики
+        <!-- grupped properties -->
+        <!--<div class="c-gruppedprops">-->
+          <!--<div class="row">-->
+
+            <!--<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">-->
+              <!--<div class="c-gruppedprops__group">-->
+                <!--<div class="c-gruppedprops__group-props">-->
+                  <!--<span class="c-gruppedprops__prop">-->
+                    <!--<span class="c-gruppedprops__prop-name">-->
+                      <!--Артикул:-->
+                    <!--</span>-->
+                    <!--<span class="c-gruppedprops__prop-value">-->
+                      <!--086690-->
+                    <!--</span>-->
+                  <!--</span>-->
+                  <!--<span class="c-gruppedprops__prop">-->
+                    <!--<span class="c-gruppedprops__prop-name">Производитель:</span>-->
+                    <!--<span class="c-gruppedprops__prop-value">Altrenotti</span>-->
+                  <!--</span>-->
+                  <!--<span class="c-gruppedprops__prop">-->
+                    <!--<span class="c-gruppedprops__prop-name">Цвет:</span>-->
+                    <!--<span class="c-gruppedprops__prop-value">Красный</span>-->
+                  <!--</span><span class="c-gruppedprops__prop">-->
+                  <!--<span class="c-gruppedprops__prop-name">Тема форума для комментариев:</span>-->
+                  <!--<span class="c-gruppedprops__prop-value">9</span></span><span class="c-gruppedprops__prop">-->
+                  <!--<span class="c-gruppedprops__prop-name">Количество комментариев к элементу:</span>-->
+                  <!--<span class="c-gruppedprops__prop-value">1</span>-->
+                <!--</span>-->
+                  <!--<span class="c-gruppedprops__prop">-->
+                    <!--<span class="c-gruppedprops__prop-name">Материал:</span>-->
+                    <!--<span class="c-gruppedprops__prop-value">Пластик</span>-->
+                  <!--</span>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!-- /grupped properties -->
+      </div>
+    </div>
+  </div>
+        <!--<div class="tab-pane" role="tabpanel" id="deliverycost">-->
+          <!--<div class="tab-pane-in">-->
+            <!--<div class="b-print__tab-name clearfix">-->
+              <!--<div class="b-sorter__block-name visible-print-block">Доставка</div>-->
+            <!--</div>-->
+            <!--<div class="tab-pane-in2">-->
+              <!--<div id="delivery-tab">        -->
+                <!--<div class="row p-delivery is-cart">-->
+        <!--<div class="col col-sm-12 col-md-9">-->
+          <!--<div class="p-delivery__table-wrap">-->
+            <!--<table class="table">-->
+              <!--<thead>-->
+              <!--<tr>-->
+                <!--<th colspan="2">Служба доставки</th>-->
+                <!--<th>Стоимость доставки</th>-->
+                <!--<th>Срок доставки</th>-->
+              <!--</tr>-->
+              <!--</thead>-->
+              <!--<tbody>-->
+              <!--<tr>-->
+                <!--<td class="p-delivery__picture text-center">-->
+                  <!--<img src="/upload/sale/delivery/logotip/7fa/7fa49f057468bb9de6bfe47ea57c4756.png" alt="По почте">-->
+                <!--</td>-->
+                <!--<td>По почте</td>-->
+                <!--<td class="text-center price new">75 руб.</td>-->
+                <!--<td class="text-center"> от 9 до 15 дней </td>-->
+              <!--</tr>-->
+              <!--<tr>-->
+                <!--<td class="p-delivery__picture text-center">-->
+                  <!--<img src="/upload/sale/delivery/logotip/7bd/7bd7b28387b7a73f7e407ea099644cb1.png" alt="Доставка курьером">-->
+                <!--</td>-->
+                <!--<td>Доставка курьером</td>-->
+                <!--<td class="text-center price new">15 руб.</td>-->
+                <!--<td class="text-center"> от 3 до 7 дней </td>-->
+              <!--</tr>-->
+              <!--<tr>-->
+                <!--<td class="p-delivery__picture text-center">-->
+                  <!--<img src="/upload/sale/delivery/logotip/0e1/0e18d69382037ce1e37236da4d2c417a.png" alt="Самовывоз">-->
+                <!--</td>-->
+                <!--<td>Самовывоз</td>-->
+                <!--<td class="text-center price new">0 руб.</td>-->
+                <!--<td class="text-center"></td>-->
+              <!--</tr>-->
+              <!--</tbody>-->
+            <!--</table>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div role="tabpanel" class="tab-pane" id="stocks">-->
+          <!--<div class="tab-pane-in">-->
+            <!--<div class="tab-pane-in2" id="stocks_detail_tab">-->
+              <!--<div class="b-stores-list">-->
+              <!--<div id="popupstores_58">-->
+                <!--<div class="b-stores-list__row js-stores__store1">-->
+                  <!--<div class="b-stores-list__col title">-->
+                    <!--Интернет-магазин (г. Моксва, ул. Московская, д. 9000)-->
+                  <!--</div>-->
+                  <!--<div class="b-stores-list__col b-stores-list__amount">-->
+                    <!--<span class="nowrap">-->
+                      <!--<span class="js-stores__title">В наличии</span>-->
+                      <!--<span class="js-stores__value">-->
+                        <!--<svg class="svg-icon isset">-->
+                          <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-available"></use>-->
+                        <!--</svg>-->
+                        <!--<span class="sub">много</span>-->
+                      <!--</span>-->
+                    <!--</span>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="b-stores-list__row js-stores__store2">-->
+                  <!--<div class="b-stores-list__col title">-->
+                    <!--Московский склад (г.Москва, ул.Московская 15)-->
+                  <!--</div>-->
+                  <!--<div class="b-stores-list__col b-stores-list__amount">-->
+                    <!--<span class="nowrap">-->
+                      <!--<span class="js-stores__title">В наличии</span>-->
+                      <!--<span class="js-stores__value">-->
+                        <!--<svg class="svg-icon empty">-->
+                          <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-not-available"></use>-->
+                        <!--</svg>-->
+                        <!--<span class="sub">нет</span>-->
+                      <!--</span>-->
+                    <!--</span>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="b-stores-list__row js-stores__store3">-->
+                  <!--<div class="b-stores-list__col title">Склад в Самаре (Самарский пр-т, д. 9000)</div>-->
+                  <!--<div class="b-stores-list__col b-stores-list__amount">-->
+                    <!--<span class="nowrap">-->
+                      <!--<span class="js-stores__title">В наличии</span>-->
+                      <!--<span class="js-stores__value">-->
+                        <!--<svg class="svg-icon empty">-->
+                          <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-not-available"></use>-->
+                        <!--</svg>-->
+                        <!--<span class="sub">нет</span>-->
+                      <!--</span>-->
+                    <!--</span>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+
+        <!--<div role="tabpanel" class="tab-pane" id="review">-->
+          <!--<div class="tab-pane-in">-->
+            <!--<div class="tab-pane-in2">-->
+              <!--<div class="add2review-around clearfix">-->
+                <!--<a class="add2review js-add2review btn-default waves-effect" href="#addreview">Добавить отзыв</a>-->
+              <!--</div>-->
+              <!--<div id="detailreviews" class="detailreviews">-->
+
+                <!--&lt;!&ndash; ERRORS &ndash;&gt;-->
+
+                <!--&lt;!&ndash; FORM &ndash;&gt;-->
+                <!--<div class="contentinner">-->
+                  <!--<div class="reviewform js-reviewform">-->
+                  <!--<form action="/catalog/mebel_dlya_gostinnoy/stulya/stul_chikago/#postform" name="REPLIERZZtH" id="REPLIERZZtH" method="POST" enctype="multipart/form-data" onsubmit="return RSGoPro_SummComment(this);">&lt;!&ndash;'start_frame_cache_DAajiX'&ndash;&gt;<input type="hidden" name="index" value="ZZtH"><input type="hidden" name="back_page" value="/catalog/mebel_dlya_gostinnoy/stulya/stul_chikago/"><input type="hidden" name="ELEMENT_ID" value="58"><input type="hidden" name="SECTION_ID" value="11"><input type="hidden" name="save_product_review" value="Y"><input type="hidden" name="preview_comment" value="N"><input type="hidden" name="sessid" id="sessid_11" value="6b7591a40f06519ba4d3d9db899033c6"><div class="rating clearfix"><input type="hidden" name="REVIEW_TEXT_rate" value=""><span>Оцените товар: </span><a class="icon pngicons" href="#" data-id="1"></a><a class="icon pngicons" href="#" data-id="2"></a><a class="icon pngicons" href="#" data-id="3"></a><a class="icon pngicons" href="#" data-id="4"></a><a class="icon pngicons" href="#" data-id="5"></a></div><div class="fieldname">Ваше имя</div><input type="text" name="REVIEW_AUTHOR" id="REVIEW_AUTHORZZtH" value="Guest"><div class="fieldname">Достоинства</div><textarea name="REVIEW_TEXT_plus"></textarea><br><div class="fieldname">Недостатки</div><textarea name="REVIEW_TEXT_minus"></textarea><br><div class="fieldname">Комментарий</div><textarea class="comment" name="REVIEW_TEXT_comment"></textarea><br><textarea class="hide" name="REVIEW_TEXT"></textarea><div class="fieldname">Символы на картинке</div><img class="captcha_image" src="/bitrix/tools/captcha.php?captcha_code=0a2bb34ff415109116da260aac18fc43" width="180" height="39" alt=""><br><input type="hidden" name="captcha_code" value="0a2bb34ff415109116da260aac18fc43"><input type="text" name="captcha_word" autocomplete="off"><br>-->
+                  <!--<div class="line clearfix">-->
+                    <!--<div class="line clearfix license-link-work">Отправляя форму вы соглашаетесь<br><a href="/about/license_work/" target="_blank">на обработку персональных данных</a></div>		</div>-->
+
+                  <!--<i class="send btn-primary hide waves-input-wrapper waves-effect" style="color:rgb(255, 255, 255);background:rgba(0, 0, 0, 0)"><input class="waves-button-input" name="send_button" type="submit" value="Отправить" style="background-color:rgba(0,0,0,0);"></i><a class="send btn-primary js-submit waves-effect" href="#">Отправить</a>&lt;!&ndash;'end_frame_cache_DAajiX'&ndash;&gt;</form></div></div>-->
+
+                <!--&lt;!&ndash; MESSAGES &ndash;&gt;-->
+                <!--<div class="errortext">Тут еще никто ничего не писал, стань первым!</div>-->
+              <!--</div>		-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      </div>
+      <!-- /tabs content -->
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

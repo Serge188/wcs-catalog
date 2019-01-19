@@ -1,8 +1,7 @@
-<div class="body" itemscope itemtype="http://schema.org/WebPage">
 
-  <app-header></app-header>
+<app-header></app-header>
 
-  <app-side-menu [categories]="categories"></app-side-menu>
+<app-side-menu [hideMenu]="false"></app-side-menu>
 
   <div id="content" class="content">
     <div class="centering">
@@ -114,7 +113,6 @@
         <!-- section.list -->
 
         <div class="b-section-list main-page clearfix">
-
           <ul class="row list-unstyled">
             <li class="section col-xs-4 col-md-3 col-md-4 col-lg-3" *ngFor="let cat of popularCategories">
               <a class="around_image" href="{{cat.link}}"><img
@@ -130,69 +128,6 @@
                 </li>
               </ul>
             </li>
-            <!--<li class="section col-xs-4 col-md-3 col-md-4 col-lg-3" id="bx_1847241719_17">-->
-            <!--<a class="around_image" href="/catalog/mebel_dlya_kabineta/"><img src="/upload/iblock/637/637114ded37e03de1a601e67d4feb9d6.png" alt="Мебель для кабинета" title="Мебель для кабинета" /></a>-->
-            <!--<a class="parent" href="/catalog/mebel_dlya_kabineta/" title="Мебель для кабинета">Мебель для кабинета</a>-->
-            <!--<ul class="subsections list-unstyled" id="17">-->
-              <!--<li><a href="/catalog/mebel_dlya_kabineta/biblioteki/" title="Библиотеки">Библиотеки</a></li>-->
-              <!--<li><a href="/catalog/mebel_dlya_kabineta/byuro/" title="Бюро">Бюро (3)</a></li>-->
-              <!--<li><a href="/catalog/mebel_dlya_kabineta/divany_office/" title="Диваны">Диваны</a></li>-->
-              <!--<li><a href="/catalog/mebel_dlya_kabineta/zerkala_office/" title="Зеркала">Зеркала</a></li>-->
-              <!--<li><a href="/catalog/mebel_dlya_kabineta/konsoli_office/" title="Консоли">Консоли</a></li>-->
-              <!--<li><a class="b-section-list__show-more" href="/catalog/mebel_dlya_kabineta/" title="" >Еще (3)...</a></li>												</ul></li>								<li class="section col-xs-4 col-md-3 col-md-4 col-lg-3" id="bx_1847241719_39">-->
-            <!--<a class="around_image" href="/catalog/osveshchenie/"><img src="/upload/iblock/d5d/d5dd77ff5d0c8fe8ac21d497eeffcac8.png" alt="Освещение" title="Освещение" /></a>-->
-            <!--<a class="parent" href="/catalog/osveshchenie/" title="Освещение">Освещение</a>-->
-            <!--<ul class="subsections list-unstyled" id="39">-->
-              <!--<li><a href="/catalog/osveshchenie/bra/" title="Бра">Бра (7)</a></li>-->
-              <!--<li><a href="/catalog/osveshchenie/kaskady/" title="Каскады">Каскады</a></li>-->
-              <!--<li><a href="/catalog/osveshchenie/lampochki/" title="Лампочки">Лампочки</a></li>-->
-              <!--<li><a href="/catalog/osveshchenie/lyustry/" title="Люстры">Люстры</a></li>-->
-              <!--<li><a href="/catalog/osveshchenie/nastolnye_lampy/" title="Настольные лампы">Настольные лампы</a></li>-->
-              <!--<li><a class="b-section-list__show-more" href="/catalog/osveshchenie/" title="" >Еще (6)...</a></li>																								</ul></li>								<li class="section col-xs-4 col-md-3 col-md-4 col-lg-3" id="bx_1847241719_12">-->
-            <!--<a class="around_image" href="/catalog/mebel_dlya_detskoy/"><img src="/upload/iblock/6eb/6ebbaddcb5f7ec0e70b8eb47fae7901f.png" alt="Мебель для детской" title="Мебель для детской" /></a>-->
-            <!--<a class="parent" href="/catalog/mebel_dlya_detskoy/" title="Мебель для детской">Мебель для детской</a>-->
-            <!--<ul class="subsections list-unstyled" id="12">-->
-              <!--<li><a href="/catalog/mebel_dlya_detskoy/komody_child/" title="Комоды">Комоды</a></li>-->
-              <!--<li><a href="/catalog/mebel_dlya_detskoy/krovati_child/" title="Кровати">Кровати</a></li>-->
-              <!--<li><a href="/catalog/mebel_dlya_detskoy/pismennye_stoly/" title="Письменные столы">Письменные столы</a></li>-->
-              <!--<li><a href="/catalog/mebel_dlya_detskoy/stellazhi/" title="Стеллажи">Стеллажи</a></li>-->
-            <!--</ul></li>								<li class="section col-xs-4 col-md-3 col-md-4 col-lg-3" id="bx_1847241719_26">-->
-            <!--<a class="around_image" href="/catalog/mebel_dlya_prikhozhey/"><img src="/upload/iblock/391/391ad56d267d177aff90113559e6276a.png" alt="Мебель для прихожей" title="Мебель для прихожей" /></a>-->
-            <!--<a class="parent" href="/catalog/mebel_dlya_prikhozhey/" title="Мебель для прихожей">Мебель для прихожей</a>-->
-            <!--<ul class="subsections list-unstyled" id="26">-->
-              <!--<li><a href="/catalog/mebel_dlya_prikhozhey/zerkala_entrance/" title="Зеркала">Зеркала</a></li>-->
-              <!--<li><a href="/catalog/mebel_dlya_prikhozhey/konsoli_entrance/" title="Консоли">Консоли</a></li>-->
-              <!--<li><a href="/catalog/mebel_dlya_prikhozhey/stoly_zhurnalnye_entrance/" title="Столы журнальные">Столы журнальные</a></li>-->
-            <!--</ul></li>								<li class="section col-xs-4 col-md-3 col-md-4 col-lg-3" id="bx_1847241719_30">-->
-            <!--<a class="around_image" href="/catalog/mebel_dlya_spalni/"><img src="/upload/iblock/3f5/3f501a06af1d8fc3b0c4c49733bfc31b.png" alt="Мебель для спальни" title="Мебель для спальни" /></a>-->
-            <!--<a class="parent" href="/catalog/mebel_dlya_spalni/" title="Мебель для спальни">Мебель для спальни</a>-->
-            <!--<ul class="subsections list-unstyled" id="30">-->
-              <!--<li><a href="/catalog/mebel_dlya_spalni/banketki/" title="Банкетки">Банкетки</a></li>-->
-              <!--<li><a href="/catalog/mebel_dlya_spalni/komody_bedroom/" title="Комоды">Комоды</a></li>-->
-              <!--<li><a href="/catalog/mebel_dlya_spalni/krovati/" title="Кровати">Кровати</a></li>-->
-              <!--<li><a href="/catalog/mebel_dlya_spalni/prikrovatnye_tumby/" title="Прикроватные тумбы">Прикроватные тумбы</a></li>-->
-              <!--<li><a href="/catalog/mebel_dlya_spalni/tualetnye_stoliki/" title="Туалетные столики">Туалетные столики</a></li>-->
-              <!--<li><a class="b-section-list__show-more" href="/catalog/mebel_dlya_spalni/" title="" >Еще...</a></li>												</ul></li>								<li class="section col-xs-4 col-md-3 col-md-4 col-lg-3" id="bx_1847241719_51">-->
-            <!--<a class="around_image" href="/catalog/stoly_main/"><img src="/upload/iblock/8c9/8c9ac4e509954c005649b130f8289a77.jpg" alt="Столы" title="Столы" /></a>-->
-            <!--<a class="parent" href="/catalog/stoly_main/" title="Столы">Столы</a>-->
-            <!--<ul class="subsections list-unstyled" id="51">-->
-              <!--<li><a href="/catalog/stoly_main/zhurnalnye_stoliki/" title="Журнальные столики">Журнальные столики</a></li>-->
-              <!--<li><a href="/catalog/stoly_main/kompyuternye_stoly/" title="Компьютерные столы">Компьютерные столы</a></li>-->
-              <!--<li><a href="/catalog/stoly_main/obedennye_stoly/" title="Обеденные столы">Обеденные столы</a></li>-->
-              <!--<li><a href="/catalog/stoly_main/pismennye_stoly_main/" title="Письменные столы">Письменные столы</a></li>-->
-              <!--<li><a href="/catalog/stoly_main/stoly_dlya_peregovorov/" title="Столы для переговоров">Столы для переговоров</a></li>-->
-              <!--<li><a class="b-section-list__show-more" href="/catalog/stoly_main/" title="" >Еще...</a></li>				</ul></li>								<li class="section col-xs-4 col-md-3 col-md-4 col-lg-3" id="bx_1847241719_58">-->
-            <!--<a class="around_image" href="/catalog/shkafy_main/"><img src="/upload/iblock/1a7/1a72457249a2aaee4444412e707b143f.jpg" alt="Шкафы" title="Шкафы" /></a>-->
-            <!--<a class="parent" href="/catalog/shkafy_main/" title="Шкафы">Шкафы</a>-->
-            <!--<ul class="subsections list-unstyled" id="58">-->
-              <!--<li><a href="/catalog/shkafy_main/dvukhdvernye/" title="Двухдверные">Двухдверные</a></li>-->
-              <!--<li><a href="/catalog/shkafy_main/knizhnye_polki/" title="Книжные полки">Книжные полки</a></li>-->
-              <!--<li><a href="/catalog/shkafy_main/odnodvernye/" title="Однодверные">Однодверные</a></li>-->
-              <!--<li><a href="/catalog/shkafy_main/stellazhi_main/" title="Стеллажи">Стеллажи</a></li>-->
-              <!--<li><a href="/catalog/shkafy_main/trekhdvernye/" title="Трехдверные">Трехдверные</a></li>-->
-              <!--<li><a class="b-section-list__show-more" href="/catalog/shkafy_main/" title="" >Еще...</a></li>-->
-            <!--</ul>-->
-          <!--</li>-->
           </ul>
         </div>
         <!-- /section.list -->
@@ -214,308 +149,309 @@
           </ul>
           <div class="tab-content ">
             <div role="tabpanel" class="tab-pane active" id="tabKRNcb1__main">
-              <div class="tab-pane-in">
-                <div class="tab-pane-in2">
-                  <div class="tab-sorter">
-                    <div class="b-sorter js-sorter clearfix" data-ajaxpagesid="ajaxpages_main">
-                      <div class="b-sorter__template hidden-print">
-                        <a
-                          id="list-switcher"
-                          class="js-sorter__a"
-                          href="#"
-                          data-fvalue="table"
-                           title="Список"
-                          (click)="changeView('LIST', $event)">
-                          <svg class="svg-icon icon-table">
-                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-view-table">
-                              <svg viewBox="0 0 14 14" id="svg-4x-view-table" width="100%" height="100%">
-                                <path d="M13,1V3H1V1H13m0,5V8H1V6H13m0,5v2H1V11H13M14,0H0V4H14V0Zm0,5H0V9H14V5Zm0,5H0v4H14V10Z"></path>
-                              </svg>
-                            </use>
-                          </svg>
-                          <span>Список</span></a>
-                          <a
-                            id="gallery-switcher"
-                            class="js-sorter__a"
-                             href="#"
-                             data-fvalue="gallery"
-                             (click)="changeView('GALLERY', $event)"
-                             title="Галерея">
-                            <svg class="svg-icon icon-gallery">
-                              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-view-gallery">
-                                <svg viewBox="0 0 14 14" id="svg-4x-view-gallery" width="100%" height="100%">
-                                  <path d="M13,1V3H7V1h6M3,1V3H1V1H3M13,6V8H7V6h6M3,6V8H1V6H3m10,5v2H7V11h6M3,11v2H1V11H3M14,0H6V4h8V0ZM4,0H0V4H4V0ZM14,5H6V9h8V5ZM4,5H0V9H4V5Zm10,5H6v4h8V10ZM4,10H0v4H4V10Z"></path>
-                                </svg>
-                              </use>
-                            </svg>
-                            <span>Галерея</span>
-                          </a>
-                        <a
-                          id="card-switcher"
-                          class="selected js-sorter__a"
-                          href="#"
-                          data-fvalue="showcase"
-                          title="Витрина"
-                          (click)="changeView('CARD', $event)">
-                          <svg class="svg-icon icon-showcase">
-                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-view-showcase">
-                              <svg viewBox="0 0 14 14" id="svg-4x-view-showcase" width="100%" height="100%">
-                                <path d="M13,1V5H9V1h4M5,1V5H1V1H5m8,8v4H9V9h4M5,9v4H1V9H5m9-9H8V6h6V0ZM6,0H0V6H6V0Zm8,8H8v6h6V8ZM6,8H0v6H6V8Z"></path>
-                              </svg>
-                            </use>
-                          </svg>
-                          <span>Витрина</span></a>
-                      </div>
-                    </div>
-                  </div>
-              <div id="ajaxpages_main" class="ajaxpages_main">
-                <!-- showcase -->
-                <div class="gopro-container">
-                  <div class="list-showcase view-showcase row" id="view-showcase" *ngIf="view === 'CARD'">
-                    <div class="js-element da2 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-5rs mod-short"
-                         *ngFor="let p of products">
-                      <div class="list-showcase__inner js-element__shadow">
-                        <!-- part main -->
-                        <div class="list-showcase__part-main">
-                          <div class="list-showcase__mix">
-                            <div class="list-showcase__picture">
-                              <a href="{{p.link}}">
-                                <img class="js-list-picture js-lazy lazy-animation"
-                                src="/assets/img/catalog/198_132/empty.png"
-                                data-src="{{getCardImageLink(p)}}"
-                                alt="{{p.altTitle}}"/>
-                              </a>
-                            </div>
-                            <div class="list-showcase__timer-stickers">
-                              <div class="list-showcase__stickers">
-                                <div class="c-stickers">
-                                  <span class="c-stickers__sticker c-stickers__da2" *ngIf="p.productOfDay">Товар дня</span>
-                                  <span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__new" *ngIf="p.newProduct">Новинка</span>
-                                  <span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__hit" *ngIf="p.hit">Хит</span>
-                                  <span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value" *ngIf="p.discountPrice">
-                                    -<span class="js-discount-value">{{p.discount}}</span>%
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
+              <app-products-list [products]="products"></app-products-list>
+              <!--<div class="tab-pane-in">-->
+                <!--<div class="tab-pane-in2">-->
+                  <!--<div class="tab-sorter">-->
+                    <!--<div class="b-sorter js-sorter clearfix" data-ajaxpagesid="ajaxpages_main">-->
+                      <!--<div class="b-sorter__template hidden-print">-->
+                        <!--<a-->
+                          <!--id="list-switcher"-->
+                          <!--class="js-sorter__a"-->
+                          <!--href="#"-->
+                          <!--data-fvalue="table"-->
+                           <!--title="Список"-->
+                          <!--(click)="changeView('LIST', $event)">-->
+                          <!--<svg class="svg-icon icon-table">-->
+                            <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-view-table">-->
+                              <!--<svg viewBox="0 0 14 14" id="svg-4x-view-table" width="100%" height="100%">-->
+                                <!--<path d="M13,1V3H1V1H13m0,5V8H1V6H13m0,5v2H1V11H13M14,0H0V4H14V0Zm0,5H0V9H14V5Zm0,5H0v4H14V10Z"></path>-->
+                              <!--</svg>-->
+                            <!--</use>-->
+                          <!--</svg>-->
+                          <!--<span>Список</span></a>-->
+                          <!--<a-->
+                            <!--id="gallery-switcher"-->
+                            <!--class="js-sorter__a"-->
+                             <!--href="#"-->
+                             <!--data-fvalue="gallery"-->
+                             <!--(click)="changeView('GALLERY', $event)"-->
+                             <!--title="Галерея">-->
+                            <!--<svg class="svg-icon icon-gallery">-->
+                              <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-view-gallery">-->
+                                <!--<svg viewBox="0 0 14 14" id="svg-4x-view-gallery" width="100%" height="100%">-->
+                                  <!--<path d="M13,1V3H7V1h6M3,1V3H1V1H3M13,6V8H7V6h6M3,6V8H1V6H3m10,5v2H7V11h6M3,11v2H1V11H3M14,0H6V4h8V0ZM4,0H0V4H4V0ZM14,5H6V9h8V5ZM4,5H0V9H4V5Zm10,5H6v4h8V10ZM4,10H0v4H4V10Z"></path>-->
+                                <!--</svg>-->
+                              <!--</use>-->
+                            <!--</svg>-->
+                            <!--<span>Галерея</span>-->
+                          <!--</a>-->
+                        <!--<a-->
+                          <!--id="card-switcher"-->
+                          <!--class="selected js-sorter__a"-->
+                          <!--href="#"-->
+                          <!--data-fvalue="showcase"-->
+                          <!--title="Витрина"-->
+                          <!--(click)="changeView('CARD', $event)">-->
+                          <!--<svg class="svg-icon icon-showcase">-->
+                            <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-view-showcase">-->
+                              <!--<svg viewBox="0 0 14 14" id="svg-4x-view-showcase" width="100%" height="100%">-->
+                                <!--<path d="M13,1V5H9V1h4M5,1V5H1V1H5m8,8v4H9V9h4M5,9v4H1V9H5m9-9H8V6h6V0ZM6,0H0V6H6V0Zm8,8H8v6h6V8ZM6,8H0v6H6V8Z"></path>-->
+                              <!--</svg>-->
+                            <!--</use>-->
+                          <!--</svg>-->
+                          <!--<span>Витрина</span></a>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+              <!--<div id="ajaxpages_main" class="ajaxpages_main">-->
+                <!--&lt;!&ndash; showcase &ndash;&gt;-->
+                <!--<div class="gopro-container">-->
+                  <!--<div class="list-showcase view-showcase row" id="view-showcase" *ngIf="view === 'CARD'">-->
+                    <!--<div class="js-element da2 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-5rs mod-short"-->
+                         <!--*ngFor="let p of products">-->
+                      <!--<div class="list-showcase__inner js-element__shadow">-->
+                        <!--&lt;!&ndash; part main &ndash;&gt;-->
+                        <!--<div class="list-showcase__part-main">-->
+                          <!--<div class="list-showcase__mix">-->
+                            <!--<div class="list-showcase__picture">-->
+                              <!--<a href="{{p.link}}">-->
+                                <!--<img class="js-list-picture js-lazy lazy-animation"-->
+                                <!--src="/assets/img/catalog/198_132/empty.png"-->
+                                <!--data-src="{{getCardImageLink(p)}}"-->
+                                <!--alt="{{p.altTitle}}"/>-->
+                              <!--</a>-->
+                            <!--</div>-->
+                            <!--<div class="list-showcase__timer-stickers">-->
+                              <!--<div class="list-showcase__stickers">-->
+                                <!--<div class="c-stickers">-->
+                                  <!--<span class="c-stickers__sticker c-stickers__da2" *ngIf="p.productOfDay">Товар дня</span>-->
+                                  <!--<span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__new" *ngIf="p.newProduct">Новинка</span>-->
+                                  <!--<span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__hit" *ngIf="p.hit">Хит</span>-->
+                                  <!--<span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value" *ngIf="p.discountPrice">-->
+                                    <!-- -<span class="js-discount-value">{{p.discount}}</span>%-->
+                                  <!--</span>-->
+                                <!--</div>-->
+                              <!--</div>-->
+                            <!--</div>-->
 
-                            <div class="list-showcase__compare">
-                              <a rel="nofollow" class="c-compare js-add2compare" href="/?action=ADD_TO_COMPARE_LIST&amp;id=117">
-                                <svg class="svg-icon">
-                                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use>
-                                </svg>
-                              </a>
-                            </div>
-                            <div class="list-showcase__favorite">
-                              <a rel="nofollow" class="c-favorite js-add2favorite"
-                                 href="{{p.link}}">
-                                <svg class="svg-icon">
-                                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use>
-                                </svg>
-                              </a>
-                            </div>
-                          </div>
-                          <div class="list-showcase__name-rating">
-                            <div class="list-showcase__name">
-                              <a href="{{p.link}}">{{p.title}}</a>
-                            </div>
-                            <div class="list-showcase__rating">
-                            </div>
-                          </div>
-                          <div class="list-showcase__prices">
-                            <div class="c-prices js-prices view-list page-list product-alone multyprice-no">
-                              <span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE">
-                                <span class="c-prices__name">Розничная цена:</span>
-                                <span class="c-prices__value js-prices_pdv_BASE" *ngIf="hasDiscount(p)">{{p.discountPrice}} руб.</span>
-                                <span class="c-prices__value js-prices_pdv_BASE" *ngIf="!hasDiscount(p)">{{p.price}} руб.</span>
-                                <span class="c-prices__value-old-before" *ngIf="hasDiscount(p)">
-                                  <span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE">
-                                    {{p.price}} руб.
-                                  </span>
-                                </span>
-                              </span>
-                            </div>
-                          </div>
-                          <div class="list-showcase__pay hidden-xs hidden-sm hidden-print">
-                            <!--noindex-->
-                            <div class="b-pay">
-                              <form class="b-pay__form js-pay__form js-buyform117 js-synchro clearfix"
-                                    name="add2basketform">
-                                <input type="hidden" name="action" value="ADD2BASKET">
-                                <input type="hidden" name="id" class="js-add2basketpid" value="116">
-                                <span class="b-pay__inner">
-                                  <span class="b-pay__quantity"></span>
-                                  <span class="b-pay__buttons">
-                                      <a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary" href="#"
-                                         title="В корзину">В корзину</a>
-                                      <a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken"
-                                         href="/personal/cart/" title="В корзине">В корзине</a>
-                                  </span>
-                                </span>
-                                <input type="submit" name="submit" class="nonep" value=""/>
-                              </form>
-                            </div>
-                            <!--/noindex-->
-                          </div>
-                          <div class="list-showcase__pay-mobile hidden-md hidden-lg">
-                            <a class="btn-primary" href="{{p.link}}">Подробнее</a>
-                          </div>
-                        </div>
-                        <!-- /part main -->
+                            <!--<div class="list-showcase__compare">-->
+                              <!--<a rel="nofollow" class="c-compare js-add2compare" href="/?action=ADD_TO_COMPARE_LIST&amp;id=117">-->
+                                <!--<svg class="svg-icon">-->
+                                  <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use>-->
+                                <!--</svg>-->
+                              <!--</a>-->
+                            <!--</div>-->
+                            <!--<div class="list-showcase__favorite">-->
+                              <!--<a rel="nofollow" class="c-favorite js-add2favorite"-->
+                                 <!--href="{{p.link}}">-->
+                                <!--<svg class="svg-icon">-->
+                                  <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use>-->
+                                <!--</svg>-->
+                              <!--</a>-->
+                            <!--</div>-->
+                          <!--</div>-->
+                          <!--<div class="list-showcase__name-rating">-->
+                            <!--<div class="list-showcase__name">-->
+                              <!--<a href="{{p.link}}">{{p.title}}</a>-->
+                            <!--</div>-->
+                            <!--<div class="list-showcase__rating">-->
+                            <!--</div>-->
+                          <!--</div>-->
+                          <!--<div class="list-showcase__prices">-->
+                            <!--<div class="c-prices js-prices view-list page-list product-alone multyprice-no">-->
+                              <!--<span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE">-->
+                                <!--<span class="c-prices__name">Розничная цена:</span>-->
+                                <!--<span class="c-prices__value js-prices_pdv_BASE" *ngIf="hasDiscount(p)">{{p.discountPrice}} руб.</span>-->
+                                <!--<span class="c-prices__value js-prices_pdv_BASE" *ngIf="!hasDiscount(p)">{{p.price}} руб.</span>-->
+                                <!--<span class="c-prices__value-old-before" *ngIf="hasDiscount(p)">-->
+                                  <!--<span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE">-->
+                                    <!--{{p.price}} руб.-->
+                                  <!--</span>-->
+                                <!--</span>-->
+                              <!--</span>-->
+                            <!--</div>-->
+                          <!--</div>-->
+                          <!--<div class="list-showcase__pay hidden-xs hidden-sm hidden-print">-->
+                            <!--&lt;!&ndash;noindex&ndash;&gt;-->
+                            <!--<div class="b-pay">-->
+                              <!--<form class="b-pay__form js-pay__form js-buyform117 js-synchro clearfix"-->
+                                    <!--name="add2basketform">-->
+                                <!--<input type="hidden" name="action" value="ADD2BASKET">-->
+                                <!--<input type="hidden" name="id" class="js-add2basketpid" value="116">-->
+                                <!--<span class="b-pay__inner">-->
+                                  <!--<span class="b-pay__quantity"></span>-->
+                                  <!--<span class="b-pay__buttons">-->
+                                      <!--<a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary" href="#"-->
+                                         <!--title="В корзину">В корзину</a>-->
+                                      <!--<a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken"-->
+                                         <!--href="/personal/cart/" title="В корзине">В корзине</a>-->
+                                  <!--</span>-->
+                                <!--</span>-->
+                                <!--<input type="submit" name="submit" class="nonep" value=""/>-->
+                              <!--</form>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash;/noindex&ndash;&gt;-->
+                          <!--</div>-->
+                          <!--<div class="list-showcase__pay-mobile hidden-md hidden-lg">-->
+                            <!--<a class="btn-primary" href="{{p.link}}">Подробнее</a>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash; /part main &ndash;&gt;-->
 
-                        <!-- part extended -->
-                        <div class="list-showcase__part-extended">
-                          <div class="list-showcase__attributes">
-                            <div class="c-attributes view-buttons  js-attributes" data-view="buttons">
-                              <!-- prop -->
-                              <div class="c-attributes__prop js-attributes__prop close" *ngIf="productHasOptions(p)" [ngClass]="getOptionsClass(p)">
-                                <span class="c-attributes__select js-attributes__select"><!-- name-current-value -->
-                                  <span class="c-attributes__name-current-value">
-                                    <span class="c-attributes__name">{{p.currentOffer.offerOption.title}}: </span>
-                                    <span class="c-attributes__current-value js-attributes__curent-value">
-                                      <span class="c-attributes__current-value__pseudo-option">
-                                        <span class="c-attributes__value-pic js-attributes__set-value-pic"
-                                          style="background-image:url('/upload/uf/f5d/f5de333248c540c800face7a41d37b19.jpg');"
-                                          title="Коричневый"></span>
-                                        <span class="c-attributes__value js-attributes__set-value-text">{{p.currentOffer.optionValue}}</span>
-                                        <svg class="c-attributes__arrow svg-icon">
-                                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use>
-                                        </svg>
-                                      </span>
-                                    </span>
-                                  </span>
-                                  <span class="c-attributes__options js-attributes__options">
-                                    <!--<span class="c-attributes__option js-attributes__option  selected" data-value="3">-->
-                                      <!--<span class="c-attributes__value c-attributes__option__value js-attributes__value-text">3</span>-->
+                        <!--&lt;!&ndash; part extended &ndash;&gt;-->
+                        <!--<div class="list-showcase__part-extended">-->
+                          <!--<div class="list-showcase__attributes">-->
+                            <!--<div class="c-attributes view-buttons  js-attributes" data-view="buttons">-->
+                              <!--&lt;!&ndash; prop &ndash;&gt;-->
+                              <!--<div class="c-attributes__prop js-attributes__prop close" *ngIf="productHasOptions(p)" [ngClass]="getOptionsClass(p)">-->
+                                <!--<span class="c-attributes__select js-attributes__select">&lt;!&ndash; name-current-value &ndash;&gt;-->
+                                  <!--<span class="c-attributes__name-current-value">-->
+                                    <!--<span class="c-attributes__name">{{p.currentOffer.offerOption.title}}: </span>-->
+                                    <!--<span class="c-attributes__current-value js-attributes__curent-value">-->
+                                      <!--<span class="c-attributes__current-value__pseudo-option">-->
+                                        <!--<span class="c-attributes__value-pic js-attributes__set-value-pic"-->
+                                          <!--style="background-image:url('/upload/uf/f5d/f5de333248c540c800face7a41d37b19.jpg');"-->
+                                          <!--title="Коричневый"></span>-->
+                                        <!--<span class="c-attributes__value js-attributes__set-value-text">{{p.currentOffer.optionValue}}</span>-->
+                                        <!--<svg class="c-attributes__arrow svg-icon">-->
+                                          <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use>-->
+                                        <!--</svg>-->
+                                      <!--</span>-->
                                     <!--</span>-->
-                                    <span class="c-attributes__option js-attributes__option"
-                                          *ngFor="let offer of p.saleOffers"
-                                          (click)="setCurrentOffer(p, offer)" [ngClass]="getOfferClass(p, offer)">
-                                      <span class="c-attributes__value-pic js-attributes__value-pic"
-                                        [ngStyle]="getOptionButtonStyle(offer)" *ngIf="p.optionsAreImages"
-                                        title="{{offer.optionValue}}"></span>
-                                      <span class="c-attributes__value c-attributes__option__value js-attributes__value-text">{{offer.optionValue}}</span>
-                                    </span>
-                                  </span>
-                                </span>
-                              </div><!-- /prop -->
-                            </div>
-                          </div>
-                          <div class="list-showcase__preview-text">
-                            <div class="list-showcase__preview-text__text">
-                              {{p.shortDescription}}
-                            </div>
-                            <div class="list-showcase__preview-text__more">
-                              <a href="{{p.link}}" title="">Подробнее</a>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- /part extended -->
-                      </div>
-                    </div><!-- /element -->
-                <!-- element -->
-              </div></div><!-- showcase -->
-                  <div class="list-gallery view-gallery row" id="view-gallery" *ngIf="view === 'GALLERY'">
-                    <div class="row no-gutter list-thead list-gallery__thead hidden-xs">
-                      <span class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                        <span class="list-thead__tr">
-                          <span class="list-thead__td">Фото</span>
-                        </span>
-                      </span>
-                      <span class="col-xs-9 col-sm-10 col-md-10 col-lg-10">
-                        <span class="row">
-                          <span class="col-xs-12 col-sm-4 col-md-5 col-lg-5">
-                            <span class="list-thead__tr">
-                              <span class="list-thead__td list-gallery__thead__product">Товар</span>
-                            </span>
-                          </span>
-                          <span class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                            <span class="list-thead__tr">
-                              <span class="list-thead__td">Цена</span>
-                            </span>
-                          </span>
-                          <span class=""></span>
-                        </span>
-                      </span>
-                    </div>
-                    <div class="js-element da2 list-element list-gallery__element" *ngFor="let p of products">
-                      <div class="list-gallery__inner js-element__shadow">
-                        <div class="row no-gutter">
-                          <div class="list-gallery__left-side col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                            <div class="list-gallery__picture">
-                              <a href="{{p.link}}">
-                                <img class="js-list-picture js-lazy" src="{{p.mainImage.galleryImageLink}}" alt="{{p.altTitle}}" style="">
-                              </a>
-                            </div>
-                          </div>
-                          <div class="list-gallery__right-side col-xs-9 col-sm-10 col-md-10 col-lg-10">
-                            <div class="row">
-                              <div class="list-gallery__over-mix col-xs-12 col-sm-4 col-md-5 col-lg-5">
-                                <!-- mix -->
-                                <div class="list-gallery__mix">
-                                  <div class="list-gallery__stickers hidden-xs">
-                                    <div class="c-stickers">
-                                      <span class="c-stickers__sticker c-stickers__da2" *ngIf="p.productOfDay">Товар дня</span>
-                                      <span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__new" *ngIf="p.newProduct">Новинка</span>
-                                      <span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__hit" *ngIf="p.hit">Хит</span>
-                                      <span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value"
-                                            *ngIf="p.discountPrice">
-                                        -<span class="js-discount-value">{{p.discount}}</span>%
-                                      </span>
-                                    </div>
-                                  </div>
+                                  <!--</span>-->
+                                  <!--<span class="c-attributes__options js-attributes__options">-->
+                                    <!--&lt;!&ndash;<span class="c-attributes__option js-attributes__option  selected" data-value="3">&ndash;&gt;-->
+                                      <!--&lt;!&ndash;<span class="c-attributes__value c-attributes__option__value js-attributes__value-text">3</span>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                                    <!--<span class="c-attributes__option js-attributes__option"-->
+                                          <!--*ngFor="let offer of p.saleOffers"-->
+                                          <!--(click)="setCurrentOffer(p, offer)" [ngClass]="getOfferClass(p, offer)">-->
+                                      <!--<span class="c-attributes__value-pic js-attributes__value-pic"-->
+                                        <!--[ngStyle]="getOptionButtonStyle(offer)" *ngIf="p.optionsAreImages"-->
+                                        <!--title="{{offer.optionValue}}"></span>-->
+                                      <!--<span class="c-attributes__value c-attributes__option__value js-attributes__value-text">{{offer.optionValue}}</span>-->
+                                    <!--</span>-->
+                                  <!--</span>-->
+                                <!--</span>-->
+                              <!--</div>&lt;!&ndash; /prop &ndash;&gt;-->
+                            <!--</div>-->
+                          <!--</div>-->
+                          <!--<div class="list-showcase__preview-text">-->
+                            <!--<div class="list-showcase__preview-text__text">-->
+                              <!--{{p.shortDescription}}-->
+                            <!--</div>-->
+                            <!--<div class="list-showcase__preview-text__more">-->
+                              <!--<a href="{{p.link}}" title="">Подробнее</a>-->
+                            <!--</div>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash; /part extended &ndash;&gt;-->
+                      <!--</div>-->
+                    <!--</div>&lt;!&ndash; /element &ndash;&gt;-->
+                <!--&lt;!&ndash; element &ndash;&gt;-->
+              <!--</div></div>&lt;!&ndash; showcase &ndash;&gt;-->
+                  <!--<div class="list-gallery view-gallery row" id="view-gallery" *ngIf="view === 'GALLERY'">-->
+                    <!--<div class="row no-gutter list-thead list-gallery__thead hidden-xs">-->
+                      <!--<span class="col-xs-3 col-sm-2 col-md-2 col-lg-2">-->
+                        <!--<span class="list-thead__tr">-->
+                          <!--<span class="list-thead__td">Фото</span>-->
+                        <!--</span>-->
+                      <!--</span>-->
+                      <!--<span class="col-xs-9 col-sm-10 col-md-10 col-lg-10">-->
+                        <!--<span class="row">-->
+                          <!--<span class="col-xs-12 col-sm-4 col-md-5 col-lg-5">-->
+                            <!--<span class="list-thead__tr">-->
+                              <!--<span class="list-thead__td list-gallery__thead__product">Товар</span>-->
+                            <!--</span>-->
+                          <!--</span>-->
+                          <!--<span class="col-xs-12 col-sm-4 col-md-4 col-lg-4">-->
+                            <!--<span class="list-thead__tr">-->
+                              <!--<span class="list-thead__td">Цена</span>-->
+                            <!--</span>-->
+                          <!--</span>-->
+                          <!--<span class=""></span>-->
+                        <!--</span>-->
+                      <!--</span>-->
+                    <!--</div>-->
+                    <!--<div class="js-element da2 list-element list-gallery__element" *ngFor="let p of products">-->
+                      <!--<div class="list-gallery__inner js-element__shadow">-->
+                        <!--<div class="row no-gutter">-->
+                          <!--<div class="list-gallery__left-side col-xs-3 col-sm-2 col-md-2 col-lg-2">-->
+                            <!--<div class="list-gallery__picture">-->
+                              <!--<a href="{{p.link}}">-->
+                                <!--<img class="js-list-picture js-lazy" src="{{p.mainImage.galleryImageLink}}" alt="{{p.altTitle}}" style="">-->
+                              <!--</a>-->
+                            <!--</div>-->
+                          <!--</div>-->
+                          <!--<div class="list-gallery__right-side col-xs-9 col-sm-10 col-md-10 col-lg-10">-->
+                            <!--<div class="row">-->
+                              <!--<div class="list-gallery__over-mix col-xs-12 col-sm-4 col-md-5 col-lg-5">-->
+                                <!--&lt;!&ndash; mix &ndash;&gt;-->
+                                <!--<div class="list-gallery__mix">-->
+                                  <!--<div class="list-gallery__stickers hidden-xs">-->
+                                    <!--<div class="c-stickers">-->
+                                      <!--<span class="c-stickers__sticker c-stickers__da2" *ngIf="p.productOfDay">Товар дня</span>-->
+                                      <!--<span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__new" *ngIf="p.newProduct">Новинка</span>-->
+                                      <!--<span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__hit" *ngIf="p.hit">Хит</span>-->
+                                      <!--<span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value"-->
+                                            <!--*ngIf="p.discountPrice">-->
+                                        <!-- -<span class="js-discount-value">{{p.discount}}</span>%-->
+                                      <!--</span>-->
+                                    <!--</div>-->
+                                  <!--</div>-->
 
-                                  <div class="list-gallery__name-rating-article">
-                                    <div class="list-gallery__name-rating">
-                                      <span class="list-gallery__name">
-                                        <a href="{{p.link}}">{{p.title}}</a>
-                                      </span>
-                                      <span class="list-gallery__rating hidden-xs"></span>
-                                    </div>
-                                    <div class="list-gallery__article hidden-xs hidden-sm">
-                                      <span class="c-article js-article js-article-invisible"><span class="c-article__title">Артикул:</span>
-                                        <span class="c-article__value js-article__value"></span>
-                                      </span>
-                                    </div>
-                                  </div>
-                                  <div class="list-gallery__compare-favorite hidden-xs">
-                                  <span class="list-gallery__compare">
-                                <a rel="nofollow" class="c-compare js-add2compare" href="/?AJAX_CALL=Y&amp;sorterchange=ajaxpages_main&amp action=ADD_TO_COMPARE_LIST&amp;id=117">
-                                  <svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg><span class="c-compare__title">Сравнить</span><span class="c-compare__title-in">В сравнении</span></a>
-                              </span>
-                                    <span class="list-gallery__favorite">
-			<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_kabineta/kresla_office/kreslo_van_gog/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg><span class="c-favorite__title">В закладки</span><span class="c-favorite__title-in">В закладках</span></a>
-		</span>
-                                  </div>
+                                  <!--<div class="list-gallery__name-rating-article">-->
+                                    <!--<div class="list-gallery__name-rating">-->
+                                      <!--<span class="list-gallery__name">-->
+                                        <!--<a href="{{p.link}}">{{p.title}}</a>-->
+                                      <!--</span>-->
+                                      <!--<span class="list-gallery__rating hidden-xs"></span>-->
+                                    <!--</div>-->
+                                    <!--<div class="list-gallery__article hidden-xs hidden-sm">-->
+                                      <!--<span class="c-article js-article js-article-invisible"><span class="c-article__title">Артикул:</span>-->
+                                        <!--<span class="c-article__value js-article__value"></span>-->
+                                      <!--</span>-->
+                                    <!--</div>-->
+                                  <!--</div>-->
+                                  <!--<div class="list-gallery__compare-favorite hidden-xs">-->
+                                  <!--<span class="list-gallery__compare">-->
+                                <!--<a rel="nofollow" class="c-compare js-add2compare" href="/?AJAX_CALL=Y&amp;sorterchange=ajaxpages_main&amp action=ADD_TO_COMPARE_LIST&amp;id=117">-->
+                                  <!--<svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg><span class="c-compare__title">Сравнить</span><span class="c-compare__title-in">В сравнении</span></a>-->
+                              <!--</span>-->
+                                    <!--<span class="list-gallery__favorite">-->
+			<!--<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_kabineta/kresla_office/kreslo_van_gog/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg><span class="c-favorite__title">В закладки</span><span class="c-favorite__title-in">В закладках</span></a>-->
+		<!--</span>-->
+                                  <!--</div>-->
 
-                                </div>
-                              </div>
+                                <!--</div>-->
+                              <!--</div>-->
 
-                              <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                                <div class="list-gallery__prices">
-                                  <div class="c-prices js-prices view-list page-list product-multiple multyprice-no">
-                                    <span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE">
-                                      <span class="c-prices__name">Розничная цена:</span>
-                                      <span class="c-prices__value js-prices_pdv_BASE" *ngIf="!hasDiscount(p)">{{p.price}} руб.</span>
-                                      <span class="c-prices__value js-prices_pdv_BASE" *ngIf="hasDiscount(p)">{{p.discountPrice}} руб.</span>
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                                <div class="list-gallery__more hidden-print">
-                                  <a class="btn-primary waves-effect" href="{{p.link}}">Подробнее</a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-            </div>
-              </div>
+                              <!--<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">-->
+                                <!--<div class="list-gallery__prices">-->
+                                  <!--<div class="c-prices js-prices view-list page-list product-multiple multyprice-no">-->
+                                    <!--<span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE">-->
+                                      <!--<span class="c-prices__name">Розничная цена:</span>-->
+                                      <!--<span class="c-prices__value js-prices_pdv_BASE" *ngIf="!hasDiscount(p)">{{p.price}} руб.</span>-->
+                                      <!--<span class="c-prices__value js-prices_pdv_BASE" *ngIf="hasDiscount(p)">{{p.discountPrice}} руб.</span>-->
+                                    <!--</span>-->
+                                  <!--</div>-->
+                                <!--</div>-->
+                              <!--</div>-->
+                              <!--<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">-->
+                                <!--<div class="list-gallery__more hidden-print">-->
+                                  <!--<a class="btn-primary waves-effect" href="{{p.link}}">Подробнее</a>-->
+                                <!--</div>-->
+                              <!--</div>-->
+                            <!--</div>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+              <!--</div>-->
             </div>
           </div>
 
@@ -615,17 +551,6 @@
                 </div>
               </div>
             </div>
-            <!--<div class="item" id="bx_3485106786_107">-->
-              <!--<div class="in">-->
-                <!--<div class="pic">-->
-                  <!--<a class="brandslistimgowl1__block" href="/brands/street_furniture/">-->
-                    <!--<img class="" src="/upload/iblock/bab/bab8110368efc6470e3c5191961cb935.png" data-src="/upload/iblock/bab/bab8110368efc6470e3c5191961cb935.png" alt="Street Furniture" title="Street Furniture" />-->
-                  <!--</a>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div class="item" id="bx_3485106786_106"><div class="in"><div class="pic"><a class="brandslistimgowl1__block" href="/brands/old_world_chairs/"><img class="" src="/upload/iblock/3bb/3bbd7bd0399f646c081f585c33e6230b.jpg" data-src="/upload/iblock/3bb/3bbd7bd0399f646c081f585c33e6230b.jpg" alt="Old World Chairs" title="Old World Chairs" /></a></div></div></div><div class="item" id="bx_3485106786_105"><div class="in"><div class="pic"><a class="brandslistimgowl1__block" href="/brands/altrenotti/"><img class="" src="/upload/iblock/732/7326cb4837145f6e7c185114fc367dd4.jpg" data-src="/upload/iblock/732/7326cb4837145f6e7c185114fc367dd4.jpg" alt="Altrenotti" title="Altrenotti" /></a></div></div></div><div class="item" id="bx_3485106786_104"><div class="in"><div class="pic"><a class="brandslistimgowl1__block" href="/brands/savello/"><img class="" src="/upload/iblock/aa2/aa28f363b451cdb6d562202a582e5aaf.gif" data-src="/upload/iblock/aa2/aa28f363b451cdb6d562202a582e5aaf.gif" alt="Savello" title="Savello" /></a></div></div></div><div class="item" id="bx_3485106786_103"><div class="in"><div class="pic"><a class="brandslistimgowl1__block" href="/brands/taluste/"><img class="" src="/upload/iblock/e4a/e4a884e0de7c8321cfad8ccaa2b2f118.png" data-src="/upload/iblock/e4a/e4a884e0de7c8321cfad8ccaa2b2f118.png" alt="Taluste" title="Taluste" /></a></div></div></div><div class="item" id="bx_3485106786_102"><div class="in"><div class="pic"><a class="brandslistimgowl1__block" href="/brands/lulsta/"><img class="" src="/upload/iblock/6a2/6a2cbd688f3fafa10e33468e48121ce0.png" data-src="/upload/iblock/6a2/6a2cbd688f3fafa10e33468e48121ce0.png" alt="Lulsta" title="Lulsta" /></a></div></div></div></div></div>&lt;!&ndash; /brands &ndash;&gt;-->
-
         <!-- shops -->
 
         <div class="shops2">
@@ -696,197 +621,4 @@
   </div><!-- /content -->
 </div><!-- /body -->
 
-
-<div id="footer" class="footer"><!-- footer -->
-  <div class="centering">
-    <div class="centeringin line1 clearfix">
-      <div class="block one">
-        <div class="logo">
-          <a href="/">
-            <img src="/assets/img/logo.png" alt="">
-          </a>
-        </div>
-        <div class="contacts clearfix">
-          <div class="phone1">
-            <a class="fancyajax fancybox.ajax recall" href="/include/popup/recall/?AJAX_CALL=Y" title="Заказать звонок"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-mobile-phone"></use></svg>Заказать звонок</a>
-            <div class="phone">
-              <a href="tel:80000000000">8 (000) 000 00 00</a>
-            </div>
-          </div>
-          <div class="phone2">
-            <a class="fancyajax fancybox.ajax feedback" href="/include/popup/feedback/?AJAX_CALL=Y" title="Обратная связь"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-dialog"></use></svg>Обратная связь</a>
-            <div class="phone">
-              <a href="tel:80000000000">8 (000) 000 00 00</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="block two hidden-print">
-
-
-        <div class="row catmenu ellipsisnames hidden-xs">
-          <div class="col-xs-12">
-            <div class="title">Каталог товаров</div>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">			<div class="item depth_level1">
-            <a href="/catalog/mebel_dlya_gostinnoy/" title="Мебель для гостинной (демо-товары)"><span>Мебель для гостинной (демо-товары)</span></a>
-          </div>
-            <div class="item depth_level2">
-              <a href="/catalog/mebel_dlya_gostinnoy/bufety/" title="Буфеты"><span>Буфеты</span></a>
-            </div>
-            <div class="item depth_level2">
-              <a href="/catalog/mebel_dlya_gostinnoy/divany/" title="Диваны"><span>Диваны</span></a>
-            </div>
-            <div class="item depth_level2">
-              <a href="/catalog/mebel_dlya_gostinnoy/zerkala/" title="Зеркала"><span>Зеркала</span></a>
-            </div>
-            <div class="item depth_level2">
-              <a href="/catalog/mebel_dlya_gostinnoy/komody/" title="Комоды"><span>Комоды</span></a>
-            </div>
-          </div><div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">			<div class="item depth_level1">
-          <a href="/catalog/mebel_dlya_kabineta/" title="Мебель для кабинета"><span>Мебель для кабинета</span></a>
-        </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_kabineta/biblioteki/" title="Библиотеки"><span>Библиотеки</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_kabineta/byuro/" title="Бюро"><span>Бюро</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_kabineta/divany_office/" title="Диваны"><span>Диваны</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_kabineta/zerkala_office/" title="Зеркала"><span>Зеркала</span></a>
-          </div>
-        </div><div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">			<div class="item depth_level1">
-          <a href="/catalog/osveshchenie/" title="Освещение"><span>Освещение</span></a>
-        </div>
-          <div class="item depth_level2">
-            <a href="/catalog/osveshchenie/bra/" title="Бра"><span>Бра</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/osveshchenie/kaskady/" title="Каскады"><span>Каскады</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/osveshchenie/lampochki/" title="Лампочки"><span>Лампочки</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/osveshchenie/lyustry/" title="Люстры"><span>Люстры</span></a>
-          </div>
-        </div><div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">			<div class="item depth_level1">
-          <a href="/catalog/mebel_dlya_detskoy/" title="Мебель для детской"><span>Мебель для детской</span></a>
-        </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_detskoy/komody_child/" title="Комоды"><span>Комоды</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_detskoy/krovati_child/" title="Кровати"><span>Кровати</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_detskoy/pismennye_stoly/" title="Письменные столы"><span>Письменные столы</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_detskoy/stellazhi/" title="Стеллажи"><span>Стеллажи</span></a>
-          </div>
-        </div><div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">			<div class="item depth_level1">
-          <a href="/catalog/mebel_dlya_prikhozhey/" title="Мебель для прихожей"><span>Мебель для прихожей</span></a>
-        </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_prikhozhey/zerkala_entrance/" title="Зеркала"><span>Зеркала</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_prikhozhey/konsoli_entrance/" title="Консоли"><span>Консоли</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_prikhozhey/stoly_zhurnalnye_entrance/" title="Столы журнальные"><span>Столы журнальные</span></a>
-          </div>
-        </div><div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">			<div class="item depth_level1">
-          <a href="/catalog/mebel_dlya_spalni/" title="Мебель для спальни"><span>Мебель для спальни</span></a>
-        </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_spalni/banketki/" title="Банкетки"><span>Банкетки</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_spalni/komody_bedroom/" title="Комоды"><span>Комоды</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_spalni/krovati/" title="Кровати"><span>Кровати</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_spalni/prikrovatnye_tumby/" title="Прикроватные тумбы"><span>Прикроватные тумбы</span></a>
-          </div>
-        </div>
-        </div>
-      </div>
-      <div class="block three hidden-print">
-        <div class="footmenu clearfix"><div class="title">Товары</div><div class="item"><a href="/about/"><span>О компании</span></a></div><div class="item"><a href="/vendors/"><span>Вендорам</span></a></div><div class="item"><a href="/suppliers/"><span>Поставщикам</span></a></div><div class="item"><a href="/docs/"><span>Образцы документов</span></a></div><div class="item"><a href="/news/"><span>Новости</span></a></div><div class="item"><a href="/action/"><span>Акции</span></a></div><div class="item"><a href="/delivery/"><span>Доставка</span></a></div><div class="item"><a href="/payment/"><span>Оплата</span></a></div><div class="item"><a href="/shops/"><span>Наши магазины</span></a></div><div class="item"><a href="/contacts/"><span>Контакты</span></a></div></div>				</div>
-      <div class="block four hidden-print">
-        <div class="sovservice">
-          <div style="margin-bottom:5px;">
-            <div style="margin-bottom:6px;text-transform:uppercase;">Подписывайся</div>
-            <a href="https://www.facebook.com/redsignru/" rel="nofollow" target="_blank"><img src="/include/icon_fb.png" alt="АЛЬФА Системс Facebook"></a>
-            <a href="https://vk.com/redsignru" rel="nofollow" target="_blank"><img src="/include/icon_vk.png" alt="АЛЬФА Системс Вконтакте"></a>
-            <a href="https://twitter.com/redsignru" rel="nofollow" target="_blank"><img src="/include/icon_tw.png" alt="АЛЬФА Системс Twitter"></a>
-
-            <!-- VK Widget -->
-            <br>
-            <script type="text/javascript" src="//vk.com/js/api/openapi.js?136"></script>
-            <div id="vk_groups"></div>
-            <script type="text/javascript">
-              VK.Widgets.Group("vk_groups", {mode: 1, no_cover: 1, color1: 'fafafa', color3: '7a6137'}, 125317513);
-            </script>
-            <!-- /VK Widget -->
-          </div>
-
-        </div>
-        <div class="subscribe">
-          <div class="footersubscribe" id="footersubscribe">
-            <div class="title">Подписка на новости</div>
-            <!--'start_frame_cache_footersubscribe'-->
-            <form action="/personal/subscriptions/">
-            <input class="noned" type="checkbox" name="sf_RUB_ID[]" value="1" checked title="Новости сайта" />
-              <input class="noned" type="checkbox" name="sf_RUB_ID[]" value="2" checked title="Акции на сайте" />
-              <div class="inp">
-                <input type="text" name="sf_EMAIL" size="20" value="" title="Введите ваш e-mail" placeholder="Введите ваш e-mail" />
-              </div><button class="btn-primary" type="submit" name="OK" value="Подписаться">Подписаться</button>
-            </form><!--'end_frame_cache_footersubscribe'-->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="line2 hidden-print">
-    <div class="centering">
-      <div class="centeringin clearfix">
-        <div class="sitecopy">
-          © Все права защищены. Информация сайта защищена законом об авторских правах.					</div>
-        <div class="developercopy hidden-xs">Powered by <a href="https://www.redsign.ru/templates/store/redsign.profurniture/" target="_blank" rel="nofollow">ALFA Systems</a></div>
-      </div>
-    </div>
-  </div>
-</div><!-- /footer -->
-
-
-<div id="rs_easycart" class="rs_easycart brown addbodypadding hidden-print" style='z-index:991;' data-serviceurl="/personal/"><!--'start_frame_cache_rs_easycart'--><div class="rsec rsec_content" style="max-width:1240px;"><div class="rsec_in"><div class="rsec_body"><div class="rsec_tyanya"><span><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-view-table"></use></svg><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-view-table"></use></svg><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-view-table"></use></svg><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-view-table"></use></svg></span><a class="rsec_close" href="#close">Закрыть<svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-close-button"></use></svg></a></div><div class="rsec_tabs"><div id="rsec_viewed" class="rsec_tab"><div class="rsec_thistab_viewed"><div class="rsec_emptytab rsec_clearfix"><div class="rsec_emptytab_icon">Список просмотренных товаров пуст</div></div></div></div><div id="rsec_compare" class="rsec_tab rsec_universalhandler" data-ajaxfinder_add="action=ADD_TO_COMPARE_LIST" data-ajaxfinder_remove="action=DELETE_FROM_COMPARE_LIST" ><div class="rsec_thistab_compare"><div class="rsec_emptytab rsec_clearfix"><div class="rsec_emptytab_icon">Список сравниваемых товаров пуст</div></div></div></div><div id="rsec_favorite" class="rsec_tab rsec_universalhandler" data-ajaxfinder="action=add2favorite" ><div class="rsec_thistab_favorite"><div class="rsec_emptytab rsec_clearfix"><div class="rsec_emptytab_icon">Список избранного пуст</div></div></div></div><div id="rsec_basket" class="rsec_tab rsec_universalhandler" data-ajaxfinder="action=ADD2BASKET" ><div class="rsec_thistab_basket"><div class="rsec_emptytab rsec_clearfix"><div class="rsec_emptytab_icon">Ваша корзина пуста</div></div></div></div></div></div></div></div><div class="rsec rsec_headers"><div class="rsec_in" style="max-width:1240px;"><div class="rsec_body"><a class="rsec_online" href="/contacts/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-question"></use></svg><span class="rsec_name">Помощь</span></a><div class="rsec_orlink"><a class="rsec_viewed rsec_changer js-unload" href="/include/easycart/viewed_products.php#rsec_viewed" data-tabid="#rsec_viewed"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-viewed"></use></svg><span class="rsec_name">Недавно просмотренные</span>&nbsp;<span class="rsec_color rsec_cnt js-viewed-prod-count">0</span></a></div><div class="rsec_orlink"><a class="rsec_compare rsec_changer js-unload" href="/include/easycart/compare.php#rsec_compare" data-tabid="#rsec_compare"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-compare"></use></svg><span class="rsec_name">Сравнение товаров</span>&nbsp;<span class="rsec_color rsec_cnt js-compare-prod-count">0</span></a></div><div class="rsec_orlink"><a class="rsec_favorite rsec_changer js-unload" href="/include/easycart/favorite.php#rsec_favorite" data-tabid="#rsec_favorite"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-heart-2"></use></svg><span class="rsec_name">Избранное</span>&nbsp;<span class="rsec_color rsec_cnt js-favorite-prod-count">0</span></a></div><div class="rsec_orlink"><a class="rsec_basket rsec_changer js-unload" href="/include/easycart/basket.php#rsec_basket" data-tabid="#rsec_basket"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-cart-2"></use></svg><span class="rsec_name">Товаров</span><span class="rsec_color">&nbsp;<span class="rsec_normalCount js-basket-prod-count">0</span></span> &nbsp;<span class="rsec_name">Сумма</span><span class="rsec_color rsec_sum">&nbsp;<span class="rsec_allSum_FORMATED js-basket-allsum-formated">0</span></span></a></div></div></div></div><!--'end_frame_cache_rs_easycart'--></div>
-
-<!--'start_frame_cache_footer_inc'--><script>RSGoPro_VIEWED = [];</script><!--'end_frame_cache_footer_inc'-->
-<a class="c-scroll2top js-scroll2top" href="#"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-up"></use></svg></a>
-
-<script type="text/javascript">RSGoPro_SetSet();</script>
-
-<div style="display:none;">AlfaSystems GoPro GP261D21</div>
-
-<script>$('#svg-icons').setHtmlByUrl({url:SITE_TEMPLATE_PATH + '/assets/img/icons.svg?v430'});</script>
-
-
-
-<div class="rstuning__overlay js-rstuning__main-overlay"></div>
-
-<div id="rstuning_styles"></div>
-<!--<script>-->
-  <!--var rsTuning = new RS.Tuning(),-->
-    <!--rsTuningComponent = new RS.TuningComponent();-->
-  <!--rsTuning.setColorMacrosContent("/* main *\/\n/* buttons *\/\n/* forms *\/\n/* links *\/\n/* text *\/\n/* grid *\/\n/** &#45;&#45; hard color color.scss &#45;&#45; **\/\n/* main *\/\n/* buttons *\/\n/* forms *\/\n/* links *\/\n/* text *\/\n/* grid *\/\n/** /&#45;&#45; hard color color.scss &#45;&#45; **\/\n/**************************************\nlabel_description_start\n**************************************\/\n/* line 7, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/macros.scss *\/\n.nothinSelectorJustColorTheme {\n  /* color1 - $color1 - GOPRO_QQ#COLOR_1_1#GOPRO_ZZ *\/\n  color: ##COLOR_1_1#;\n  /* darken color1 - $btn1-bg-color-hover - GOPRO_QQ#COLOR_1_1_DARKEN_10_PERSENT#GOPRO_ZZ *\/\n  color: ##COLOR_1_1_DARKEN_10_PERSENT#;\n  /* color2 - $color2 - GOPRO_QQ#COLOR_1_2#GOPRO_ZZ *\/\n  color: ##COLOR_1_2#;\n  /* darken color2 - $btn2-bg-color-hover - GOPRO_QQ#COLOR_1_2_DARKEN_10_PERSENT#GOPRO_ZZ *\/\n  color: ##COLOR_1_2_DARKEN_10_PERSENT#; }\n\n/**************************************\nlabel_description_finish\n**************************************\/\n/**************************************\nlabel_macros_file_start\n**************************************\/\n/* line 3, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_bitrix.sale.basket.basket.scss *\/\n.rsgopro .body .bx-basket .basket-item-property-scu-image .basket-item-scu-item:hover,\n.rsgopro .body .bx-basket .basket-item-property-scu-image .basket-item-scu-item.selected,\n.rsgopro .body .bx-basket .basket-item-property-scu-text .basket-item-scu-item:hover,\n.rsgopro .body .bx-basket .basket-item-property-scu-text .basket-item-scu-item.selected {\n  border-color: ##COLOR_1_1#; }\n\n/* line 3, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_brands.scss *\/\n.brandbig .item .name {\n  color: ##COLOR_1_1#; }\n\n/* line 2, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_btn.scss *\/\n.rsgopro .btn1, .rsgopro .btn-primary,\n.rsgopro .menu-sidebar li a:hover,\n.rsgopro .shops2 .shops2-panel .btn1.active {\n  color: #fff;\n  background-color: ##COLOR_1_1#;\n  border-color: ##COLOR_1_1#;\n  border-bottom-color: ##COLOR_1_1_DARKEN_10_PERSENT#; }\n  /* line 10, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_btn.scss *\/\n  .rsgopro .btn1:hover, .rsgopro .btn-primary:hover,\n  .rsgopro .menu-sidebar li a:hover:hover,\n  .rsgopro .shops2 .shops2-panel .btn1.active:hover {\n    color: #fff;\n    background-color: ##COLOR_1_1_DARKEN_10_PERSENT#;\n    border-color: ##COLOR_1_1_DARKEN_10_PERSENT#; }\n\n/* line 17, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_btn.scss *\/\n.rsgopro .btn1-darken, .rsgopro .btn-primary-darken {\n  color: #fff;\n  background-color: ##COLOR_1_1_DARKEN_10_PERSENT#;\n  border-color: ##COLOR_1_1_DARKEN_10_PERSENT#;\n  border-bottom-color: ##COLOR_1_1#; }\n  /* line 23, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_btn.scss *\/\n  .rsgopro .btn1-darken:hover, .rsgopro .btn-primary-darken:hover {\n    color: #fff;\n    background-color: ##COLOR_1_1#;\n    border-color: ##COLOR_1_1_DARKEN_10_PERSENT#; }\n\n/* line 30, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_btn.scss *\/\n.rsgopro .btn2, .rsgopro .btn-default {\n  color: #fff;\n  background-color: ##COLOR_1_2#;\n  border-color: ##COLOR_1_2#;\n  border-bottom-color: ##COLOR_1_2_DARKEN_10_PERSENT#; }\n  /* line 36, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_btn.scss *\/\n  .rsgopro .btn2:hover, .rsgopro .btn-default:hover {\n    color: #fff;\n    background-color: ##COLOR_1_2_DARKEN_10_PERSENT#;\n    border-color: ##COLOR_1_2_DARKEN_10_PERSENT#; }\n\n/* line 43, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_btn.scss *\/\n.rsgopro .btn3 {\n  color: #fff;\n  background-color: #899CC7;\n  border-color: #899CC7;\n  border-bottom-color: #5570ae; }\n  /* line 49, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_btn.scss *\/\n  .rsgopro .btn3:hover {\n    color: #fff;\n    background-color: #5570ae;\n    border-color: #5570ae; }\n\n/* line 58, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_btn.scss *\/\n.rsgopro .body .sale-acountpay-fixedpay-item,\n.rsgopro .body .bx_profile .btn-md.main-profile-submit,\n.rsgopro .body .sale-profile-detail-form .btn-md:first-of-type,\n.rsgopro .body .bx-soa-more-btn .btn.btn-default,\n.rsgopro .body .bx-soa-sidebar .bx-soa-cart-total .btn.btn-default,\n.rsgopro .body #bx-soa-order #bx-soa-orderSave .btn.btn-default,\n.rsgopro .body #bx-soa-order .bx-soa-sidebar .bx-soa-cart-total .btn.btn-default,\n.rsgopro .body #bx-soa-order .bx-authform .btn-default,\n.rsgopro .body .bx_ordercart .bx_ordercart_order_pay .bx_ordercart_order_pay_center .checkout,\n.rsgopro .body .bx-basket.bx-blue .btn.btn-default {\n  color: #fff;\n  background-color: ##COLOR_1_1#;\n  border-color: ##COLOR_1_1#;\n  border-bottom-color: ##COLOR_1_1_DARKEN_10_PERSENT#; }\n  /* line 73, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_btn.scss *\/\n  .rsgopro .body .sale-acountpay-fixedpay-item:hover,\n  .rsgopro .body .bx_profile .btn-md.main-profile-submit:hover,\n  .rsgopro .body .sale-profile-detail-form .btn-md:first-of-type:hover,\n  .rsgopro .body .bx-soa-more-btn .btn.btn-default:hover,\n  .rsgopro .body .bx-soa-sidebar .bx-soa-cart-total .btn.btn-default:hover,\n  .rsgopro .body #bx-soa-order #bx-soa-orderSave .btn.btn-default:hover,\n  .rsgopro .body #bx-soa-order .bx-soa-sidebar .bx-soa-cart-total .btn.btn-default:hover,\n  .rsgopro .body #bx-soa-order .bx-authform .btn-default:hover,\n  .rsgopro .body .bx_ordercart .bx_ordercart_order_pay .bx_ordercart_order_pay_center .checkout:hover,\n  .rsgopro .body .bx-basket.bx-blue .btn.btn-default:hover {\n    color: #fff;\n    background-color: ##COLOR_1_1_DARKEN_10_PERSENT#;\n    border-color: ##COLOR_1_1_DARKEN_10_PERSENT#; }\n\n/* line 80, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_btn.scss *\/\n.rsgopro .body .sale-order-detail .sale-order-detail-about-order-inner-container-repeat-button,\n.rsgopro .body .sale-order-detail .sale-order-detail-payment-options-methods-button-element,\n.rsgopro .body .bx_my_order_cancel input[type=\"submit\"],\n.rsgopro .body .bx_profile .btn-md,\n.rsgopro .body .sale-profile-detail-form .btn-md,\n.rsgopro .body #bx-soa-orderSave .btn.btn-default,\n.rsgopro .body .bx-soa-more-btn .btn.btn-default:first-child,\n.rsgopro .body .bx-soa-sidebar .bx-soa-cart-total .btn.btn-default,\n.rsgopro .body #bx-soa-order .bx-soa-more-btn .btn.btn-default,\n.rsgopro .body #bx-soa-order .bx-soa-reg-block .btn-default,\n.rsgopro .body .bx_ordercart .bx_ordercart_order_pay .bx_ordercart_coupon .bx_bt_button {\n  color: #fff;\n  background-color: ##COLOR_1_2#;\n  border-color: ##COLOR_1_2#;\n  border-bottom-color: ##COLOR_1_2_DARKEN_10_PERSENT#; }\n  /* line 96, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_btn.scss *\/\n  .rsgopro .body .sale-order-detail .sale-order-detail-about-order-inner-container-repeat-button:hover,\n  .rsgopro .body .sale-order-detail .sale-order-detail-payment-options-methods-button-element:hover,\n  .rsgopro .body .bx_my_order_cancel input[type=\"submit\"]:hover,\n  .rsgopro .body .bx_profile .btn-md:hover,\n  .rsgopro .body .sale-profile-detail-form .btn-md:hover,\n  .rsgopro .body #bx-soa-orderSave .btn.btn-default:hover,\n  .rsgopro .body .bx-soa-more-btn .btn.btn-default:first-child:hover,\n  .rsgopro .body .bx-soa-sidebar .bx-soa-cart-total .btn.btn-default:hover,\n  .rsgopro .body #bx-soa-order .bx-soa-more-btn .btn.btn-default:hover,\n  .rsgopro .body #bx-soa-order .bx-soa-reg-block .btn-default:hover,\n  .rsgopro .body .bx_ordercart .bx_ordercart_order_pay .bx_ordercart_coupon .bx_bt_button:hover {\n    color: #fff;\n    background-color: ##COLOR_1_2_DARKEN_10_PERSENT#;\n    border-color: ##COLOR_1_2_DARKEN_10_PERSENT#; }\n\n/* line 103, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_btn.scss *\/\n.rsgopro .body .sale-personal-account-wallet-currency-item {\n  color: ##COLOR_1_1#; }\n\n/* line 107, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_btn.scss *\/\n.rsgopro .body .sale-acountpay-pp-company.bx-selected .sale-acountpay-pp-company-graf-container {\n  border-color: ##COLOR_1_1#; }\n\n/* catalog.element *\/\n/* line 3, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_catalog.element.scss *\/\n.detail__prices__title {\n  color: ##COLOR_1_1#; }\n\n/* line 7, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_catalog.element.scss *\/\n.detail__previewtext__go-to__link {\n  color: ##COLOR_1_1#; }\n  /* line 10, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_catalog.element.scss *\/\n  .detail__previewtext__go-to__link:hover {\n    color: ##COLOR_1_1_DARKEN_10_PERSENT#; }\n\n/* line 17, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_catalog.element.scss *\/\n.detail__pic__dots .owl-dot:hover, .detail__pic__dots .owl-dot.active {\n  border-color: ##COLOR_1_1#; }\n\n/* line 25, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_catalog.element.scss *\/\n.detail .c-important-props__title {\n  color: ##COLOR_1_1#; }\n\n/* line 35, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_catalog.element.scss *\/\n.body .scrollbar-inner > .scroll-element.scroll-draggable .scroll-bar {\n  background-color: ##COLOR_1_1#; }\n\n/* line 41, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_catalog.element.scss *\/\n.body .scrollbar-inner > .scroll-element .scroll-bar:hover {\n  background-color: ##COLOR_1_1#; }\n\n/* line 50, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_catalog.element.scss *\/\n.body .set .js-element:hover {\n  border-color: ##COLOR_1_1#; }\n\n/* line 57, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_catalog.element.scss *\/\n.body .set .fullpanel .block.myset .svg-icon {\n  fill: ##COLOR_1_1#; }\n\n/* line 66, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_catalog.element.scss *\/\n.body .tab-custom-content__files__svg {\n  fill: ##COLOR_1_2#; }\n\n/* line 3, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_catalog.section.scss *\/\n.list-showcase__preview-text__more a {\n  color: ##COLOR_1_1#; }\n\n/* catalog.sorter *\/\n/* line 3, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_catalog.sorter.scss *\/\n.b-sorter__block-name {\n  color: ##COLOR_1_1#; }\n\n/* line 7, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_catalog.sorter.scss *\/\n.b-sorter__template a.selected,\n.b-sorter__shortsort a.selected {\n  color: #fff;\n  background-color: ##COLOR_1_1#;\n  border-color: ##COLOR_1_1#; }\n\n/* line 13, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_catalog.sorter.scss *\/\n.b-sorter__template a.selected {\n  border-bottom-color: ##COLOR_1_1_DARKEN_10_PERSENT#; }\n\n/* line 17, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_catalog.sorter.scss *\/\n.b-sorter__template a.selected:hover,\n.b-sorter__template a:hover,\n.b-sorter__shortsort a.selected:hover,\n.b-sorter__shortsort a:hover {\n  color: #fff;\n  background-color: ##COLOR_1_1_DARKEN_10_PERSENT#;\n  border-color: ##COLOR_1_1_DARKEN_10_PERSENT#; }\n\n/* line 26, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_catalog.sorter.scss *\/\n.b-sorter__dropdown.hover > a,\n.b-sorter__dropdown:hover > a {\n  border-color: ##COLOR_1_1_DARKEN_10_PERSENT#; }\n\n/* line 31, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_catalog.sorter.scss *\/\n.b-sorter__dropdown-in {\n  border-bottom-color: ##COLOR_1_1_DARKEN_10_PERSENT#; }\n\n/* line 1, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_easycart.scss *\/\nbody #rs_easycart .rsec_headers a.rsec_online,\nbody #rs_easycart .rsec_headers span.rsec_color {\n  color: ##COLOR_1_1#; }\n\n/* line 6, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_easycart.scss *\/\nbody #rs_easycart .rsec_headers a.rsec_online span.rsec_name {\n  border-color: ##COLOR_1_1#; }\n\n/* line 10, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_easycart.scss *\/\nbody #rs_easycart .rsec_btn1,\nbody #rs_easycart table.rsec_table tr:hover td.rsec_hov,\nbody #rs_easycart .rsec_btn1 {\n  background-color: ##COLOR_1_1#; }\n\n/* line 16, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_easycart.scss *\/\nbody #rs_easycart .rsec_content .rsec_tyanya .rsec_close .svg-icon,\nbody #rs_easycart .rsec_thistab_compare .rsec_delete .svg-icon,\nbody #rs_easycart .rsec_thistab_favorite .rsec_delete .svg-icon,\nbody #rs_easycart .rsec_thistab_basket .rsec_delete .svg-icon,\nbody #rs_easycart .rsec_headers a.rsec_online .svg-icon {\n  fill: ##COLOR_1_1#; }\n\n/* line 9, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_form_control.scss *\/\n.body input[type=\"text\"],\n.body input[type=\"password\"],\n.body textarea,\n.body select,\n.footer input[type=\"text\"],\n.footer input[type=\"password\"],\n.footer textarea,\n.footer select,\n.fancybox-container input[type=\"text\"],\n.fancybox-container input[type=\"password\"],\n.fancybox-container textarea,\n.fancybox-container select,\n.popup-window input[type=\"text\"],\n.popup-window input[type=\"password\"],\n.popup-window textarea,\n.popup-window select,\n.rsgppopup input[type=\"text\"],\n.rsgppopup input[type=\"password\"],\n.rsgppopup textarea,\n.rsgppopup select,\n.rs_easycart input[type=\"text\"],\n.rs_easycart input[type=\"password\"],\n.rs_easycart textarea,\n.rs_easycart select,\n.gopro-subscribe-window input[type=\"text\"],\n.gopro-subscribe-window input[type=\"password\"],\n.gopro-subscribe-window textarea,\n.gopro-subscribe-window select {\n  border-color: #ebebeb; }\n  /* line 15, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_form_control.scss *\/\n  .body input[type=\"text\"]:hover,\n  .body input[type=\"password\"]:hover,\n  .body textarea:hover,\n  .body select:hover,\n  .footer input[type=\"text\"]:hover,\n  .footer input[type=\"password\"]:hover,\n  .footer textarea:hover,\n  .footer select:hover,\n  .fancybox-container input[type=\"text\"]:hover,\n  .fancybox-container input[type=\"password\"]:hover,\n  .fancybox-container textarea:hover,\n  .fancybox-container select:hover,\n  .popup-window input[type=\"text\"]:hover,\n  .popup-window input[type=\"password\"]:hover,\n  .popup-window textarea:hover,\n  .popup-window select:hover,\n  .rsgppopup input[type=\"text\"]:hover,\n  .rsgppopup input[type=\"password\"]:hover,\n  .rsgppopup textarea:hover,\n  .rsgppopup select:hover,\n  .rs_easycart input[type=\"text\"]:hover,\n  .rs_easycart input[type=\"password\"]:hover,\n  .rs_easycart textarea:hover,\n  .rs_easycart select:hover,\n  .gopro-subscribe-window input[type=\"text\"]:hover,\n  .gopro-subscribe-window input[type=\"password\"]:hover,\n  .gopro-subscribe-window textarea:hover,\n  .gopro-subscribe-window select:hover {\n    border-color: ##COLOR_1_1#; }\n  /* line 19, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_form_control.scss *\/\n  .body input[type=\"text\"]:hover:focus, .body input[type=\"text\"]:focus,\n  .body input[type=\"password\"]:hover:focus,\n  .body input[type=\"password\"]:focus,\n  .body textarea:hover:focus,\n  .body textarea:focus,\n  .body select:hover:focus,\n  .body select:focus,\n  .footer input[type=\"text\"]:hover:focus,\n  .footer input[type=\"text\"]:focus,\n  .footer input[type=\"password\"]:hover:focus,\n  .footer input[type=\"password\"]:focus,\n  .footer textarea:hover:focus,\n  .footer textarea:focus,\n  .footer select:hover:focus,\n  .footer select:focus,\n  .fancybox-container input[type=\"text\"]:hover:focus,\n  .fancybox-container input[type=\"text\"]:focus,\n  .fancybox-container input[type=\"password\"]:hover:focus,\n  .fancybox-container input[type=\"password\"]:focus,\n  .fancybox-container textarea:hover:focus,\n  .fancybox-container textarea:focus,\n  .fancybox-container select:hover:focus,\n  .fancybox-container select:focus,\n  .popup-window input[type=\"text\"]:hover:focus,\n  .popup-window input[type=\"text\"]:focus,\n  .popup-window input[type=\"password\"]:hover:focus,\n  .popup-window input[type=\"password\"]:focus,\n  .popup-window textarea:hover:focus,\n  .popup-window textarea:focus,\n  .popup-window select:hover:focus,\n  .popup-window select:focus,\n  .rsgppopup input[type=\"text\"]:hover:focus,\n  .rsgppopup input[type=\"text\"]:focus,\n  .rsgppopup input[type=\"password\"]:hover:focus,\n  .rsgppopup input[type=\"password\"]:focus,\n  .rsgppopup textarea:hover:focus,\n  .rsgppopup textarea:focus,\n  .rsgppopup select:hover:focus,\n  .rsgppopup select:focus,\n  .rs_easycart input[type=\"text\"]:hover:focus,\n  .rs_easycart input[type=\"text\"]:focus,\n  .rs_easycart input[type=\"password\"]:hover:focus,\n  .rs_easycart input[type=\"password\"]:focus,\n  .rs_easycart textarea:hover:focus,\n  .rs_easycart textarea:focus,\n  .rs_easycart select:hover:focus,\n  .rs_easycart select:focus,\n  .gopro-subscribe-window input[type=\"text\"]:hover:focus,\n  .gopro-subscribe-window input[type=\"text\"]:focus,\n  .gopro-subscribe-window input[type=\"password\"]:hover:focus,\n  .gopro-subscribe-window input[type=\"password\"]:focus,\n  .gopro-subscribe-window textarea:hover:focus,\n  .gopro-subscribe-window textarea:focus,\n  .gopro-subscribe-window select:hover:focus,\n  .gopro-subscribe-window select:focus {\n    border-color: ##COLOR_1_1#; }\n\n/* line 27, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_form_control.scss *\/\n.body .bx-sls .dropdown-block,\n.body .bx-slst .dropdown-block,\n.footer .bx-sls .dropdown-block,\n.footer .bx-slst .dropdown-block,\n.fancybox-container .bx-sls .dropdown-block,\n.fancybox-container .bx-slst .dropdown-block,\n.popup-window .bx-sls .dropdown-block,\n.popup-window .bx-slst .dropdown-block,\n.rsgppopup .bx-sls .dropdown-block,\n.rsgppopup .bx-slst .dropdown-block,\n.rs_easycart .bx-sls .dropdown-block,\n.rs_easycart .bx-slst .dropdown-block,\n.gopro-subscribe-window .bx-sls .dropdown-block,\n.gopro-subscribe-window .bx-slst .dropdown-block {\n  border: 1px solid #ebebeb; }\n  /* line 30, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_form_control.scss *\/\n  .body .bx-sls .dropdown-block.focus,\n  .body .bx-slst .dropdown-block.focus,\n  .footer .bx-sls .dropdown-block.focus,\n  .footer .bx-slst .dropdown-block.focus,\n  .fancybox-container .bx-sls .dropdown-block.focus,\n  .fancybox-container .bx-slst .dropdown-block.focus,\n  .popup-window .bx-sls .dropdown-block.focus,\n  .popup-window .bx-slst .dropdown-block.focus,\n  .rsgppopup .bx-sls .dropdown-block.focus,\n  .rsgppopup .bx-slst .dropdown-block.focus,\n  .rs_easycart .bx-sls .dropdown-block.focus,\n  .rs_easycart .bx-slst .dropdown-block.focus,\n  .gopro-subscribe-window .bx-sls .dropdown-block.focus,\n  .gopro-subscribe-window .bx-slst .dropdown-block.focus {\n    border: ##COLOR_1_1#; }\n\n/* line 36, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_form_control.scss *\/\n.body [type=\"checkbox\"]:checked + label:after,\n.body [type=\"checkbox\"]:checked + .label:after,\n.body a.checkbox.in > label:after,\n.body a.checkbox.in > .label:after,\n.body #bx-soa-orderSave [type=\"checkbox\"]:checked + a:after,\n.body .form-group .soa-property-container [type=\"checkbox\"]:checked:after,\n.body .bx-authform [type=\"checkbox\"]:checked:after,\n.footer [type=\"checkbox\"]:checked + label:after,\n.footer [type=\"checkbox\"]:checked + .label:after,\n.footer a.checkbox.in > label:after,\n.footer a.checkbox.in > .label:after,\n.footer #bx-soa-orderSave [type=\"checkbox\"]:checked + a:after,\n.footer .form-group .soa-property-container [type=\"checkbox\"]:checked:after,\n.footer .bx-authform [type=\"checkbox\"]:checked:after,\n.fancybox-container [type=\"checkbox\"]:checked + label:after,\n.fancybox-container [type=\"checkbox\"]:checked + .label:after,\n.fancybox-container a.checkbox.in > label:after,\n.fancybox-container a.checkbox.in > .label:after,\n.fancybox-container #bx-soa-orderSave [type=\"checkbox\"]:checked + a:after,\n.fancybox-container .form-group .soa-property-container [type=\"checkbox\"]:checked:after,\n.fancybox-container .bx-authform [type=\"checkbox\"]:checked:after,\n.popup-window [type=\"checkbox\"]:checked + label:after,\n.popup-window [type=\"checkbox\"]:checked + .label:after,\n.popup-window a.checkbox.in > label:after,\n.popup-window a.checkbox.in > .label:after,\n.popup-window #bx-soa-orderSave [type=\"checkbox\"]:checked + a:after,\n.popup-window .form-group .soa-property-container [type=\"checkbox\"]:checked:after,\n.popup-window .bx-authform [type=\"checkbox\"]:checked:after,\n.rsgppopup [type=\"checkbox\"]:checked + label:after,\n.rsgppopup [type=\"checkbox\"]:checked + .label:after,\n.rsgppopup a.checkbox.in > label:after,\n.rsgppopup a.checkbox.in > .label:after,\n.rsgppopup #bx-soa-orderSave [type=\"checkbox\"]:checked + a:after,\n.rsgppopup .form-group .soa-property-container [type=\"checkbox\"]:checked:after,\n.rsgppopup .bx-authform [type=\"checkbox\"]:checked:after,\n.rs_easycart [type=\"checkbox\"]:checked + label:after,\n.rs_easycart [type=\"checkbox\"]:checked + .label:after,\n.rs_easycart a.checkbox.in > label:after,\n.rs_easycart a.checkbox.in > .label:after,\n.rs_easycart #bx-soa-orderSave [type=\"checkbox\"]:checked + a:after,\n.rs_easycart .form-group .soa-property-container [type=\"checkbox\"]:checked:after,\n.rs_easycart .bx-authform [type=\"checkbox\"]:checked:after,\n.gopro-subscribe-window [type=\"checkbox\"]:checked + label:after,\n.gopro-subscribe-window [type=\"checkbox\"]:checked + .label:after,\n.gopro-subscribe-window a.checkbox.in > label:after,\n.gopro-subscribe-window a.checkbox.in > .label:after,\n.gopro-subscribe-window #bx-soa-orderSave [type=\"checkbox\"]:checked + a:after,\n.gopro-subscribe-window .form-group .soa-property-container [type=\"checkbox\"]:checked:after,\n.gopro-subscribe-window .bx-authform [type=\"checkbox\"]:checked:after {\n  border-color: ##COLOR_1_1#;\n  background-color: ##COLOR_1_1#; }\n\n/* line 47, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_form_control.scss *\/\n.body [type=\"checkbox\"]:not(:checked) + label:hover:after,\n.body [type=\"checkbox\"]:not(:checked) + .label:hover:after,\n.body a.checkbox > label:hover:after,\n.body a.checkbox > .label:hover:after,\n.body #bx-soa-orderSave [type=\"checkbox\"]:not(:checked) + a:hover:after,\n.body .form-group .soa-property-container [type=\"checkbox\"]:not(:checked):hover:after,\n.body .bx-authform [type=\"checkbox\"]:not(:checked):hover:after,\n.footer [type=\"checkbox\"]:not(:checked) + label:hover:after,\n.footer [type=\"checkbox\"]:not(:checked) + .label:hover:after,\n.footer a.checkbox > label:hover:after,\n.footer a.checkbox > .label:hover:after,\n.footer #bx-soa-orderSave [type=\"checkbox\"]:not(:checked) + a:hover:after,\n.footer .form-group .soa-property-container [type=\"checkbox\"]:not(:checked):hover:after,\n.footer .bx-authform [type=\"checkbox\"]:not(:checked):hover:after,\n.fancybox-container [type=\"checkbox\"]:not(:checked) + label:hover:after,\n.fancybox-container [type=\"checkbox\"]:not(:checked) + .label:hover:after,\n.fancybox-container a.checkbox > label:hover:after,\n.fancybox-container a.checkbox > .label:hover:after,\n.fancybox-container #bx-soa-orderSave [type=\"checkbox\"]:not(:checked) + a:hover:after,\n.fancybox-container .form-group .soa-property-container [type=\"checkbox\"]:not(:checked):hover:after,\n.fancybox-container .bx-authform [type=\"checkbox\"]:not(:checked):hover:after,\n.popup-window [type=\"checkbox\"]:not(:checked) + label:hover:after,\n.popup-window [type=\"checkbox\"]:not(:checked) + .label:hover:after,\n.popup-window a.checkbox > label:hover:after,\n.popup-window a.checkbox > .label:hover:after,\n.popup-window #bx-soa-orderSave [type=\"checkbox\"]:not(:checked) + a:hover:after,\n.popup-window .form-group .soa-property-container [type=\"checkbox\"]:not(:checked):hover:after,\n.popup-window .bx-authform [type=\"checkbox\"]:not(:checked):hover:after,\n.rsgppopup [type=\"checkbox\"]:not(:checked) + label:hover:after,\n.rsgppopup [type=\"checkbox\"]:not(:checked) + .label:hover:after,\n.rsgppopup a.checkbox > label:hover:after,\n.rsgppopup a.checkbox > .label:hover:after,\n.rsgppopup #bx-soa-orderSave [type=\"checkbox\"]:not(:checked) + a:hover:after,\n.rsgppopup .form-group .soa-property-container [type=\"checkbox\"]:not(:checked):hover:after,\n.rsgppopup .bx-authform [type=\"checkbox\"]:not(:checked):hover:after,\n.rs_easycart [type=\"checkbox\"]:not(:checked) + label:hover:after,\n.rs_easycart [type=\"checkbox\"]:not(:checked) + .label:hover:after,\n.rs_easycart a.checkbox > label:hover:after,\n.rs_easycart a.checkbox > .label:hover:after,\n.rs_easycart #bx-soa-orderSave [type=\"checkbox\"]:not(:checked) + a:hover:after,\n.rs_easycart .form-group .soa-property-container [type=\"checkbox\"]:not(:checked):hover:after,\n.rs_easycart .bx-authform [type=\"checkbox\"]:not(:checked):hover:after,\n.gopro-subscribe-window [type=\"checkbox\"]:not(:checked) + label:hover:after,\n.gopro-subscribe-window [type=\"checkbox\"]:not(:checked) + .label:hover:after,\n.gopro-subscribe-window a.checkbox > label:hover:after,\n.gopro-subscribe-window a.checkbox > .label:hover:after,\n.gopro-subscribe-window #bx-soa-orderSave [type=\"checkbox\"]:not(:checked) + a:hover:after,\n.gopro-subscribe-window .form-group .soa-property-container [type=\"checkbox\"]:not(:checked):hover:after,\n.gopro-subscribe-window .bx-authform [type=\"checkbox\"]:not(:checked):hover:after {\n  border-color: ##COLOR_1_1#; }\n\n/* line 57, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_form_control.scss *\/\n.body [type=\"radio\"]:checked + label:before,\n.body [type=\"radio\"]:checked + .label:before,\n.body [type=\"radio\"]:checked + label:after,\n.body [type=\"radio\"]:checked + .label:after,\n.body [type=\"radio\"]:not(:checked) + label:hover:before,\n.body [type=\"radio\"]:not(:checked) + .label:hover:before,\n.body [type=\"radio\"]:not(:checked) + label:hover:after,\n.body [type=\"radio\"]:not(:checked) + .label:hover:after,\n.body .bx_soa_location .radio-inline label [type=\"radio\"]:checked:before,\n.body .bx_soa_location .radio-inline label [type=\"radio\"]:checked:after,\n.body .bx_soa_location .radio-inline label [type=\"radio\"]:not(:checked):hover:before,\n.body .bx_soa_location .radio-inline label [type=\"radio\"]:not(:checked):hover:after,\n.body .form-group .soa-property-container label [type=\"radio\"]:checked:before,\n.body .form-group .soa-property-container label [type=\"radio\"]:checked:after,\n.body .form-group .soa-property-container label [type=\"radio\"]:not(:checked):hover:before,\n.body .form-group .soa-property-container label [type=\"radio\"]:not(:checked):hover:after,\n.footer [type=\"radio\"]:checked + label:before,\n.footer [type=\"radio\"]:checked + .label:before,\n.footer [type=\"radio\"]:checked + label:after,\n.footer [type=\"radio\"]:checked + .label:after,\n.footer [type=\"radio\"]:not(:checked) + label:hover:before,\n.footer [type=\"radio\"]:not(:checked) + .label:hover:before,\n.footer [type=\"radio\"]:not(:checked) + label:hover:after,\n.footer [type=\"radio\"]:not(:checked) + .label:hover:after,\n.footer .bx_soa_location .radio-inline label [type=\"radio\"]:checked:before,\n.footer .bx_soa_location .radio-inline label [type=\"radio\"]:checked:after,\n.footer .bx_soa_location .radio-inline label [type=\"radio\"]:not(:checked):hover:before,\n.footer .bx_soa_location .radio-inline label [type=\"radio\"]:not(:checked):hover:after,\n.footer .form-group .soa-property-container label [type=\"radio\"]:checked:before,\n.footer .form-group .soa-property-container label [type=\"radio\"]:checked:after,\n.footer .form-group .soa-property-container label [type=\"radio\"]:not(:checked):hover:before,\n.footer .form-group .soa-property-container label [type=\"radio\"]:not(:checked):hover:after,\n.fancybox-container [type=\"radio\"]:checked + label:before,\n.fancybox-container [type=\"radio\"]:checked + .label:before,\n.fancybox-container [type=\"radio\"]:checked + label:after,\n.fancybox-container [type=\"radio\"]:checked + .label:after,\n.fancybox-container [type=\"radio\"]:not(:checked) + label:hover:before,\n.fancybox-container [type=\"radio\"]:not(:checked) + .label:hover:before,\n.fancybox-container [type=\"radio\"]:not(:checked) + label:hover:after,\n.fancybox-container [type=\"radio\"]:not(:checked) + .label:hover:after,\n.fancybox-container .bx_soa_location .radio-inline label [type=\"radio\"]:checked:before,\n.fancybox-container .bx_soa_location .radio-inline label [type=\"radio\"]:checked:after,\n.fancybox-container .bx_soa_location .radio-inline label [type=\"radio\"]:not(:checked):hover:before,\n.fancybox-container .bx_soa_location .radio-inline label [type=\"radio\"]:not(:checked):hover:after,\n.fancybox-container .form-group .soa-property-container label [type=\"radio\"]:checked:before,\n.fancybox-container .form-group .soa-property-container label [type=\"radio\"]:checked:after,\n.fancybox-container .form-group .soa-property-container label [type=\"radio\"]:not(:checked):hover:before,\n.fancybox-container .form-group .soa-property-container label [type=\"radio\"]:not(:checked):hover:after,\n.popup-window [type=\"radio\"]:checked + label:before,\n.popup-window [type=\"radio\"]:checked + .label:before,\n.popup-window [type=\"radio\"]:checked + label:after,\n.popup-window [type=\"radio\"]:checked + .label:after,\n.popup-window [type=\"radio\"]:not(:checked) + label:hover:before,\n.popup-window [type=\"radio\"]:not(:checked) + .label:hover:before,\n.popup-window [type=\"radio\"]:not(:checked) + label:hover:after,\n.popup-window [type=\"radio\"]:not(:checked) + .label:hover:after,\n.popup-window .bx_soa_location .radio-inline label [type=\"radio\"]:checked:before,\n.popup-window .bx_soa_location .radio-inline label [type=\"radio\"]:checked:after,\n.popup-window .bx_soa_location .radio-inline label [type=\"radio\"]:not(:checked):hover:before,\n.popup-window .bx_soa_location .radio-inline label [type=\"radio\"]:not(:checked):hover:after,\n.popup-window .form-group .soa-property-container label [type=\"radio\"]:checked:before,\n.popup-window .form-group .soa-property-container label [type=\"radio\"]:checked:after,\n.popup-window .form-group .soa-property-container label [type=\"radio\"]:not(:checked):hover:before,\n.popup-window .form-group .soa-property-container label [type=\"radio\"]:not(:checked):hover:after,\n.rsgppopup [type=\"radio\"]:checked + label:before,\n.rsgppopup [type=\"radio\"]:checked + .label:before,\n.rsgppopup [type=\"radio\"]:checked + label:after,\n.rsgppopup [type=\"radio\"]:checked + .label:after,\n.rsgppopup [type=\"radio\"]:not(:checked) + label:hover:before,\n.rsgppopup [type=\"radio\"]:not(:checked) + .label:hover:before,\n.rsgppopup [type=\"radio\"]:not(:checked) + label:hover:after,\n.rsgppopup [type=\"radio\"]:not(:checked) + .label:hover:after,\n.rsgppopup .bx_soa_location .radio-inline label [type=\"radio\"]:checked:before,\n.rsgppopup .bx_soa_location .radio-inline label [type=\"radio\"]:checked:after,\n.rsgppopup .bx_soa_location .radio-inline label [type=\"radio\"]:not(:checked):hover:before,\n.rsgppopup .bx_soa_location .radio-inline label [type=\"radio\"]:not(:checked):hover:after,\n.rsgppopup .form-group .soa-property-container label [type=\"radio\"]:checked:before,\n.rsgppopup .form-group .soa-property-container label [type=\"radio\"]:checked:after,\n.rsgppopup .form-group .soa-property-container label [type=\"radio\"]:not(:checked):hover:before,\n.rsgppopup .form-group .soa-property-container label [type=\"radio\"]:not(:checked):hover:after,\n.rs_easycart [type=\"radio\"]:checked + label:before,\n.rs_easycart [type=\"radio\"]:checked + .label:before,\n.rs_easycart [type=\"radio\"]:checked + label:after,\n.rs_easycart [type=\"radio\"]:checked + .label:after,\n.rs_easycart [type=\"radio\"]:not(:checked) + label:hover:before,\n.rs_easycart [type=\"radio\"]:not(:checked) + .label:hover:before,\n.rs_easycart [type=\"radio\"]:not(:checked) + label:hover:after,\n.rs_easycart [type=\"radio\"]:not(:checked) + .label:hover:after,\n.rs_easycart .bx_soa_location .radio-inline label [type=\"radio\"]:checked:before,\n.rs_easycart .bx_soa_location .radio-inline label [type=\"radio\"]:checked:after,\n.rs_easycart .bx_soa_location .radio-inline label [type=\"radio\"]:not(:checked):hover:before,\n.rs_easycart .bx_soa_location .radio-inline label [type=\"radio\"]:not(:checked):hover:after,\n.rs_easycart .form-group .soa-property-container label [type=\"radio\"]:checked:before,\n.rs_easycart .form-group .soa-property-container label [type=\"radio\"]:checked:after,\n.rs_easycart .form-group .soa-property-container label [type=\"radio\"]:not(:checked):hover:before,\n.rs_easycart .form-group .soa-property-container label [type=\"radio\"]:not(:checked):hover:after,\n.gopro-subscribe-window [type=\"radio\"]:checked + label:before,\n.gopro-subscribe-window [type=\"radio\"]:checked + .label:before,\n.gopro-subscribe-window [type=\"radio\"]:checked + label:after,\n.gopro-subscribe-window [type=\"radio\"]:checked + .label:after,\n.gopro-subscribe-window [type=\"radio\"]:not(:checked) + label:hover:before,\n.gopro-subscribe-window [type=\"radio\"]:not(:checked) + .label:hover:before,\n.gopro-subscribe-window [type=\"radio\"]:not(:checked) + label:hover:after,\n.gopro-subscribe-window [type=\"radio\"]:not(:checked) + .label:hover:after,\n.gopro-subscribe-window .bx_soa_location .radio-inline label [type=\"radio\"]:checked:before,\n.gopro-subscribe-window .bx_soa_location .radio-inline label [type=\"radio\"]:checked:after,\n.gopro-subscribe-window .bx_soa_location .radio-inline label [type=\"radio\"]:not(:checked):hover:before,\n.gopro-subscribe-window .bx_soa_location .radio-inline label [type=\"radio\"]:not(:checked):hover:after,\n.gopro-subscribe-window .form-group .soa-property-container label [type=\"radio\"]:checked:before,\n.gopro-subscribe-window .form-group .soa-property-container label [type=\"radio\"]:checked:after,\n.gopro-subscribe-window .form-group .soa-property-container label [type=\"radio\"]:not(:checked):hover:before,\n.gopro-subscribe-window .form-group .soa-property-container label [type=\"radio\"]:not(:checked):hover:after {\n  border-color: ##COLOR_1_1#; }\n\n/* line 75, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_form_control.scss *\/\n.body [type=\"radio\"]:checked + label:after,\n.body [type=\"radio\"]:checked + .label:after,\n.body .bx_soa_location .radio-inline label [type=\"radio\"]:checked:after,\n.body .form-group .soa-property-container label [type=\"radio\"]:checked:after,\n.footer [type=\"radio\"]:checked + label:after,\n.footer [type=\"radio\"]:checked + .label:after,\n.footer .bx_soa_location .radio-inline label [type=\"radio\"]:checked:after,\n.footer .form-group .soa-property-container label [type=\"radio\"]:checked:after,\n.fancybox-container [type=\"radio\"]:checked + label:after,\n.fancybox-container [type=\"radio\"]:checked + .label:after,\n.fancybox-container .bx_soa_location .radio-inline label [type=\"radio\"]:checked:after,\n.fancybox-container .form-group .soa-property-container label [type=\"radio\"]:checked:after,\n.popup-window [type=\"radio\"]:checked + label:after,\n.popup-window [type=\"radio\"]:checked + .label:after,\n.popup-window .bx_soa_location .radio-inline label [type=\"radio\"]:checked:after,\n.popup-window .form-group .soa-property-container label [type=\"radio\"]:checked:after,\n.rsgppopup [type=\"radio\"]:checked + label:after,\n.rsgppopup [type=\"radio\"]:checked + .label:after,\n.rsgppopup .bx_soa_location .radio-inline label [type=\"radio\"]:checked:after,\n.rsgppopup .form-group .soa-property-container label [type=\"radio\"]:checked:after,\n.rs_easycart [type=\"radio\"]:checked + label:after,\n.rs_easycart [type=\"radio\"]:checked + .label:after,\n.rs_easycart .bx_soa_location .radio-inline label [type=\"radio\"]:checked:after,\n.rs_easycart .form-group .soa-property-container label [type=\"radio\"]:checked:after,\n.gopro-subscribe-window [type=\"radio\"]:checked + label:after,\n.gopro-subscribe-window [type=\"radio\"]:checked + .label:after,\n.gopro-subscribe-window .bx_soa_location .radio-inline label [type=\"radio\"]:checked:after,\n.gopro-subscribe-window .form-group .soa-property-container label [type=\"radio\"]:checked:after {\n  background-color: ##COLOR_1_1#; }\n\n/* line 4, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n.body .tline {\n  background-color: ##COLOR_1_1#; }\n\n/* line 9, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n.body .tpanel__menu2 a .svg-icon {\n  fill: ##COLOR_1_1#; }\n\n/* line 17, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n.body .header-basket .svg-icon {\n  fill: ##COLOR_1_1#; }\n\n/* line 24, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n.body .header__circle.js-more-than-zero {\n  background-color: ##COLOR_1_2#; }\n\n/* line 32, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n.body .b-mmenu.navbar-default {\n  background-color: ##COLOR_1_1#; }\n  /* line 35, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n  .body .b-mmenu.navbar-default .b-mmenu__toggle,\n  .body .b-mmenu.navbar-default .navbar-nav > li.other > a {\n    color: #fff;\n    background-color: ##COLOR_1_1#; }\n  /* line 41, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n  .body .b-mmenu.navbar-default .search-bar .search-btn.svg-icon:hover,\n  .body .b-mmenu.navbar-default .b-mmenu__toggle:hover,\n  .body .b-mmenu.navbar-default .navbar-nav > li.lvl1:hover > a,\n  .body .b-mmenu.navbar-default .navbar-nav > li.lvl1 > a:hover,\n  .body .b-mmenu.navbar-default .navbar-nav > li.other:hover > a,\n  .body .b-mmenu.navbar-default .navbar-nav > li.other > a:hover,\n  .body .b-mmenu.navbar-default .navbar-nav > .active > a,\n  .body .b-mmenu.navbar-default .navbar-nav > .active > a:hover,\n  .body .b-mmenu.navbar-default .navbar-nav > .active > a:focus {\n    color: #fff;\n    background-color: ##COLOR_1_1_DARKEN_10_PERSENT#; }\n  /* line 54, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n  .body .b-mmenu.navbar-default .dropdown-menu {\n    border-color: ##COLOR_1_1_DARKEN_10_PERSENT#; }\n  /* line 59, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n  .body .b-mmenu.navbar-default .searchinhead {\n    border-color: ##COLOR_1_1#; }\n    /* line 62, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n    .body .b-mmenu.navbar-default .searchinhead .search-btn:hover .svg-icon {\n      fill: ##COLOR_1_1_DARKEN_10_PERSENT#; }\n\n/* line 68, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n.body .b-mmenu .dropdown-menu {\n  border-bottom-color: ##COLOR_1_1#; }\n\n/* line 77, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n.body .gopro-banners__text1.product:after {\n  background-color: ##COLOR_1_1#; }\n\n/* line 82, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n.body .gopro-banners__text2 {\n  color: ##COLOR_1_1#; }\n\n/* line 88, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n.body .owl-dots .owl-dot:hover, .body .owl-dots .owl-dot.active:hover {\n  background-color: ##COLOR_1_1_DARKEN_10_PERSENT#; }\n\n/* line 92, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n.body .owl-dots .owl-dot.active {\n  background-color: ##COLOR_1_1#; }\n\n/* line 100, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n.body .hamburger.is-active {\n  background-color: ##COLOR_1_1#; }\n\n/* line 106, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n.header-fly {\n  border-top-color: ##COLOR_1_1#; }\n  /* line 109, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n  .header-fly__panel {\n    border-bottom-color: ##COLOR_1_1#; }\n\n@media (max-width: 991px) {\n  /* line 115, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n  .authinhead2 .authorized .authinhead2__icon {\n    border-color: ##COLOR_1_1#; } }\n\n@media (max-width: 768px) {\n  /* line 124, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n  .body .b-mmenu.navbar-default .dropdown-menu > li > a {\n    color: #fff;\n    background-color: ##COLOR_1_1#; }\n  /* line 130, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_header.scss *\/\n  .body .menu .b-mmenu .dropdown-menu > li > a,\n  .body .menu .b-mmenu .navbar-nav > li > a {\n    color: #fff;\n    background-color: ##COLOR_1_1#; } }\n\n/* line 1, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.body div.sale-order-detail-payment-options-methods-template,\n.body .sale-paysystem-wrapper,\n.body .fichi__inner,\n.body .c-attributes.view-buttons .c-attributes__option:not(.disabled):hover,\n.body .c-attributes.view-buttons .c-attributes__option:not(.disabled).selected,\n.body .filtren .lvl2 .smartf-div:not(.disabled) label.pic:hover,\n.body .filtren .cwpal .lvl2 .smartf-div:not(.disabled):hover label.pic,\n.body .filtren .cwp .lvl2 .smartf-div:not(.disabled):hover label.pic,\n.body .filtren .dd.open > .lvl2 .smartf-div:not(.disabled),\n.body .filtren .dd.wpal.open > .lvl2 .smartf-div:not(.disabled),\n.body .filtren .lvl2 .active label.pic,\n.body .bx_ordercart .bx_item_detail_scu_small_noadaptive .bx_scu ul > .sku_prop:hover > a,\n.body .bx_ordercart .bx_item_detail_scu_small_noadaptive .bx_scu ul > .sku_prop.bx_active > a,\n.body .c-attributes.view-list .c-attributes__prop.open .c-attributes__current-value__pseudo-option,\n.body .link-dashed.m-color-primary a,\n.body a.link-dashed.m-color-primary {\n  border-color: ##COLOR_1_1#; }\n\n/* line 20, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.body .filtren .dd .dropdown > .dropdown,\n.body .c-attributes.view-list .c-attributes__options {\n  border-bottom-color: ##COLOR_1_1#; }\n\n/* titles *\/\n/* line 26, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.primary-color,\n.brandslist span,\n.sorter_and_name .name,\n.brandslist.mainstyles .title a,\n.brandslistimg.mainstyles .title a,\n.mods h3.title2,\n.bigdata h3.title2,\n.detailcollection h3.title2,\n.detailtabs .contents .content .switcher,\n.sections a.parent,\n.b-section-list__title,\n.presscentermainn .title,\n.sorter_and_name .name,\n.brandslistimgowl1.mainstyles .title a,\n.b-section-list a.parent,\n.b-section-list__show-more,\n.presscentermainn .item .blockname a,\n.presscentermainn .item a.blockname,\n.catalogmenu2 a.sub,\n.price.new,\n.table .full.name,\n.acc_title,\n.sale-personal-account-wallet-currency-item,\n.nice-title,\n.body #bx-soa-order .bx-soa-cart-total-line.bx-soa-cart-total-line-highlighted .bx-soa-cart-d,\n.body .link-dashed.m-color-primary a,\n.body a.link-dashed.m-color-primary {\n  color: ##COLOR_1_1#; }\n\n/* jScroll *\/\n/* line 60, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.body .jspDrag,\n.body .sale-paysystem-yandex-button-item,\n.fancybox-container .jspDrag,\n.fancybox-container .sale-paysystem-yandex-button-item,\n.rsgppopup .jspDrag,\n.rsgppopup .sale-paysystem-yandex-button-item {\n  background-color: ##COLOR_1_1#; }\n\n/* line 68, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.body .jspDrag.jspHover,\n.body .jspDrag.jspActive,\n.fancybox-container .jspDrag.jspHover,\n.fancybox-container .jspDrag.jspActive,\n.rsgppopup .jspDrag.jspHover,\n.rsgppopup .jspDrag.jspActive {\n  background-color: ##COLOR_1_1_DARKEN_10_PERSENT#; }\n\n/* line 75, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\nbody.rsgopro .js-pseudo-focus-blur.js-pseudo-focus .js-pseudo-border,\nbody.rsgopro .js-pseudo-focus-blur.js-pseudo-focus .js-pseudo-border-top,\nbody.rsgopro .js-pseudo-focus-blur.js-pseudo-focus .js-pseudo-border-right,\nbody.rsgopro .js-pseudo-focus-blur.js-pseudo-focus .js-pseudo-border-bottom,\nbody.rsgopro .js-pseudo-focus-blur.js-pseudo-focus .js-pseudo-border-left,\nbody.rsgopro .js-pseudo-focus-blur.js-pseudo-border .js-pseudo-border,\nbody.rsgopro .js-pseudo-focus-blur.js-pseudo-border .js-pseudo-border-top,\nbody.rsgopro .js-pseudo-focus-blur.js-pseudo-border .js-pseudo-border-right,\nbody.rsgopro .js-pseudo-focus-blur.js-pseudo-border .js-pseudo-border-bottom,\nbody.rsgopro .js-pseudo-focus-blur.js-pseudo-border .js-pseudo-border-left {\n  border-color: ##COLOR_1_1#; }\n\n/* svg-icons *\/\n/* line 90, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.rsfavorite .svg-icon,\n.artables.view_gallery table.products .add2basketform .submit .svg-icon,\n.artables.view_gallery table.products .add2basketform .inbasket .svg-icon,\n.artables.view_gallery .add2basketform .tick,\n.artables.view_table table.products .add2basketform .submit .svg-icon,\n.artables.view_table table.products .add2basketform .inbasket .svg-icon,\n.artables.view_table .add2basketform .tick,\n.footer .line1 .contacts .recall .svg-icon,\n.footer .line1 .contacts .feedback .svg-icon,\n.picslider.horizontal a:hover .svg-icon,\n.elementdetail .prices a:hover .svg-icon,\n.picslider.vertical a:hover .svg-icon,\n.elementdetail .zoom .svg-icon,\n.body .set .js-element .plusik .svg-icon,\n.body .basket a.delete .svg-icon,\n.body .basket a.delay .svg-icon,\n.body .basket a.add .svg-icon {\n  fill: ##COLOR_1_1#; }\n\n/* line 109, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.artables table.products .add2basketform .add2subscribe .svg-icon {\n  fill: ##COLOR_1_2#; }\n\n/* smart.filter *\/\n/* line 114, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.filtren .dd .lvl2:not(.selected) div.active label {\n  color: #fff;\n  background-color: ##COLOR_1_1#; }\n\n/* line 121, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.c-prices__value-old:after {\n  background-color: ##COLOR_1_1#; }\n\n/* line 126, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.c-prices__more-link {\n  color: ##COLOR_1_1#; }\n\n/* line 132, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.b-stores .svg-icon.empty {\n  fill: ##COLOR_1_1#; }\n\n/* line 137, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.num-404-error {\n  color: ##COLOR_1_1#; }\n\n/*********************************************\/\n/* additional styles\nBACKGROUND COLOR*\/\n/* line 144, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.pmenu a:hover,\n.light .js-element .buy .go2detail,\n.catalogsorter .dropdownin a:hover,\n.catalogsorter .dropdownin a.selected:hover,\n.comparelist a:hover {\n  color: #fff !important;\n  background-color: ##COLOR_1_1_DARKEN_10_PERSENT# !important; }\n\n/* line 152, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.catalogsorter .dropdownin a.selected,\n.propvision1 .offer_prop .div_options .div_option.selected,\n.propvision1 .offer_prop .div_options .div_option.selected span {\n  color: #fff !important;\n  background-color: ##COLOR_1_1# !important; }\n\n/* line 158, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.propvision1 .offer_prop .div_options .div_option:hover:not(.disabled),\n.propvision1 .offer_prop .div_options .div_option:hover:not(.disabled) span {\n  background-color: ##COLOR_1_1_DARKEN_10_PERSENT# !important; }\n\n/* line 163, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.filtren .modef .data a {\n  color: #fff !important; }\n\n/*additional styles\nACTIVE BACKGROUND COLOR*\/\n/* line 169, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.body .pmenu a:hover {\n  background-color: ##COLOR_1_1_DARKEN_10_PERSENT#; }\n\n/* line 172, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.body .pmenu a.selected,\n.body .pmenu a.selected:active,\n.body .pmenu a:active {\n  background-color: ##COLOR_1_1#; }\n\n/* slider of filter BACKGROUND LINEAR GRADIENT *\/\n/* line 179, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.ui-slider .ui-slider-range,\n.smartfilter .bx_ui_slider_handle,\n.smartfilter .bx_ui_slider_pricebar_V {\n  background-color: ##COLOR_1_1# !important; }\n\n/* line 185, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n.erorpage .errorbutton a {\n  color: #fff !important;\n  background: ##COLOR_1_1#; }\n\n@media screen and (max-width: 480px) {\n  /* line 191, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_other.scss *\/\n  body.adaptive .detailtabs .content.selected .switcher {\n    color: #fff !important;\n    background-color: ##COLOR_1_1# !important; } }\n\n/* personal.order.list *\/\n/* line 4, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_personal.order.list.scss *\/\n.orderlist .item:hover {\n  border-color: ##COLOR_1_1#; }\n\n/* line 11, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_personal.order.list.scss *\/\n.orderlist .switch a.selected {\n  color: #fff;\n  background-color: ##COLOR_1_1#; }\n\n/* line 16, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_personal.order.list.scss *\/\n.orderlist .switch a:hover {\n  color: #fff;\n  background-color: ##COLOR_1_1_DARKEN_10_PERSENT#; }\n\n/* line 2, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_product.delivery.scss *\/\n.product-delivery {\n  border-color: ##COLOR_1_1#; }\n\n/* line 2, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_sale.order.ajax.scss *\/\n.body #bx-soa-order .bx-soa-section.bx-selected,\n.body #bx-soa-order .bx-soa-pp-company.bx-selected .bx-soa-pp-company-graf-container,\n.body #bx-soa-order .bx-sls .form-control.dropdown-block.focus,\n.body #bx-soa-order .form-group .form-control:focus:focus,\n.body #bx-soa-order .bx-soa-coupon-input input[type=text].form-control:focus {\n  border-color: ##COLOR_1_1#; }\n\n/* line 3, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_search.title.scss *\/\n.body .searchinhead__btn {\n  border-color: ##COLOR_1_2#;\n  background-color: ##COLOR_1_2#; }\n  /* line 7, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_search.title.scss *\/\n  .body .searchinhead__btn:hover {\n    color: #fff;\n    border-color: ##COLOR_1_2_DARKEN_10_PERSENT#;\n    background-color: ##COLOR_1_2_DARKEN_10_PERSENT#; }\n  /* line 13, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_search.title.scss *\/\n  .body .searchinhead__btn .svg-icon {\n    fill: #fff; }\n\n/* line 20, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_search.title.scss *\/\n.body .searchinhead__zoom:hover .svg-icon {\n  fill: #574527; }\n\n/* line 25, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_search.title.scss *\/\n.body .searchinhead__zoom .svg-icon {\n  fill: ##COLOR_1_1#; }\n\n/* line 30, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_search.title.scss *\/\n.body .searchinhead__enter {\n  border-color: ##COLOR_1_2#;\n  background-color: ##COLOR_1_2#; }\n  /* line 34, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_search.title.scss *\/\n  .body .searchinhead__enter:hover {\n    border-color: ##COLOR_1_2_DARKEN_10_PERSENT#;\n    background-color: ##COLOR_1_2_DARKEN_10_PERSENT#; }\n\n/* line 44, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_search.title.scss *\/\n.menu_horizontal1 .menu .searchinhead__btn {\n  border-color: ##COLOR_1_1#;\n  background-color: ##COLOR_1_1#; }\n  /* line 48, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_search.title.scss *\/\n  .menu_horizontal1 .menu .searchinhead__btn:hover {\n    border-color: ##COLOR_1_1_DARKEN_10_PERSENT#;\n    background-color: ##COLOR_1_1_DARKEN_10_PERSENT#; }\n\n/******************************************************\/\n/******************************************************\/\n/******************************************************\/\n/* line 61, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_search.title.scss *\/\n.title-search-result {\n  border-color: ##COLOR_1_1#; }\n  /* line 65, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_search.title.scss *\/\n  .title-search-result .stitle .title {\n    color: ##COLOR_1_1#; }\n\n/* line 72, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_search.title.scss *\/\n.stitle .title {\n  color: ##COLOR_1_1#; }\n\n/* line 79, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_search.title.scss *\/\n.stitle .iblock .catitem:hover .name,\n.stitle .iblock .catitem:hover .prs {\n  background-color: #899CC7; }\n\n/* line 2, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_upbutton.scss *\/\n.rsgopro .c-scroll2top {\n  background-color: ##COLOR_1_1#; }\n  /* line 5, D:/OpenServer5.2.8/domains/gopro.alex/local/templates/progmarket/source/style/sass/css/color/.macros/_upbutton.scss *\/\n  .rsgopro .c-scroll2top:hover {\n    background-color: ##COLOR_1_1_DARKEN_10_PERSENT#; }\n\n/**************************************\nlabel_macros_file_finish\n**************************************\/\n");-->
-<!--</script>-->
-
+<app-footer></app-footer>

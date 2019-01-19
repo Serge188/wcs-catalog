@@ -14,9 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -44,6 +42,17 @@ public class ProductRepository {
         return entries;
     }
 
+    public ProductEntry getProductByAlias(String alias) {
+        CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
+        Root<Product> root = criteriaQuery.from(Product.class);
+        criteriaQuery.where(criteriaBuilder.equal(root.get("alias"), alias));
+        Query query = entityManager.createQuery(criteriaQuery);
+        Product product = (Product) query.getSingleResult();
+        ProductEntry entry = ProductEntry.fromProduct(product);
+        fillSaleOffers(Collections.singletonList(entry));
+        return entry;
+    }
+
     private void initializeCriteriaBuilder() {
         if (entityManager == null) {
             entityManager = entityManagerFactory.createEntityManager();
@@ -52,10 +61,11 @@ public class ProductRepository {
     }
 
     private void fillSaleOffers(List<ProductEntry> products) {
+        List<Long> productIds = products.stream().map(ProductEntry::getId).collect(Collectors.toList());
         CriteriaQuery<SaleOffer> criteriaQuery = criteriaBuilder.createQuery(SaleOffer.class);
         Root<SaleOffer> offer = criteriaQuery.from(SaleOffer.class);
         Join product = offer.join("product");
-        criteriaQuery.where(criteriaBuilder.equal(product.get("popular"), true));
+        criteriaQuery.where(product.get("id").in(productIds));
         Query query = entityManager.createQuery(criteriaQuery);
         List<SaleOffer> offers = query.getResultList();
         products.forEach(p -> {
