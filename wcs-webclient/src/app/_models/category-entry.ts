@@ -5,6 +5,8 @@ export class CategoryEntry {
   title?: string;
   link?: string;
   parentCategoryId?: number;
+  parentCategoryTitle?: string;
+  parentCategoryAlias?: string;
   childCategories?: CategoryEntry[] = [];
   image?: ImageEntry;
   popular?: boolean;

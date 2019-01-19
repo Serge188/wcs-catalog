@@ -1,0 +1,31 @@
+<ul class="rsbreadcrumb list-unstyled">
+  <li id="bx_breadcrumb_0" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" itemref="bx_breadcrumb_1">
+    <a href="/" title="Главная" itemprop="url"><span itemprop="title">Главная</span></a>
+  </li>
+  <li class="rsbreadcrumb__free">
+    <span>/</span>
+  </li>
+  <li id="bx_breadcrumb_1" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" itemprop="child" itemref="bx_breadcrumb_2" *ngIf="hasCatalogLink()">
+    <a href="/catalog/" title="Каталог" itemprop="url"><span itemprop="title">Каталог</span></a>
+  </li>
+  <li class="rsbreadcrumb__free" *ngIf="hasCatalogLink()">
+    <span>/</span>
+  </li>
+  <li id="bx_breadcrumb_2" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" itemprop="child" itemref="bx_breadcrumb_3" *ngIf="hasParentCategory()">
+    <a href="{{getParentCategoryLink()}}" title="{{category.parentCategoryTitle}}" itemprop="url">
+      <span itemprop="title">{{category.parentCategoryTitle}}</span>
+    </a>
+  </li>
+  <li class="rsbreadcrumb__free" *ngIf="hasParentCategory()">
+    <span>/</span>
+  </li>
+  <li id="bx_breadcrumb_3" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" itemprop="child" *ngIf="category != null">
+    <a href="{{getCategoryLink()}}" title="{{category.title}}" itemprop="url">
+      <span itemprop="title">{{category.title}}</span>
+    </a>
+  </li>
+  <li class="rsbreadcrumb__free" *ngIf="category != null">
+    <span>/</span>
+  </li>
+  <li>{{currentTitle}}</li>
+</ul>

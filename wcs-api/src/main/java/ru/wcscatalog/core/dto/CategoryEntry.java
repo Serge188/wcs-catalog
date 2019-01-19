@@ -7,6 +7,8 @@ public class CategoryEntry {
     private String title;
     private String alias;
     private Long parentCategoryId;
+    private String parentCategoryTitle;
+    private String parentCategoryAlias;
     private ImageEntry image;
     private Boolean popular;
 
@@ -46,6 +48,22 @@ public class CategoryEntry {
         return image;
     }
 
+    public String getParentCategoryTitle() {
+        return parentCategoryTitle;
+    }
+
+    public void setParentCategoryTitle(String parentCategoryTitle) {
+        this.parentCategoryTitle = parentCategoryTitle;
+    }
+
+    public String getParentCategoryAlias() {
+        return parentCategoryAlias;
+    }
+
+    public void setParentCategoryAlias(String parentCategoryAlias) {
+        this.parentCategoryAlias = parentCategoryAlias;
+    }
+
     public void setImage(ImageEntry image) {
         this.image = image;
     }
@@ -66,6 +84,8 @@ public class CategoryEntry {
             entry.setAlias(category.getAlias());
             if (category.getParentCategory() != null) {
                 entry.setParentCategoryId(category.getParentCategory().getId());
+                entry.setParentCategoryTitle(category.getParentCategory().getTitle());
+                entry.setParentCategoryAlias(category.getParentCategory().getAlias());
             }
             entry.setImage(ImageEntry.fromImage(category.getImage()));
             entry.setPopular(category.isPopular());

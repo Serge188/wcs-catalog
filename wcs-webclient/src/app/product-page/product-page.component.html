@@ -5,15 +5,7 @@
 <div id="title" class="title">
   <div class="centering">
     <div class="centeringin clearfix">
-      <ul class="rsbreadcrumb list-unstyled"><li id="bx_breadcrumb_0" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" itemref="bx_breadcrumb_1">
-        <a href="/" title="Главная" itemprop="url"><span itemprop="title">Главная</span></a>
-      </li><li class="rsbreadcrumb__free"><span>/</span></li><li id="bx_breadcrumb_1" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" itemprop="child" itemref="bx_breadcrumb_2">
-        <a href="/catalog/" title="Каталог" itemprop="url"><span itemprop="title">Каталог</span></a>
-      </li><li class="rsbreadcrumb__free"><span>/</span></li><li id="bx_breadcrumb_2" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" itemprop="child" itemref="bx_breadcrumb_3">
-        <a href="/catalog/mebel_dlya_gostinnoy/" title="Мебель для гостинной (демо-товары)" itemprop="url"><span itemprop="title">Мебель для гостинной (демо-товары)</span></a>
-      </li><li class="rsbreadcrumb__free"><span>/</span></li><li id="bx_breadcrumb_3" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" itemprop="child">
-        <a href="/catalog/mebel_dlya_gostinnoy/stulya/" title="Стулья" itemprop="url"><span itemprop="title">Стулья</span></a>
-      </li><li class="rsbreadcrumb__free"><span>/</span></li><li>Стул "Чикаго"</li></ul>
+      <app-breadcrumbs [currentTitle]="product.title" [category]="product.category"></app-breadcrumbs>
       <h1 class="pagetitle">{{product.title}}</h1>
     </div>
   </div>
@@ -23,9 +15,7 @@
     <div class="centeringin clearfix">
 
       <!-- detail -->
-      <div class="js-detail js-element js-elementid58 detail b-product-detail clearfix "
-           data-detail="/catalog/mebel_dlya_gostinnoy/stulya/stul_chikago/"
-           data-elementname="Стул &quot;Чикаго&quot;">
+      <div class="js-detail js-element detail b-product-detail clearfix">
         <div class="detail__inner js-element__shadow">
           <div class="detail__anchor js-detail-anchor hidden-xs">
             <a class="detail__anchor__link link-dashed js-easy-scroll" href="#detailtext" data-es-offset="-135">Описание</a>
@@ -148,7 +138,7 @@
                   <!-- /prices note -->
 
                   <!-- attributes -->
-                  <div class="detail__attributes">
+                  <div class="detail__attributes" *ngIf="productHasOptions">
 
                     <div class="c-attributes view-list  js-attributes" data-view="list">
                       <!-- prop -->
@@ -157,20 +147,24 @@
                            data-code="COLOR_DIRECTORY">
                       <span id="optionsContainer" class="c-attributes__select js-attributes__select"><!-- name-current-value -->
                         <span class="c-attributes__name-current-value">
-                          <span class="c-attributes__name">Цвет: </span>
+                          <span class="c-attributes__name">{{product.currentOffer.offerOption.title}}: </span>
                           <span class="c-attributes__current-value js-attributes__curent-value" (click)="switchOptionsWindow()">
                             <span class="c-attributes__current-value__pseudo-option">
-                              <span class="c-attributes__value-pic js-attributes__set-value-pic" style="background-image:url('/upload/uf/6b0/6b0ef92abe657d93b6a564db6e6ab0b0.jpg');" title="Бежевый"></span>
-                              <span class="c-attributes__value js-attributes__set-value-text">Бежевый</span>
+                              <span class="c-attributes__value-pic js-attributes__set-value-pic" [ngStyle]="getOptionButtonStyle(product.currentOffer)" title="{{product.currentOffer.optionValue}}"></span>
+                              <span class="c-attributes__value js-attributes__set-value-text">{{product.currentOffer.optionValue}}</span>
                               <svg class="c-attributes__arrow svg-icon">
-                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down">
+                                  <svg viewBox="0 0 129 129" id="svg-arrow-linear-down" width="100%" height="100%">
+                                    <path d="m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z"></path>
+                                  </svg>
+                                </use>
                               </svg>
                             </span>
                           </span>
                         </span>
                         <!-- /name-current-value -->
                         <!-- options -->
-                        <span id="options-window" class="c-attributes__options js-attributes__options" *ngIf="productHasOptions">
+                        <span id="options-window" class="c-attributes__options js-attributes__options">
                           <span class="c-attributes__option js-attributes__option" *ngFor="let offer of product.saleOffers" (click)="selectOption(offer)" data-value="Белый" data-value-pic="/upload/uf/2e3/2e3fb12bf845f48d1dcd81c6c74e9f6e.jpg">
                             <!--<span class="c-attributes__value-pic js-attributes__value-pic" style="background-image:url('/upload/uf/2e3/2e3fb12bf845f48d1dcd81c6c74e9f6e.jpg');" title="Белый"></span>-->
                             <span class="js-attributes__value-pic" [ngClass]="getOptionButtonClass(offer)"

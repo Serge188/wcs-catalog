@@ -21,6 +21,8 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { FooterComponent } from './footer/footer.component';
 import { ProductsListComponent } from './products-list/products-list.component';
+import { CategoryPageComponent } from './category-page/category-page.component';
+import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { ProductsListComponent } from './products-list/products-list.component';
     SideMenuComponent,
     ProductPageComponent,
     FooterComponent,
-    ProductsListComponent
+    ProductsListComponent,
+    CategoryPageComponent,
+    BreadcrumbsComponent
   ],
   imports: [
     BrowserModule,
