@@ -17,4 +17,8 @@ export class ProductsService {
   public getProductByAlias(alias: string): Observable<ProductEntry> {
     return this.http.get(`http://localhost:8080/api/products/byAlias/${alias}`).pipe();
   }
+
+  public getCategoryProducts(categoryId: number): Observable<any> {
+    return this.http.get(`http://localhost:8080/api/products/byCategory/${categoryId}`).pipe();
+  }
 }

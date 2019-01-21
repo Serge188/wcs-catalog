@@ -19,12 +19,12 @@
   <li class="rsbreadcrumb__free" *ngIf="hasParentCategory()">
     <span>/</span>
   </li>
-  <li id="bx_breadcrumb_3" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" itemprop="child" *ngIf="category != null">
+  <li id="bx_breadcrumb_3" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" itemprop="child" *ngIf="category != null && !isCategory">
     <a href="{{getCategoryLink()}}" title="{{category.title}}" itemprop="url">
       <span itemprop="title">{{category.title}}</span>
     </a>
   </li>
-  <li class="rsbreadcrumb__free" *ngIf="category != null">
+  <li class="rsbreadcrumb__free" *ngIf="category != null && !isCategory">
     <span>/</span>
   </li>
   <li>{{currentTitle}}</li>

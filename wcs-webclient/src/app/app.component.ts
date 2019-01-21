@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import {User} from "./_models/User";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "./authentication.service";
+import {CategoriesService} from "./categories.service";
 
 @Component({
   selector: 'app-root',
@@ -14,11 +15,14 @@ import {AuthenticationService} from "./authentication.service";
 @Injectable()
 export class AppComponent {
   currentUser: User;
+  isPageAdminPanel: boolean = false;
 
   constructor(private router: Router,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private categoriesService: CategoriesService) {
 
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.isPageAdminPanel = categoriesService.isPageAdminPanel;
   }
 
   logout() {

@@ -1,6 +1,6 @@
-<div class="tab-pane-in">
-  <div class="tab-pane-in2">
-    <div class="tab-sorter">
+<!--<div class="tab-pane-in">-->
+  <!--<div class="tab-pane-in2">-->
+    <!--<div class="tab-sorter">-->
       <div class="b-sorter js-sorter clearfix" data-ajaxpagesid="ajaxpages_main">
         <div class="b-sorter__template hidden-print">
           <a
@@ -51,12 +51,13 @@
             <span>Витрина</span></a>
         </div>
       </div>
-    </div>
-    <div id="ajaxpages_main" class="ajaxpages_main">
+    <!--</div>-->
+    <!--<div id="ajaxpages_main" class="ajaxpages_main">-->
+    <div id="ajaxpages_gmci" class="ajaxpages_gmci clearfix">
       <!-- showcase -->
       <div class="gopro-container">
         <div class="list-showcase view-showcase row" id="view-showcase" *ngIf="view === 'CARD'">
-          <div class="js-element da2 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-5rs mod-short"
+          <div class="js-element da2 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-3 mod-short"
                *ngFor="let p of products">
             <div class="list-showcase__inner js-element__shadow">
               <!-- part main -->
@@ -65,7 +66,7 @@
                   <div class="list-showcase__picture">
                     <a href="{{p.link}}">
                       <img class="js-list-picture js-lazy lazy-animation"
-                           src="/assets/img/catalog/198_132/empty.png"
+                           src={{getCardImageLink(p)}}
                            data-src="{{getCardImageLink(p)}}"
                            alt="{{p.altTitle}}"/>
                     </a>
@@ -298,5 +299,5 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
+  <!--</div>-->
+<!--</div>-->

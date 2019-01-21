@@ -27,6 +27,9 @@ public class Category {
     @Column(name="is_popular")
     private Boolean popular;
 
+    @Column(name="description")
+    private String description;
+
 
     public long getId() {
         return id;
@@ -74,5 +77,13 @@ public class Category {
 
     public void setPopular(Boolean popular) {
         this.popular = popular;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

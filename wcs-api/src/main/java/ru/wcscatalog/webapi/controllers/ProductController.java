@@ -31,4 +31,10 @@ public class ProductController {
         ProductEntry product = productRepository.getProductByAlias(alias);
         return ResponseEntity.ok(product);
     }
+
+    @GetMapping("/byCategory/{categoryId}")
+    public ResponseEntity<List<ProductEntry>> getProductsByCategory(@PathVariable("categoryId") Long categoryId) {
+        List<ProductEntry> products = productRepository.getProductsByCategory(categoryId);
+        return ResponseEntity.ok(products);
+    }
 }

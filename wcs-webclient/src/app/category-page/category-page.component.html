@@ -1,3 +1,2606 @@
-<p>
-  category-page works!
-</p>
+<app-header></app-header>
+
+<app-side-menu [hideMenu]="true"></app-side-menu>
+
+<div id="title" class="title">
+  <div class="centering">
+    <div class="centeringin clearfix">
+      <app-breadcrumbs [category]="category" [isCategory]="true" [currentTitle]="category?.title"></app-breadcrumbs>
+      <h1 class="pagetitle">{{category?.title}}</h1>
+    </div>
+  </div>
+</div>
+<div id="content" class="content">
+  <div class="centering">
+    <div class="centeringin clearfix">
+
+
+
+      <div class="catalog clearfix" id="catalog">
+
+
+        <div class="sidebar">
+
+
+          <ul class="menu-sidebar clearfix" *ngIf="category?.childCategories.length > 0">
+            <li class="first" *ngFor="let subCat of category.childCategories">
+              <a class="clearfix waves-effect" href="{{getSubCategoryLink(subCat)}}">
+                <span class="imya">{{subCat.title}}</span>
+              </a>
+            </li>
+          </ul>
+
+
+          <form name="_form" action="/catalog/mebel_dlya_gostinnoy/" method="get" class="smartfilter" onsubmit="return RSGoPro_FilterOnSubmitForm();"><div class="around_filtren"><div class="filtren clearfix ajaxfilter "><div class="title"><a class="shhi" href="#"><span class="show">Показать фильтр</span><span class="hide">Скрыть фильтр</span></a></div><div class="body"><div class="clearfix"><div class="lvl1" data-propid="1" data-propcode="BASE"><a href="#" class="showchild">Розничная цена<svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use></svg></a><div class="property number"><span class="smartf-div inputs"><input class="min-price min" type="text" name="arrFilter_P1_MIN" id="arrFilter_P1_MIN" value="" size="9" onkeyup="smartFilter.keyup(this)" placeholder="500"><span class="separator">—</span><input class="max-price max" type="text" name="arrFilter_P1_MAX" id="arrFilter_P1_MAX" value="" size="9" onkeyup="smartFilter.keyup(this)" placeholder="50 000"></span><span class="smartf-div aroundslider"><span class="smartf-div" style="clear: both;"></span><span class="smartf-div bx_ui_slider_track" id="drag_track_c4ca4238a0b923820dcc509a6f75849b"><span class="smartf-div bx_ui_slider_pricebar_VD" style="left: 0; right: 0;" id="colorUnavailableActive_c4ca4238a0b923820dcc509a6f75849b"></span><span class="smartf-div bx_ui_slider_pricebar_VN" style="left: 0%; right: 0%;" id="colorAvailableInactive_c4ca4238a0b923820dcc509a6f75849b"></span><span class="smartf-div bx_ui_slider_pricebar_V" style="left: 0%; right: 0%;" id="colorAvailableActive_c4ca4238a0b923820dcc509a6f75849b"></span><span class="smartf-div bx_ui_slider_range" id="drag_tracker_c4ca4238a0b923820dcc509a6f75849b" style="left: 0;right: 0;"><a class="bx_ui_slider_handle left" style="left:0;" href="javascript:void(0)" id="left_slider_c4ca4238a0b923820dcc509a6f75849b"></a><a class="bx_ui_slider_handle right" style="right:0;" href="javascript:void(0)" id="right_slider_c4ca4238a0b923820dcc509a6f75849b"></a></span></span></span></div><script type="text/javascript">
+            BX.ready(function(){
+              window['trackBarc4ca4238a0b923820dcc509a6f75849b'] = new BX.Iblock.SmartFilter({'leftSlider':'left_slider_c4ca4238a0b923820dcc509a6f75849b','rightSlider':'right_slider_c4ca4238a0b923820dcc509a6f75849b','tracker':'drag_tracker_c4ca4238a0b923820dcc509a6f75849b','trackerWrap':'drag_track_c4ca4238a0b923820dcc509a6f75849b','minInputId':'arrFilter_P1_MIN','maxInputId':'arrFilter_P1_MAX','minPrice':'500','maxPrice':'50000','curMinPrice':'','curMaxPrice':'','fltMinPrice':'500','fltMaxPrice':'50000','precision':'','colorUnavailableActive':'colorUnavailableActive_c4ca4238a0b923820dcc509a6f75849b','colorAvailableActive':'colorAvailableActive_c4ca4238a0b923820dcc509a6f75849b','colorAvailableInactive':'colorAvailableInactive_c4ca4238a0b923820dcc509a6f75849b'});
+            });
+          </script></div><div class="lvl1" data-propid="2" data-propcode="BRANDS"><a href="#" class="showchild">Производитель<svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use></svg></a><div class="property standart"><div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_2_3866125448" id="arrFilter_2_3866125448" value="Y"><label for="arrFilter_2_3866125448" data-role="label_arrFilter_2_3866125448" class="name " onclick="smartFilter.keyup(BX('arrFilter_2_3866125448')); BX.toggleClass(this, 'active');"><span class="val">Lulsta</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_2_3866125448">5</span>)</span></label></span></div><div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_2_2138649906" id="arrFilter_2_2138649906" value="Y"><label for="arrFilter_2_2138649906" data-role="label_arrFilter_2_2138649906" class="name " onclick="smartFilter.keyup(BX('arrFilter_2_2138649906')); BX.toggleClass(this, 'active');"><span class="val">Taluste</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_2_2138649906">2</span>)</span></label></span></div><div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_2_2518323207" id="arrFilter_2_2518323207" value="Y"><label for="arrFilter_2_2518323207" data-role="label_arrFilter_2_2518323207" class="name " onclick="smartFilter.keyup(BX('arrFilter_2_2518323207')); BX.toggleClass(this, 'active');"><span class="val">Altrenotti</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_2_2518323207">8</span>)</span></label></span></div><div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_2_3776815249" id="arrFilter_2_3776815249" value="Y"><label for="arrFilter_2_3776815249" data-role="label_arrFilter_2_3776815249" class="name " onclick="smartFilter.keyup(BX('arrFilter_2_3776815249')); BX.toggleClass(this, 'active');"><span class="val">Old World Chairs</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_2_3776815249">13</span>)</span></label></span></div></div></div><div class="lvl1" data-propid="4" data-propcode="CASING_MATERIAL"><a href="#" class="showchild">Материал обивки<svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use></svg></a><div class="property standart"><div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_4_4088798008" id="arrFilter_4_4088798008" value="Y"><label for="arrFilter_4_4088798008" data-role="label_arrFilter_4_4088798008" class="name " onclick="smartFilter.keyup(BX('arrFilter_4_4088798008')); BX.toggleClass(this, 'active');"><span class="val">Кожа</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_4_4088798008">4</span>)</span></label></span></div><div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_4_450215437" id="arrFilter_4_450215437" value="Y"><label for="arrFilter_4_450215437" data-role="label_arrFilter_4_450215437" class="name " onclick="smartFilter.keyup(BX('arrFilter_4_450215437')); BX.toggleClass(this, 'active');"><span class="val">Ткань</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_4_450215437">6</span>)</span></label></span></div><div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_4_1842515611" id="arrFilter_4_1842515611" value="Y"><label for="arrFilter_4_1842515611" data-role="label_arrFilter_4_1842515611" class="name " onclick="smartFilter.keyup(BX('arrFilter_4_1842515611')); BX.toggleClass(this, 'active');"><span class="val">Экокожа</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_4_1842515611">5</span>)</span></label></span></div></div></div><div class="lvl1 closed" data-propid="5" data-propcode="COLOR"><a href="#" class="showchild">Цвет<svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use></svg></a><div class="property dd wpal"><div class="dropdown" id="fltr_COLOR"><div class="dropdown"><div class="lvl2 clearfix"><span class="smartf-div"><span><input type="radio" value="" name="arrFilter_5" id="all_arrFilter_5" onclick="smartFilter.click(this)"></span><label for="all_arrFilter_5" data-role="label_arrFilter_5_1517085475" class="pic "><span class="nopic"></span></label><label for="all_arrFilter_5" data-role="label_arrFilter_5_1517085475" class="name "><span class="val">Все</span></label></span></div><div class="lvl2 clearfix"><span class="smartf-div "><span><input type="radio" value="1517085475" name="arrFilter_5" id="arrFilter_5_1517085475" onclick="smartFilter.click(this)"></span><label for="arrFilter_5_1517085475" data-role="label_arrFilter_5_1517085475" class="pic "><span style="background-image:url('/upload/uf/c45/c4599574c620333fc13968a494203c41.jpg');"></span></label><label for="arrFilter_5_1517085475" data-role="label_arrFilter_5_1517085475" class="name "><span class="val">Черный</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_5_1517085475">5</span>)</span></label></span></div><div class="lvl2 clearfix"><span class="smartf-div "><span><input type="radio" value="3278221977" name="arrFilter_5" id="arrFilter_5_3278221977" onclick="smartFilter.click(this)"></span><label for="arrFilter_5_3278221977" data-role="label_arrFilter_5_3278221977" class="pic "><span style="background-image:url('/upload/uf/2e3/2e3fb12bf845f48d1dcd81c6c74e9f6e.jpg');"></span></label><label for="arrFilter_5_3278221977" data-role="label_arrFilter_5_3278221977" class="name "><span class="val">Белый</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_5_3278221977">6</span>)</span></label></span></div><div class="lvl2 clearfix"><span class="smartf-div "><span><input type="radio" value="705042348" name="arrFilter_5" id="arrFilter_5_705042348" onclick="smartFilter.click(this)"></span><label for="arrFilter_5_705042348" data-role="label_arrFilter_5_705042348" class="pic "><span style="background-image:url('/upload/uf/fae/fae01ac1ffd4cba185575b767ac566b7.jpg');"></span></label><label for="arrFilter_5_705042348" data-role="label_arrFilter_5_705042348" class="name "><span class="val">Зелёный</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_5_705042348">2</span>)</span></label></span></div><div class="lvl2 clearfix"><span class="smartf-div "><span><input type="radio" value="1560356666" name="arrFilter_5" id="arrFilter_5_1560356666" onclick="smartFilter.click(this)"></span><label for="arrFilter_5_1560356666" data-role="label_arrFilter_5_1560356666" class="pic "><span style="background-image:url('/upload/uf/68b/68ba507ce2df20b3daeee7b7838a11c1.jpg');"></span></label><label for="arrFilter_5_1560356666" data-role="label_arrFilter_5_1560356666" class="name "><span class="val">Красный</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_5_1560356666">1</span>)</span></label></span></div><div class="lvl2 clearfix"><span class="smartf-div "><span><input type="radio" value="1457963696" name="arrFilter_5" id="arrFilter_5_1457963696" onclick="smartFilter.click(this)"></span><label for="arrFilter_5_1457963696" data-role="label_arrFilter_5_1457963696" class="pic "><span style="background-image:url('/upload/uf/c2c/c2c9e8c4bec3f22a4440f486eef416de.jpg');"></span></label><label for="arrFilter_5_1457963696" data-role="label_arrFilter_5_1457963696" class="name "><span class="val">Серый</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_5_1457963696">2</span>)</span></label></span></div><div class="lvl2 clearfix"><span class="smartf-div "><span><input type="radio" value="3102253980" name="arrFilter_5" id="arrFilter_5_3102253980" onclick="smartFilter.click(this)"></span><label for="arrFilter_5_3102253980" data-role="label_arrFilter_5_3102253980" class="pic "><span style="background-image:url('/upload/uf/3c9/3c9510ef2aedbc9185039b1dc78feac9.jpg');"></span></label><label for="arrFilter_5_3102253980" data-role="label_arrFilter_5_3102253980" class="name "><span class="val">Оранжевый</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_5_3102253980">1</span>)</span></label></span></div><div class="lvl2 clearfix"><span class="smartf-div "><span><input type="radio" value="3488584458" name="arrFilter_5" id="arrFilter_5_3488584458" onclick="smartFilter.click(this)"></span><label for="arrFilter_5_3488584458" data-role="label_arrFilter_5_3488584458" class="pic "><span style="background-image:url('/upload/uf/80a/80a87dcd324a898dff723d61a7842380.jpg');"></span></label><label for="arrFilter_5_3488584458" data-role="label_arrFilter_5_3488584458" class="name "><span class="val">Слоновая кость</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_5_3488584458">1</span>)</span></label></span></div><div class="lvl2 clearfix"><span class="smartf-div "><span><input type="radio" value="1368065705" name="arrFilter_5" id="arrFilter_5_1368065705" onclick="smartFilter.click(this)"></span><label for="arrFilter_5_1368065705" data-role="label_arrFilter_5_1368065705" class="pic "><span style="background-image:url('/upload/uf/af3/af34272a97b3f4e8cabe7336fdfd5e56.jpg');"></span></label><label for="arrFilter_5_1368065705" data-role="label_arrFilter_5_1368065705" class="name "><span class="val">Голубой</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_5_1368065705">1</span>)</span></label></span></div><div class="lvl2 clearfix"><span class="smartf-div "><span><input type="radio" value="3213191045" name="arrFilter_5" id="arrFilter_5_3213191045" onclick="smartFilter.click(this)"></span><label for="arrFilter_5_3213191045" data-role="label_arrFilter_5_3213191045" class="pic "><span style="background-image:url('/upload/uf/f5d/f5de333248c540c800face7a41d37b19.jpg');"></span></label><label for="arrFilter_5_3213191045" data-role="label_arrFilter_5_3213191045" class="name "><span class="val">Коричневый</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_5_3213191045">1</span>)</span></label></span></div></div></div><div class="lvl2 selected"><span class="smartf-div"><label data-role="label_" class="pic select"><span class="nopic"></span></label><label data-role="label_" class="name select"><span>Все</span><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use></svg></label></span></div></div></div><div class="lvl1 closed" data-propid="7" data-propcode="FURNITURE_MATERIAL"><a href="#" class="showchild">Материал<svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use></svg></a><div class="property standart"><div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_7_498629140" id="arrFilter_7_498629140" value="Y"><label for="arrFilter_7_498629140" data-role="label_arrFilter_7_498629140" class="name " onclick="smartFilter.keyup(BX('arrFilter_7_498629140')); BX.toggleClass(this, 'active');"><span class="val">Аллюминий</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_7_498629140">2</span>)</span></label></span></div><div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_7_2366072709" id="arrFilter_7_2366072709" value="Y"><label for="arrFilter_7_2366072709" data-role="label_arrFilter_7_2366072709" class="name " onclick="smartFilter.keyup(BX('arrFilter_7_2366072709')); BX.toggleClass(this, 'active');"><span class="val">Бук</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_7_2366072709">2</span>)</span></label></span></div><div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_7_2707236321" id="arrFilter_7_2707236321" value="Y"><label for="arrFilter_7_2707236321" data-role="label_arrFilter_7_2707236321" class="name " onclick="smartFilter.keyup(BX('arrFilter_7_2707236321')); BX.toggleClass(this, 'active');"><span class="val">Красное дерево</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_7_2707236321">1</span>)</span></label></span></div><div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_7_4194326291" id="arrFilter_7_4194326291" value="Y"><label for="arrFilter_7_4194326291" data-role="label_arrFilter_7_4194326291" class="name " onclick="smartFilter.keyup(BX('arrFilter_7_4194326291')); BX.toggleClass(this, 'active');"><span class="val">Ольха</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_7_4194326291">2</span>)</span></label></span></div><div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_7_1790921346" id="arrFilter_7_1790921346" value="Y"><label for="arrFilter_7_1790921346" data-role="label_arrFilter_7_1790921346" class="name " onclick="smartFilter.keyup(BX('arrFilter_7_1790921346')); BX.toggleClass(this, 'active');"><span class="val">Пенополиуретан</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_7_1790921346">5</span>)</span></label></span></div><div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_7_3596227959" id="arrFilter_7_3596227959" value="Y"><label for="arrFilter_7_3596227959" data-role="label_arrFilter_7_3596227959" class="name " onclick="smartFilter.keyup(BX('arrFilter_7_3596227959')); BX.toggleClass(this, 'active');"><span class="val">Пластик</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_7_3596227959">1</span>)</span></label></span></div><div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_7_2226203566" id="arrFilter_7_2226203566" value="Y"><label for="arrFilter_7_2226203566" data-role="label_arrFilter_7_2226203566" class="name " onclick="smartFilter.keyup(BX('arrFilter_7_2226203566')); BX.toggleClass(this, 'active');"><span class="val">Сосна</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_7_2226203566">10</span>)</span></label></span></div></div></div><div class="lvl1 closed" data-propid="11" data-propcode="WIDTH_SIZE"><a href="#" class="showchild">Количество мест<svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use></svg></a><div class="property standart"><div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_11_450215437" id="arrFilter_11_450215437" value="Y"><label for="arrFilter_11_450215437" data-role="label_arrFilter_11_450215437" class="name " onclick="smartFilter.keyup(BX('arrFilter_11_450215437')); BX.toggleClass(this, 'active');"><span class="val">2</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_11_450215437">1</span>)</span></label></span></div><div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_11_1842515611" id="arrFilter_11_1842515611" value="Y"><label for="arrFilter_11_1842515611" data-role="label_arrFilter_11_1842515611" class="name " onclick="smartFilter.keyup(BX('arrFilter_11_1842515611')); BX.toggleClass(this, 'active');"><span class="val">3</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_11_1842515611">1</span>)</span></label></span></div></div></div></div>
+
+            <div class="buttons">
+              <button class="btn-primary filter-set waves-effect" type="button" id="set_filter" name="set_filter" value="Применить">Применить</button>
+              <div></div>
+              <button class="btn-link filter-reset" type="button" id="del_filter" name="del_filter" value="Очистить фильтр"><span>Очистить фильтр</span></button>
+            </div>
+          </div>
+            <div class="modef" id="modef" style="display:none">
+				<span class="data">
+					Выбрано:  <span id="modef_num">0</span>					<a href="/catalog/mebel_dlya_gostinnoy/filter/clear/apply/">Показать</a>
+				</span>
+            </div>
+          </div>
+          </div>
+          </form>
+          <script>
+            var smartFilter = new JCSmartFilter('/catalog/mebel_dlya_gostinnoy/', {'SEF_SET_FILTER_URL':'/catalog/mebel_dlya_gostinnoy/filter/clear/apply/','SEF_DEL_FILTER_URL':'/catalog/mebel_dlya_gostinnoy/filter/clear/apply/'});
+          </script>
+
+
+        </div>
+
+        <div class="prods" id="prods">
+          <div class="sectinfo">
+            <div class="img clearfix" *ngIf="category?.image != null">
+              <img src="{{category.image.categoryImageLink}}" alt="{{category.title}}" title="{{category.title}}">
+            </div>
+            <div class="description" *ngIf="category?.description != null">
+              {{category.description}}
+            </div>
+          </div>
+          <div class="mix clearfix">
+            <app-products-list [products]="products"></app-products-list>
+
+
+          <!--<div class="b-sorter js-sorter clearfix used" data-ajaxpagesid="ajaxpages_gmci">-->
+
+            <!--&lt;!&ndash;'start_frame_cache_composite_sorter'&ndash;&gt;-->
+            <!--<div class="b-sorter__template hidden-print">-->
+              <!--<a class="js-sorter__a waves-effect" href="/catalog/mebel_dlya_gostinnoy/?alfaction=ctemplate&amp;alfavalue=table" data-fvalue="table" title="Список"><svg class="svg-icon icon-table"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-view-table"></use></svg><span>Список</span></a>-->
+              <!--<a class="js-sorter__a waves-effect" href="/catalog/mebel_dlya_gostinnoy/?alfaction=ctemplate&amp;alfavalue=gallery" data-fvalue="gallery" title="Галерея"><svg class="svg-icon icon-gallery"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-view-gallery"></use></svg><span>Галерея</span></a>-->
+              <!--<a class="selected js-sorter__a waves-effect" href="/catalog/mebel_dlya_gostinnoy/?alfaction=ctemplate&amp;alfavalue=showcase" data-fvalue="showcase" title="Витрина"><svg class="svg-icon icon-showcase"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-view-showcase"></use></svg><span>Витрина</span></a>-->
+            <!--</div>-->
+
+
+            <!--<div class="b-sorter__sortaou hidden-print">-->
+              <!--<div class="b-sorter__shortsort js-sorter__shortsort">-->
+                <!--<div class="cool">-->
+                  <!--<div class="b-sorter__title">Сортировать:</div>-->
+                  <!--<span class="b-sorter__drop"></span>-->
+                  <!--<a class="js-sorter__a" href="/catalog/mebel_dlya_gostinnoy/?alfaction=csort&amp;alfavalue=sort_asc" data-url1="/catalog/mebel_dlya_gostinnoy/?alfaction=csort&amp;alfavalue=sort_asc" data-url2="/catalog/mebel_dlya_gostinnoy/?alfaction=csort&amp;alfavalue=sort_desc"><span class="nowrap">по популярности<svg class="svg-icon asc"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use></svg></span></a>-->
+                  <!--<span class="b-sorter__drop"></span>-->
+                  <!--<a class="selected js-sorter__a" href="/catalog/mebel_dlya_gostinnoy/?alfaction=csort&amp;alfavalue=name_desc" data-url1="/catalog/mebel_dlya_gostinnoy/?alfaction=csort&amp;alfavalue=name_desc" data-url2="/catalog/mebel_dlya_gostinnoy/?alfaction=csort&amp;alfavalue=name_asc"><span class="nowrap">по имени<svg class="svg-icon asc"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use></svg></span></a>-->
+                  <!--<span class="b-sorter__drop"></span>-->
+                  <!--<a class="js-sorter__a" href="/catalog/mebel_dlya_gostinnoy/?alfaction=csort&amp;alfavalue=PROPERTY_PROD_PRICE_FALSE_asc" data-url1="/catalog/mebel_dlya_gostinnoy/?alfaction=csort&amp;alfavalue=PROPERTY_PROD_PRICE_FALSE_asc" data-url2="/catalog/mebel_dlya_gostinnoy/?alfaction=csort&amp;alfavalue=PROPERTY_PROD_PRICE_FALSE_desc"><span class="nowrap">по цене<svg class="svg-icon asc"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use></svg></span></a>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+
+
+            <!--&lt;!&ndash;'end_frame_cache_composite_sorter'&ndash;&gt;-->
+          <!--</div>-->
+
+        <!--</div>-->
+          <!--<div id="ajaxpages_gmci" class="ajaxpages_gmci clearfix">-->
+            <!--&lt;!&ndash; showcase &ndash;&gt;<div class="gopro-container"><div class="list-showcase view-showcase row" id="view-showcase">-->
+            <!--&lt;!&ndash; element &ndash;&gt;-->
+            <!--<div class="js-element js-elementid1 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-3 mod-short" data-elementid="1" id="bx_3966226736_1" data-productid="1" data-detail="/catalog/mebel_dlya_gostinnoy/divan_aristokrat_/">-->
+              <!--<div class="list-showcase__inner js-element__shadow">-->
+
+                <!--&lt;!&ndash; part main &ndash;&gt;-->
+                <!--<div class="list-showcase__part-main">-->
+
+                  <!--<div class="list-showcase__mix">-->
+
+
+                    <!--<div class="list-showcase__picture"><script type="text/javascript">-->
+                      <!--RSGoPro_Pictures[1] = {'1':[{'SRC':'/upload/resize_cache/iblock/db6/198_208_140cd750bba9870f18aada2478b24840a/db67d5b8c4383527db2767385a97e569.jpg','ALT':'Диван &quot;Аристократ&quot; ','TITLE':'Диван &quot;Аристократ&quot; ','SRC_ORIGINAL':'/upload/iblock/db6/db67d5b8c4383527db2767385a97e569.jpg'}]};-->
+                    <!--</script>-->
+                      <!--<a href="/catalog/mebel_dlya_gostinnoy/divan_aristokrat_/"><img class="js-list-picture js-lazy" src="/upload/resize_cache/iblock/db6/198_208_140cd750bba9870f18aada2478b24840a/db67d5b8c4383527db2767385a97e569.jpg" alt="Диван &quot;Аристократ&quot; " title="Диван &quot;Аристократ&quot; " style=""></a></div>-->
+
+                    <!--<div class="list-showcase__timer-stickers">-->
+                      <!--<div class="list-showcase__timer">-->
+                      <!--</div>-->
+                      <!--<div class="list-showcase__stickers">-->
+
+                        <!--<div class="c-stickers"><span class="c-stickers__sticker c-stickers__da2">Товар дня</span><span class="c-stickers__sticker c-stickers__qb">Успей купить</span><span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value" style="display: none;">-<span class="js-discount-value">0</span>%</span></div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__compare">-->
+                      <!--<a rel="nofollow" class="c-compare js-add2compare" href="/catalog/mebel_dlya_gostinnoy/?action=ADD_TO_COMPARE_LIST&amp;id=1"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__favorite">-->
+                      <!--<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_gostinnoy/divan_aristokrat_/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+
+                  <!--<div class="list-showcase__name-rating">-->
+
+                    <!--<div class="list-showcase__name"><a href="/catalog/mebel_dlya_gostinnoy/divan_aristokrat_/">Диван "Аристократ" </a></div>-->
+
+                    <!--<div class="list-showcase__rating">-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__prices">-->
+
+                    <!--<div class="c-prices js-prices view-list page-list product-alone multyprice-no" data-page="list" data-view="list" data-maxshow="2" data-showmore="Y" data-usealone="Y" data-multiprice="N" data-productmultiprice="N">-->
+                      <!--<span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE"><span class="c-prices__name">Розничная цена:</span><span class="c-prices__value js-prices_pdv_BASE">20 000 руб.</span><span class="c-prices__value-old-before"><span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE c-prices__hide">20 000 руб.</span></span></span><div class="c-prices__more js-prices__more c-prices__hide"><a class="c-prices__more-link" href="/catalog/mebel_dlya_gostinnoy/divan_aristokrat_/">Еще (<span class="js-prices__more-count">-1</span>)</a></div></div>-->
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__stores">-->
+
+
+
+                    <!--<div class="b-stores js-stores" data-firstelement="1" data-page="list">-->
+                      <!--<div class="b-stores__inner"><span class="b-stores__genamount" data-href="#stocks" title="" data-es-offset="-135"><span class="js-stores__value">Мало<svg class="svg-icon isset"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-available"></use></svg></span></span></div>-->
+                    <!--</div>-->
+
+
+                    <!--<script>-->
+                      <!--if (RSGoPro_STOCK == 'undefined')-->
+                        <!--RSGoPro_STOCK = {};-->
+
+                      <!--RSGoPro_STOCK[1] = {-->
+                        <!--'QUANTITY' : {"1":"8"},-->
+                        <!--'JS' : '',-->
+                        <!--'USE_MIN_AMOUNT' : true,-->
+                        <!--'MIN_AMOUNT' : 10,-->
+                        <!--'MESSAGE_ISSET' : 'В наличии<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_LOW' : 'Мало<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_EMPTY' : 'Нет в наличии<svg class=\"svg-icon empty\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-not-available\"><\/use><\/svg>',-->
+                        <!--'SHOW_EMPTY_STORE' : true};-->
+
+                      <!--$(document).on('rsGoPro.document.ready', function(){-->
+                        <!--var html = '';-->
+                        <!--$('#stocks_detail_tab').html(html.DATA);-->
+                      <!--});-->
+                    <!--</script>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__pay hidden-print">-->
+
+                    <!--&lt;!&ndash;noindex&ndash;&gt;-->
+                    <!--<div class="b-pay">-->
+                      <!--<form class="b-pay__form js-pay__form js-buyform1 js-synchro clearfix" name="add2basketform">-->
+                        <!--<input type="hidden" name="action" value="ADD2BASKET">-->
+                        <!--<input type="hidden" name="id" class="js-add2basketpid" value="1">-->
+                        <!--<span class="b-pay__inner">-->
+            <!--<span class="b-pay__quantity">-->
+                        <!--</span>-->
+            <!--<span class="b-pay__buttons">-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary waves-effect" href="#" title="В корзину">В корзину</a>-->
+
+
+<!--<span id="bx_3966226736_1_subscribe_link" class="b-pay__button b-pay__add2subscribe js-product-subscribe btn-default add2subscribe bx-catalog-subscribe-button" data-item="1" style="" title="">Подписаться</span>-->
+<!--<input type="hidden" id="bx_3966226736_1_subscribe_link_hidden">-->
+
+<!--<script type="text/javascript">-->
+	<!--var obbx_2253176769_1 = new JCCatalogProductSubscribe({'buttonId':'bx_3966226736_1_subscribe_link','jsObject':'obbx_2253176769_1','alreadySubscribed':false,'productId':'1','buttonClass':'b-pay__button b-pay__add2subscribe js-product-subscribe btn-default','urlListSubscriptions':'/'});-->
+
+  <!--BX.message({-->
+    <!--CPST_SUBSCRIBE_POPUP_TITLE: 'Подписка на товар',-->
+    <!--CPST_SUBSCRIBE_BUTTON_NAME: 'Подписаться',-->
+    <!--CPST_SUBSCRIBE_BUTTON_CLOSE: 'Закрыть',-->
+    <!--CPST_SUBSCRIBE_MANY_CONTACT_NOTIFY: 'Выберите способ уведомления:',-->
+    <!--CPST_SUBSCRIBE_LABLE_CONTACT_INPUT: 'Укажите Ваш #CONTACT#: ',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_UNKNOW_ERROR: 'Ошибка валидации',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR_EMPTY_FIELD: 'Не заполнено поле \"#FIELD#\"',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR: 'Вы не выбрали способ уведомления',-->
+    <!--CPST_SUBSCRIBE_CAPTCHA_TITLE: 'Введите слово на картинке',-->
+    <!--CPST_STATUS_SUCCESS: 'Успешно',-->
+    <!--CPST_STATUS_ERROR: 'Произошла ошибка',-->
+    <!--CPST_ENTER_WORD_PICTURE: 'Введите слово на картинке',-->
+    <!--CPST_TITLE_ALREADY_SUBSCRIBED: 'Уже подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TITLE: 'Вы подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TEXT: 'Список товаров на которые вы подписаны можно увидеть по ссылке #URL#'-->
+  <!--});-->
+<!--</script>-->
+
+<!--<script type="text/javascript">-->
+	<!--BX.ready(BX.defer(function(){-->
+    <!--if (!!window.obbx_2253176769_1)-->
+    <!--{-->
+      <!--window.obbx_2253176769_1.setButton('');-->
+    <!--}-->
+  <!--}));-->
+<!--</script>-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken waves-effect" href="/personal/cart/" title="В корзине">В корзине</a>-->
+                            <!--</span>-->
+        <!--</span>-->
+                        <!--<input type="submit" name="submit" class="nonep" value="">-->
+                      <!--</form>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;/noindex&ndash;&gt;-->
+                  <!--</div>-->
+
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part main &ndash;&gt;-->
+
+                <!--&lt;!&ndash; part extended &ndash;&gt;-->
+                <!--<div class="list-showcase__part-extended">-->
+
+
+                  <!--<div class="list-showcase__attributes">-->
+                  <!--</div>-->
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part extended &ndash;&gt;-->
+
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /element &ndash;&gt;-->
+            <!--&lt;!&ndash; element &ndash;&gt;-->
+            <!--<div class="js-element js-elementid2 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-3 mod-short" data-elementid="2" id="bx_3966226736_2" data-productid="2" data-detail="/catalog/mebel_dlya_gostinnoy/divan_zhemchuzhina/">-->
+              <!--<div class="list-showcase__inner js-element__shadow">-->
+
+                <!--&lt;!&ndash; part main &ndash;&gt;-->
+                <!--<div class="list-showcase__part-main">-->
+
+                  <!--<div class="list-showcase__mix">-->
+
+
+                    <!--<div class="list-showcase__picture"><script type="text/javascript">-->
+                      <!--RSGoPro_Pictures[2] = {'2':[{'SRC':'/upload/resize_cache/iblock/265/198_208_140cd750bba9870f18aada2478b24840a/265fcf6620ac47a5ad3522242c84d2e5.jpg','ALT':'Диван &quot;Жемчужина&quot;','TITLE':'Диван &quot;Жемчужина&quot;','SRC_ORIGINAL':'/upload/iblock/265/265fcf6620ac47a5ad3522242c84d2e5.jpg'}]};-->
+                    <!--</script>-->
+                      <!--<a href="/catalog/mebel_dlya_gostinnoy/divan_zhemchuzhina/"><img class="js-list-picture js-lazy" src="/upload/resize_cache/iblock/265/198_208_140cd750bba9870f18aada2478b24840a/265fcf6620ac47a5ad3522242c84d2e5.jpg" alt="Диван &quot;Жемчужина&quot;" title="Диван &quot;Жемчужина&quot;" style=""></a></div>-->
+
+                    <!--<div class="list-showcase__timer-stickers">-->
+                      <!--<div class="list-showcase__timer">-->
+                      <!--</div>-->
+                      <!--<div class="list-showcase__stickers">-->
+
+                        <!--<div class="c-stickers"><span class="c-stickers__sticker c-stickers__da2">Товар дня</span><span class="c-stickers__sticker c-stickers__qb">Успей купить</span><span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value" style="display: none;">-<span class="js-discount-value">0</span>%</span></div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__compare">-->
+                      <!--<a rel="nofollow" class="c-compare js-add2compare" href="/catalog/mebel_dlya_gostinnoy/?action=ADD_TO_COMPARE_LIST&amp;id=2"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__favorite">-->
+                      <!--<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_gostinnoy/divan_zhemchuzhina/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+
+                  <!--<div class="list-showcase__name-rating">-->
+
+                    <!--<div class="list-showcase__name"><a href="/catalog/mebel_dlya_gostinnoy/divan_zhemchuzhina/">Диван "Жемчужина"</a></div>-->
+
+                    <!--<div class="list-showcase__rating">-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__prices">-->
+
+                    <!--<div class="c-prices js-prices view-list page-list product-alone multyprice-no" data-page="list" data-view="list" data-maxshow="2" data-showmore="Y" data-usealone="Y" data-multiprice="N" data-productmultiprice="N">-->
+                      <!--<span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE"><span class="c-prices__name">Розничная цена:</span><span class="c-prices__value js-prices_pdv_BASE">17 000 руб.</span><span class="c-prices__value-old-before"><span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE c-prices__hide">17 000 руб.</span></span></span><div class="c-prices__more js-prices__more c-prices__hide"><a class="c-prices__more-link" href="/catalog/mebel_dlya_gostinnoy/divan_zhemchuzhina/">Еще (<span class="js-prices__more-count">-1</span>)</a></div></div>-->
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__stores">-->
+
+
+
+                    <!--<div class="b-stores js-stores" data-firstelement="2" data-page="list">-->
+                      <!--<div class="b-stores__inner"><span class="b-stores__genamount" data-href="#stocks" title="" data-es-offset="-135"><span class="js-stores__value">Мало<svg class="svg-icon isset"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-available"></use></svg></span></span></div>-->
+                    <!--</div>-->
+
+
+                    <!--<script>-->
+                      <!--if (RSGoPro_STOCK == 'undefined')-->
+                        <!--RSGoPro_STOCK = {};-->
+
+                      <!--RSGoPro_STOCK[2] = {-->
+                        <!--'QUANTITY' : {"2":"5"},-->
+                        <!--'JS' : '',-->
+                        <!--'USE_MIN_AMOUNT' : true,-->
+                        <!--'MIN_AMOUNT' : 10,-->
+                        <!--'MESSAGE_ISSET' : 'В наличии<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_LOW' : 'Мало<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_EMPTY' : 'Нет в наличии<svg class=\"svg-icon empty\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-not-available\"><\/use><\/svg>',-->
+                        <!--'SHOW_EMPTY_STORE' : true};-->
+
+                      <!--$(document).on('rsGoPro.document.ready', function(){-->
+                        <!--var html = '';-->
+                        <!--$('#stocks_detail_tab').html(html.DATA);-->
+                      <!--});-->
+                    <!--</script>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__pay hidden-print">-->
+
+                    <!--&lt;!&ndash;noindex&ndash;&gt;-->
+                    <!--<div class="b-pay">-->
+                      <!--<form class="b-pay__form js-pay__form js-buyform2 js-synchro clearfix" name="add2basketform">-->
+                        <!--<input type="hidden" name="action" value="ADD2BASKET">-->
+                        <!--<input type="hidden" name="id" class="js-add2basketpid" value="2">-->
+                        <!--<span class="b-pay__inner">-->
+            <!--<span class="b-pay__quantity">-->
+                        <!--</span>-->
+            <!--<span class="b-pay__buttons">-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary waves-effect" href="#" title="В корзину">В корзину</a>-->
+
+
+<!--<span id="bx_3966226736_2_subscribe_link" class="b-pay__button b-pay__add2subscribe js-product-subscribe btn-default add2subscribe bx-catalog-subscribe-button" data-item="2" style="" title="">Подписаться</span>-->
+<!--<input type="hidden" id="bx_3966226736_2_subscribe_link_hidden">-->
+
+<!--<script type="text/javascript">-->
+	<!--var obbx_524676731_2 = new JCCatalogProductSubscribe({'buttonId':'bx_3966226736_2_subscribe_link','jsObject':'obbx_524676731_2','alreadySubscribed':false,'productId':'2','buttonClass':'b-pay__button b-pay__add2subscribe js-product-subscribe btn-default','urlListSubscriptions':'/'});-->
+
+  <!--BX.message({-->
+    <!--CPST_SUBSCRIBE_POPUP_TITLE: 'Подписка на товар',-->
+    <!--CPST_SUBSCRIBE_BUTTON_NAME: 'Подписаться',-->
+    <!--CPST_SUBSCRIBE_BUTTON_CLOSE: 'Закрыть',-->
+    <!--CPST_SUBSCRIBE_MANY_CONTACT_NOTIFY: 'Выберите способ уведомления:',-->
+    <!--CPST_SUBSCRIBE_LABLE_CONTACT_INPUT: 'Укажите Ваш #CONTACT#: ',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_UNKNOW_ERROR: 'Ошибка валидации',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR_EMPTY_FIELD: 'Не заполнено поле \"#FIELD#\"',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR: 'Вы не выбрали способ уведомления',-->
+    <!--CPST_SUBSCRIBE_CAPTCHA_TITLE: 'Введите слово на картинке',-->
+    <!--CPST_STATUS_SUCCESS: 'Успешно',-->
+    <!--CPST_STATUS_ERROR: 'Произошла ошибка',-->
+    <!--CPST_ENTER_WORD_PICTURE: 'Введите слово на картинке',-->
+    <!--CPST_TITLE_ALREADY_SUBSCRIBED: 'Уже подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TITLE: 'Вы подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TEXT: 'Список товаров на которые вы подписаны можно увидеть по ссылке #URL#'-->
+  <!--});-->
+<!--</script>-->
+
+<!--<script type="text/javascript">-->
+	<!--BX.ready(BX.defer(function(){-->
+    <!--if (!!window.obbx_524676731_2)-->
+    <!--{-->
+      <!--window.obbx_524676731_2.setButton('');-->
+    <!--}-->
+  <!--}));-->
+<!--</script>-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken waves-effect" href="/personal/cart/" title="В корзине">В корзине</a>-->
+                            <!--</span>-->
+        <!--</span>-->
+                        <!--<input type="submit" name="submit" class="nonep" value="">-->
+                      <!--</form>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;/noindex&ndash;&gt;-->
+                  <!--</div>-->
+
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part main &ndash;&gt;-->
+
+                <!--&lt;!&ndash; part extended &ndash;&gt;-->
+                <!--<div class="list-showcase__part-extended">-->
+
+
+                  <!--<div class="list-showcase__attributes">-->
+                  <!--</div>-->
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part extended &ndash;&gt;-->
+
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /element &ndash;&gt;-->
+            <!--&lt;!&ndash; element &ndash;&gt;-->
+            <!--<div class="js-element js-elementid4 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-3 mod-short" data-elementid="4" id="bx_3966226736_4" data-productid="4" data-detail="/catalog/mebel_dlya_gostinnoy/divan_zoloto_inkov/">-->
+              <!--<div class="list-showcase__inner js-element__shadow">-->
+
+                <!--&lt;!&ndash; part main &ndash;&gt;-->
+                <!--<div class="list-showcase__part-main">-->
+
+                  <!--<div class="list-showcase__mix">-->
+
+
+                    <!--<div class="list-showcase__picture"><script type="text/javascript">-->
+                      <!--RSGoPro_Pictures[4] = {'4':[{'SRC':'/upload/resize_cache/iblock/924/198_208_140cd750bba9870f18aada2478b24840a/924325a0a0aaf7f6861d62c137119470.jpg','ALT':'Диван &quot;Золото инков&quot;','TITLE':'Диван &quot;Золото инков&quot;','SRC_ORIGINAL':'/upload/iblock/924/924325a0a0aaf7f6861d62c137119470.jpg'}]};-->
+                    <!--</script>-->
+                      <!--<a href="/catalog/mebel_dlya_gostinnoy/divan_zoloto_inkov/"><img class="js-list-picture js-lazy" src="/upload/resize_cache/iblock/924/198_208_140cd750bba9870f18aada2478b24840a/924325a0a0aaf7f6861d62c137119470.jpg" alt="Диван &quot;Золото инков&quot;" title="Диван &quot;Золото инков&quot;" style=""></a></div>-->
+
+                    <!--<div class="list-showcase__timer-stickers">-->
+                      <!--<div class="list-showcase__timer">-->
+                      <!--</div>-->
+                      <!--<div class="list-showcase__stickers">-->
+
+                        <!--<div class="c-stickers"><span class="c-stickers__sticker c-stickers__da2">Товар дня</span><span class="c-stickers__sticker c-stickers__qb">Успей купить</span><span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value" style="display: none;">-<span class="js-discount-value">0</span>%</span></div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__compare">-->
+                      <!--<a rel="nofollow" class="c-compare js-add2compare" href="/catalog/mebel_dlya_gostinnoy/?action=ADD_TO_COMPARE_LIST&amp;id=4"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__favorite">-->
+                      <!--<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_gostinnoy/divan_zoloto_inkov/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+
+                  <!--<div class="list-showcase__name-rating">-->
+
+                    <!--<div class="list-showcase__name"><a href="/catalog/mebel_dlya_gostinnoy/divan_zoloto_inkov/">Диван "Золото инков"</a></div>-->
+
+                    <!--<div class="list-showcase__rating">-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__prices">-->
+
+                    <!--<div class="c-prices js-prices view-list page-list product-alone multyprice-no" data-page="list" data-view="list" data-maxshow="2" data-showmore="Y" data-usealone="Y" data-multiprice="N" data-productmultiprice="N">-->
+                      <!--<span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE"><span class="c-prices__name">Розничная цена:</span><span class="c-prices__value js-prices_pdv_BASE">29 000 руб.</span><span class="c-prices__value-old-before"><span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE c-prices__hide">29 000 руб.</span></span></span><div class="c-prices__more js-prices__more c-prices__hide"><a class="c-prices__more-link" href="/catalog/mebel_dlya_gostinnoy/divan_zoloto_inkov/">Еще (<span class="js-prices__more-count">-1</span>)</a></div></div>-->
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__stores">-->
+
+
+
+                    <!--<div class="b-stores js-stores" data-firstelement="4" data-page="list">-->
+                      <!--<div class="b-stores__inner"><span class="b-stores__genamount" data-href="#stocks" title="" data-es-offset="-135"><span class="js-stores__value">В наличии<svg class="svg-icon isset"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-available"></use></svg></span></span></div>-->
+                    <!--</div>-->
+
+
+                    <!--<script>-->
+                      <!--if (RSGoPro_STOCK == 'undefined')-->
+                        <!--RSGoPro_STOCK = {};-->
+
+                      <!--RSGoPro_STOCK[4] = {-->
+                        <!--'QUANTITY' : {"4":"32"},-->
+                        <!--'JS' : '',-->
+                        <!--'USE_MIN_AMOUNT' : true,-->
+                        <!--'MIN_AMOUNT' : 10,-->
+                        <!--'MESSAGE_ISSET' : 'В наличии<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_LOW' : 'Мало<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_EMPTY' : 'Нет в наличии<svg class=\"svg-icon empty\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-not-available\"><\/use><\/svg>',-->
+                        <!--'SHOW_EMPTY_STORE' : true};-->
+
+                      <!--$(document).on('rsGoPro.document.ready', function(){-->
+                        <!--var html = '';-->
+                        <!--$('#stocks_detail_tab').html(html.DATA);-->
+                      <!--});-->
+                    <!--</script>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__pay hidden-print">-->
+
+                    <!--&lt;!&ndash;noindex&ndash;&gt;-->
+                    <!--<div class="b-pay">-->
+                      <!--<form class="b-pay__form js-pay__form js-buyform4 js-synchro clearfix" name="add2basketform">-->
+                        <!--<input type="hidden" name="action" value="ADD2BASKET">-->
+                        <!--<input type="hidden" name="id" class="js-add2basketpid" value="4">-->
+                        <!--<span class="b-pay__inner">-->
+            <!--<span class="b-pay__quantity">-->
+                        <!--</span>-->
+            <!--<span class="b-pay__buttons">-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary waves-effect" href="#" title="В корзину">В корзину</a>-->
+
+
+<!--<span id="bx_3966226736_4_subscribe_link" class="b-pay__button b-pay__add2subscribe js-product-subscribe btn-default add2subscribe bx-catalog-subscribe-button" data-item="4" style="" title="">Подписаться</span>-->
+<!--<input type="hidden" id="bx_3966226736_4_subscribe_link_hidden">-->
+
+<!--<script type="text/javascript">-->
+	<!--var obbx_1749212909_4 = new JCCatalogProductSubscribe({'buttonId':'bx_3966226736_4_subscribe_link','jsObject':'obbx_1749212909_4','alreadySubscribed':false,'productId':'4','buttonClass':'b-pay__button b-pay__add2subscribe js-product-subscribe btn-default','urlListSubscriptions':'/'});-->
+
+  <!--BX.message({-->
+    <!--CPST_SUBSCRIBE_POPUP_TITLE: 'Подписка на товар',-->
+    <!--CPST_SUBSCRIBE_BUTTON_NAME: 'Подписаться',-->
+    <!--CPST_SUBSCRIBE_BUTTON_CLOSE: 'Закрыть',-->
+    <!--CPST_SUBSCRIBE_MANY_CONTACT_NOTIFY: 'Выберите способ уведомления:',-->
+    <!--CPST_SUBSCRIBE_LABLE_CONTACT_INPUT: 'Укажите Ваш #CONTACT#: ',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_UNKNOW_ERROR: 'Ошибка валидации',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR_EMPTY_FIELD: 'Не заполнено поле \"#FIELD#\"',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR: 'Вы не выбрали способ уведомления',-->
+    <!--CPST_SUBSCRIBE_CAPTCHA_TITLE: 'Введите слово на картинке',-->
+    <!--CPST_STATUS_SUCCESS: 'Успешно',-->
+    <!--CPST_STATUS_ERROR: 'Произошла ошибка',-->
+    <!--CPST_ENTER_WORD_PICTURE: 'Введите слово на картинке',-->
+    <!--CPST_TITLE_ALREADY_SUBSCRIBED: 'Уже подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TITLE: 'Вы подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TEXT: 'Список товаров на которые вы подписаны можно увидеть по ссылке #URL#'-->
+  <!--});-->
+<!--</script>-->
+
+<!--<script type="text/javascript">-->
+	<!--BX.ready(BX.defer(function(){-->
+    <!--if (!!window.obbx_1749212909_4)-->
+    <!--{-->
+      <!--window.obbx_1749212909_4.setButton('');-->
+    <!--}-->
+  <!--}));-->
+<!--</script>-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken waves-effect" href="/personal/cart/" title="В корзине">В корзине</a>-->
+                            <!--</span>-->
+        <!--</span>-->
+                        <!--<input type="submit" name="submit" class="nonep" value="">-->
+                      <!--</form>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;/noindex&ndash;&gt;-->
+                  <!--</div>-->
+
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part main &ndash;&gt;-->
+
+                <!--&lt;!&ndash; part extended &ndash;&gt;-->
+                <!--<div class="list-showcase__part-extended">-->
+
+
+                  <!--<div class="list-showcase__attributes">-->
+                  <!--</div>-->
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part extended &ndash;&gt;-->
+
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /element &ndash;&gt;-->
+            <!--&lt;!&ndash; element &ndash;&gt;-->
+            <!--<div class="js-element js-elementid6 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-3 mod-short" data-elementid="6" id="bx_3966226736_6" data-productid="73" data-detail="/catalog/mebel_dlya_gostinnoy/divan_memfis/">-->
+              <!--<div class="list-showcase__inner js-element__shadow">-->
+
+                <!--&lt;!&ndash; part main &ndash;&gt;-->
+                <!--<div class="list-showcase__part-main">-->
+
+                  <!--<div class="list-showcase__mix">-->
+
+
+                    <!--<div class="list-showcase__picture"><script type="text/javascript">-->
+                      <!--RSGoPro_Pictures[6] = {'73':[{'SRC':'/upload/resize_cache/iblock/04f/198_208_140cd750bba9870f18aada2478b24840a/04f744c12d254c391e6d60e9d5275cca.jpg','ALT':'Диван &quot;Мемфис&quot; 2х-секционный','TITLE':'Диван &quot;Мемфис&quot; 2х-секционный','SRC_ORIGINAL':'/upload/iblock/04f/04f744c12d254c391e6d60e9d5275cca.jpg'}],'72':[{'SRC':'/upload/resize_cache/iblock/4a9/198_208_140cd750bba9870f18aada2478b24840a/4a98f4f38b9167fb37b15e385c174257.jpg','ALT':'Диван &quot;Мемфис&quot; 3х-секционный','TITLE':'Диван &quot;Мемфис&quot; 3х-секционный','SRC_ORIGINAL':'/upload/iblock/4a9/4a98f4f38b9167fb37b15e385c174257.jpg'}],'6':[{'SRC':'/upload/resize_cache/iblock/16a/198_208_140cd750bba9870f18aada2478b24840a/16a02126d8c903f250a93ac4965448d4.jpg','ALT':'Диван &quot;Мемфис&quot;','TITLE':'Диван &quot;Мемфис&quot;','SRC_ORIGINAL':'/upload/iblock/16a/16a02126d8c903f250a93ac4965448d4.jpg'}]};-->
+                    <!--</script>-->
+                      <!--<a href="/catalog/mebel_dlya_gostinnoy/divan_memfis/"><img class="js-list-picture js-lazy" src="/upload/resize_cache/iblock/04f/198_208_140cd750bba9870f18aada2478b24840a/04f744c12d254c391e6d60e9d5275cca.jpg" alt="Диван &quot;Мемфис&quot;" title="Диван &quot;Мемфис&quot;" style=""></a></div>-->
+
+                    <!--<div class="list-showcase__timer-stickers">-->
+                      <!--<div class="list-showcase__timer">-->
+                      <!--</div>-->
+                      <!--<div class="list-showcase__stickers">-->
+
+                        <!--<div class="c-stickers"><span class="c-stickers__sticker c-stickers__da2">Товар дня</span><span class="c-stickers__sticker c-stickers__qb">Успей купить</span><span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value" style="display: none;">-<span class="js-discount-value">0</span>%</span></div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__compare">-->
+                      <!--<a rel="nofollow" class="c-compare js-add2compare" href="/catalog/mebel_dlya_gostinnoy/?action=ADD_TO_COMPARE_LIST&amp;id=6"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__favorite">-->
+                      <!--<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_gostinnoy/divan_memfis/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+
+                  <!--<div class="list-showcase__name-rating">-->
+
+                    <!--<div class="list-showcase__name"><a href="/catalog/mebel_dlya_gostinnoy/divan_memfis/">Диван "Мемфис"</a></div>-->
+
+                    <!--<div class="list-showcase__rating">-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__prices">-->
+
+                    <!--<div class="c-prices js-prices view-list page-list product-alone multyprice-no" data-page="list" data-view="list" data-maxshow="2" data-showmore="Y" data-usealone="Y" data-multiprice="N" data-productmultiprice="N">-->
+                      <!--<span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE"><span class="c-prices__name">Розничная цена:</span><span class="c-prices__value js-prices_pdv_BASE">17 000 руб.</span><span class="c-prices__value-old-before"><span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE c-prices__hide">17 000 руб.</span></span></span><div class="c-prices__more js-prices__more c-prices__hide"><a class="c-prices__more-link" href="/catalog/mebel_dlya_gostinnoy/divan_memfis/">Еще (<span class="js-prices__more-count">-1</span>)</a></div></div>-->
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__stores">-->
+
+
+
+                    <!--<div class="b-stores js-stores" data-firstelement="73" data-page="list">-->
+                      <!--<div class="b-stores__inner"><span class="b-stores__genamount" data-href="#stocks" title="" data-es-offset="-135" data-src="#stores_6"><span class="js-stores__value">Нет в наличии<svg class="svg-icon empty"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-not-available"></use></svg></span></span></div>-->
+                    <!--</div>-->
+
+
+                    <!--<script>-->
+                      <!--if (RSGoPro_STOCK == 'undefined')-->
+                        <!--RSGoPro_STOCK = {};-->
+
+                      <!--RSGoPro_STOCK[6] = {-->
+                        <!--'QUANTITY' : {"6":"0","73":"0","72":"0"},-->
+                        <!--'JS' : {'SKU':{'73':[],'72':[]},'ID':'obbx_1690282504_72','MESSAGES':{'NOT_MUCH_GOOD':'мало','ABSENT':'отсутствует','LOT_OF_GOOD':'достаточно'},'SHOW_EMPTY_STORE':true,'USE_MIN_AMOUNT':true,'MIN_AMOUNT':'10','STORES':['1','2','3']},-->
+                        <!--'USE_MIN_AMOUNT' : true,-->
+                        <!--'MIN_AMOUNT' : 10,-->
+                        <!--'MESSAGE_ISSET' : 'В наличии<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_LOW' : 'Мало<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_EMPTY' : 'Нет в наличии<svg class=\"svg-icon empty\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-not-available\"><\/use><\/svg>',-->
+                        <!--'SHOW_EMPTY_STORE' : true};-->
+
+                      <!--$(document).on('rsGoPro.document.ready', function(){-->
+                        <!--var html = '';-->
+                        <!--$('#stocks_detail_tab').html(html.DATA);-->
+                      <!--});-->
+                    <!--</script>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__pay hidden-xs hidden-sm hidden-print">-->
+
+                    <!--&lt;!&ndash;noindex&ndash;&gt;-->
+                    <!--<div class="b-pay">-->
+                      <!--<form class="b-pay__form js-pay__form js-buyform6 js-synchro cantbuy clearfix" name="add2basketform">-->
+                        <!--<input type="hidden" name="action" value="ADD2BASKET">-->
+                        <!--<input type="hidden" name="id" class="js-add2basketpid" value="73">-->
+                        <!--<span class="b-pay__inner">-->
+            <!--<span class="b-pay__quantity">-->
+                        <!--</span>-->
+            <!--<span class="b-pay__buttons">-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary waves-effect" href="#" title="В корзину">В корзину</a>-->
+
+
+<!--<span id="bx_3966226736_6_subscribe_link" class="b-pay__button b-pay__add2subscribe js-product-subscribe btn-default add2subscribe bx-catalog-subscribe-button" data-item="73" style="" title="">Подписаться</span>-->
+<!--<input type="hidden" id="bx_3966226736_6_subscribe_link_hidden">-->
+
+<!--<script type="text/javascript">-->
+	<!--var obbx_4129704782_73 = new JCCatalogProductSubscribe({'buttonId':'bx_3966226736_6_subscribe_link','jsObject':'obbx_4129704782_73','alreadySubscribed':false,'productId':'73','buttonClass':'b-pay__button b-pay__add2subscribe js-product-subscribe btn-default','urlListSubscriptions':'/'});-->
+
+  <!--BX.message({-->
+    <!--CPST_SUBSCRIBE_POPUP_TITLE: 'Подписка на товар',-->
+    <!--CPST_SUBSCRIBE_BUTTON_NAME: 'Подписаться',-->
+    <!--CPST_SUBSCRIBE_BUTTON_CLOSE: 'Закрыть',-->
+    <!--CPST_SUBSCRIBE_MANY_CONTACT_NOTIFY: 'Выберите способ уведомления:',-->
+    <!--CPST_SUBSCRIBE_LABLE_CONTACT_INPUT: 'Укажите Ваш #CONTACT#: ',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_UNKNOW_ERROR: 'Ошибка валидации',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR_EMPTY_FIELD: 'Не заполнено поле \"#FIELD#\"',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR: 'Вы не выбрали способ уведомления',-->
+    <!--CPST_SUBSCRIBE_CAPTCHA_TITLE: 'Введите слово на картинке',-->
+    <!--CPST_STATUS_SUCCESS: 'Успешно',-->
+    <!--CPST_STATUS_ERROR: 'Произошла ошибка',-->
+    <!--CPST_ENTER_WORD_PICTURE: 'Введите слово на картинке',-->
+    <!--CPST_TITLE_ALREADY_SUBSCRIBED: 'Уже подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TITLE: 'Вы подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TEXT: 'Список товаров на которые вы подписаны можно увидеть по ссылке #URL#'-->
+  <!--});-->
+<!--</script>-->
+
+<!--<script type="text/javascript">-->
+	<!--BX.ready(BX.defer(function(){-->
+    <!--if (!!window.obbx_4129704782_73)-->
+    <!--{-->
+      <!--window.obbx_4129704782_73.setButton('');-->
+    <!--}-->
+  <!--}));-->
+<!--</script>-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken waves-effect" href="/personal/cart/" title="В корзине">В корзине</a>-->
+                            <!--</span>-->
+        <!--</span>-->
+                        <!--<input type="submit" name="submit" class="nonep" value="">-->
+                      <!--</form>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;/noindex&ndash;&gt;-->
+                  <!--</div>-->
+
+
+                  <!--<div class="list-showcase__pay-mobile hidden-md hidden-lg"><a class="btn-primary waves-effect" href="/catalog/mebel_dlya_gostinnoy/divan_memfis/">Подробнее</a></div>-->
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part main &ndash;&gt;-->
+
+                <!--&lt;!&ndash; part extended &ndash;&gt;-->
+                <!--<div class="list-showcase__part-extended">-->
+
+
+                  <!--<div class="list-showcase__attributes">-->
+
+                    <!--<div class="c-attributes view-list  js-attributes" data-view="list">-->
+                      <!--&lt;!&ndash; prop &ndash;&gt;<div class="c-attributes__prop js-attributes__prop js-attributes__code__WIDTH_SIZE close" data-code="WIDTH_SIZE">-->
+
+                      <!--<span class="c-attributes__select js-attributes__select">&lt;!&ndash; name-current-value &ndash;&gt;<span class="c-attributes__name-current-value"><span class="c-attributes__name">Количество мест: </span><span class="c-attributes__current-value js-attributes__curent-value"><span class="c-attributes__current-value__pseudo-option"><span class="c-attributes__value js-attributes__set-value-text">2</span><svg class="c-attributes__arrow svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use></svg></span></span></span>&lt;!&ndash; /name-current-value &ndash;&gt;&lt;!&ndash; options &ndash;&gt;<span class="c-attributes__options js-attributes__options"><span class="c-attributes__option js-attributes__option  selected" data-value="2"><span class="c-attributes__value c-attributes__option__value js-attributes__value-text">2</span></span><span class="c-attributes__option js-attributes__option " data-value="3"><span class="c-attributes__value c-attributes__option__value js-attributes__value-text">3</span></span></span>&lt;!&ndash; /options &ndash;&gt;</span></div>&lt;!&ndash; /prop &ndash;&gt;-->
+                    <!--</div>-->
+
+
+                  <!--</div>-->
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part extended &ndash;&gt;-->
+
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /element &ndash;&gt;-->
+            <!--&lt;!&ndash; element &ndash;&gt;-->
+            <!--<div class="js-element js-elementid7 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-3 mod-short" data-elementid="7" id="bx_3966226736_7" data-productid="7" data-detail="/catalog/mebel_dlya_gostinnoy/divan_monte_karlo/">-->
+              <!--<div class="list-showcase__inner js-element__shadow">-->
+
+                <!--&lt;!&ndash; part main &ndash;&gt;-->
+                <!--<div class="list-showcase__part-main">-->
+
+                  <!--<div class="list-showcase__mix">-->
+
+
+                    <!--<div class="list-showcase__picture"><script type="text/javascript">-->
+                      <!--RSGoPro_Pictures[7] = {'7':[{'SRC':'/upload/resize_cache/iblock/cc6/198_208_140cd750bba9870f18aada2478b24840a/cc6afed400cb9c2cd24a827e0b7d3fad.jpg','ALT':'Диван &quot;Монте-Карло&quot;','TITLE':'Диван &quot;Монте-Карло&quot;','SRC_ORIGINAL':'/upload/iblock/cc6/cc6afed400cb9c2cd24a827e0b7d3fad.jpg'},{'SRC':'/upload/resize_cache/iblock/e71/198_208_140cd750bba9870f18aada2478b24840a/e711d1881f8f50a9d8807c24a68cb745.jpg','ALT':'Диван &quot;Монте-Карло&quot;','TITLE':'Диван &quot;Монте-Карло&quot;','SRC_ORIGINAL':'/upload/iblock/e71/e711d1881f8f50a9d8807c24a68cb745.jpg'}]};-->
+                    <!--</script>-->
+                      <!--<a href="/catalog/mebel_dlya_gostinnoy/divan_monte_karlo/"><img class="js-list-picture js-lazy" src="/upload/resize_cache/iblock/cc6/198_208_140cd750bba9870f18aada2478b24840a/cc6afed400cb9c2cd24a827e0b7d3fad.jpg" alt="Диван &quot;Монте-Карло&quot;" title="Диван &quot;Монте-Карло&quot;" style=""></a></div>-->
+
+                    <!--<div class="list-showcase__timer-stickers">-->
+                      <!--<div class="list-showcase__timer">-->
+                      <!--</div>-->
+                      <!--<div class="list-showcase__stickers">-->
+
+                        <!--<div class="c-stickers"><span class="c-stickers__sticker c-stickers__da2">Товар дня</span><span class="c-stickers__sticker c-stickers__qb">Успей купить</span><span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value" style="display: none;">-<span class="js-discount-value">0</span>%</span></div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__compare">-->
+                      <!--<a rel="nofollow" class="c-compare js-add2compare" href="/catalog/mebel_dlya_gostinnoy/?action=ADD_TO_COMPARE_LIST&amp;id=7"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__favorite">-->
+                      <!--<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_gostinnoy/divan_monte_karlo/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+
+                  <!--<div class="list-showcase__name-rating">-->
+
+                    <!--<div class="list-showcase__name"><a href="/catalog/mebel_dlya_gostinnoy/divan_monte_karlo/">Диван "Монте-Карло"</a></div>-->
+
+                    <!--<div class="list-showcase__rating">-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__prices">-->
+
+                    <!--<div class="c-prices js-prices view-list page-list product-alone multyprice-no" data-page="list" data-view="list" data-maxshow="2" data-showmore="Y" data-usealone="Y" data-multiprice="N" data-productmultiprice="N">-->
+                      <!--<span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE"><span class="c-prices__name">Розничная цена:</span><span class="c-prices__value js-prices_pdv_BASE">21 000 руб.</span><span class="c-prices__value-old-before"><span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE c-prices__hide">21 000 руб.</span></span></span><div class="c-prices__more js-prices__more c-prices__hide"><a class="c-prices__more-link" href="/catalog/mebel_dlya_gostinnoy/divan_monte_karlo/">Еще (<span class="js-prices__more-count">-1</span>)</a></div></div>-->
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__stores">-->
+
+
+
+                    <!--<div class="b-stores js-stores" data-firstelement="7" data-page="list">-->
+                      <!--<div class="b-stores__inner"><span class="b-stores__genamount" data-href="#stocks" title="" data-es-offset="-135"><span class="js-stores__value">В наличии<svg class="svg-icon isset"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-available"></use></svg></span></span></div>-->
+                    <!--</div>-->
+
+
+                    <!--<script>-->
+                      <!--if (RSGoPro_STOCK == 'undefined')-->
+                        <!--RSGoPro_STOCK = {};-->
+
+                      <!--RSGoPro_STOCK[7] = {-->
+                        <!--'QUANTITY' : {"7":"19"},-->
+                        <!--'JS' : '',-->
+                        <!--'USE_MIN_AMOUNT' : true,-->
+                        <!--'MIN_AMOUNT' : 10,-->
+                        <!--'MESSAGE_ISSET' : 'В наличии<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_LOW' : 'Мало<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_EMPTY' : 'Нет в наличии<svg class=\"svg-icon empty\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-not-available\"><\/use><\/svg>',-->
+                        <!--'SHOW_EMPTY_STORE' : true};-->
+
+                      <!--$(document).on('rsGoPro.document.ready', function(){-->
+                        <!--var html = '';-->
+                        <!--$('#stocks_detail_tab').html(html.DATA);-->
+                      <!--});-->
+                    <!--</script>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__pay hidden-print">-->
+
+                    <!--&lt;!&ndash;noindex&ndash;&gt;-->
+                    <!--<div class="b-pay">-->
+                      <!--<form class="b-pay__form js-pay__form js-buyform7 js-synchro clearfix" name="add2basketform">-->
+                        <!--<input type="hidden" name="action" value="ADD2BASKET">-->
+                        <!--<input type="hidden" name="id" class="js-add2basketpid" value="7">-->
+                        <!--<span class="b-pay__inner">-->
+            <!--<span class="b-pay__quantity">-->
+                        <!--</span>-->
+            <!--<span class="b-pay__buttons">-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary waves-effect" href="#" title="В корзину">В корзину</a>-->
+
+
+<!--<span id="bx_3966226736_7_subscribe_link" class="b-pay__button b-pay__add2subscribe js-product-subscribe btn-default add2subscribe bx-catalog-subscribe-button" data-item="7" style="" title="">Подписаться</span>-->
+<!--<input type="hidden" id="bx_3966226736_7_subscribe_link_hidden">-->
+
+<!--<script type="text/javascript">-->
+	<!--var obbx_2166455256_7 = new JCCatalogProductSubscribe({'buttonId':'bx_3966226736_7_subscribe_link','jsObject':'obbx_2166455256_7','alreadySubscribed':false,'productId':'7','buttonClass':'b-pay__button b-pay__add2subscribe js-product-subscribe btn-default','urlListSubscriptions':'/'});-->
+
+  <!--BX.message({-->
+    <!--CPST_SUBSCRIBE_POPUP_TITLE: 'Подписка на товар',-->
+    <!--CPST_SUBSCRIBE_BUTTON_NAME: 'Подписаться',-->
+    <!--CPST_SUBSCRIBE_BUTTON_CLOSE: 'Закрыть',-->
+    <!--CPST_SUBSCRIBE_MANY_CONTACT_NOTIFY: 'Выберите способ уведомления:',-->
+    <!--CPST_SUBSCRIBE_LABLE_CONTACT_INPUT: 'Укажите Ваш #CONTACT#: ',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_UNKNOW_ERROR: 'Ошибка валидации',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR_EMPTY_FIELD: 'Не заполнено поле \"#FIELD#\"',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR: 'Вы не выбрали способ уведомления',-->
+    <!--CPST_SUBSCRIBE_CAPTCHA_TITLE: 'Введите слово на картинке',-->
+    <!--CPST_STATUS_SUCCESS: 'Успешно',-->
+    <!--CPST_STATUS_ERROR: 'Произошла ошибка',-->
+    <!--CPST_ENTER_WORD_PICTURE: 'Введите слово на картинке',-->
+    <!--CPST_TITLE_ALREADY_SUBSCRIBED: 'Уже подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TITLE: 'Вы подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TEXT: 'Список товаров на которые вы подписаны можно увидеть по ссылке #URL#'-->
+  <!--});-->
+<!--</script>-->
+
+<!--<script type="text/javascript">-->
+	<!--BX.ready(BX.defer(function(){-->
+    <!--if (!!window.obbx_2166455256_7)-->
+    <!--{-->
+      <!--window.obbx_2166455256_7.setButton('');-->
+    <!--}-->
+  <!--}));-->
+<!--</script>-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken waves-effect" href="/personal/cart/" title="В корзине">В корзине</a>-->
+                            <!--</span>-->
+        <!--</span>-->
+                        <!--<input type="submit" name="submit" class="nonep" value="">-->
+                      <!--</form>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;/noindex&ndash;&gt;-->
+                  <!--</div>-->
+
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part main &ndash;&gt;-->
+
+                <!--&lt;!&ndash; part extended &ndash;&gt;-->
+                <!--<div class="list-showcase__part-extended">-->
+
+
+                  <!--<div class="list-showcase__attributes">-->
+                  <!--</div>-->
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part extended &ndash;&gt;-->
+
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /element &ndash;&gt;-->
+            <!--&lt;!&ndash; element &ndash;&gt;-->
+            <!--<div class="js-element js-elementid5 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-3 mod-short" data-elementid="5" id="bx_3966226736_5" data-productid="5" data-detail="/catalog/mebel_dlya_gostinnoy/divan_tretiy_rim/">-->
+              <!--<div class="list-showcase__inner js-element__shadow">-->
+
+                <!--&lt;!&ndash; part main &ndash;&gt;-->
+                <!--<div class="list-showcase__part-main">-->
+
+                  <!--<div class="list-showcase__mix">-->
+
+
+                    <!--<div class="list-showcase__picture"><script type="text/javascript">-->
+                      <!--RSGoPro_Pictures[5] = {'5':[{'SRC':'/upload/resize_cache/iblock/a91/198_208_140cd750bba9870f18aada2478b24840a/a91a384d707f47d5a88c168d0d92bc12.jpg','ALT':'Диван &quot;Третий Рим&quot;','TITLE':'Диван &quot;Третий Рим&quot;','SRC_ORIGINAL':'/upload/iblock/a91/a91a384d707f47d5a88c168d0d92bc12.jpg'},{'SRC':'/upload/resize_cache/iblock/92a/198_208_140cd750bba9870f18aada2478b24840a/92acf2a1716200935f875da9f7e99506.jpg','ALT':'Диван &quot;Третий Рим&quot;','TITLE':'Диван &quot;Третий Рим&quot;','SRC_ORIGINAL':'/upload/iblock/92a/92acf2a1716200935f875da9f7e99506.jpg'}]};-->
+                    <!--</script>-->
+                      <!--<a href="/catalog/mebel_dlya_gostinnoy/divan_tretiy_rim/"><img class="js-list-picture js-lazy" src="/upload/resize_cache/iblock/a91/198_208_140cd750bba9870f18aada2478b24840a/a91a384d707f47d5a88c168d0d92bc12.jpg" alt="Диван &quot;Третий Рим&quot;" title="Диван &quot;Третий Рим&quot;" style=""></a></div>-->
+
+                    <!--<div class="list-showcase__timer-stickers">-->
+                      <!--<div class="list-showcase__timer">-->
+                      <!--</div>-->
+                      <!--<div class="list-showcase__stickers">-->
+
+                        <!--<div class="c-stickers"><span class="c-stickers__sticker c-stickers__da2">Товар дня</span><span class="c-stickers__sticker c-stickers__qb">Успей купить</span><span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value" style="display: none;">-<span class="js-discount-value">0</span>%</span></div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__compare">-->
+                      <!--<a rel="nofollow" class="c-compare js-add2compare" href="/catalog/mebel_dlya_gostinnoy/?action=ADD_TO_COMPARE_LIST&amp;id=5"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__favorite">-->
+                      <!--<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_gostinnoy/divan_tretiy_rim/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+
+                  <!--<div class="list-showcase__name-rating">-->
+
+                    <!--<div class="list-showcase__name"><a href="/catalog/mebel_dlya_gostinnoy/divan_tretiy_rim/">Диван "Третий Рим"</a></div>-->
+
+                    <!--<div class="list-showcase__rating">-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__prices">-->
+
+                    <!--<div class="c-prices js-prices view-list page-list product-alone multyprice-no" data-page="list" data-view="list" data-maxshow="2" data-showmore="Y" data-usealone="Y" data-multiprice="N" data-productmultiprice="N">-->
+                      <!--<span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE"><span class="c-prices__name">Розничная цена:</span><span class="c-prices__value js-prices_pdv_BASE">32 000 руб.</span><span class="c-prices__value-old-before"><span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE c-prices__hide">32 000 руб.</span></span></span><div class="c-prices__more js-prices__more c-prices__hide"><a class="c-prices__more-link" href="/catalog/mebel_dlya_gostinnoy/divan_tretiy_rim/">Еще (<span class="js-prices__more-count">-1</span>)</a></div></div>-->
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__stores">-->
+
+
+
+                    <!--<div class="b-stores js-stores" data-firstelement="5" data-page="list">-->
+                      <!--<div class="b-stores__inner"><span class="b-stores__genamount" data-href="#stocks" title="" data-es-offset="-135"><span class="js-stores__value">В наличии<svg class="svg-icon isset"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-available"></use></svg></span></span></div>-->
+                    <!--</div>-->
+
+
+                    <!--<script>-->
+                      <!--if (RSGoPro_STOCK == 'undefined')-->
+                        <!--RSGoPro_STOCK = {};-->
+
+                      <!--RSGoPro_STOCK[5] = {-->
+                        <!--'QUANTITY' : {"5":"46"},-->
+                        <!--'JS' : '',-->
+                        <!--'USE_MIN_AMOUNT' : true,-->
+                        <!--'MIN_AMOUNT' : 10,-->
+                        <!--'MESSAGE_ISSET' : 'В наличии<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_LOW' : 'Мало<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_EMPTY' : 'Нет в наличии<svg class=\"svg-icon empty\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-not-available\"><\/use><\/svg>',-->
+                        <!--'SHOW_EMPTY_STORE' : true};-->
+
+                      <!--$(document).on('rsGoPro.document.ready', function(){-->
+                        <!--var html = '';-->
+                        <!--$('#stocks_detail_tab').html(html.DATA);-->
+                      <!--});-->
+                    <!--</script>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__pay hidden-print">-->
+
+                    <!--&lt;!&ndash;noindex&ndash;&gt;-->
+                    <!--<div class="b-pay">-->
+                      <!--<form class="b-pay__form js-pay__form js-buyform5 js-synchro clearfix" name="add2basketform">-->
+                        <!--<input type="hidden" name="action" value="ADD2BASKET">-->
+                        <!--<input type="hidden" name="id" class="js-add2basketpid" value="5">-->
+                        <!--<span class="b-pay__inner">-->
+            <!--<span class="b-pay__quantity">-->
+                        <!--</span>-->
+            <!--<span class="b-pay__buttons">-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary waves-effect" href="#" title="В корзину">В корзину</a>-->
+
+
+<!--<span id="bx_3966226736_5_subscribe_link" class="b-pay__button b-pay__add2subscribe js-product-subscribe btn-default add2subscribe bx-catalog-subscribe-button" data-item="5" style="" title="">Подписаться</span>-->
+<!--<input type="hidden" id="bx_3966226736_5_subscribe_link_hidden">-->
+
+<!--<script type="text/javascript">-->
+	<!--var obbx_405285474_5 = new JCCatalogProductSubscribe({'buttonId':'bx_3966226736_5_subscribe_link','jsObject':'obbx_405285474_5','alreadySubscribed':false,'productId':'5','buttonClass':'b-pay__button b-pay__add2subscribe js-product-subscribe btn-default','urlListSubscriptions':'/'});-->
+
+  <!--BX.message({-->
+    <!--CPST_SUBSCRIBE_POPUP_TITLE: 'Подписка на товар',-->
+    <!--CPST_SUBSCRIBE_BUTTON_NAME: 'Подписаться',-->
+    <!--CPST_SUBSCRIBE_BUTTON_CLOSE: 'Закрыть',-->
+    <!--CPST_SUBSCRIBE_MANY_CONTACT_NOTIFY: 'Выберите способ уведомления:',-->
+    <!--CPST_SUBSCRIBE_LABLE_CONTACT_INPUT: 'Укажите Ваш #CONTACT#: ',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_UNKNOW_ERROR: 'Ошибка валидации',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR_EMPTY_FIELD: 'Не заполнено поле \"#FIELD#\"',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR: 'Вы не выбрали способ уведомления',-->
+    <!--CPST_SUBSCRIBE_CAPTCHA_TITLE: 'Введите слово на картинке',-->
+    <!--CPST_STATUS_SUCCESS: 'Успешно',-->
+    <!--CPST_STATUS_ERROR: 'Произошла ошибка',-->
+    <!--CPST_ENTER_WORD_PICTURE: 'Введите слово на картинке',-->
+    <!--CPST_TITLE_ALREADY_SUBSCRIBED: 'Уже подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TITLE: 'Вы подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TEXT: 'Список товаров на которые вы подписаны можно увидеть по ссылке #URL#'-->
+  <!--});-->
+<!--</script>-->
+
+<!--<script type="text/javascript">-->
+	<!--BX.ready(BX.defer(function(){-->
+    <!--if (!!window.obbx_405285474_5)-->
+    <!--{-->
+      <!--window.obbx_405285474_5.setButton('');-->
+    <!--}-->
+  <!--}));-->
+<!--</script>-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken waves-effect" href="/personal/cart/" title="В корзине">В корзине</a>-->
+                            <!--</span>-->
+        <!--</span>-->
+                        <!--<input type="submit" name="submit" class="nonep" value="">-->
+                      <!--</form>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;/noindex&ndash;&gt;-->
+                  <!--</div>-->
+
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part main &ndash;&gt;-->
+
+                <!--&lt;!&ndash; part extended &ndash;&gt;-->
+                <!--<div class="list-showcase__part-extended">-->
+
+
+                  <!--<div class="list-showcase__attributes">-->
+                  <!--</div>-->
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part extended &ndash;&gt;-->
+
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /element &ndash;&gt;-->
+            <!--&lt;!&ndash; element &ndash;&gt;-->
+            <!--<div class="js-element js-elementid3 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-3 mod-short" data-elementid="3" id="bx_3966226736_3" data-productid="3" data-detail="/catalog/mebel_dlya_gostinnoy/divan_turin/">-->
+              <!--<div class="list-showcase__inner js-element__shadow">-->
+
+                <!--&lt;!&ndash; part main &ndash;&gt;-->
+                <!--<div class="list-showcase__part-main">-->
+
+                  <!--<div class="list-showcase__mix">-->
+
+
+                    <!--<div class="list-showcase__picture"><script type="text/javascript">-->
+                      <!--RSGoPro_Pictures[3] = {'3':[{'SRC':'/upload/resize_cache/iblock/b17/198_208_140cd750bba9870f18aada2478b24840a/b17ac22ca682a7300125846c490a7e73.jpg','ALT':'Диван &quot;Турин&quot;','TITLE':'Диван &quot;Турин&quot;','SRC_ORIGINAL':'/upload/iblock/b17/b17ac22ca682a7300125846c490a7e73.jpg'}]};-->
+                    <!--</script>-->
+                      <!--<a href="/catalog/mebel_dlya_gostinnoy/divan_turin/"><img class="js-list-picture js-lazy" src="/upload/resize_cache/iblock/b17/198_208_140cd750bba9870f18aada2478b24840a/b17ac22ca682a7300125846c490a7e73.jpg" alt="Диван &quot;Турин&quot;" title="Диван &quot;Турин&quot;" style=""></a></div>-->
+
+                    <!--<div class="list-showcase__timer-stickers">-->
+                      <!--<div class="list-showcase__timer">-->
+                      <!--</div>-->
+                      <!--<div class="list-showcase__stickers">-->
+
+                        <!--<div class="c-stickers"><span class="c-stickers__sticker c-stickers__da2">Товар дня</span><span class="c-stickers__sticker c-stickers__qb">Успей купить</span><span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value" style="display: none;">-<span class="js-discount-value">0</span>%</span></div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__compare">-->
+                      <!--<a rel="nofollow" class="c-compare js-add2compare" href="/catalog/mebel_dlya_gostinnoy/?action=ADD_TO_COMPARE_LIST&amp;id=3"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__favorite">-->
+                      <!--<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_gostinnoy/divan_turin/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+
+                  <!--<div class="list-showcase__name-rating">-->
+
+                    <!--<div class="list-showcase__name"><a href="/catalog/mebel_dlya_gostinnoy/divan_turin/">Диван "Турин"</a></div>-->
+
+                    <!--<div class="list-showcase__rating">-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__prices">-->
+
+                    <!--<div class="c-prices js-prices view-list page-list product-alone multyprice-no" data-page="list" data-view="list" data-maxshow="2" data-showmore="Y" data-usealone="Y" data-multiprice="N" data-productmultiprice="N">-->
+                      <!--<span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE"><span class="c-prices__name">Розничная цена:</span><span class="c-prices__value js-prices_pdv_BASE">24 000 руб.</span><span class="c-prices__value-old-before"><span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE c-prices__hide">24 000 руб.</span></span></span><div class="c-prices__more js-prices__more c-prices__hide"><a class="c-prices__more-link" href="/catalog/mebel_dlya_gostinnoy/divan_turin/">Еще (<span class="js-prices__more-count">-1</span>)</a></div></div>-->
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__stores">-->
+
+
+
+                    <!--<div class="b-stores js-stores" data-firstelement="3" data-page="list">-->
+                      <!--<div class="b-stores__inner"><span class="b-stores__genamount" data-href="#stocks" title="" data-es-offset="-135"><span class="js-stores__value">В наличии<svg class="svg-icon isset"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-available"></use></svg></span></span></div>-->
+                    <!--</div>-->
+
+
+                    <!--<script>-->
+                      <!--if (RSGoPro_STOCK == 'undefined')-->
+                        <!--RSGoPro_STOCK = {};-->
+
+                      <!--RSGoPro_STOCK[3] = {-->
+                        <!--'QUANTITY' : {"3":"72"},-->
+                        <!--'JS' : '',-->
+                        <!--'USE_MIN_AMOUNT' : true,-->
+                        <!--'MIN_AMOUNT' : 10,-->
+                        <!--'MESSAGE_ISSET' : 'В наличии<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_LOW' : 'Мало<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_EMPTY' : 'Нет в наличии<svg class=\"svg-icon empty\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-not-available\"><\/use><\/svg>',-->
+                        <!--'SHOW_EMPTY_STORE' : true};-->
+
+                      <!--$(document).on('rsGoPro.document.ready', function(){-->
+                        <!--var html = '';-->
+                        <!--$('#stocks_detail_tab').html(html.DATA);-->
+                      <!--});-->
+                    <!--</script>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__pay hidden-print">-->
+
+                    <!--&lt;!&ndash;noindex&ndash;&gt;-->
+                    <!--<div class="b-pay">-->
+                      <!--<form class="b-pay__form js-pay__form js-buyform3 js-synchro clearfix" name="add2basketform">-->
+                        <!--<input type="hidden" name="action" value="ADD2BASKET">-->
+                        <!--<input type="hidden" name="id" class="js-add2basketpid" value="3">-->
+                        <!--<span class="b-pay__inner">-->
+            <!--<span class="b-pay__quantity">-->
+                        <!--</span>-->
+            <!--<span class="b-pay__buttons">-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary waves-effect" href="#" title="В корзину">В корзину</a>-->
+
+
+<!--<span id="bx_3966226736_3_subscribe_link" class="b-pay__button b-pay__add2subscribe js-product-subscribe btn-default add2subscribe bx-catalog-subscribe-button" data-item="3" style="" title="">Подписаться</span>-->
+<!--<input type="hidden" id="bx_3966226736_3_subscribe_link_hidden">-->
+
+<!--<script type="text/javascript">-->
+	<!--var obbx_1865358068_3 = new JCCatalogProductSubscribe({'buttonId':'bx_3966226736_3_subscribe_link','jsObject':'obbx_1865358068_3','alreadySubscribed':false,'productId':'3','buttonClass':'b-pay__button b-pay__add2subscribe js-product-subscribe btn-default','urlListSubscriptions':'/'});-->
+
+  <!--BX.message({-->
+    <!--CPST_SUBSCRIBE_POPUP_TITLE: 'Подписка на товар',-->
+    <!--CPST_SUBSCRIBE_BUTTON_NAME: 'Подписаться',-->
+    <!--CPST_SUBSCRIBE_BUTTON_CLOSE: 'Закрыть',-->
+    <!--CPST_SUBSCRIBE_MANY_CONTACT_NOTIFY: 'Выберите способ уведомления:',-->
+    <!--CPST_SUBSCRIBE_LABLE_CONTACT_INPUT: 'Укажите Ваш #CONTACT#: ',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_UNKNOW_ERROR: 'Ошибка валидации',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR_EMPTY_FIELD: 'Не заполнено поле \"#FIELD#\"',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR: 'Вы не выбрали способ уведомления',-->
+    <!--CPST_SUBSCRIBE_CAPTCHA_TITLE: 'Введите слово на картинке',-->
+    <!--CPST_STATUS_SUCCESS: 'Успешно',-->
+    <!--CPST_STATUS_ERROR: 'Произошла ошибка',-->
+    <!--CPST_ENTER_WORD_PICTURE: 'Введите слово на картинке',-->
+    <!--CPST_TITLE_ALREADY_SUBSCRIBED: 'Уже подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TITLE: 'Вы подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TEXT: 'Список товаров на которые вы подписаны можно увидеть по ссылке #URL#'-->
+  <!--});-->
+<!--</script>-->
+
+<!--<script type="text/javascript">-->
+	<!--BX.ready(BX.defer(function(){-->
+    <!--if (!!window.obbx_1865358068_3)-->
+    <!--{-->
+      <!--window.obbx_1865358068_3.setButton('');-->
+    <!--}-->
+  <!--}));-->
+<!--</script>-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken waves-effect" href="/personal/cart/" title="В корзине">В корзине</a>-->
+                            <!--</span>-->
+        <!--</span>-->
+                        <!--<input type="submit" name="submit" class="nonep" value="">-->
+                      <!--</form>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;/noindex&ndash;&gt;-->
+                  <!--</div>-->
+
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part main &ndash;&gt;-->
+
+                <!--&lt;!&ndash; part extended &ndash;&gt;-->
+                <!--<div class="list-showcase__part-extended">-->
+
+
+                  <!--<div class="list-showcase__attributes">-->
+                  <!--</div>-->
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part extended &ndash;&gt;-->
+
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /element &ndash;&gt;-->
+            <!--&lt;!&ndash; element &ndash;&gt;-->
+            <!--<div class="js-element js-elementid12 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-3 mod-short" data-elementid="12" id="bx_3966226736_12" data-productid="12" data-detail="/catalog/mebel_dlya_gostinnoy/kreslo_geniy/">-->
+              <!--<div class="list-showcase__inner js-element__shadow">-->
+
+                <!--&lt;!&ndash; part main &ndash;&gt;-->
+                <!--<div class="list-showcase__part-main">-->
+
+                  <!--<div class="list-showcase__mix">-->
+
+
+                    <!--<div class="list-showcase__picture"><script type="text/javascript">-->
+                      <!--RSGoPro_Pictures[12] = {'12':[{'SRC':'/upload/resize_cache/iblock/f7a/198_208_140cd750bba9870f18aada2478b24840a/f7ab9582d85d029f5ae65935d4494d2c.jpg','ALT':'Кресло &quot;Гений&quot;','TITLE':'Кресло &quot;Гений&quot;','SRC_ORIGINAL':'/upload/iblock/f7a/f7ab9582d85d029f5ae65935d4494d2c.jpg'},{'SRC':'/upload/resize_cache/iblock/908/198_208_140cd750bba9870f18aada2478b24840a/9089efc8f82a75c654b28407ff1e327a.jpg','ALT':'Кресло &quot;Гений&quot;','TITLE':'Кресло &quot;Гений&quot;','SRC_ORIGINAL':'/upload/iblock/908/9089efc8f82a75c654b28407ff1e327a.jpg'}]};-->
+                    <!--</script>-->
+                      <!--<a href="/catalog/mebel_dlya_gostinnoy/kreslo_geniy/"><img class="js-list-picture js-lazy" src="/upload/resize_cache/iblock/f7a/198_208_140cd750bba9870f18aada2478b24840a/f7ab9582d85d029f5ae65935d4494d2c.jpg" alt="Кресло &quot;Гений&quot;" title="Кресло &quot;Гений&quot;" style=""></a></div>-->
+
+                    <!--<div class="list-showcase__timer-stickers">-->
+                      <!--<div class="list-showcase__timer">-->
+                      <!--</div>-->
+                      <!--<div class="list-showcase__stickers">-->
+
+                        <!--<div class="c-stickers"><span class="c-stickers__sticker c-stickers__da2">Товар дня</span><span class="c-stickers__sticker c-stickers__qb">Успей купить</span><span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value" style="display: none;">-<span class="js-discount-value">0</span>%</span></div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__compare">-->
+                      <!--<a rel="nofollow" class="c-compare js-add2compare" href="/catalog/mebel_dlya_gostinnoy/?action=ADD_TO_COMPARE_LIST&amp;id=12"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__favorite">-->
+                      <!--<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_gostinnoy/kreslo_geniy/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+
+                  <!--<div class="list-showcase__name-rating">-->
+
+                    <!--<div class="list-showcase__name"><a href="/catalog/mebel_dlya_gostinnoy/kreslo_geniy/">Кресло "Гений"</a></div>-->
+
+                    <!--<div class="list-showcase__rating">-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__prices">-->
+
+                    <!--<div class="c-prices js-prices view-list page-list product-alone multyprice-no" data-page="list" data-view="list" data-maxshow="2" data-showmore="Y" data-usealone="Y" data-multiprice="N" data-productmultiprice="N">-->
+                      <!--<span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE"><span class="c-prices__name">Розничная цена:</span><span class="c-prices__value js-prices_pdv_BASE">7 000 руб.</span><span class="c-prices__value-old-before"><span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE c-prices__hide">7 000 руб.</span></span></span><div class="c-prices__more js-prices__more c-prices__hide"><a class="c-prices__more-link" href="/catalog/mebel_dlya_gostinnoy/kreslo_geniy/">Еще (<span class="js-prices__more-count">-1</span>)</a></div></div>-->
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__stores">-->
+
+
+
+                    <!--<div class="b-stores js-stores" data-firstelement="12" data-page="list">-->
+                      <!--<div class="b-stores__inner"><span class="b-stores__genamount" data-href="#stocks" title="" data-es-offset="-135"><span class="js-stores__value">В наличии<svg class="svg-icon isset"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-available"></use></svg></span></span></div>-->
+                    <!--</div>-->
+
+
+                    <!--<script>-->
+                      <!--if (RSGoPro_STOCK == 'undefined')-->
+                        <!--RSGoPro_STOCK = {};-->
+
+                      <!--RSGoPro_STOCK[12] = {-->
+                        <!--'QUANTITY' : {"12":"10"},-->
+                        <!--'JS' : '',-->
+                        <!--'USE_MIN_AMOUNT' : true,-->
+                        <!--'MIN_AMOUNT' : 10,-->
+                        <!--'MESSAGE_ISSET' : 'В наличии<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_LOW' : 'Мало<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_EMPTY' : 'Нет в наличии<svg class=\"svg-icon empty\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-not-available\"><\/use><\/svg>',-->
+                        <!--'SHOW_EMPTY_STORE' : true};-->
+
+                      <!--$(document).on('rsGoPro.document.ready', function(){-->
+                        <!--var html = '';-->
+                        <!--$('#stocks_detail_tab').html(html.DATA);-->
+                      <!--});-->
+                    <!--</script>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__pay hidden-print">-->
+
+                    <!--&lt;!&ndash;noindex&ndash;&gt;-->
+                    <!--<div class="b-pay">-->
+                      <!--<form class="b-pay__form js-pay__form js-buyform12 js-synchro clearfix" name="add2basketform">-->
+                        <!--<input type="hidden" name="action" value="ADD2BASKET">-->
+                        <!--<input type="hidden" name="id" class="js-add2basketpid" value="12">-->
+                        <!--<span class="b-pay__inner">-->
+            <!--<span class="b-pay__quantity">-->
+                        <!--</span>-->
+            <!--<span class="b-pay__buttons">-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary waves-effect" href="#" title="В корзину">В корзину</a>-->
+
+
+<!--<span id="bx_3966226736_12_subscribe_link" class="b-pay__button b-pay__add2subscribe js-product-subscribe btn-default add2subscribe bx-catalog-subscribe-button" data-item="12" style="" title="">Подписаться</span>-->
+<!--<input type="hidden" id="bx_3966226736_12_subscribe_link_hidden">-->
+
+<!--<script type="text/javascript">-->
+	<!--var obbx_4287629157_12 = new JCCatalogProductSubscribe({'buttonId':'bx_3966226736_12_subscribe_link','jsObject':'obbx_4287629157_12','alreadySubscribed':false,'productId':'12','buttonClass':'b-pay__button b-pay__add2subscribe js-product-subscribe btn-default','urlListSubscriptions':'/'});-->
+
+  <!--BX.message({-->
+    <!--CPST_SUBSCRIBE_POPUP_TITLE: 'Подписка на товар',-->
+    <!--CPST_SUBSCRIBE_BUTTON_NAME: 'Подписаться',-->
+    <!--CPST_SUBSCRIBE_BUTTON_CLOSE: 'Закрыть',-->
+    <!--CPST_SUBSCRIBE_MANY_CONTACT_NOTIFY: 'Выберите способ уведомления:',-->
+    <!--CPST_SUBSCRIBE_LABLE_CONTACT_INPUT: 'Укажите Ваш #CONTACT#: ',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_UNKNOW_ERROR: 'Ошибка валидации',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR_EMPTY_FIELD: 'Не заполнено поле \"#FIELD#\"',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR: 'Вы не выбрали способ уведомления',-->
+    <!--CPST_SUBSCRIBE_CAPTCHA_TITLE: 'Введите слово на картинке',-->
+    <!--CPST_STATUS_SUCCESS: 'Успешно',-->
+    <!--CPST_STATUS_ERROR: 'Произошла ошибка',-->
+    <!--CPST_ENTER_WORD_PICTURE: 'Введите слово на картинке',-->
+    <!--CPST_TITLE_ALREADY_SUBSCRIBED: 'Уже подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TITLE: 'Вы подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TEXT: 'Список товаров на которые вы подписаны можно увидеть по ссылке #URL#'-->
+  <!--});-->
+<!--</script>-->
+
+<!--<script type="text/javascript">-->
+	<!--BX.ready(BX.defer(function(){-->
+    <!--if (!!window.obbx_4287629157_12)-->
+    <!--{-->
+      <!--window.obbx_4287629157_12.setButton('');-->
+    <!--}-->
+  <!--}));-->
+<!--</script>-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken waves-effect" href="/personal/cart/" title="В корзине">В корзине</a>-->
+                            <!--</span>-->
+        <!--</span>-->
+                        <!--<input type="submit" name="submit" class="nonep" value="">-->
+                      <!--</form>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;/noindex&ndash;&gt;-->
+                  <!--</div>-->
+
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part main &ndash;&gt;-->
+
+                <!--&lt;!&ndash; part extended &ndash;&gt;-->
+                <!--<div class="list-showcase__part-extended">-->
+
+
+                  <!--<div class="list-showcase__attributes">-->
+                  <!--</div>-->
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part extended &ndash;&gt;-->
+
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /element &ndash;&gt;-->
+            <!--&lt;!&ndash; element &ndash;&gt;-->
+            <!--<div class="js-element js-elementid15 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-3 mod-short" data-elementid="15" id="bx_3966226736_15" data-productid="15" data-detail="/catalog/mebel_dlya_gostinnoy/kreslo_dolche/">-->
+              <!--<div class="list-showcase__inner js-element__shadow">-->
+
+                <!--&lt;!&ndash; part main &ndash;&gt;-->
+                <!--<div class="list-showcase__part-main">-->
+
+                  <!--<div class="list-showcase__mix">-->
+
+
+                    <!--<div class="list-showcase__picture"><script type="text/javascript">-->
+                      <!--RSGoPro_Pictures[15] = {'15':[{'SRC':'/upload/resize_cache/iblock/724/198_208_140cd750bba9870f18aada2478b24840a/7247baaae2215a20d6335a942484cc3e.jpg','ALT':'Кресло &quot;Дольче&quot;','TITLE':'Кресло &quot;Дольче&quot;','SRC_ORIGINAL':'/upload/iblock/724/7247baaae2215a20d6335a942484cc3e.jpg'},{'SRC':'/upload/resize_cache/iblock/278/198_208_140cd750bba9870f18aada2478b24840a/278b031a18aaa4ce7d252898a9912394.jpg','ALT':'Кресло &quot;Дольче&quot;','TITLE':'Кресло &quot;Дольче&quot;','SRC_ORIGINAL':'/upload/iblock/278/278b031a18aaa4ce7d252898a9912394.jpg'},{'SRC':'/upload/resize_cache/iblock/cba/198_208_140cd750bba9870f18aada2478b24840a/cba92490ba0545627d4bc49202944184.jpg','ALT':'Кресло &quot;Дольче&quot;','TITLE':'Кресло &quot;Дольче&quot;','SRC_ORIGINAL':'/upload/iblock/cba/cba92490ba0545627d4bc49202944184.jpg'},{'SRC':'/upload/resize_cache/iblock/df2/198_208_140cd750bba9870f18aada2478b24840a/df27bbbc3fd7f3893a1712de5e8a3cd4.jpg','ALT':'Кресло &quot;Дольче&quot;','TITLE':'Кресло &quot;Дольче&quot;','SRC_ORIGINAL':'/upload/iblock/df2/df27bbbc3fd7f3893a1712de5e8a3cd4.jpg'}]};-->
+                    <!--</script>-->
+                      <!--<a href="/catalog/mebel_dlya_gostinnoy/kreslo_dolche/"><img class="js-list-picture js-lazy" src="/upload/resize_cache/iblock/724/198_208_140cd750bba9870f18aada2478b24840a/7247baaae2215a20d6335a942484cc3e.jpg" alt="Кресло &quot;Дольче&quot;" title="Кресло &quot;Дольче&quot;" style=""></a></div>-->
+
+                    <!--<div class="list-showcase__timer-stickers">-->
+                      <!--<div class="list-showcase__timer">-->
+                      <!--</div>-->
+                      <!--<div class="list-showcase__stickers">-->
+
+                        <!--<div class="c-stickers"><span class="c-stickers__sticker c-stickers__da2">Товар дня</span><span class="c-stickers__sticker c-stickers__qb">Успей купить</span><span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value" style="display: none;">-<span class="js-discount-value">0</span>%</span></div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__compare">-->
+                      <!--<a rel="nofollow" class="c-compare js-add2compare" href="/catalog/mebel_dlya_gostinnoy/?action=ADD_TO_COMPARE_LIST&amp;id=15"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__favorite">-->
+                      <!--<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_gostinnoy/kreslo_dolche/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+
+                  <!--<div class="list-showcase__name-rating">-->
+
+                    <!--<div class="list-showcase__name"><a href="/catalog/mebel_dlya_gostinnoy/kreslo_dolche/">Кресло "Дольче"</a></div>-->
+
+                    <!--<div class="list-showcase__rating">-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__prices">-->
+
+                    <!--<div class="c-prices js-prices view-list page-list product-alone multyprice-no" data-page="list" data-view="list" data-maxshow="2" data-showmore="Y" data-usealone="Y" data-multiprice="N" data-productmultiprice="N">-->
+                      <!--<span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE"><span class="c-prices__name">Розничная цена:</span><span class="c-prices__value js-prices_pdv_BASE">34 000 руб.</span><span class="c-prices__value-old-before"><span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE c-prices__hide">34 000 руб.</span></span></span><div class="c-prices__more js-prices__more c-prices__hide"><a class="c-prices__more-link" href="/catalog/mebel_dlya_gostinnoy/kreslo_dolche/">Еще (<span class="js-prices__more-count">-1</span>)</a></div></div>-->
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__stores">-->
+
+
+
+                    <!--<div class="b-stores js-stores" data-firstelement="15" data-page="list">-->
+                      <!--<div class="b-stores__inner"><span class="b-stores__genamount" data-href="#stocks" title="" data-es-offset="-135"><span class="js-stores__value">В наличии<svg class="svg-icon isset"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-available"></use></svg></span></span></div>-->
+                    <!--</div>-->
+
+
+                    <!--<script>-->
+                      <!--if (RSGoPro_STOCK == 'undefined')-->
+                        <!--RSGoPro_STOCK = {};-->
+
+                      <!--RSGoPro_STOCK[15] = {-->
+                        <!--'QUANTITY' : {"15":"53"},-->
+                        <!--'JS' : '',-->
+                        <!--'USE_MIN_AMOUNT' : true,-->
+                        <!--'MIN_AMOUNT' : 10,-->
+                        <!--'MESSAGE_ISSET' : 'В наличии<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_LOW' : 'Мало<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_EMPTY' : 'Нет в наличии<svg class=\"svg-icon empty\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-not-available\"><\/use><\/svg>',-->
+                        <!--'SHOW_EMPTY_STORE' : true};-->
+
+                      <!--$(document).on('rsGoPro.document.ready', function(){-->
+                        <!--var html = '';-->
+                        <!--$('#stocks_detail_tab').html(html.DATA);-->
+                      <!--});-->
+                    <!--</script>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__pay hidden-print">-->
+
+                    <!--&lt;!&ndash;noindex&ndash;&gt;-->
+                    <!--<div class="b-pay">-->
+                      <!--<form class="b-pay__form js-pay__form js-buyform15 js-synchro clearfix" name="add2basketform">-->
+                        <!--<input type="hidden" name="action" value="ADD2BASKET">-->
+                        <!--<input type="hidden" name="id" class="js-add2basketpid" value="15">-->
+                        <!--<span class="b-pay__inner">-->
+            <!--<span class="b-pay__quantity">-->
+                        <!--</span>-->
+            <!--<span class="b-pay__buttons">-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary waves-effect" href="#" title="В корзину">В корзину</a>-->
+
+
+<!--<span id="bx_3966226736_15_subscribe_link" class="b-pay__button b-pay__add2subscribe js-product-subscribe btn-default add2subscribe bx-catalog-subscribe-button" data-item="15" style="" title="">Подписаться</span>-->
+<!--<input type="hidden" id="bx_3966226736_15_subscribe_link_hidden">-->
+
+<!--<script type="text/javascript">-->
+	<!--var obbx_2291611635_15 = new JCCatalogProductSubscribe({'buttonId':'bx_3966226736_15_subscribe_link','jsObject':'obbx_2291611635_15','alreadySubscribed':false,'productId':'15','buttonClass':'b-pay__button b-pay__add2subscribe js-product-subscribe btn-default','urlListSubscriptions':'/'});-->
+
+  <!--BX.message({-->
+    <!--CPST_SUBSCRIBE_POPUP_TITLE: 'Подписка на товар',-->
+    <!--CPST_SUBSCRIBE_BUTTON_NAME: 'Подписаться',-->
+    <!--CPST_SUBSCRIBE_BUTTON_CLOSE: 'Закрыть',-->
+    <!--CPST_SUBSCRIBE_MANY_CONTACT_NOTIFY: 'Выберите способ уведомления:',-->
+    <!--CPST_SUBSCRIBE_LABLE_CONTACT_INPUT: 'Укажите Ваш #CONTACT#: ',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_UNKNOW_ERROR: 'Ошибка валидации',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR_EMPTY_FIELD: 'Не заполнено поле \"#FIELD#\"',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR: 'Вы не выбрали способ уведомления',-->
+    <!--CPST_SUBSCRIBE_CAPTCHA_TITLE: 'Введите слово на картинке',-->
+    <!--CPST_STATUS_SUCCESS: 'Успешно',-->
+    <!--CPST_STATUS_ERROR: 'Произошла ошибка',-->
+    <!--CPST_ENTER_WORD_PICTURE: 'Введите слово на картинке',-->
+    <!--CPST_TITLE_ALREADY_SUBSCRIBED: 'Уже подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TITLE: 'Вы подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TEXT: 'Список товаров на которые вы подписаны можно увидеть по ссылке #URL#'-->
+  <!--});-->
+<!--</script>-->
+
+<!--<script type="text/javascript">-->
+	<!--BX.ready(BX.defer(function(){-->
+    <!--if (!!window.obbx_2291611635_15)-->
+    <!--{-->
+      <!--window.obbx_2291611635_15.setButton('');-->
+    <!--}-->
+  <!--}));-->
+<!--</script>-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken waves-effect" href="/personal/cart/" title="В корзине">В корзине</a>-->
+                            <!--</span>-->
+        <!--</span>-->
+                        <!--<input type="submit" name="submit" class="nonep" value="">-->
+                      <!--</form>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;/noindex&ndash;&gt;-->
+                  <!--</div>-->
+
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part main &ndash;&gt;-->
+
+                <!--&lt;!&ndash; part extended &ndash;&gt;-->
+                <!--<div class="list-showcase__part-extended">-->
+
+
+                  <!--<div class="list-showcase__attributes">-->
+                  <!--</div>-->
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part extended &ndash;&gt;-->
+
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /element &ndash;&gt;-->
+            <!--&lt;!&ndash; element &ndash;&gt;-->
+            <!--<div class="js-element js-elementid13 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-3 mod-short" data-elementid="13" id="bx_3966226736_13" data-productid="13" data-detail="/catalog/mebel_dlya_gostinnoy/kreslo_liza/">-->
+              <!--<div class="list-showcase__inner js-element__shadow">-->
+
+                <!--&lt;!&ndash; part main &ndash;&gt;-->
+                <!--<div class="list-showcase__part-main">-->
+
+                  <!--<div class="list-showcase__mix">-->
+
+
+                    <!--<div class="list-showcase__picture"><script type="text/javascript">-->
+                      <!--RSGoPro_Pictures[13] = {'13':[{'SRC':'/upload/resize_cache/iblock/5f4/198_208_140cd750bba9870f18aada2478b24840a/5f430414c2e798a5b54765deda728b9b.jpg','ALT':'Кресло &quot;Лиза&quot;','TITLE':'Кресло &quot;Лиза&quot;','SRC_ORIGINAL':'/upload/iblock/5f4/5f430414c2e798a5b54765deda728b9b.jpg'},{'SRC':'/upload/resize_cache/iblock/f6e/198_208_140cd750bba9870f18aada2478b24840a/f6ecdd5bc11ec6cd58f2f0972cf5cd26.jpg','ALT':'Кресло &quot;Лиза&quot;','TITLE':'Кресло &quot;Лиза&quot;','SRC_ORIGINAL':'/upload/iblock/f6e/f6ecdd5bc11ec6cd58f2f0972cf5cd26.jpg'}]};-->
+                    <!--</script>-->
+                      <!--<a href="/catalog/mebel_dlya_gostinnoy/kreslo_liza/"><img class="js-list-picture js-lazy" src="/upload/resize_cache/iblock/5f4/198_208_140cd750bba9870f18aada2478b24840a/5f430414c2e798a5b54765deda728b9b.jpg" alt="Кресло &quot;Лиза&quot;" title="Кресло &quot;Лиза&quot;" style=""></a></div>-->
+
+                    <!--<div class="list-showcase__timer-stickers">-->
+                      <!--<div class="list-showcase__timer">-->
+                      <!--</div>-->
+                      <!--<div class="list-showcase__stickers">-->
+
+                        <!--<div class="c-stickers"><span class="c-stickers__sticker c-stickers__da2">Товар дня</span><span class="c-stickers__sticker c-stickers__qb">Успей купить</span><span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value" style="display: none;">-<span class="js-discount-value">0</span>%</span></div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__compare">-->
+                      <!--<a rel="nofollow" class="c-compare js-add2compare" href="/catalog/mebel_dlya_gostinnoy/?action=ADD_TO_COMPARE_LIST&amp;id=13"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__favorite">-->
+                      <!--<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_gostinnoy/kreslo_liza/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+
+                  <!--<div class="list-showcase__name-rating">-->
+
+                    <!--<div class="list-showcase__name"><a href="/catalog/mebel_dlya_gostinnoy/kreslo_liza/">Кресло "Лиза"</a></div>-->
+
+                    <!--<div class="list-showcase__rating">-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__prices">-->
+
+                    <!--<div class="c-prices js-prices view-list page-list product-alone multyprice-no" data-page="list" data-view="list" data-maxshow="2" data-showmore="Y" data-usealone="Y" data-multiprice="N" data-productmultiprice="N">-->
+                      <!--<span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE"><span class="c-prices__name">Розничная цена:</span><span class="c-prices__value js-prices_pdv_BASE">8 000 руб.</span><span class="c-prices__value-old-before"><span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE c-prices__hide">8 000 руб.</span></span></span><div class="c-prices__more js-prices__more c-prices__hide"><a class="c-prices__more-link" href="/catalog/mebel_dlya_gostinnoy/kreslo_liza/">Еще (<span class="js-prices__more-count">-1</span>)</a></div></div>-->
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__stores">-->
+
+
+
+                    <!--<div class="b-stores js-stores" data-firstelement="13" data-page="list">-->
+                      <!--<div class="b-stores__inner"><span class="b-stores__genamount" data-href="#stocks" title="" data-es-offset="-135"><span class="js-stores__value">В наличии<svg class="svg-icon isset"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-available"></use></svg></span></span></div>-->
+                    <!--</div>-->
+
+
+                    <!--<script>-->
+                      <!--if (RSGoPro_STOCK == 'undefined')-->
+                        <!--RSGoPro_STOCK = {};-->
+
+                      <!--RSGoPro_STOCK[13] = {-->
+                        <!--'QUANTITY' : {"13":"33"},-->
+                        <!--'JS' : '',-->
+                        <!--'USE_MIN_AMOUNT' : true,-->
+                        <!--'MIN_AMOUNT' : 10,-->
+                        <!--'MESSAGE_ISSET' : 'В наличии<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_LOW' : 'Мало<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_EMPTY' : 'Нет в наличии<svg class=\"svg-icon empty\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-not-available\"><\/use><\/svg>',-->
+                        <!--'SHOW_EMPTY_STORE' : true};-->
+
+                      <!--$(document).on('rsGoPro.document.ready', function(){-->
+                        <!--var html = '';-->
+                        <!--$('#stocks_detail_tab').html(html.DATA);-->
+                      <!--});-->
+                    <!--</script>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__pay hidden-print">-->
+
+                    <!--&lt;!&ndash;noindex&ndash;&gt;-->
+                    <!--<div class="b-pay">-->
+                      <!--<form class="b-pay__form js-pay__form js-buyform13 js-synchro clearfix" name="add2basketform">-->
+                        <!--<input type="hidden" name="action" value="ADD2BASKET">-->
+                        <!--<input type="hidden" name="id" class="js-add2basketpid" value="13">-->
+                        <!--<span class="b-pay__inner">-->
+            <!--<span class="b-pay__quantity">-->
+                        <!--</span>-->
+            <!--<span class="b-pay__buttons">-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary waves-effect" href="#" title="В корзину">В корзину</a>-->
+
+
+<!--<span id="bx_3966226736_13_subscribe_link" class="b-pay__button b-pay__add2subscribe js-product-subscribe btn-default add2subscribe bx-catalog-subscribe-button" data-item="13" style="" title="">Подписаться</span>-->
+<!--<input type="hidden" id="bx_3966226736_13_subscribe_link_hidden">-->
+
+<!--<script type="text/javascript">-->
+	<!--var obbx_406741432_13 = new JCCatalogProductSubscribe({'buttonId':'bx_3966226736_13_subscribe_link','jsObject':'obbx_406741432_13','alreadySubscribed':false,'productId':'13','buttonClass':'b-pay__button b-pay__add2subscribe js-product-subscribe btn-default','urlListSubscriptions':'/'});-->
+
+  <!--BX.message({-->
+    <!--CPST_SUBSCRIBE_POPUP_TITLE: 'Подписка на товар',-->
+    <!--CPST_SUBSCRIBE_BUTTON_NAME: 'Подписаться',-->
+    <!--CPST_SUBSCRIBE_BUTTON_CLOSE: 'Закрыть',-->
+    <!--CPST_SUBSCRIBE_MANY_CONTACT_NOTIFY: 'Выберите способ уведомления:',-->
+    <!--CPST_SUBSCRIBE_LABLE_CONTACT_INPUT: 'Укажите Ваш #CONTACT#: ',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_UNKNOW_ERROR: 'Ошибка валидации',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR_EMPTY_FIELD: 'Не заполнено поле \"#FIELD#\"',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR: 'Вы не выбрали способ уведомления',-->
+    <!--CPST_SUBSCRIBE_CAPTCHA_TITLE: 'Введите слово на картинке',-->
+    <!--CPST_STATUS_SUCCESS: 'Успешно',-->
+    <!--CPST_STATUS_ERROR: 'Произошла ошибка',-->
+    <!--CPST_ENTER_WORD_PICTURE: 'Введите слово на картинке',-->
+    <!--CPST_TITLE_ALREADY_SUBSCRIBED: 'Уже подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TITLE: 'Вы подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TEXT: 'Список товаров на которые вы подписаны можно увидеть по ссылке #URL#'-->
+  <!--});-->
+<!--</script>-->
+
+<!--<script type="text/javascript">-->
+	<!--BX.ready(BX.defer(function(){-->
+    <!--if (!!window.obbx_406741432_13)-->
+    <!--{-->
+      <!--window.obbx_406741432_13.setButton('');-->
+    <!--}-->
+  <!--}));-->
+<!--</script>-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken waves-effect" href="/personal/cart/" title="В корзине">В корзине</a>-->
+                            <!--</span>-->
+        <!--</span>-->
+                        <!--<input type="submit" name="submit" class="nonep" value="">-->
+                      <!--</form>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;/noindex&ndash;&gt;-->
+                  <!--</div>-->
+
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part main &ndash;&gt;-->
+
+                <!--&lt;!&ndash; part extended &ndash;&gt;-->
+                <!--<div class="list-showcase__part-extended">-->
+
+
+                  <!--<div class="list-showcase__attributes">-->
+                  <!--</div>-->
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part extended &ndash;&gt;-->
+
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /element &ndash;&gt;-->
+            <!--&lt;!&ndash; element &ndash;&gt;-->
+            <!--<div class="js-element js-elementid9 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-3 mod-short" data-elementid="9" id="bx_3966226736_9" data-productid="9" data-detail="/catalog/mebel_dlya_gostinnoy/kreslo_lotus/">-->
+              <!--<div class="list-showcase__inner js-element__shadow">-->
+
+                <!--&lt;!&ndash; part main &ndash;&gt;-->
+                <!--<div class="list-showcase__part-main">-->
+
+                  <!--<div class="list-showcase__mix">-->
+
+
+                    <!--<div class="list-showcase__picture"><script type="text/javascript">-->
+                      <!--RSGoPro_Pictures[9] = {'9':[{'SRC':'/upload/resize_cache/iblock/347/198_208_140cd750bba9870f18aada2478b24840a/3474a08039f2797618f13c5971500376.jpg','ALT':'Кресло &quot;Лотус&quot;','TITLE':'Кресло &quot;Лотус&quot;','SRC_ORIGINAL':'/upload/iblock/347/3474a08039f2797618f13c5971500376.jpg'},{'SRC':'/upload/resize_cache/iblock/53f/198_208_140cd750bba9870f18aada2478b24840a/53fcc3369123e7f70348aa9e697b3317.jpg','ALT':'Кресло &quot;Лотус&quot;','TITLE':'Кресло &quot;Лотус&quot;','SRC_ORIGINAL':'/upload/iblock/53f/53fcc3369123e7f70348aa9e697b3317.jpg'},{'SRC':'/upload/resize_cache/iblock/dd7/198_208_140cd750bba9870f18aada2478b24840a/dd794e066572963f226dfe0ef19dfa67.jpg','ALT':'Кресло &quot;Лотус&quot;','TITLE':'Кресло &quot;Лотус&quot;','SRC_ORIGINAL':'/upload/iblock/dd7/dd794e066572963f226dfe0ef19dfa67.jpg'}]};-->
+                    <!--</script>-->
+                      <!--<a href="/catalog/mebel_dlya_gostinnoy/kreslo_lotus/"><img class="js-list-picture js-lazy" src="/upload/resize_cache/iblock/347/198_208_140cd750bba9870f18aada2478b24840a/3474a08039f2797618f13c5971500376.jpg" alt="Кресло &quot;Лотус&quot;" title="Кресло &quot;Лотус&quot;" style=""></a></div>-->
+
+                    <!--<div class="list-showcase__timer-stickers">-->
+                      <!--<div class="list-showcase__timer">-->
+                      <!--</div>-->
+                      <!--<div class="list-showcase__stickers">-->
+
+                        <!--<div class="c-stickers"><span class="c-stickers__sticker c-stickers__da2">Товар дня</span><span class="c-stickers__sticker c-stickers__qb">Успей купить</span><span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value" style="display: none;">-<span class="js-discount-value">0</span>%</span></div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__compare">-->
+                      <!--<a rel="nofollow" class="c-compare js-add2compare" href="/catalog/mebel_dlya_gostinnoy/?action=ADD_TO_COMPARE_LIST&amp;id=9"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__favorite">-->
+                      <!--<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_gostinnoy/kreslo_lotus/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+
+                  <!--<div class="list-showcase__name-rating">-->
+
+                    <!--<div class="list-showcase__name"><a href="/catalog/mebel_dlya_gostinnoy/kreslo_lotus/">Кресло "Лотус"</a></div>-->
+
+                    <!--<div class="list-showcase__rating">-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__prices">-->
+
+                    <!--<div class="c-prices js-prices view-list page-list product-alone multyprice-no" data-page="list" data-view="list" data-maxshow="2" data-showmore="Y" data-usealone="Y" data-multiprice="N" data-productmultiprice="N">-->
+                      <!--<span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE"><span class="c-prices__name">Розничная цена:</span><span class="c-prices__value js-prices_pdv_BASE">8 000 руб.</span><span class="c-prices__value-old-before"><span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE c-prices__hide">8 000 руб.</span></span></span><div class="c-prices__more js-prices__more c-prices__hide"><a class="c-prices__more-link" href="/catalog/mebel_dlya_gostinnoy/kreslo_lotus/">Еще (<span class="js-prices__more-count">-1</span>)</a></div></div>-->
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__stores">-->
+
+
+
+                    <!--<div class="b-stores js-stores" data-firstelement="9" data-page="list">-->
+                      <!--<div class="b-stores__inner"><span class="b-stores__genamount" data-href="#stocks" title="" data-es-offset="-135"><span class="js-stores__value">В наличии<svg class="svg-icon isset"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-available"></use></svg></span></span></div>-->
+                    <!--</div>-->
+
+
+                    <!--<script>-->
+                      <!--if (RSGoPro_STOCK == 'undefined')-->
+                        <!--RSGoPro_STOCK = {};-->
+
+                      <!--RSGoPro_STOCK[9] = {-->
+                        <!--'QUANTITY' : {"9":"46"},-->
+                        <!--'JS' : '',-->
+                        <!--'USE_MIN_AMOUNT' : true,-->
+                        <!--'MIN_AMOUNT' : 10,-->
+                        <!--'MESSAGE_ISSET' : 'В наличии<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_LOW' : 'Мало<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_EMPTY' : 'Нет в наличии<svg class=\"svg-icon empty\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-not-available\"><\/use><\/svg>',-->
+                        <!--'SHOW_EMPTY_STORE' : true};-->
+
+                      <!--$(document).on('rsGoPro.document.ready', function(){-->
+                        <!--var html = '';-->
+                        <!--$('#stocks_detail_tab').html(html.DATA);-->
+                      <!--});-->
+                    <!--</script>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__pay hidden-print">-->
+
+                    <!--&lt;!&ndash;noindex&ndash;&gt;-->
+                    <!--<div class="b-pay">-->
+                      <!--<form class="b-pay__form js-pay__form js-buyform9 js-synchro clearfix" name="add2basketform">-->
+                        <!--<input type="hidden" name="action" value="ADD2BASKET">-->
+                        <!--<input type="hidden" name="id" class="js-add2basketpid" value="9">-->
+                        <!--<span class="b-pay__inner">-->
+            <!--<span class="b-pay__quantity">-->
+                        <!--</span>-->
+            <!--<span class="b-pay__buttons">-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary waves-effect" href="#" title="В корзину">В корзину</a>-->
+
+
+<!--<span id="bx_3966226736_9_subscribe_link" class="b-pay__button b-pay__add2subscribe js-product-subscribe btn-default add2subscribe bx-catalog-subscribe-button" data-item="9" style="" title="">Подписаться</span>-->
+<!--<input type="hidden" id="bx_3966226736_9_subscribe_link_hidden">-->
+
+<!--<script type="text/javascript">-->
+	<!--var obbx_1866027310_9 = new JCCatalogProductSubscribe({'buttonId':'bx_3966226736_9_subscribe_link','jsObject':'obbx_1866027310_9','alreadySubscribed':false,'productId':'9','buttonClass':'b-pay__button b-pay__add2subscribe js-product-subscribe btn-default','urlListSubscriptions':'/'});-->
+
+  <!--BX.message({-->
+    <!--CPST_SUBSCRIBE_POPUP_TITLE: 'Подписка на товар',-->
+    <!--CPST_SUBSCRIBE_BUTTON_NAME: 'Подписаться',-->
+    <!--CPST_SUBSCRIBE_BUTTON_CLOSE: 'Закрыть',-->
+    <!--CPST_SUBSCRIBE_MANY_CONTACT_NOTIFY: 'Выберите способ уведомления:',-->
+    <!--CPST_SUBSCRIBE_LABLE_CONTACT_INPUT: 'Укажите Ваш #CONTACT#: ',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_UNKNOW_ERROR: 'Ошибка валидации',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR_EMPTY_FIELD: 'Не заполнено поле \"#FIELD#\"',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR: 'Вы не выбрали способ уведомления',-->
+    <!--CPST_SUBSCRIBE_CAPTCHA_TITLE: 'Введите слово на картинке',-->
+    <!--CPST_STATUS_SUCCESS: 'Успешно',-->
+    <!--CPST_STATUS_ERROR: 'Произошла ошибка',-->
+    <!--CPST_ENTER_WORD_PICTURE: 'Введите слово на картинке',-->
+    <!--CPST_TITLE_ALREADY_SUBSCRIBED: 'Уже подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TITLE: 'Вы подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TEXT: 'Список товаров на которые вы подписаны можно увидеть по ссылке #URL#'-->
+  <!--});-->
+<!--</script>-->
+
+<!--<script type="text/javascript">-->
+	<!--BX.ready(BX.defer(function(){-->
+    <!--if (!!window.obbx_1866027310_9)-->
+    <!--{-->
+      <!--window.obbx_1866027310_9.setButton('');-->
+    <!--}-->
+  <!--}));-->
+<!--</script>-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken waves-effect" href="/personal/cart/" title="В корзине">В корзине</a>-->
+                            <!--</span>-->
+        <!--</span>-->
+                        <!--<input type="submit" name="submit" class="nonep" value="">-->
+                      <!--</form>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;/noindex&ndash;&gt;-->
+                  <!--</div>-->
+
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part main &ndash;&gt;-->
+
+                <!--&lt;!&ndash; part extended &ndash;&gt;-->
+                <!--<div class="list-showcase__part-extended">-->
+
+
+                  <!--<div class="list-showcase__attributes">-->
+                  <!--</div>-->
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part extended &ndash;&gt;-->
+
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /element &ndash;&gt;-->
+            <!--&lt;!&ndash; element &ndash;&gt;-->
+            <!--<div class="js-element js-elementid10 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-3 mod-short" data-elementid="10" id="bx_3966226736_10" data-productid="10" data-detail="/catalog/mebel_dlya_gostinnoy/kreslo_master/">-->
+              <!--<div class="list-showcase__inner js-element__shadow">-->
+
+                <!--&lt;!&ndash; part main &ndash;&gt;-->
+                <!--<div class="list-showcase__part-main">-->
+
+                  <!--<div class="list-showcase__mix">-->
+
+
+                    <!--<div class="list-showcase__picture"><script type="text/javascript">-->
+                      <!--RSGoPro_Pictures[10] = {'10':[{'SRC':'/upload/resize_cache/iblock/56c/198_208_140cd750bba9870f18aada2478b24840a/56cc907ca0d2919010c76c4cc6dd6afd.jpg','ALT':'Кресло &quot;Мастер&quot;','TITLE':'Кресло &quot;Мастер&quot;','SRC_ORIGINAL':'/upload/iblock/56c/56cc907ca0d2919010c76c4cc6dd6afd.jpg'},{'SRC':'/upload/resize_cache/iblock/38f/198_208_140cd750bba9870f18aada2478b24840a/38fe180972bdab5d279b545796e3fdf8.jpg','ALT':'Кресло &quot;Мастер&quot;','TITLE':'Кресло &quot;Мастер&quot;','SRC_ORIGINAL':'/upload/iblock/38f/38fe180972bdab5d279b545796e3fdf8.jpg'}]};-->
+                    <!--</script>-->
+                      <!--<a href="/catalog/mebel_dlya_gostinnoy/kreslo_master/"><img class="js-list-picture js-lazy" src="/upload/resize_cache/iblock/56c/198_208_140cd750bba9870f18aada2478b24840a/56cc907ca0d2919010c76c4cc6dd6afd.jpg" alt="Кресло &quot;Мастер&quot;" title="Кресло &quot;Мастер&quot;" style=""></a></div>-->
+
+                    <!--<div class="list-showcase__timer-stickers">-->
+                      <!--<div class="list-showcase__timer">-->
+                      <!--</div>-->
+                      <!--<div class="list-showcase__stickers">-->
+
+                        <!--<div class="c-stickers"><span class="c-stickers__sticker c-stickers__da2">Товар дня</span><span class="c-stickers__sticker c-stickers__qb">Успей купить</span><span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value" style="display: none;">-<span class="js-discount-value">0</span>%</span></div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__compare">-->
+                      <!--<a rel="nofollow" class="c-compare js-add2compare" href="/catalog/mebel_dlya_gostinnoy/?action=ADD_TO_COMPARE_LIST&amp;id=10"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__favorite">-->
+                      <!--<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_gostinnoy/kreslo_master/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+
+                  <!--<div class="list-showcase__name-rating">-->
+
+                    <!--<div class="list-showcase__name"><a href="/catalog/mebel_dlya_gostinnoy/kreslo_master/">Кресло "Мастер"</a></div>-->
+
+                    <!--<div class="list-showcase__rating">-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__prices">-->
+
+                    <!--<div class="c-prices js-prices view-list page-list product-alone multyprice-no" data-page="list" data-view="list" data-maxshow="2" data-showmore="Y" data-usealone="Y" data-multiprice="N" data-productmultiprice="N">-->
+                      <!--<span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE"><span class="c-prices__name">Розничная цена:</span><span class="c-prices__value js-prices_pdv_BASE">50 000 руб.</span><span class="c-prices__value-old-before"><span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE c-prices__hide">50 000 руб.</span></span></span><div class="c-prices__more js-prices__more c-prices__hide"><a class="c-prices__more-link" href="/catalog/mebel_dlya_gostinnoy/kreslo_master/">Еще (<span class="js-prices__more-count">-1</span>)</a></div></div>-->
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__stores">-->
+
+
+
+                    <!--<div class="b-stores js-stores" data-firstelement="10" data-page="list">-->
+                      <!--<div class="b-stores__inner"><span class="b-stores__genamount" data-href="#stocks" title="" data-es-offset="-135"><span class="js-stores__value">В наличии<svg class="svg-icon isset"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-available"></use></svg></span></span></div>-->
+                    <!--</div>-->
+
+
+                    <!--<script>-->
+                      <!--if (RSGoPro_STOCK == 'undefined')-->
+                        <!--RSGoPro_STOCK = {};-->
+
+                      <!--RSGoPro_STOCK[10] = {-->
+                        <!--'QUANTITY' : {"10":"87"},-->
+                        <!--'JS' : '',-->
+                        <!--'USE_MIN_AMOUNT' : true,-->
+                        <!--'MIN_AMOUNT' : 10,-->
+                        <!--'MESSAGE_ISSET' : 'В наличии<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_LOW' : 'Мало<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_EMPTY' : 'Нет в наличии<svg class=\"svg-icon empty\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-not-available\"><\/use><\/svg>',-->
+                        <!--'SHOW_EMPTY_STORE' : true};-->
+
+                      <!--$(document).on('rsGoPro.document.ready', function(){-->
+                        <!--var html = '';-->
+                        <!--$('#stocks_detail_tab').html(html.DATA);-->
+                      <!--});-->
+                    <!--</script>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__pay hidden-print">-->
+
+                    <!--&lt;!&ndash;noindex&ndash;&gt;-->
+                    <!--<div class="b-pay">-->
+                      <!--<form class="b-pay__form js-pay__form js-buyform10 js-synchro clearfix" name="add2basketform">-->
+                        <!--<input type="hidden" name="action" value="ADD2BASKET">-->
+                        <!--<input type="hidden" name="id" class="js-add2basketpid" value="10">-->
+                        <!--<span class="b-pay__inner">-->
+            <!--<span class="b-pay__quantity">-->
+                        <!--</span>-->
+            <!--<span class="b-pay__buttons">-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary waves-effect" href="#" title="В корзину">В корзину</a>-->
+
+
+<!--<span id="bx_3966226736_10_subscribe_link" class="b-pay__button b-pay__add2subscribe js-product-subscribe btn-default add2subscribe bx-catalog-subscribe-button" data-item="10" style="" title="">Подписаться</span>-->
+<!--<input type="hidden" id="bx_3966226736_10_subscribe_link_hidden">-->
+
+<!--<script type="text/javascript">-->
+	<!--var obbx_4130341012_10 = new JCCatalogProductSubscribe({'buttonId':'bx_3966226736_10_subscribe_link','jsObject':'obbx_4130341012_10','alreadySubscribed':false,'productId':'10','buttonClass':'b-pay__button b-pay__add2subscribe js-product-subscribe btn-default','urlListSubscriptions':'/'});-->
+
+  <!--BX.message({-->
+    <!--CPST_SUBSCRIBE_POPUP_TITLE: 'Подписка на товар',-->
+    <!--CPST_SUBSCRIBE_BUTTON_NAME: 'Подписаться',-->
+    <!--CPST_SUBSCRIBE_BUTTON_CLOSE: 'Закрыть',-->
+    <!--CPST_SUBSCRIBE_MANY_CONTACT_NOTIFY: 'Выберите способ уведомления:',-->
+    <!--CPST_SUBSCRIBE_LABLE_CONTACT_INPUT: 'Укажите Ваш #CONTACT#: ',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_UNKNOW_ERROR: 'Ошибка валидации',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR_EMPTY_FIELD: 'Не заполнено поле \"#FIELD#\"',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR: 'Вы не выбрали способ уведомления',-->
+    <!--CPST_SUBSCRIBE_CAPTCHA_TITLE: 'Введите слово на картинке',-->
+    <!--CPST_STATUS_SUCCESS: 'Успешно',-->
+    <!--CPST_STATUS_ERROR: 'Произошла ошибка',-->
+    <!--CPST_ENTER_WORD_PICTURE: 'Введите слово на картинке',-->
+    <!--CPST_TITLE_ALREADY_SUBSCRIBED: 'Уже подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TITLE: 'Вы подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TEXT: 'Список товаров на которые вы подписаны можно увидеть по ссылке #URL#'-->
+  <!--});-->
+<!--</script>-->
+
+<!--<script type="text/javascript">-->
+	<!--BX.ready(BX.defer(function(){-->
+    <!--if (!!window.obbx_4130341012_10)-->
+    <!--{-->
+      <!--window.obbx_4130341012_10.setButton('');-->
+    <!--}-->
+  <!--}));-->
+<!--</script>-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken waves-effect" href="/personal/cart/" title="В корзине">В корзине</a>-->
+                            <!--</span>-->
+        <!--</span>-->
+                        <!--<input type="submit" name="submit" class="nonep" value="">-->
+                      <!--</form>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;/noindex&ndash;&gt;-->
+                  <!--</div>-->
+
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part main &ndash;&gt;-->
+
+                <!--&lt;!&ndash; part extended &ndash;&gt;-->
+                <!--<div class="list-showcase__part-extended">-->
+
+
+                  <!--<div class="list-showcase__attributes">-->
+                  <!--</div>-->
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part extended &ndash;&gt;-->
+
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /element &ndash;&gt;-->
+            <!--&lt;!&ndash; element &ndash;&gt;-->
+            <!--<div class="js-element js-elementid11 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-3 mod-short" data-elementid="11" id="bx_3966226736_11" data-productid="79" data-detail="/catalog/mebel_dlya_gostinnoy/kreslo_nikol/">-->
+              <!--<div class="list-showcase__inner js-element__shadow">-->
+
+                <!--&lt;!&ndash; part main &ndash;&gt;-->
+                <!--<div class="list-showcase__part-main">-->
+
+                  <!--<div class="list-showcase__mix">-->
+
+
+                    <!--<div class="list-showcase__picture"><script type="text/javascript">-->
+                      <!--RSGoPro_Pictures[11] = {'79':[{'SRC':'/upload/resize_cache/iblock/141/198_208_140cd750bba9870f18aada2478b24840a/14189be604e2ec41c6733f5d629e7e15.jpg','ALT':'Кресло &quot;Николь&quot; белое','TITLE':'Кресло &quot;Николь&quot; белое','SRC_ORIGINAL':'/upload/iblock/141/14189be604e2ec41c6733f5d629e7e15.jpg'},{'SRC':'/upload/resize_cache/iblock/56a/198_208_140cd750bba9870f18aada2478b24840a/56a4dcf3062acd82693269592c6c6f60.jpg','ALT':'Кресло &quot;Николь&quot; белое','TITLE':'Кресло &quot;Николь&quot; белое','SRC_ORIGINAL':'/upload/iblock/56a/56a4dcf3062acd82693269592c6c6f60.jpg'}],'78':[{'SRC':'/upload/resize_cache/iblock/424/198_208_140cd750bba9870f18aada2478b24840a/4245fea84f8ee5ee81d8c0448a2d6f06.jpg','ALT':'Кресло &quot;Николь&quot; черное','TITLE':'Кресло &quot;Николь&quot; черное','SRC_ORIGINAL':'/upload/iblock/424/4245fea84f8ee5ee81d8c0448a2d6f06.jpg'},{'SRC':'/upload/resize_cache/iblock/ea5/198_208_140cd750bba9870f18aada2478b24840a/ea5c38d35361c8deafec9f09fdd8d454.jpg','ALT':'Кресло &quot;Николь&quot; черное','TITLE':'Кресло &quot;Николь&quot; черное','SRC_ORIGINAL':'/upload/iblock/ea5/ea5c38d35361c8deafec9f09fdd8d454.jpg'}],'11':[{'SRC':'/upload/resize_cache/iblock/a4a/198_208_140cd750bba9870f18aada2478b24840a/a4a577ec1e7e93e75973908030357183.jpg','ALT':'Кресло &quot;Николь&quot;','TITLE':'Кресло &quot;Николь&quot;','SRC_ORIGINAL':'/upload/iblock/a4a/a4a577ec1e7e93e75973908030357183.jpg'}]};-->
+                    <!--</script>-->
+                      <!--<a href="/catalog/mebel_dlya_gostinnoy/kreslo_nikol/"><img class="js-list-picture js-lazy" src="/upload/resize_cache/iblock/141/198_208_140cd750bba9870f18aada2478b24840a/14189be604e2ec41c6733f5d629e7e15.jpg" alt="Кресло &quot;Николь&quot;" title="Кресло &quot;Николь&quot;" style=""></a></div>-->
+
+                    <!--<div class="list-showcase__timer-stickers">-->
+                      <!--<div class="list-showcase__timer">-->
+                      <!--</div>-->
+                      <!--<div class="list-showcase__stickers">-->
+
+                        <!--<div class="c-stickers"><span class="c-stickers__sticker c-stickers__da2">Товар дня</span><span class="c-stickers__sticker c-stickers__qb">Успей купить</span><span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value" style="display: none;">-<span class="js-discount-value">0</span>%</span></div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__compare">-->
+                      <!--<a rel="nofollow" class="c-compare js-add2compare" href="/catalog/mebel_dlya_gostinnoy/?action=ADD_TO_COMPARE_LIST&amp;id=11"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__favorite">-->
+                      <!--<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_gostinnoy/kreslo_nikol/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+
+                  <!--<div class="list-showcase__name-rating">-->
+
+                    <!--<div class="list-showcase__name"><a href="/catalog/mebel_dlya_gostinnoy/kreslo_nikol/">Кресло "Николь"</a></div>-->
+
+                    <!--<div class="list-showcase__rating">-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__prices">-->
+
+                    <!--<div class="c-prices js-prices view-list page-list product-alone multyprice-no" data-page="list" data-view="list" data-maxshow="2" data-showmore="Y" data-usealone="Y" data-multiprice="N" data-productmultiprice="N">-->
+                      <!--<span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE"><span class="c-prices__name">Розничная цена:</span><span class="c-prices__value js-prices_pdv_BASE">12 000 руб.</span><span class="c-prices__value-old-before"><span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE c-prices__hide">12 000 руб.</span></span></span><div class="c-prices__more js-prices__more c-prices__hide"><a class="c-prices__more-link" href="/catalog/mebel_dlya_gostinnoy/kreslo_nikol/">Еще (<span class="js-prices__more-count">-1</span>)</a></div></div>-->
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__stores">-->
+
+
+
+                    <!--<div class="b-stores js-stores" data-firstelement="79" data-page="list">-->
+                      <!--<div class="b-stores__inner"><span class="b-stores__genamount" data-href="#stocks" title="" data-es-offset="-135" data-src="#stores_11"><span class="js-stores__value">Нет в наличии<svg class="svg-icon empty"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-not-available"></use></svg></span></span></div>-->
+                    <!--</div>-->
+
+
+                    <!--<script>-->
+                      <!--if (RSGoPro_STOCK == 'undefined')-->
+                        <!--RSGoPro_STOCK = {};-->
+
+                      <!--RSGoPro_STOCK[11] = {-->
+                        <!--'QUANTITY' : {"11":"0","79":"0","78":"0"},-->
+                        <!--'JS' : {'SKU':{'79':[],'78':[]},'ID':'obbx_505040198_78','MESSAGES':{'NOT_MUCH_GOOD':'мало','ABSENT':'отсутствует','LOT_OF_GOOD':'достаточно'},'SHOW_EMPTY_STORE':true,'USE_MIN_AMOUNT':true,'MIN_AMOUNT':'10','STORES':['1','2','3']},-->
+                        <!--'USE_MIN_AMOUNT' : true,-->
+                        <!--'MIN_AMOUNT' : 10,-->
+                        <!--'MESSAGE_ISSET' : 'В наличии<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_LOW' : 'Мало<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_EMPTY' : 'Нет в наличии<svg class=\"svg-icon empty\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-not-available\"><\/use><\/svg>',-->
+                        <!--'SHOW_EMPTY_STORE' : true};-->
+
+                      <!--$(document).on('rsGoPro.document.ready', function(){-->
+                        <!--var html = '';-->
+                        <!--$('#stocks_detail_tab').html(html.DATA);-->
+                      <!--});-->
+                    <!--</script>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__pay hidden-xs hidden-sm hidden-print">-->
+
+                    <!--&lt;!&ndash;noindex&ndash;&gt;-->
+                    <!--<div class="b-pay">-->
+                      <!--<form class="b-pay__form js-pay__form js-buyform11 js-synchro cantbuy clearfix" name="add2basketform">-->
+                        <!--<input type="hidden" name="action" value="ADD2BASKET">-->
+                        <!--<input type="hidden" name="id" class="js-add2basketpid" value="79">-->
+                        <!--<span class="b-pay__inner">-->
+            <!--<span class="b-pay__quantity">-->
+                        <!--</span>-->
+            <!--<span class="b-pay__buttons">-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary waves-effect" href="#" title="В корзину">В корзину</a>-->
+
+
+<!--<span id="bx_3966226736_11_subscribe_link" class="b-pay__button b-pay__add2subscribe js-product-subscribe btn-default add2subscribe bx-catalog-subscribe-button" data-item="79" style="" title="">Подписаться</span>-->
+<!--<input type="hidden" id="bx_3966226736_11_subscribe_link_hidden">-->
+
+<!--<script type="text/javascript">-->
+	<!--var obbx_2167877634_79 = new JCCatalogProductSubscribe({'buttonId':'bx_3966226736_11_subscribe_link','jsObject':'obbx_2167877634_79','alreadySubscribed':false,'productId':'79','buttonClass':'b-pay__button b-pay__add2subscribe js-product-subscribe btn-default','urlListSubscriptions':'/'});-->
+
+  <!--BX.message({-->
+    <!--CPST_SUBSCRIBE_POPUP_TITLE: 'Подписка на товар',-->
+    <!--CPST_SUBSCRIBE_BUTTON_NAME: 'Подписаться',-->
+    <!--CPST_SUBSCRIBE_BUTTON_CLOSE: 'Закрыть',-->
+    <!--CPST_SUBSCRIBE_MANY_CONTACT_NOTIFY: 'Выберите способ уведомления:',-->
+    <!--CPST_SUBSCRIBE_LABLE_CONTACT_INPUT: 'Укажите Ваш #CONTACT#: ',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_UNKNOW_ERROR: 'Ошибка валидации',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR_EMPTY_FIELD: 'Не заполнено поле \"#FIELD#\"',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR: 'Вы не выбрали способ уведомления',-->
+    <!--CPST_SUBSCRIBE_CAPTCHA_TITLE: 'Введите слово на картинке',-->
+    <!--CPST_STATUS_SUCCESS: 'Успешно',-->
+    <!--CPST_STATUS_ERROR: 'Произошла ошибка',-->
+    <!--CPST_ENTER_WORD_PICTURE: 'Введите слово на картинке',-->
+    <!--CPST_TITLE_ALREADY_SUBSCRIBED: 'Уже подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TITLE: 'Вы подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TEXT: 'Список товаров на которые вы подписаны можно увидеть по ссылке #URL#'-->
+  <!--});-->
+<!--</script>-->
+
+<!--<script type="text/javascript">-->
+	<!--BX.ready(BX.defer(function(){-->
+    <!--if (!!window.obbx_2167877634_79)-->
+    <!--{-->
+      <!--window.obbx_2167877634_79.setButton('');-->
+    <!--}-->
+  <!--}));-->
+<!--</script>-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken waves-effect" href="/personal/cart/" title="В корзине">В корзине</a>-->
+                            <!--</span>-->
+        <!--</span>-->
+                        <!--<input type="submit" name="submit" class="nonep" value="">-->
+                      <!--</form>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;/noindex&ndash;&gt;-->
+                  <!--</div>-->
+
+
+                  <!--<div class="list-showcase__pay-mobile hidden-md hidden-lg"><a class="btn-primary waves-effect" href="/catalog/mebel_dlya_gostinnoy/kreslo_nikol/">Подробнее</a></div>-->
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part main &ndash;&gt;-->
+
+                <!--&lt;!&ndash; part extended &ndash;&gt;-->
+                <!--<div class="list-showcase__part-extended">-->
+
+
+                  <!--<div class="list-showcase__attributes">-->
+                  <!--</div>-->
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part extended &ndash;&gt;-->
+
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /element &ndash;&gt;-->
+            <!--&lt;!&ndash; element &ndash;&gt;-->
+            <!--<div class="js-element js-elementid16 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-3 mod-short" data-elementid="16" id="bx_3966226736_16" data-productid="16" data-detail="/catalog/mebel_dlya_gostinnoy/kreslo_platon/">-->
+              <!--<div class="list-showcase__inner js-element__shadow">-->
+
+                <!--&lt;!&ndash; part main &ndash;&gt;-->
+                <!--<div class="list-showcase__part-main">-->
+
+                  <!--<div class="list-showcase__mix">-->
+
+
+                    <!--<div class="list-showcase__picture"><script type="text/javascript">-->
+                      <!--RSGoPro_Pictures[16] = {'16':[{'SRC':'/upload/resize_cache/iblock/fe2/198_208_140cd750bba9870f18aada2478b24840a/fe2e7946043a232c41978ee775eb87eb.jpg','ALT':'Кресло &quot;Платон&quot;','TITLE':'Кресло &quot;Платон&quot;','SRC_ORIGINAL':'/upload/iblock/fe2/fe2e7946043a232c41978ee775eb87eb.jpg'},{'SRC':'/upload/resize_cache/iblock/02f/198_208_140cd750bba9870f18aada2478b24840a/02f910ba80e7d241ec7f4964fca7d2da.jpg','ALT':'Кресло &quot;Платон&quot;','TITLE':'Кресло &quot;Платон&quot;','SRC_ORIGINAL':'/upload/iblock/02f/02f910ba80e7d241ec7f4964fca7d2da.jpg'}]};-->
+                    <!--</script>-->
+                      <!--<a href="/catalog/mebel_dlya_gostinnoy/kreslo_platon/"><img class="js-list-picture js-lazy" src="/upload/resize_cache/iblock/fe2/198_208_140cd750bba9870f18aada2478b24840a/fe2e7946043a232c41978ee775eb87eb.jpg" alt="Кресло &quot;Платон&quot;" title="Кресло &quot;Платон&quot;" style=""></a></div>-->
+
+                    <!--<div class="list-showcase__timer-stickers">-->
+                      <!--<div class="list-showcase__timer">-->
+                      <!--</div>-->
+                      <!--<div class="list-showcase__stickers">-->
+
+                        <!--<div class="c-stickers"><span class="c-stickers__sticker c-stickers__da2">Товар дня</span><span class="c-stickers__sticker c-stickers__qb">Успей купить</span><span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value" style="display: none;">-<span class="js-discount-value">0</span>%</span></div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__compare">-->
+                      <!--<a rel="nofollow" class="c-compare js-add2compare" href="/catalog/mebel_dlya_gostinnoy/?action=ADD_TO_COMPARE_LIST&amp;id=16"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__favorite">-->
+                      <!--<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_gostinnoy/kreslo_platon/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+
+                  <!--<div class="list-showcase__name-rating">-->
+
+                    <!--<div class="list-showcase__name"><a href="/catalog/mebel_dlya_gostinnoy/kreslo_platon/">Кресло "Платон"</a></div>-->
+
+                    <!--<div class="list-showcase__rating">-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__prices">-->
+
+                    <!--<div class="c-prices js-prices view-list page-list product-alone multyprice-no" data-page="list" data-view="list" data-maxshow="2" data-showmore="Y" data-usealone="Y" data-multiprice="N" data-productmultiprice="N">-->
+                      <!--<span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE"><span class="c-prices__name">Розничная цена:</span><span class="c-prices__value js-prices_pdv_BASE">17 000 руб.</span><span class="c-prices__value-old-before"><span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE c-prices__hide">17 000 руб.</span></span></span><div class="c-prices__more js-prices__more c-prices__hide"><a class="c-prices__more-link" href="/catalog/mebel_dlya_gostinnoy/kreslo_platon/">Еще (<span class="js-prices__more-count">-1</span>)</a></div></div>-->
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__stores">-->
+
+
+
+                    <!--<div class="b-stores js-stores" data-firstelement="16" data-page="list">-->
+                      <!--<div class="b-stores__inner"><span class="b-stores__genamount" data-href="#stocks" title="" data-es-offset="-135"><span class="js-stores__value">В наличии<svg class="svg-icon isset"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-available"></use></svg></span></span></div>-->
+                    <!--</div>-->
+
+
+                    <!--<script>-->
+                      <!--if (RSGoPro_STOCK == 'undefined')-->
+                        <!--RSGoPro_STOCK = {};-->
+
+                      <!--RSGoPro_STOCK[16] = {-->
+                        <!--'QUANTITY' : {"16":"14"},-->
+                        <!--'JS' : '',-->
+                        <!--'USE_MIN_AMOUNT' : true,-->
+                        <!--'MIN_AMOUNT' : 10,-->
+                        <!--'MESSAGE_ISSET' : 'В наличии<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_LOW' : 'Мало<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_EMPTY' : 'Нет в наличии<svg class=\"svg-icon empty\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-not-available\"><\/use><\/svg>',-->
+                        <!--'SHOW_EMPTY_STORE' : true};-->
+
+                      <!--$(document).on('rsGoPro.document.ready', function(){-->
+                        <!--var html = '';-->
+                        <!--$('#stocks_detail_tab').html(html.DATA);-->
+                      <!--});-->
+                    <!--</script>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__pay hidden-print">-->
+
+                    <!--&lt;!&ndash;noindex&ndash;&gt;-->
+                    <!--<div class="b-pay">-->
+                      <!--<form class="b-pay__form js-pay__form js-buyform16 js-synchro clearfix" name="add2basketform">-->
+                        <!--<input type="hidden" name="action" value="ADD2BASKET">-->
+                        <!--<input type="hidden" name="id" class="js-add2basketpid" value="16">-->
+                        <!--<span class="b-pay__inner">-->
+            <!--<span class="b-pay__quantity">-->
+                        <!--</span>-->
+            <!--<span class="b-pay__buttons">-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary waves-effect" href="#" title="В корзину">В корзину</a>-->
+
+
+<!--<span id="bx_3966226736_16_subscribe_link" class="b-pay__button b-pay__add2subscribe js-product-subscribe btn-default add2subscribe bx-catalog-subscribe-button" data-item="16" style="" title="">Подписаться</span>-->
+<!--<input type="hidden" id="bx_3966226736_16_subscribe_link_hidden">-->
+
+<!--<script type="text/javascript">-->
+	<!--var obbx_525575585_16 = new JCCatalogProductSubscribe({'buttonId':'bx_3966226736_16_subscribe_link','jsObject':'obbx_525575585_16','alreadySubscribed':false,'productId':'16','buttonClass':'b-pay__button b-pay__add2subscribe js-product-subscribe btn-default','urlListSubscriptions':'/'});-->
+
+  <!--BX.message({-->
+    <!--CPST_SUBSCRIBE_POPUP_TITLE: 'Подписка на товар',-->
+    <!--CPST_SUBSCRIBE_BUTTON_NAME: 'Подписаться',-->
+    <!--CPST_SUBSCRIBE_BUTTON_CLOSE: 'Закрыть',-->
+    <!--CPST_SUBSCRIBE_MANY_CONTACT_NOTIFY: 'Выберите способ уведомления:',-->
+    <!--CPST_SUBSCRIBE_LABLE_CONTACT_INPUT: 'Укажите Ваш #CONTACT#: ',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_UNKNOW_ERROR: 'Ошибка валидации',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR_EMPTY_FIELD: 'Не заполнено поле \"#FIELD#\"',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR: 'Вы не выбрали способ уведомления',-->
+    <!--CPST_SUBSCRIBE_CAPTCHA_TITLE: 'Введите слово на картинке',-->
+    <!--CPST_STATUS_SUCCESS: 'Успешно',-->
+    <!--CPST_STATUS_ERROR: 'Произошла ошибка',-->
+    <!--CPST_ENTER_WORD_PICTURE: 'Введите слово на картинке',-->
+    <!--CPST_TITLE_ALREADY_SUBSCRIBED: 'Уже подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TITLE: 'Вы подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TEXT: 'Список товаров на которые вы подписаны можно увидеть по ссылке #URL#'-->
+  <!--});-->
+<!--</script>-->
+
+<!--<script type="text/javascript">-->
+	<!--BX.ready(BX.defer(function(){-->
+    <!--if (!!window.obbx_525575585_16)-->
+    <!--{-->
+      <!--window.obbx_525575585_16.setButton('');-->
+    <!--}-->
+  <!--}));-->
+<!--</script>-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken waves-effect" href="/personal/cart/" title="В корзине">В корзине</a>-->
+                            <!--</span>-->
+        <!--</span>-->
+                        <!--<input type="submit" name="submit" class="nonep" value="">-->
+                      <!--</form>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;/noindex&ndash;&gt;-->
+                  <!--</div>-->
+
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part main &ndash;&gt;-->
+
+                <!--&lt;!&ndash; part extended &ndash;&gt;-->
+                <!--<div class="list-showcase__part-extended">-->
+
+
+                  <!--<div class="list-showcase__attributes">-->
+                  <!--</div>-->
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part extended &ndash;&gt;-->
+
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /element &ndash;&gt;-->
+            <!--&lt;!&ndash; element &ndash;&gt;-->
+            <!--<div class="js-element js-elementid14 list-element list-showcase__element  col-xs-12 col-sm-4 col-md-3 col-lg-3 mod-short" data-elementid="14" id="bx_3966226736_14" data-productid="14" data-detail="/catalog/mebel_dlya_gostinnoy/kreslo_fargus/">-->
+              <!--<div class="list-showcase__inner js-element__shadow">-->
+
+                <!--&lt;!&ndash; part main &ndash;&gt;-->
+                <!--<div class="list-showcase__part-main">-->
+
+                  <!--<div class="list-showcase__mix">-->
+
+
+                    <!--<div class="list-showcase__picture"><script type="text/javascript">-->
+                      <!--RSGoPro_Pictures[14] = {'14':[{'SRC':'/upload/resize_cache/iblock/078/198_208_140cd750bba9870f18aada2478b24840a/078d96033e56de9c62c0298ee754e1ef.jpg','ALT':'Кресло &quot;Фаргус&quot;','TITLE':'Кресло &quot;Фаргус&quot;','SRC_ORIGINAL':'/upload/iblock/078/078d96033e56de9c62c0298ee754e1ef.jpg'}]};-->
+                    <!--</script>-->
+                      <!--<a href="/catalog/mebel_dlya_gostinnoy/kreslo_fargus/"><img class="js-list-picture js-lazy" src="/upload/resize_cache/iblock/078/198_208_140cd750bba9870f18aada2478b24840a/078d96033e56de9c62c0298ee754e1ef.jpg" alt="Кресло &quot;Фаргус&quot;" title="Кресло &quot;Фаргус&quot;" style=""></a></div>-->
+
+                    <!--<div class="list-showcase__timer-stickers">-->
+                      <!--<div class="list-showcase__timer">-->
+                      <!--</div>-->
+                      <!--<div class="list-showcase__stickers">-->
+
+                        <!--<div class="c-stickers"><span class="c-stickers__sticker c-stickers__da2">Товар дня</span><span class="c-stickers__sticker c-stickers__qb">Успей купить</span><span class="c-stickers__sticker c-stickers__sticker-standart c-stickers__discount js-discount-value" style="display: none;">-<span class="js-discount-value">0</span>%</span></div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__compare">-->
+                      <!--<a rel="nofollow" class="c-compare js-add2compare" href="/catalog/mebel_dlya_gostinnoy/?action=ADD_TO_COMPARE_LIST&amp;id=14"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                    <!--<div class="list-showcase__favorite">-->
+                      <!--<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_gostinnoy/kreslo_fargus/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg></a>-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+
+                  <!--<div class="list-showcase__name-rating">-->
+
+                    <!--<div class="list-showcase__name"><a href="/catalog/mebel_dlya_gostinnoy/kreslo_fargus/">Кресло "Фаргус"</a></div>-->
+
+                    <!--<div class="list-showcase__rating">-->
+                    <!--</div>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__prices">-->
+
+                    <!--<div class="c-prices js-prices view-list page-list product-alone multyprice-no" data-page="list" data-view="list" data-maxshow="2" data-showmore="Y" data-usealone="Y" data-multiprice="N" data-productmultiprice="N">-->
+                      <!--<span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE"><span class="c-prices__name">Розничная цена:</span><span class="c-prices__value js-prices_pdv_BASE">21 000 руб.</span><span class="c-prices__value-old-before"><span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE c-prices__hide">21 000 руб.</span></span></span><div class="c-prices__more js-prices__more c-prices__hide"><a class="c-prices__more-link" href="/catalog/mebel_dlya_gostinnoy/kreslo_fargus/">Еще (<span class="js-prices__more-count">-1</span>)</a></div></div>-->
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__stores">-->
+
+
+
+                    <!--<div class="b-stores js-stores" data-firstelement="14" data-page="list">-->
+                      <!--<div class="b-stores__inner"><span class="b-stores__genamount" data-href="#stocks" title="" data-es-offset="-135"><span class="js-stores__value">В наличии<svg class="svg-icon isset"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-available"></use></svg></span></span></div>-->
+                    <!--</div>-->
+
+
+                    <!--<script>-->
+                      <!--if (RSGoPro_STOCK == 'undefined')-->
+                        <!--RSGoPro_STOCK = {};-->
+
+                      <!--RSGoPro_STOCK[14] = {-->
+                        <!--'QUANTITY' : {"14":"79"},-->
+                        <!--'JS' : '',-->
+                        <!--'USE_MIN_AMOUNT' : true,-->
+                        <!--'MIN_AMOUNT' : 10,-->
+                        <!--'MESSAGE_ISSET' : 'В наличии<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_LOW' : 'Мало<svg class=\"svg-icon isset\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-available\"><\/use><\/svg>',-->
+                        <!--'MESSAGE_EMPTY' : 'Нет в наличии<svg class=\"svg-icon empty\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-4x-stores-not-available\"><\/use><\/svg>',-->
+                        <!--'SHOW_EMPTY_STORE' : true};-->
+
+                      <!--$(document).on('rsGoPro.document.ready', function(){-->
+                        <!--var html = '';-->
+                        <!--$('#stocks_detail_tab').html(html.DATA);-->
+                      <!--});-->
+                    <!--</script>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="list-showcase__pay hidden-print">-->
+
+                    <!--&lt;!&ndash;noindex&ndash;&gt;-->
+                    <!--<div class="b-pay">-->
+                      <!--<form class="b-pay__form js-pay__form js-buyform14 js-synchro clearfix" name="add2basketform">-->
+                        <!--<input type="hidden" name="action" value="ADD2BASKET">-->
+                        <!--<input type="hidden" name="id" class="js-add2basketpid" value="14">-->
+                        <!--<span class="b-pay__inner">-->
+            <!--<span class="b-pay__quantity">-->
+                        <!--</span>-->
+            <!--<span class="b-pay__buttons">-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary waves-effect" href="#" title="В корзину">В корзину</a>-->
+
+
+<!--<span id="bx_3966226736_14_subscribe_link" class="b-pay__button b-pay__add2subscribe js-product-subscribe btn-default add2subscribe bx-catalog-subscribe-button" data-item="14" style="" title="">Подписаться</span>-->
+<!--<input type="hidden" id="bx_3966226736_14_subscribe_link_hidden">-->
+
+<!--<script type="text/javascript">-->
+	<!--var obbx_1750373687_14 = new JCCatalogProductSubscribe({'buttonId':'bx_3966226736_14_subscribe_link','jsObject':'obbx_1750373687_14','alreadySubscribed':false,'productId':'14','buttonClass':'b-pay__button b-pay__add2subscribe js-product-subscribe btn-default','urlListSubscriptions':'/'});-->
+
+  <!--BX.message({-->
+    <!--CPST_SUBSCRIBE_POPUP_TITLE: 'Подписка на товар',-->
+    <!--CPST_SUBSCRIBE_BUTTON_NAME: 'Подписаться',-->
+    <!--CPST_SUBSCRIBE_BUTTON_CLOSE: 'Закрыть',-->
+    <!--CPST_SUBSCRIBE_MANY_CONTACT_NOTIFY: 'Выберите способ уведомления:',-->
+    <!--CPST_SUBSCRIBE_LABLE_CONTACT_INPUT: 'Укажите Ваш #CONTACT#: ',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_UNKNOW_ERROR: 'Ошибка валидации',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR_EMPTY_FIELD: 'Не заполнено поле \"#FIELD#\"',-->
+    <!--CPST_SUBSCRIBE_VALIDATE_ERROR: 'Вы не выбрали способ уведомления',-->
+    <!--CPST_SUBSCRIBE_CAPTCHA_TITLE: 'Введите слово на картинке',-->
+    <!--CPST_STATUS_SUCCESS: 'Успешно',-->
+    <!--CPST_STATUS_ERROR: 'Произошла ошибка',-->
+    <!--CPST_ENTER_WORD_PICTURE: 'Введите слово на картинке',-->
+    <!--CPST_TITLE_ALREADY_SUBSCRIBED: 'Уже подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TITLE: 'Вы подписаны',-->
+    <!--CPST_POPUP_SUBSCRIBED_TEXT: 'Список товаров на которые вы подписаны можно увидеть по ссылке #URL#'-->
+  <!--});-->
+<!--</script>-->
+
+<!--<script type="text/javascript">-->
+	<!--BX.ready(BX.defer(function(){-->
+    <!--if (!!window.obbx_1750373687_14)-->
+    <!--{-->
+      <!--window.obbx_1750373687_14.setButton('');-->
+    <!--}-->
+  <!--}));-->
+<!--</script>-->
+                <!--<a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken waves-effect" href="/personal/cart/" title="В корзине">В корзине</a>-->
+                            <!--</span>-->
+        <!--</span>-->
+                        <!--<input type="submit" name="submit" class="nonep" value="">-->
+                      <!--</form>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;/noindex&ndash;&gt;-->
+                  <!--</div>-->
+
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part main &ndash;&gt;-->
+
+                <!--&lt;!&ndash; part extended &ndash;&gt;-->
+                <!--<div class="list-showcase__part-extended">-->
+
+
+                  <!--<div class="list-showcase__attributes">-->
+                  <!--</div>-->
+
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /part extended &ndash;&gt;-->
+
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /element &ndash;&gt;-->
+          <!--</div></div>&lt;!&ndash; showcase &ndash;&gt;<div class="c-ajaxpages js-ajaxpages">-->
+            <!--<a class="c-ajaxpages__link js-ajaxpages__link link-dashed-in" rel="nofollow" href="#" data-ajaxurl="/catalog/mebel_dlya_gostinnoy/" data-ajaxpagesid="ajaxpages_gmci" data-navpagenomer="1" data-navpagecount="3" data-navnum="1"><i class="c-ajaxpages__animashka animashka"></i><span class="c-ajaxpages__text link-dashed-in">Загрузить еще</span></a>-->
+          <!--</div>-->
+            <!--<script type="text/javascript">-->
+              <!--BX.ready(BX.defer(function(){-->
+                <!--if (!!window.obbx_2253176769_1)-->
+                <!--{-->
+                  <!--window.obbx_2253176769_1.setButton('');-->
+                <!--}-->
+              <!--}));-->
+            <!--</script>-->
+
+            <!--<script type="text/javascript">-->
+              <!--BX.ready(BX.defer(function(){-->
+                <!--if (!!window.obbx_524676731_2)-->
+                <!--{-->
+                  <!--window.obbx_524676731_2.setButton('');-->
+                <!--}-->
+              <!--}));-->
+            <!--</script>-->
+
+            <!--<script type="text/javascript">-->
+              <!--BX.ready(BX.defer(function(){-->
+                <!--if (!!window.obbx_1749212909_4)-->
+                <!--{-->
+                  <!--window.obbx_1749212909_4.setButton('');-->
+                <!--}-->
+              <!--}));-->
+            <!--</script>-->
+
+            <!--<script type="text/javascript">-->
+              <!--BX.ready(BX.defer(function(){-->
+                <!--if (!!window.obbx_4129704782_73)-->
+                <!--{-->
+                  <!--window.obbx_4129704782_73.setButton('');-->
+                <!--}-->
+              <!--}));-->
+            <!--</script>-->
+
+            <!--<script type="text/javascript">-->
+              <!--BX.ready(BX.defer(function(){-->
+                <!--if (!!window.obbx_2166455256_7)-->
+                <!--{-->
+                  <!--window.obbx_2166455256_7.setButton('');-->
+                <!--}-->
+              <!--}));-->
+            <!--</script>-->
+
+            <!--<script type="text/javascript">-->
+              <!--BX.ready(BX.defer(function(){-->
+                <!--if (!!window.obbx_405285474_5)-->
+                <!--{-->
+                  <!--window.obbx_405285474_5.setButton('');-->
+                <!--}-->
+              <!--}));-->
+            <!--</script>-->
+
+            <!--<script type="text/javascript">-->
+              <!--BX.ready(BX.defer(function(){-->
+                <!--if (!!window.obbx_1865358068_3)-->
+                <!--{-->
+                  <!--window.obbx_1865358068_3.setButton('');-->
+                <!--}-->
+              <!--}));-->
+            <!--</script>-->
+
+            <!--<script type="text/javascript">-->
+              <!--BX.ready(BX.defer(function(){-->
+                <!--if (!!window.obbx_4287629157_12)-->
+                <!--{-->
+                  <!--window.obbx_4287629157_12.setButton('');-->
+                <!--}-->
+              <!--}));-->
+            <!--</script>-->
+
+            <!--<script type="text/javascript">-->
+              <!--BX.ready(BX.defer(function(){-->
+                <!--if (!!window.obbx_2291611635_15)-->
+                <!--{-->
+                  <!--window.obbx_2291611635_15.setButton('');-->
+                <!--}-->
+              <!--}));-->
+            <!--</script>-->
+
+            <!--<script type="text/javascript">-->
+              <!--BX.ready(BX.defer(function(){-->
+                <!--if (!!window.obbx_406741432_13)-->
+                <!--{-->
+                  <!--window.obbx_406741432_13.setButton('');-->
+                <!--}-->
+              <!--}));-->
+            <!--</script>-->
+
+            <!--<script type="text/javascript">-->
+              <!--BX.ready(BX.defer(function(){-->
+                <!--if (!!window.obbx_1866027310_9)-->
+                <!--{-->
+                  <!--window.obbx_1866027310_9.setButton('');-->
+                <!--}-->
+              <!--}));-->
+            <!--</script>-->
+
+            <!--<script type="text/javascript">-->
+              <!--BX.ready(BX.defer(function(){-->
+                <!--if (!!window.obbx_4130341012_10)-->
+                <!--{-->
+                  <!--window.obbx_4130341012_10.setButton('');-->
+                <!--}-->
+              <!--}));-->
+            <!--</script>-->
+
+            <!--<script type="text/javascript">-->
+              <!--BX.ready(BX.defer(function(){-->
+                <!--if (!!window.obbx_2167877634_79)-->
+                <!--{-->
+                  <!--window.obbx_2167877634_79.setButton('');-->
+                <!--}-->
+              <!--}));-->
+            <!--</script>-->
+
+            <!--<script type="text/javascript">-->
+              <!--BX.ready(BX.defer(function(){-->
+                <!--if (!!window.obbx_525575585_16)-->
+                <!--{-->
+                  <!--window.obbx_525575585_16.setButton('');-->
+                <!--}-->
+              <!--}));-->
+            <!--</script>-->
+
+            <!--<script type="text/javascript">-->
+              <!--BX.ready(BX.defer(function(){-->
+                <!--if (!!window.obbx_1750373687_14)-->
+                <!--{-->
+                  <!--window.obbx_1750373687_14.setButton('');-->
+                <!--}-->
+              <!--}));-->
+            <!--</script>-->
+            <!--<script>var add_hidder = false;</script>-->
+          <!--</div>-->
+          <!--<div id="paginator"></div>-->
+          <!--<div class="bottom">    <div class="b-sorter js-sorter hidden-print" data-ajaxpagesid="ajaxpages_gmci">-->
+            <!--<div class="b-sorter__sortaou">-->
+              <!--<div class="b-sorter__output">-->
+                <!--<div class="cool">-->
+                  <!--<div class="b-sorter__title">Выводить по:</div>-->
+                  <!--<div class="b-sorter__dropdown js-sorter__dropdown">-->
+                    <!--<a class="select" href="#">15<svg class="svg-icon rotate"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use></svg></a><div class="b-sorter__dropdown-in">-->
+                    <!--<a class="js-sorter__a waves-effect" href="/catalog/mebel_dlya_gostinnoy/?alfaction=coutput&amp;alfavalue=10">10<svg class="svg-icon rotate"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use></svg></a>-->
+                    <!--<a class="selected js-sorter__a waves-effect" href="/catalog/mebel_dlya_gostinnoy/?alfaction=coutput&amp;alfavalue=15">15<svg class="svg-icon rotate"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use></svg></a>-->
+                    <!--<a class="js-sorter__a waves-effect" href="/catalog/mebel_dlya_gostinnoy/?alfaction=coutput&amp;alfavalue=20">20<svg class="svg-icon rotate"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use></svg></a>-->
+                  <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

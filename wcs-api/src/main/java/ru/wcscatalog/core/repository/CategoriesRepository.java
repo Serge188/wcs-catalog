@@ -7,10 +7,9 @@ import ru.wcscatalog.core.model.Category;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -31,6 +30,19 @@ public class CategoriesRepository {
         List<Category> categories = query.getResultList();
         List<CategoryEntry> entries = categories.stream().map(CategoryEntry::fromCategory).collect(Collectors.toList());
         return entries;
+    }
+
+    public CategoryEntry getCategoryByAlias(String alias) {
+        List<CategoryEntry> allCategories = getCategories();
+        Optional<CategoryEntry> entry = allCategories
+                .stream()
+                .filter(x -> x.getAlias().equals(alias))
+                .findAny();
+        entry.ifPresent(e -> e.setChildCategories(allCategories
+                .stream()
+                .filter(x -> e.getId().equals(x.getParentCategoryId()))
+                .collect(Collectors.toList())));
+        return entry.orElse(null);
     }
 
     private void buildCriteriaQuery() {

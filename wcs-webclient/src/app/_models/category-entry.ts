@@ -13,4 +13,5 @@ export class CategoryEntry {
   hiddenSubCategoriesQty?: number;
   hasHiddenSubCategories?: boolean;
   alias?: string;
+  description?: string;
 }

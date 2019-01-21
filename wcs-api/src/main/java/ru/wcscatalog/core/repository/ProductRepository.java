@@ -10,10 +10,7 @@ import ru.wcscatalog.core.model.SaleOffer;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -53,6 +50,30 @@ public class ProductRepository {
         return entry;
     }
 
+    public List<ProductEntry> getProductsByCategory(Long categoryId) {
+        CriteriaQuery<Category> categoryCriteriaQuery = criteriaBuilder.createQuery(Category.class);
+        Root<Category> categoryRoot = categoryCriteriaQuery.from(Category.class);
+        categoryCriteriaQuery.select(categoryRoot.get("id"));
+        categoryCriteriaQuery.where(criteriaBuilder.and(
+                criteriaBuilder.isNotNull(categoryRoot.get("parentCategory")),
+                criteriaBuilder.equal(categoryRoot.get("parentCategory"), categoryId)));
+
+        Query categoryQuery = entityManager.createQuery(categoryCriteriaQuery);
+        List<Long> categoryIds = categoryQuery.getResultList();
+        categoryIds.add(categoryId);
+
+        CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
+
+        Root<Product> root = criteriaQuery.from(Product.class);
+        Join categoryJoin = root.join("category");
+        criteriaQuery.where(categoryJoin.get("id").in(categoryIds));
+        Query query = entityManager.createQuery(criteriaQuery);
+        List<Product> products = query.getResultList();
+        List<ProductEntry> entries = products.stream().map(ProductEntry::fromProduct).collect(Collectors.toList());
+        fillSaleOffers(entries);
+        return entries;
+    }
+
     private void initializeCriteriaBuilder() {
         if (entityManager == null) {
             entityManager = entityManagerFactory.createEntityManager();
@@ -61,6 +82,9 @@ public class ProductRepository {
     }
 
     private void fillSaleOffers(List<ProductEntry> products) {
+        if (products == null || products.isEmpty()) {
+            return;
+        }
         List<Long> productIds = products.stream().map(ProductEntry::getId).collect(Collectors.toList());
         CriteriaQuery<SaleOffer> criteriaQuery = criteriaBuilder.createQuery(SaleOffer.class);
         Root<SaleOffer> offer = criteriaQuery.from(SaleOffer.class);

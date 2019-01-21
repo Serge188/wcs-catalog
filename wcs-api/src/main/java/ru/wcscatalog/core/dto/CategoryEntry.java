@@ -2,6 +2,8 @@ package ru.wcscatalog.core.dto;
 
 import ru.wcscatalog.core.model.Category;
 
+import java.util.List;
+
 public class CategoryEntry {
     private Long id;
     private String title;
@@ -11,6 +13,8 @@ public class CategoryEntry {
     private String parentCategoryAlias;
     private ImageEntry image;
     private Boolean popular;
+    private String description;
+    private List<CategoryEntry> childCategories;
 
     public Long getId() {
         return id;
@@ -76,6 +80,22 @@ public class CategoryEntry {
         this.popular = popular;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<CategoryEntry> getChildCategories() {
+        return childCategories;
+    }
+
+    public void setChildCategories(List<CategoryEntry> childCategories) {
+        this.childCategories = childCategories;
+    }
+
     public static CategoryEntry fromCategory(Category category) {
         if (category != null) {
             CategoryEntry entry = new CategoryEntry();
@@ -89,6 +109,7 @@ public class CategoryEntry {
             }
             entry.setImage(ImageEntry.fromImage(category.getImage()));
             entry.setPopular(category.isPopular());
+            entry.setDescription(category.getDescription());
             return entry;
         }
         return null;

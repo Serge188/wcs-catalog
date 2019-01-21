@@ -29,94 +29,100 @@
           <div class="col-xs-12">
             <div class="title">Каталог товаров</div>
           </div>
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">			<div class="item depth_level1">
-            <a href="/catalog/mebel_dlya_gostinnoy/" title="Мебель для гостинной (демо-товары)"><span>Мебель для гостинной (демо-товары)</span></a>
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" *ngFor="let cat of popularCategories">
+            <div class="item depth_level1">
+            <a href="{{cat.link}}" title="{{cat.title}}">
+              <span>{{cat.title}}</span>
+            </a>
           </div>
-            <div class="item depth_level2">
-              <a href="/catalog/mebel_dlya_gostinnoy/bufety/" title="Буфеты"><span>Буфеты</span></a>
+            <div class="item depth_level2" *ngFor="let subCat of cat.childCategories">
+              <a href="{{subCat.link}}" title="{{subCat.title}}"><span>{{subCat.title}}</span></a>
             </div>
-            <div class="item depth_level2">
-              <a href="/catalog/mebel_dlya_gostinnoy/divany/" title="Диваны"><span>Диваны</span></a>
-            </div>
-            <div class="item depth_level2">
-              <a href="/catalog/mebel_dlya_gostinnoy/zerkala/" title="Зеркала"><span>Зеркала</span></a>
-            </div>
-            <div class="item depth_level2">
-              <a href="/catalog/mebel_dlya_gostinnoy/komody/" title="Комоды"><span>Комоды</span></a>
-            </div>
-          </div><div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">			<div class="item depth_level1">
-          <a href="/catalog/mebel_dlya_kabineta/" title="Мебель для кабинета"><span>Мебель для кабинета</span></a>
-        </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_kabineta/biblioteki/" title="Библиотеки"><span>Библиотеки</span></a>
+            <!--<div class="item depth_level2">-->
+              <!--<a href="/catalog/mebel_dlya_gostinnoy/divany/" title="Диваны"><span>Диваны</span></a>-->
+            <!--</div>-->
+            <!--<div class="item depth_level2">-->
+              <!--<a href="/catalog/mebel_dlya_gostinnoy/zerkala/" title="Зеркала"><span>Зеркала</span></a>-->
+            <!--</div>-->
+            <!--<div class="item depth_level2">-->
+              <!--<a href="/catalog/mebel_dlya_gostinnoy/komody/" title="Комоды"><span>Комоды</span></a>-->
+            <!--</div>-->
           </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_kabineta/byuro/" title="Бюро"><span>Бюро</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_kabineta/divany_office/" title="Диваны"><span>Диваны</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_kabineta/zerkala_office/" title="Зеркала"><span>Зеркала</span></a>
-          </div>
-        </div><div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">			<div class="item depth_level1">
-          <a href="/catalog/osveshchenie/" title="Освещение"><span>Освещение</span></a>
-        </div>
-          <div class="item depth_level2">
-            <a href="/catalog/osveshchenie/bra/" title="Бра"><span>Бра</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/osveshchenie/kaskady/" title="Каскады"><span>Каскады</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/osveshchenie/lampochki/" title="Лампочки"><span>Лампочки</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/osveshchenie/lyustry/" title="Люстры"><span>Люстры</span></a>
-          </div>
-        </div><div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">			<div class="item depth_level1">
-          <a href="/catalog/mebel_dlya_detskoy/" title="Мебель для детской"><span>Мебель для детской</span></a>
-        </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_detskoy/komody_child/" title="Комоды"><span>Комоды</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_detskoy/krovati_child/" title="Кровати"><span>Кровати</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_detskoy/pismennye_stoly/" title="Письменные столы"><span>Письменные столы</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_detskoy/stellazhi/" title="Стеллажи"><span>Стеллажи</span></a>
-          </div>
-        </div><div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">			<div class="item depth_level1">
-          <a href="/catalog/mebel_dlya_prikhozhey/" title="Мебель для прихожей"><span>Мебель для прихожей</span></a>
-        </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_prikhozhey/zerkala_entrance/" title="Зеркала"><span>Зеркала</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_prikhozhey/konsoli_entrance/" title="Консоли"><span>Консоли</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_prikhozhey/stoly_zhurnalnye_entrance/" title="Столы журнальные"><span>Столы журнальные</span></a>
-          </div>
-        </div><div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">			<div class="item depth_level1">
-          <a href="/catalog/mebel_dlya_spalni/" title="Мебель для спальни"><span>Мебель для спальни</span></a>
-        </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_spalni/banketki/" title="Банкетки"><span>Банкетки</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_spalni/komody_bedroom/" title="Комоды"><span>Комоды</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_spalni/krovati/" title="Кровати"><span>Кровати</span></a>
-          </div>
-          <div class="item depth_level2">
-            <a href="/catalog/mebel_dlya_spalni/prikrovatnye_tumby/" title="Прикроватные тумбы"><span>Прикроватные тумбы</span></a>
-          </div>
-        </div>
+
+          <!--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">			<div class="item depth_level1">-->
+          <!--<a href="/catalog/mebel_dlya_kabineta/" title="Мебель для кабинета"><span>Мебель для кабинета</span></a>-->
+        <!--</div>-->
+          <!--<div class="item depth_level2">-->
+            <!--<a href="/catalog/mebel_dlya_kabineta/biblioteki/" title="Библиотеки"><span>Библиотеки</span></a>-->
+          <!--</div>-->
+          <!--<div class="item depth_level2">-->
+            <!--<a href="/catalog/mebel_dlya_kabineta/byuro/" title="Бюро"><span>Бюро</span></a>-->
+          <!--</div>-->
+          <!--<div class="item depth_level2">-->
+            <!--<a href="/catalog/mebel_dlya_kabineta/divany_office/" title="Диваны"><span>Диваны</span></a>-->
+          <!--</div>-->
+          <!--<div class="item depth_level2">-->
+            <!--<a href="/catalog/mebel_dlya_kabineta/zerkala_office/" title="Зеркала"><span>Зеркала</span></a>-->
+          <!--</div>-->
+        <!--</div><div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">			<div class="item depth_level1">-->
+          <!--<a href="/catalog/osveshchenie/" title="Освещение"><span>Освещение</span></a>-->
+        <!--</div>-->
+          <!--<div class="item depth_level2">-->
+            <!--<a href="/catalog/osveshchenie/bra/" title="Бра"><span>Бра</span></a>-->
+          <!--</div>-->
+          <!--<div class="item depth_level2">-->
+            <!--<a href="/catalog/osveshchenie/kaskady/" title="Каскады"><span>Каскады</span></a>-->
+          <!--</div>-->
+          <!--<div class="item depth_level2">-->
+            <!--<a href="/catalog/osveshchenie/lampochki/" title="Лампочки"><span>Лампочки</span></a>-->
+          <!--</div>-->
+          <!--<div class="item depth_level2">-->
+            <!--<a href="/catalog/osveshchenie/lyustry/" title="Люстры"><span>Люстры</span></a>-->
+          <!--</div>-->
+        <!--</div><div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">			<div class="item depth_level1">-->
+          <!--<a href="/catalog/mebel_dlya_detskoy/" title="Мебель для детской"><span>Мебель для детской</span></a>-->
+        <!--</div>-->
+          <!--<div class="item depth_level2">-->
+            <!--<a href="/catalog/mebel_dlya_detskoy/komody_child/" title="Комоды"><span>Комоды</span></a>-->
+          <!--</div>-->
+          <!--<div class="item depth_level2">-->
+            <!--<a href="/catalog/mebel_dlya_detskoy/krovati_child/" title="Кровати"><span>Кровати</span></a>-->
+          <!--</div>-->
+          <!--<div class="item depth_level2">-->
+            <!--<a href="/catalog/mebel_dlya_detskoy/pismennye_stoly/" title="Письменные столы"><span>Письменные столы</span></a>-->
+          <!--</div>-->
+          <!--<div class="item depth_level2">-->
+            <!--<a href="/catalog/mebel_dlya_detskoy/stellazhi/" title="Стеллажи"><span>Стеллажи</span></a>-->
+          <!--</div>-->
+        <!--</div><div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">			<div class="item depth_level1">-->
+          <!--<a href="/catalog/mebel_dlya_prikhozhey/" title="Мебель для прихожей"><span>Мебель для прихожей</span></a>-->
+        <!--</div>-->
+          <!--<div class="item depth_level2">-->
+            <!--<a href="/catalog/mebel_dlya_prikhozhey/zerkala_entrance/" title="Зеркала"><span>Зеркала</span></a>-->
+          <!--</div>-->
+          <!--<div class="item depth_level2">-->
+            <!--<a href="/catalog/mebel_dlya_prikhozhey/konsoli_entrance/" title="Консоли"><span>Консоли</span></a>-->
+          <!--</div>-->
+          <!--<div class="item depth_level2">-->
+            <!--<a href="/catalog/mebel_dlya_prikhozhey/stoly_zhurnalnye_entrance/" title="Столы журнальные"><span>Столы журнальные</span></a>-->
+          <!--</div>-->
+        <!--</div>-->
+          <!--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">			<div class="item depth_level1">-->
+          <!--<a href="/catalog/mebel_dlya_spalni/" title="Мебель для спальни"><span>Мебель для спальни</span></a>-->
+        <!--</div>-->
+          <!--<div class="item depth_level2">-->
+            <!--<a href="/catalog/mebel_dlya_spalni/banketki/" title="Банкетки"><span>Банкетки</span></a>-->
+          <!--</div>-->
+          <!--<div class="item depth_level2">-->
+            <!--<a href="/catalog/mebel_dlya_spalni/komody_bedroom/" title="Комоды"><span>Комоды</span></a>-->
+          <!--</div>-->
+          <!--<div class="item depth_level2">-->
+            <!--<a href="/catalog/mebel_dlya_spalni/krovati/" title="Кровати"><span>Кровати</span></a>-->
+          <!--</div>-->
+          <!--<div class="item depth_level2">-->
+            <!--<a href="/catalog/mebel_dlya_spalni/prikrovatnye_tumby/" title="Прикроватные тумбы"><span>Прикроватные тумбы</span></a>-->
+          <!--</div>-->
+        <!--</div>-->
         </div>
       </div>
       <div class="block three hidden-print">
