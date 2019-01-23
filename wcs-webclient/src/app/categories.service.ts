@@ -7,7 +7,6 @@ import {Observable} from "rxjs/internal/Observable";
   providedIn: 'root'
 })
 export class CategoriesService {
-  public isPageAdminPanel = false;
 
   constructor(private http: HttpClient) {}
 

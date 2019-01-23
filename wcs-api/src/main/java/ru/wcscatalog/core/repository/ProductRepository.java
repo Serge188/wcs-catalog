@@ -74,6 +74,19 @@ public class ProductRepository {
         return entries;
     }
 
+    public List<ProductEntry> getProductsByCategoryForOneLevel(long categoryId) {
+        CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
+
+        Root<Product> root = criteriaQuery.from(Product.class);
+        Join categoryJoin = root.join("category");
+        criteriaQuery.where(criteriaBuilder.equal(categoryJoin.get("id"), categoryId));
+        Query query = entityManager.createQuery(criteriaQuery);
+        List<Product> products = query.getResultList();
+        List<ProductEntry> entries = products.stream().map(ProductEntry::fromProduct).collect(Collectors.toList());
+        fillSaleOffers(entries);
+        return entries;
+    }
+
     private void initializeCriteriaBuilder() {
         if (entityManager == null) {
             entityManager = entityManagerFactory.createEntityManager();

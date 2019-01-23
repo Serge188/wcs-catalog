@@ -15,14 +15,12 @@ import {CategoriesService} from "./categories.service";
 @Injectable()
 export class AppComponent {
   currentUser: User;
-  isPageAdminPanel: boolean = false;
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
               private categoriesService: CategoriesService) {
 
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    this.isPageAdminPanel = categoriesService.isPageAdminPanel;
   }
 
   logout() {

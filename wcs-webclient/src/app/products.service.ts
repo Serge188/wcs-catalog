@@ -21,4 +21,8 @@ export class ProductsService {
   public getCategoryProducts(categoryId: number): Observable<any> {
     return this.http.get(`http://localhost:8080/api/products/byCategory/${categoryId}`).pipe();
   }
+
+  public getOneLevelCategoryProducts(categoryId: number): Observable<any> {
+    return this.http.get(`http://localhost:8080/api/products/byCategoryForOneLevel/${categoryId}`).pipe();
+  }
 }

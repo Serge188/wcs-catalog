@@ -1,4 +1,5 @@
 import {ImageEntry} from "./image-entry";
+import {ProductEntry} from "./product-entry";
 
 export class CategoryEntry {
   id?: number;
@@ -14,4 +15,8 @@ export class CategoryEntry {
   hasHiddenSubCategories?: boolean;
   alias?: string;
   description?: string;
+  selected?: boolean = false;
+  level?: number;
+  expanded?: boolean;
+  products?: ProductEntry[] = [];
 }

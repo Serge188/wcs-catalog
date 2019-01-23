@@ -23,4 +23,6 @@ export class ProductEntry {
   currentOffer?: SaleOfferEntry;
   optionsAreImages?: boolean;
   offerCurrentImage?: ImageEntry;
+  level?: number;
+  expanded?: boolean;
 }

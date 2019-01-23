@@ -37,4 +37,10 @@ public class ProductController {
         List<ProductEntry> products = productRepository.getProductsByCategory(categoryId);
         return ResponseEntity.ok(products);
     }
+
+    @GetMapping("/byCategoryForOneLevel/{categoryId}")
+    public ResponseEntity<List<ProductEntry>> getProductsByCategoryForOneLevel(@PathVariable("categoryId") Long categoryId) {
+        List<ProductEntry> products = productRepository.getProductsByCategoryForOneLevel(categoryId);
+        return ResponseEntity.ok(products);
+    }
 }
