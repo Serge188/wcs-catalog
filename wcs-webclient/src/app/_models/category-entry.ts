@@ -19,4 +19,6 @@ export class CategoryEntry {
   level?: number;
   expanded?: boolean;
   products?: ProductEntry[] = [];
+  imageInput?: any;
+  imageChanged?: boolean;
 }

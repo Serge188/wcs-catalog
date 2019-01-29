@@ -3,6 +3,8 @@ import {CategoriesService} from "../categories.service";
 import {AppComponent} from "../app.component";
 import {CategoryEntry} from "../_models/category-entry";
 import {ProductsService} from "../products.service";
+import {ProductEntry} from "../_models/product-entry";
+import {Observable} from "rxjs/internal/Observable";
 
 @Component({
   selector: 'app-admin-panel',
@@ -12,7 +14,9 @@ import {ProductsService} from "../products.service";
 export class AdminPanelComponent implements OnInit {
 
   public categories: CategoryEntry[];
+  public topLevelCategories: CategoryEntry[] = [];
   public itemsInList: any[] = [];
+  public newCategory: CategoryEntry = {};
 
   constructor(private categoriesService: CategoriesService,
               private productsService: ProductsService) { }
@@ -22,13 +26,19 @@ export class AdminPanelComponent implements OnInit {
   }
 
   public loadCategories(): void {
+    console.log("kahfjhfjjk");
+    this.itemsInList = [];
+    this.topLevelCategories = [];
     this.categoriesService.getCategories().subscribe(result => {
+      console.log(result);
       this.categories = result;
       for (let cat of this.categories) {
+        cat.expanded = false;
+        cat.selected = false;
         if (!cat.parentCategoryId) {
           cat.level = 1;
-          cat.expanded = false;
           this.itemsInList.push(cat);
+          this.topLevelCategories.push(cat);
         }
       }
     });
@@ -122,6 +132,78 @@ export class AdminPanelComponent implements OnInit {
         padding['padding-left'] = value + 'px';
       }
       return padding;
+  }
+
+  public openModal(event: any, item: any): void {
+    event.preventDefault();
+    let mask: HTMLElement = document.getElementById("cover-mask");
+    let form: HTMLElement = document.getElementById("modal-category");
+    mask.classList.add("modal-visible");
+    mask.classList.remove("modal-hidden");
+    form.classList.add("modal-visible");
+    form.classList.remove("modal-hidden");
+    if (item) {
+      this.newCategory.id = item.id;
+      this.newCategory.title = item.title;
+      this.newCategory.parentCategoryId = item.parentCategoryId;
+      this.newCategory.description = item.description;
+      this.newCategory.popular = item.popular;
+      this.newCategory.image = item.image;
+    }
+  }
+
+  public closeModal(modalId: string) {
+    let mask: HTMLElement = document.getElementById("cover-mask");
+    let form: HTMLElement = document.getElementById(modalId);
+    mask.classList.remove("modal-visible");
+    mask.classList.add("modal-hidden");
+    form.classList.remove("modal-visible");
+    form.classList.add("modal-hidden");
+    this.newCategory = {};
+  }
+
+
+  public createOrUpdateCategory(): void {
+    let result: Observable<any>;
+    if (this.newCategory.id) {
+      result = this.categoriesService.updateCategory(this.newCategory);
+    } else {
+      result = this.categoriesService.createCategory(this.newCategory);
+    }
+    result.subscribe(() => {
+      console.log("hjagf");
+      this.loadCategories();
+    });
+    this.newCategory = {};
+    this.closeModal("modal-category");
+  }
+
+  public addFile() {
+    let file  = (<HTMLInputElement>document.getElementById("imageUploader")).files.item(0);
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.addEventListener('load', (event: any) => {
+      if (this.newCategory.image) {
+        this.newCategory.image.categoryImageLink = null;
+      }
+      this.newCategory.imageInput = reader.result;
+      this.newCategory.imageChanged = true;
+    });
+  }
+
+  public removeCategory(categoryId: number): void {
+    this.categoriesService.removeCategory(categoryId).subscribe(
+      res => {
+      this.closeModal("modal-category");
+      let cat = this.itemsInList.find(x => x.id == categoryId);
+      if (cat) {
+        let index = this.itemsInList.indexOf(cat, 0);
+        this.itemsInList.splice(index, 1);
+      }
+    },
+        err => {
+        alert("При удалении категории произошла оишбка: " + err);
+      });
   }
 
 }

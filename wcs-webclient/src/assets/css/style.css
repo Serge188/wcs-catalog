@@ -17465,3 +17465,33 @@ div.bx-debug-summary {
 .bigdata .b-sorter__template {
   display: none
 }
+
+#cover-mask {
+  background-color: black;
+  opacity: 0.5;
+  position:fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 98
+}
+
+.modal-window {
+  position: fixed;
+  z-index:1055;
+  background-color: white;
+  margin-left: 300px;
+  margin-top: 50px;
+}
+
+#modal-category {
+  padding:10px;
+  width:500px;
+}
+
+.modal-visible {
+  display: block;
+}
+
+.modal-hidden {
+  display: none;
+}

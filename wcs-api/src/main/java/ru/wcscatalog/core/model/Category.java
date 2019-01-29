@@ -1,6 +1,7 @@
 package ru.wcscatalog.core.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "categories")
@@ -29,6 +30,9 @@ public class Category {
 
     @Column(name="description")
     private String description;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parentCategory", fetch = FetchType.LAZY)
+    private List<Category> childCategories;
 
 
     public long getId() {
@@ -85,5 +89,17 @@ public class Category {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Boolean getPopular() {
+        return popular;
+    }
+
+    public List<Category> getChildCategories() {
+        return childCategories;
+    }
+
+    public void setChildCategories(List<Category> childCategories) {
+        this.childCategories = childCategories;
     }
 }
