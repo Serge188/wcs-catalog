@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class FactoryRepository {
@@ -42,5 +43,13 @@ public class FactoryRepository {
             entries.add(FactoryEntry.fromFactory(p));
         }
         return entries;
+    }
+
+    public Factory getFactoyById(Long id) {
+        CriteriaQuery<Factory> criteriaQuery = criteriaBuilder.createQuery(Factory.class);
+        Root<Factory> root = criteriaQuery.from(Factory.class);
+        criteriaQuery.where(criteriaBuilder.equal(root.get("id"), id));
+        Optional<Factory> factory = entityManager.createQuery(criteriaQuery).getResultList().stream().findFirst();
+        return factory.orElse(null);
     }
 }

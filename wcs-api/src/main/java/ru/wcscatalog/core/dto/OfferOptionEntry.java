@@ -2,10 +2,15 @@ package ru.wcscatalog.core.dto;
 
 import ru.wcscatalog.core.model.OfferOption;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class OfferOptionEntry {
     private long id;
     private String title;
     private String type;
+    private List<OptionValueEntry> values = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -31,12 +36,21 @@ public class OfferOptionEntry {
         this.type = type;
     }
 
+    public List<OptionValueEntry> getValues() {
+        return values;
+    }
+
+    public void setValues(List<OptionValueEntry> values) {
+        this.values = values;
+    }
+
     public static OfferOptionEntry fromOfferOption(OfferOption option) {
         if (option != null) {
             OfferOptionEntry entry = new OfferOptionEntry();
             entry.setId(option.getId());
             entry.setTitle(option.getTitle());
             entry.setType(option.getType());
+            entry.setValues(option.getValues().stream().map(OptionValueEntry::fromOptionValue).collect(Collectors.toList()));
             return entry;
         }
         return null;

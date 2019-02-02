@@ -1,6 +1,7 @@
 package ru.wcscatalog.core.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,7 @@ public class Product {
     private Image mainImage;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.LAZY)
-    private List<Image> images;
+    private List<Image> images = new ArrayList<>();
 
     @Column(name="alias_name", nullable = false)
     private String alias;
@@ -55,8 +56,6 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="factory_id")
     private Factory factory;
-
-    protected Product() {}
 
     public Long getId() {
         return id;

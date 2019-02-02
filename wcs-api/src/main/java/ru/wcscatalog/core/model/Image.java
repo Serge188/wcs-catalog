@@ -10,6 +10,9 @@ public class Image {
     @Column(name="id")
     private long id;
 
+    @Column(name="img_original")
+    private String originalImageLink;
+
     @Column(name="img_base")
     private String baseImageLink;
 
@@ -38,6 +41,14 @@ public class Image {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getOriginalImageLink() {
+        return originalImageLink;
+    }
+
+    public void setOriginalImageLink(String originalImageLink) {
+        this.originalImageLink = originalImageLink;
     }
 
     public String getBaseImageLink() {

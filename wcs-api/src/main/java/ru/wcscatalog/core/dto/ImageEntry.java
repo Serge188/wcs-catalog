@@ -4,6 +4,7 @@ import ru.wcscatalog.core.model.Image;
 
 public class ImageEntry {
     private long id;
+    private String originalImageLink;
     private String baseImageLink;
     private String cardImageLink;
     private String galleryImageLink;
@@ -17,6 +18,14 @@ public class ImageEntry {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getOriginalImageLink() {
+        return originalImageLink;
+    }
+
+    public void setOriginalImageLink(String originalImageLink) {
+        this.originalImageLink = originalImageLink;
     }
 
     public String getBaseImageLink() {
@@ -71,6 +80,7 @@ public class ImageEntry {
         if (image != null) {
             ImageEntry entry = new ImageEntry();
             entry.setId(image.getId());
+            entry.setOriginalImageLink(image.getOriginalImageLink());
             entry.setBaseImageLink(image.getBaseImageLink());
             entry.setCardImageLink(image.getCardImageLink());
             entry.setGalleryImageLink(image.getGalleryImageLink());

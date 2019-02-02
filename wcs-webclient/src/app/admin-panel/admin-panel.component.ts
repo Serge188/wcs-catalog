@@ -17,16 +17,17 @@ export class AdminPanelComponent implements OnInit {
   public topLevelCategories: CategoryEntry[] = [];
   public itemsInList: any[] = [];
   public newCategory: CategoryEntry = {};
+  public view: any;
 
   constructor(private categoriesService: CategoriesService,
               private productsService: ProductsService) { }
 
   ngOnInit() {
+    this.view = "categories";
     this.loadCategories();
   }
 
   public loadCategories(): void {
-    console.log("kahfjhfjjk");
     this.itemsInList = [];
     this.topLevelCategories = [];
     this.categoriesService.getCategories().subscribe(result => {
@@ -134,7 +135,7 @@ export class AdminPanelComponent implements OnInit {
       return padding;
   }
 
-  public openModal(event: any, item: any): void {
+  public openModalCategory(event: any, item: any, createChild: boolean): void {
     event.preventDefault();
     let mask: HTMLElement = document.getElementById("cover-mask");
     let form: HTMLElement = document.getElementById("modal-category");
@@ -143,13 +144,21 @@ export class AdminPanelComponent implements OnInit {
     form.classList.add("modal-visible");
     form.classList.remove("modal-hidden");
     if (item) {
-      this.newCategory.id = item.id;
-      this.newCategory.title = item.title;
-      this.newCategory.parentCategoryId = item.parentCategoryId;
-      this.newCategory.description = item.description;
-      this.newCategory.popular = item.popular;
-      this.newCategory.image = item.image;
+      if (createChild) {
+        this.newCategory.parentCategoryId = item.id;
+      } else {
+        this.newCategory.id = item.id;
+        this.newCategory.title = item.title;
+        this.newCategory.parentCategoryId = item.parentCategoryId;
+        this.newCategory.description = item.description;
+        this.newCategory.popular = item.popular;
+        this.newCategory.image = item.image;
+      }
     }
+  }
+
+  private openModal(modalId: string): void {
+
   }
 
   public closeModal(modalId: string) {
@@ -204,6 +213,11 @@ export class AdminPanelComponent implements OnInit {
         err => {
         alert("При удалении категории произошла оишбка: " + err);
       });
+  }
+
+  public changeView(viewName: string, event: any): void {
+    event.preventDefault();
+    this.view = viewName;
   }
 
 }

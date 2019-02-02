@@ -1,0 +1,142 @@
+package ru.wcscatalog.core.dto;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProductInput {
+    private Long id;
+    private String title;
+    private Object mainImageInput;
+    private List<Object> imageInputs = new ArrayList<>();
+    private String description;
+    private Boolean productOfDay;
+    private Boolean newProduct;
+    private Boolean hit;
+    private Boolean promo;
+    private Float price;
+    private Float discountPrice;
+    private Boolean popular;
+    private Long categoryId;
+    private Long factoryId;
+    private List<SaleOfferInput> saleOffers = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Object getMainImageInput() {
+        return mainImageInput;
+    }
+
+    public void setMainImageInput(Object mainImageInput) {
+        this.mainImageInput = mainImageInput;
+    }
+
+    public List<Object> getImageInputs() {
+        return imageInputs;
+    }
+
+    public void setImageInputs(List<Object> imageInputs) {
+        this.imageInputs = imageInputs;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Boolean getProductOfDay() {
+        return productOfDay;
+    }
+
+    public void setProductOfDay(Boolean productOfDay) {
+        this.productOfDay = productOfDay;
+    }
+
+    public Boolean getNewProduct() {
+        return newProduct;
+    }
+
+    public void setNewProduct(Boolean newProduct) {
+        this.newProduct = newProduct;
+    }
+
+    public Boolean getHit() {
+        return hit;
+    }
+
+    public void setHit(Boolean hit) {
+        this.hit = hit;
+    }
+
+    public Boolean getPromo() {
+        return promo;
+    }
+
+    public void setPromo(Boolean promo) {
+        this.promo = promo;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
+
+    public Float getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(Float discountPrice) {
+        this.discountPrice = discountPrice;
+    }
+
+    public Boolean getPopular() {
+        return popular;
+    }
+
+    public void setPopular(Boolean popular) {
+        this.popular = popular;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Long getFactoryId() {
+        return factoryId;
+    }
+
+    public void setFactoryId(Long factoryId) {
+        this.factoryId = factoryId;
+    }
+
+    public List<SaleOfferInput> getSaleOffers() {
+        return saleOffers;
+    }
+
+    public void setSaleOffers(List<SaleOfferInput> saleOffers) {
+        this.saleOffers = saleOffers;
+    }
+}

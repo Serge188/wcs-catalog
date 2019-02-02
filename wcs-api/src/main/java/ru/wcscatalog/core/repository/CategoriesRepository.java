@@ -41,6 +41,14 @@ public class CategoriesRepository {
         return entries;
     }
 
+    public Category getCategoryById(Long id) {
+        criteriaQuery = criteriaBuilder.createQuery(Category.class);
+        root = criteriaQuery.from(Category.class);
+        criteriaQuery.where(criteriaBuilder.equal(root.get("id"), id));
+        Optional<Category> category = entityManager.createQuery(criteriaQuery).getResultList().stream().findFirst();
+        return category.orElse(null);
+    }
+
     public CategoryEntry getCategoryByAlias(String alias) {
         criteriaQuery = criteriaBuilder.createQuery(Category.class);
         root = criteriaQuery.from(Category.class);

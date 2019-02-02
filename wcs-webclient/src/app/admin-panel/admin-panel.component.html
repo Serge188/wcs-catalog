@@ -2,6 +2,51 @@
   <form>
     <h3>Редактирование категории</h3>
     <div class="form-group">
+      <label for="parentCategorySelect">Вышестоящая категория</label>
+      <select class="form-control" id="parentCategorySelect" [(ngModel)]="newCategory.parentCategoryId" name="parentCategoryId">
+        <option [value]="null"></option>
+        <option *ngFor="let cat of topLevelCategories" [value]="cat.id">{{cat.title}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="categoryTitleInput">Название</label>
+      <input type="text" class="form-control" id="categoryTitleInput" [(ngModel)]="newCategory.title" name="title">
+    </div>
+    <div class="form-group">
+      <label for="categoryDescriptionArea">Описание</label>
+      <textarea class="form-control" id="categoryDescriptionArea" rows="3" [(ngModel)]="newCategory.description" name="description"></textarea>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="isPopularCheckBox" [(ngModel)]="newCategory.popular" name="popular">
+      <label class="form-check-label" for="isPopularCheckBox">
+        Показывать на главной странице
+      </label>
+    </div>
+    <div class="form-group">
+      <label for="categoryImageUploader">Изображение</label>
+      <input type="file" accept="image/*" class="form-control-file" id="categoryImageUploader" name="fileInput" (change)="addFile()">
+    </div>
+    <div class="form-group">
+      <img src="{{newCategory?.image?.categoryImageLink}}"/>
+    </div>
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+      <div class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn btn-primary" (click)="createOrUpdateCategory()">Сохранить</button>
+      </div>
+      <div class="btn-group mr-2" role="group" aria-label="Second group">
+        <button type="button" class="btn btn-danger" (click)="removeCategory(newCategory.id)">Удалить</button>
+      </div>
+      <div class="btn-group" role="group" aria-label="Third group">
+        <button type="button" class="btn btn-secondary" (click)="closeModal('modal-category')">Отмена</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div id="modal-product" class="modal-window modal-hidden">
+  <form>
+    <h3>Редактирование категории</h3>
+    <div class="form-group">
       <label for="exampleFormControlSelect1">Вышестоящая категория</label>
       <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="newCategory.parentCategoryId" name="parentCategoryId">
         <option [value]="null"></option>
@@ -33,9 +78,6 @@
       <div class="btn-group mr-2" role="group" aria-label="First group">
         <button type="button" class="btn btn-primary" (click)="createOrUpdateCategory()">Сохранить</button>
       </div>
-      <div class="btn-group mr-2" role="group" aria-label="Second group">
-        <button type="button" class="btn btn-danger" (click)="removeCategory(newCategory.id)">Удалить</button>
-      </div>
       <div class="btn-group" role="group" aria-label="Third group">
         <button type="button" class="btn btn-secondary" (click)="closeModal('modal-category')">Отмена</button>
       </div>
@@ -44,7 +86,7 @@
 </div>
 <div id="cover-mask" class="modal-hidden" (click)="closeModal('modal-category')"></div>
 <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Company name</a>
+  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">КУХНИ-40</a>
   <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
@@ -59,72 +101,18 @@
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" href="#">
-              <span data-feather="home"></span>
-              Dashboard <span class="sr-only">(current)</span>
+            <a class="nav-link active" href="" (click)="changeView('categories', $event)">
+              Категории / товары
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file"></span>
-              Orders
+            <a class="nav-link active" href="" (click)="changeView('options', $event)">
+              Характеристики товаров
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="shopping-cart"></span>
-              Products
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="users"></span>
-              Customers
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="bar-chart-2"></span>
-              Reports
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="layers"></span>
-              Integrations
-            </a>
-          </li>
-        </ul>
-
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-          <span>Saved reports</span>
-          <a class="d-flex align-items-center text-muted" href="#">
-            <span data-feather="plus-circle"></span>
-          </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Current month
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Last quarter
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Social engagement
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Year-end sale
+            <a class="nav-link active" href="" (click)="changeView('users', $event)">
+              Пользователи
             </a>
           </li>
         </ul>
@@ -133,43 +121,68 @@
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Категории</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group mr-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-          </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <span data-feather="calendar"></span>
-            This week
-          </button>
-        </div>
+        <h1 class="h2" *ngIf="view == 'categories'">Категории</h1>
+        <h1 class="h2" *ngIf="view == 'options'">Характеристики товаров</h1>
+        <h1 class="h2" *ngIf="view == 'users'">Пользователи</h1>
       </div>
 
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3" *ngIf="view == 'categories'">
         <ul class="list-group col-lg-6">
           <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
               *ngFor="let item of itemsInList"
               [ngClass]="getActiveClass(item)"
               [ngStyle]="getPadding(item)">
             <span (click)="toggleCategory(item)">{{item.title}}</span>
-            <a href="" style="font-weight: normal; color:green" (click)="openModal($event, item)">Редактировать</a>
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-secondary btn-sm" title="Редактировать" (click)="openModalCategory($event, item, false)"><span class="ion ion-md-create"></span></button>
+              <button type="button" class="btn btn-secondary btn-sm" title="Создать категорию" (click)="openModalCategory($event, item, true)"><span class="ion ion-md-code-working"></span></button>
+              <button type="button" class="btn btn-primary btn-sm" title="Создать товар"><span class="ion ion-md-code"></span></button>
+              <button type="button" class="btn btn-danger btn-sm" title="Удалить" (click)="removeCategory(item.id)"><span class="ion ion-md-close"></span></button>
+            </div>
           </li>
         </ul>
       </div>
 
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3" *ngIf="view == 'categories'">
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
-            <button type="button" class="btn btn-sm btn-outline-primary" (click)="openModal($event, null)">Создать категорию</button>
+            <button type="button" class="btn btn-sm btn-outline-primary" (click)="openModalCategory($event, null, false)">Создать категорию</button>
           </div>
-          <button type="button" class="btn btn-sm btn-outline-primary">Создать товар</button>
         </div>
       </div>
 
-
-
-      <!--<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>-->
+      <div class="table-responsive" *ngIf="view == 'options'">
+        <table class="table table-striped table-sm">
+          <thead>
+          <tr>
+            <th>Характеристика</th>
+            <th>Значение</th>
+            <th>Изображение</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Цвет</td>
+            <td>Белый</td>
+            <td></td>
+            <td>sit</td>
+          </tr>
+          <tr>
+            <td>Цвет</td>
+            <td>Красный</td>
+            <td></td>
+            <td>sit</td>
+          </tr>
+          <tr>
+            <td>Цвет</td>
+            <td>Синий</td>
+            <td></td>
+            <td>sit</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
 
       <!--<h2>Section title</h2>-->
       <!--<div class="table-responsive">-->
