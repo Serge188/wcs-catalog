@@ -3,6 +3,7 @@ package ru.wcscatalog.core.repository;
 import org.springframework.stereotype.Repository;
 import ru.wcscatalog.core.dto.OfferOptionEntry;
 import ru.wcscatalog.core.dto.OfferOptionInput;
+import ru.wcscatalog.core.dto.OptionValueEntry;
 import ru.wcscatalog.core.dto.OptionValueInput;
 import ru.wcscatalog.core.model.Image;
 import ru.wcscatalog.core.model.OfferOption;
@@ -15,8 +16,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -34,8 +34,11 @@ public class OptionsRepository {
 
     public List<OfferOptionEntry> getAllOptions() {
         CriteriaQuery<OfferOption> criteriaQuery = criteriaBuilder.createQuery(OfferOption.class);
+        Root<OfferOption> root = criteriaQuery.from(OfferOption.class);
         List<OfferOption> options = entityManager.createQuery(criteriaQuery).getResultList();
-        return options.stream().map(OfferOptionEntry::fromOfferOption).collect(Collectors.toList());
+        List<OfferOptionEntry> optionEntries = options.stream().map(OfferOptionEntry::fromOfferOption).collect(Collectors.toList());
+        fillOptionValues(optionEntries);
+        return optionEntries;
     }
 
     private OfferOption getOptionById(Long id) {
@@ -62,37 +65,44 @@ public class OptionsRepository {
         return option.orElse(null);
     }
 
-    public OfferOption createOrUpdateOption(OfferOptionInput input) {
+    public OfferOption createOrUpdateOption(OfferOptionInput input) throws Exception {
         OfferOption option = null;
-        if (input.getId() == null) {
+        if (input.getId() != null) {
             option = getOptionById(input.getId());
         }
         if (option == null) {
             option = new OfferOption();
         }
         option.setTitle(input.getTitle());
+        option.setName(input.getName());
         entityManager.getTransaction().begin();
         entityManager.persist(option);
         entityManager.getTransaction().commit();
+        List<OptionValue> oldValues = getValuesForOptions(Collections.singletonList(option.getId()));
+        for (OptionValue v: oldValues) {
+            Optional<OptionValueInput> correspondingNewValue = input.getValues().stream().filter(x -> x.getId().equals(v.getId())).findFirst();
+            if (!correspondingNewValue.isPresent()) {
+                removeValue(v.getId());
+            }
+        }
+        for (OptionValueInput v: input.getValues()) {
+            createOrUpdateValue(v, option);
+        }
         return option;
     }
 
     public void removeOption(Long optionId) {
-        CriteriaQuery<OptionValue> criteriaQuery = criteriaBuilder.createQuery(OptionValue.class);
-        Root<OptionValue> root = criteriaQuery.from(OptionValue.class);
-        Join optionJoin = root.join("option");
-        criteriaQuery.where(criteriaBuilder.equal(optionJoin.get("id"), optionId));
-        List<OptionValue> valuesList = entityManager.createQuery(criteriaQuery).getResultList();
-        valuesList.forEach(v -> {
-            entityManager.remove(v);
-        });
+        List<OptionValue> valuesList = getValuesForOptions(Collections.singletonList(optionId));
+        valuesList.forEach(v -> entityManager.remove(v));
         OfferOption option = getOptionById(optionId);
         if (option != null) {
+            entityManager.getTransaction().begin();
             entityManager.remove(option);
+            entityManager.getTransaction().commit();
         }
     }
 
-    public void createOrUpdateValue(OptionValueInput input) throws Exception{
+    public void createOrUpdateValue(OptionValueInput input, OfferOption option) throws Exception{
         OptionValue optionValue = null;
         if (input.getId() != null) {
             optionValue = getOptionValueById(input.getId());
@@ -101,10 +111,6 @@ public class OptionsRepository {
             optionValue = new OptionValue();
         }
         optionValue.setValue(input.getValue());
-        OfferOption option = getOptionById(input.getOptionId());
-        if (option == null) {
-            throw new Exception("error.option.for.value.not.found");
-        }
         optionValue.setOption(option);
         String alias = Transliterator.transliteration(input.getValue());
         boolean aliasIsBusy = true;
@@ -118,6 +124,9 @@ public class OptionsRepository {
             }
         }
         optionValue.setAlias(alias);
+        entityManager.getTransaction().begin();
+        entityManager.persist(optionValue);
+        entityManager.getTransaction().commit();
         if (input.getImageInput() != null) {
             String data = ((String) input.getImageInput());
             Image image = imageRepository.createImageForObject(optionValue, data);
@@ -145,5 +154,26 @@ public class OptionsRepository {
             entityManager = entityManagerFactory.createEntityManager();
         }
         criteriaBuilder = entityManager.getCriteriaBuilder();
+    }
+
+    private List<OptionValue> getValuesForOptions(Collection<Long> optionIds) {
+        CriteriaQuery<OptionValue> criteriaQuery = criteriaBuilder.createQuery(OptionValue.class);
+        Root<OptionValue> root = criteriaQuery.from(OptionValue.class);
+        Join optionJoin = root.join("option");
+        criteriaQuery.where(optionJoin.get("id").in(optionIds));
+        return entityManager.createQuery(criteriaQuery).getResultList();
+    }
+
+    private void fillOptionValues(List<OfferOptionEntry> options) {
+        Map<Long, OfferOptionEntry> optionsMap = options.stream().collect(Collectors.toMap(OfferOptionEntry::getId, o -> o));
+        List<OptionValue> values = getValuesForOptions(optionsMap.keySet());
+        for (OptionValue v: values) {
+
+        }
+        values.forEach(v -> {
+            if (optionsMap.containsKey(v.getOption().getId())) {
+                optionsMap.get(v.getOption().getId()).getValues().add(OptionValueEntry.fromOptionValue(v));
+            }
+        });
     }
 }

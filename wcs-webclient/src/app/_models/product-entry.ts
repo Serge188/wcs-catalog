@@ -1,8 +1,12 @@
 import {SaleOfferEntry} from "./sale-offer-entry";
 import {ImageEntry} from "./image-entry";
+import {CategoryEntry} from "./category-entry";
+import {OfferOptionEntry} from "./offer-option-entry";
 
 export class ProductEntry {
   id?: number;
+  categoryId?: number;
+  category?: CategoryEntry;
   title?: string;
   mainImage?: ImageEntry;
   images?: ImageEntry[];
@@ -19,6 +23,7 @@ export class ProductEntry {
   link?: string;
   altTitle?: string;
   discount?: string;
+  options?: OfferOptionEntry[] = [];
   saleOffers?: SaleOfferEntry[] = [];
   currentOffer?: SaleOfferEntry;
   optionsAreImages?: boolean;

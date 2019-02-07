@@ -52,7 +52,7 @@ public class OptionValueEntry {
     public static OptionValueEntry fromOptionValue(OptionValue optionValue) {
         OptionValueEntry entry = new OptionValueEntry();
         entry.setId(optionValue.getId());
-        entry.setOption(OfferOptionEntry.fromOfferOption(optionValue.getOption()));
+//        entry.setOption(OfferOptionEntry.fromOfferOption(optionValue.getOption()));
         entry.setValue(optionValue.getValue());
         entry.setAlias(optionValue.getAlias());
         entry.setImage(ImageEntry.fromImage(optionValue.getImage()));

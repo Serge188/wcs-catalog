@@ -24,14 +24,18 @@ public class OptionsController {
 
     @GetMapping()
     public ResponseEntity<List<OfferOptionEntry>> getOpitons() {
-        List<OfferOptionEntry> categories = optionsRepository.getAllOptions();
-        return ResponseEntity.ok(categories);
+        List<OfferOptionEntry> options = optionsRepository.getAllOptions();
+        return ResponseEntity.ok(options);
     }
 
     @PostMapping("/option")
     public ResponseEntity<?> createNewOption(@RequestBody OfferOptionInput input) {
-        optionsRepository.createOrUpdateOption(input);
-        return ResponseEntity.ok().build();
+        try {
+            OfferOption option = optionsRepository.createOrUpdateOption(input);
+            return ResponseEntity.ok(option);
+        } catch (Exception e) {
+            return ResponseEntity.of(Optional.of("error.creating.option"));
+        }
     }
 
     @DeleteMapping("/option/{id}")
@@ -42,29 +46,33 @@ public class OptionsController {
 
     @PutMapping("/option")
     public ResponseEntity<?> updateOption(@RequestBody OfferOptionInput input) {
-        optionsRepository.createOrUpdateOption(input);
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/optionValue")
-    public ResponseEntity<?> addNewOptionValue(@RequestBody OptionValueInput input) {
         try {
-            optionsRepository.createOrUpdateValue(input);
-            return ResponseEntity.ok().build();
+            OfferOption option = optionsRepository.createOrUpdateOption(input);
+            return ResponseEntity.ok(option);
         } catch (Exception e) {
-            return ResponseEntity.of(Optional.of("error.option.for.value.not.found"));
+            return ResponseEntity.of(Optional.of("error.updating.option"));
         }
     }
 
-    @PutMapping("/optionValue")
-    public ResponseEntity<?> updateOptionValue(@RequestBody OptionValueInput input) {
-        try {
-            optionsRepository.createOrUpdateValue(input);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.of(Optional.of("error.option.for.value.not.found"));
-        }
-    }
+//    @PostMapping("/optionValue")
+//    public ResponseEntity<?> addNewOptionValue(@RequestBody OptionValueInput input) {
+//        try {
+//            optionsRepository.createOrUpdateValue(input);
+//            return ResponseEntity.ok().build();
+//        } catch (Exception e) {
+//            return ResponseEntity.of(Optional.of("error.option.for.value.not.found"));
+//        }
+//    }
+//
+//    @PutMapping("/optionValue")
+//    public ResponseEntity<?> updateOptionValue(@RequestBody OptionValueInput input) {
+//        try {
+//            optionsRepository.createOrUpdateValue(input);
+//            return ResponseEntity.ok().build();
+//        } catch (Exception e) {
+//            return ResponseEntity.of(Optional.of("error.option.for.value.not.found"));
+//        }
+//    }
 
     @DeleteMapping("/optionValue/{id}")
     public ResponseEntity<?> deleteOptionValue(@PathVariable("id") Long optionValueId) {

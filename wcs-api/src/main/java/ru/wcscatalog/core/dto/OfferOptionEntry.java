@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 public class OfferOptionEntry {
     private long id;
     private String title;
+    private String name;
     private String type;
     private List<OptionValueEntry> values = new ArrayList<>();
 
@@ -26,6 +27,14 @@ public class OfferOptionEntry {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getType() {
@@ -49,8 +58,9 @@ public class OfferOptionEntry {
             OfferOptionEntry entry = new OfferOptionEntry();
             entry.setId(option.getId());
             entry.setTitle(option.getTitle());
+            entry.setName(option.getName());
             entry.setType(option.getType());
-            entry.setValues(option.getValues().stream().map(OptionValueEntry::fromOptionValue).collect(Collectors.toList()));
+//            entry.setValues(option.getValues().stream().map(OptionValueEntry::fromOptionValue).collect(Collectors.toList()));
             return entry;
         }
         return null;

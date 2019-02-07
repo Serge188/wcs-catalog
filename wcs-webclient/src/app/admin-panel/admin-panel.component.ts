@@ -5,6 +5,9 @@ import {CategoryEntry} from "../_models/category-entry";
 import {ProductsService} from "../products.service";
 import {ProductEntry} from "../_models/product-entry";
 import {Observable} from "rxjs/internal/Observable";
+import {OfferOptionEntry} from "../_models/offer-option-entry";
+import {OptionsService} from "../options.service";
+import {OptionValueEntry} from "../_models/option-value-entry";
 
 @Component({
   selector: 'app-admin-panel',
@@ -17,14 +20,23 @@ export class AdminPanelComponent implements OnInit {
   public topLevelCategories: CategoryEntry[] = [];
   public itemsInList: any[] = [];
   public newCategory: CategoryEntry = {};
+  public newProduct: ProductEntry = {};
   public view: any;
+  public activeCategory: CategoryEntry;
+  public offerOptions: OfferOptionEntry[];
+  public newProductSelectedOption: OfferOptionEntry = {};
+  public newProductSelectedOptionId: number;
+  public newProductSelectedOptionValue: string = "";
+  public newProductCategoryId: number;
+  public editingOption: OfferOptionEntry = {};
 
   constructor(private categoriesService: CategoriesService,
-              private productsService: ProductsService) { }
+              private productsService: ProductsService, private optionsService: OptionsService) { }
 
   ngOnInit() {
     this.view = "categories";
     this.loadCategories();
+    this.loadProductOptions();
   }
 
   public loadCategories(): void {
@@ -45,19 +57,26 @@ export class AdminPanelComponent implements OnInit {
     });
   }
 
-  public loadProductsForCategory(cat: CategoryEntry): void {
-      this.productsService.getOneLevelCategoryProducts(cat.id).subscribe(result => {
-        cat.products = result;
-        let index = this.itemsInList.indexOf(cat, 0);
-        if (index != -1) {
-          for (let p of cat.products) {
-            index++;
-            this.itemsInList.splice(index, 0, p);
-            p.level = cat.level + 1;
-          }
-        }
-        cat.expanded = true;
+  public loadProductsForActiveCategory(): void {
+      this.productsService.getOneLevelCategoryProducts(this.activeCategory.id).subscribe(result => {
+        this.activeCategory.products = result;
+        console.log(result);
+        // let index = this.itemsInList.indexOf(cat, 0);
+        // if (index != -1) {
+        //   for (let p of cat.products) {
+        //     index++;
+        //     this.itemsInList.splice(index, 0, p);
+        //     p.level = cat.level + 1;
+        //   }
+        // }
       });
+  }
+
+  public loadProductOptions(): void {
+    this.optionsService.getProductOptions().subscribe(result => {
+      this.offerOptions = result;
+      console.log(this.offerOptions);
+    })
   }
 
   public removeProductsFromList(category: CategoryEntry): void {
@@ -84,6 +103,7 @@ export class AdminPanelComponent implements OnInit {
         cat.selected = false;
       }
       category.selected = true;
+      this.activeCategory = category;
     }
     if (!category.expanded) {
       this.expandCategory(category);
@@ -100,18 +120,21 @@ export class AdminPanelComponent implements OnInit {
         if (index != -1) {
           this.itemsInList.splice(index + 1, 0, cat);
           cat.level = category.level + 1;
+          cat.expanded = false;
+          cat.selected = false;
         }
       }
     }
-    this.loadProductsForCategory(category);
+    this.loadProductsForActiveCategory();
   }
 
   private collapseCategory(category: CategoryEntry):void {
+    category.expanded = false;
     for (let cat of this.categories) {
       if (cat.parentCategoryId == category.id) {
-        if (cat.products && cat.products.length > 0) {
-          this.removeProductsFromList(cat);
-        }
+        // if (cat.products && cat.products.length > 0) {
+        //   this.removeProductsFromList(cat);
+        // }
         cat.expanded = false;
         let index = this.itemsInList.indexOf(cat, 0);
         if (index != -1) {
@@ -119,7 +142,7 @@ export class AdminPanelComponent implements OnInit {
         }
       }
     }
-    this.removeProductsFromList(category);
+    // this.removeProductsFromList(category);
     category.expanded = false;
   }
 
@@ -137,12 +160,13 @@ export class AdminPanelComponent implements OnInit {
 
   public openModalCategory(event: any, item: any, createChild: boolean): void {
     event.preventDefault();
-    let mask: HTMLElement = document.getElementById("cover-mask");
-    let form: HTMLElement = document.getElementById("modal-category");
-    mask.classList.add("modal-visible");
-    mask.classList.remove("modal-hidden");
-    form.classList.add("modal-visible");
-    form.classList.remove("modal-hidden");
+    // let mask: HTMLElement = document.getElementById("cover-mask");
+    // let form: HTMLElement = document.getElementById("modal-category");
+    // mask.classList.add("modal-visible");
+    // mask.classList.remove("modal-hidden");
+    // form.classList.add("modal-visible");
+    // form.classList.remove("modal-hidden");
+    this.openModal("modal-category");
     if (item) {
       if (createChild) {
         this.newCategory.parentCategoryId = item.id;
@@ -157,18 +181,46 @@ export class AdminPanelComponent implements OnInit {
     }
   }
 
-  private openModal(modalId: string): void {
-
+  public openModalProduct(event: any, product: ProductEntry, category: CategoryEntry) {
+    this.openModal("modal-product");
+    if (product) {
+      this.newProduct.id = product.id;
+      this.newProduct.categoryId = product.category.id;
+      this.newProduct.category = product.category;
+      this.newProduct.price = product.price;
+      this.newProduct.discountPrice = product.discountPrice;
+      this.newProduct.title = product.title;
+      this.newProduct.description = product.description;
+      this.newProduct.mainImage = product.mainImage;
+      this.newProduct.images = product.images;
+    }
+    if (category) {
+      this.newProduct.category = category;
+    }
+    console.log(this.newProduct);
   }
 
-  public closeModal(modalId: string) {
+  private openModal(modalId: string): void {
     let mask: HTMLElement = document.getElementById("cover-mask");
     let form: HTMLElement = document.getElementById(modalId);
-    mask.classList.remove("modal-visible");
-    mask.classList.add("modal-hidden");
-    form.classList.remove("modal-visible");
-    form.classList.add("modal-hidden");
+    mask.classList.add("modal-visible");
+    mask.classList.remove("modal-hidden");
+    form.classList.add("modal-visible");
+    form.classList.remove("modal-hidden");
+  }
+
+  public closeModal() {
+    let elements: HTMLElement[] = [];
+    elements.push(document.getElementById("modal-category"));
+    elements.push(document.getElementById("modal-product"));
+    elements.push(document.getElementById("cover-mask"));
+
+    for (let el of elements) {
+      el.classList.remove("modal-visible");
+      el.classList.add("modal-hidden");
+    }
     this.newCategory = {};
+    this.newProduct = {};
   }
 
 
@@ -180,15 +232,14 @@ export class AdminPanelComponent implements OnInit {
       result = this.categoriesService.createCategory(this.newCategory);
     }
     result.subscribe(() => {
-      console.log("hjagf");
       this.loadCategories();
     });
     this.newCategory = {};
-    this.closeModal("modal-category");
+    this.closeModal();
   }
 
-  public addFile() {
-    let file  = (<HTMLInputElement>document.getElementById("imageUploader")).files.item(0);
+  public addCategoryImageFile() {
+    let file  = (<HTMLInputElement>document.getElementById("categoryImageUploader")).files.item(0);
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.addEventListener('load', (event: any) => {
@@ -200,10 +251,14 @@ export class AdminPanelComponent implements OnInit {
     });
   }
 
+  public addProductMainImage() {
+
+  }
+
   public removeCategory(categoryId: number): void {
     this.categoriesService.removeCategory(categoryId).subscribe(
       res => {
-      this.closeModal("modal-category");
+      this.closeModal();
       let cat = this.itemsInList.find(x => x.id == categoryId);
       if (cat) {
         let index = this.itemsInList.indexOf(cat, 0);
@@ -218,6 +273,136 @@ export class AdminPanelComponent implements OnInit {
   public changeView(viewName: string, event: any): void {
     event.preventDefault();
     this.view = viewName;
+  }
+
+  public createNewOption(): void {
+    let newOption: OfferOptionEntry = new OfferOptionEntry();
+    newOption.values = [];
+    newOption.editMode = true;
+    this.offerOptions.splice(0, 0, newOption);
+  }
+
+  public addNewOptionValue(event: any): void {
+    event.preventDefault();
+    let newValue: OptionValueEntry = {};
+    if (!this.editingOption.values) {
+      this.editingOption.values = [];
+    }
+    this.editingOption.values.push(newValue);
+  }
+
+  public removeOptionValueFromOption(event: any, value: OptionValueEntry): void {
+    event.preventDefault();
+    let index = this.editingOption.values.indexOf(value);
+    if (index && index != -1) {
+      this.editingOption.values.splice(index, 1);
+    }
+  }
+
+  public changeSelectedOption(): void {
+    let option: OfferOptionEntry = this.offerOptions.find(x => x.id == this.newProductSelectedOptionId);
+    if (option) {
+      this.newProductSelectedOption = option;
+      console.log(this.newProductSelectedOption);
+    }
+  }
+
+  public addOptionToProduct(event: any) {
+    event.preventDefault();
+    let option: OfferOptionEntry = new OfferOptionEntry();
+    let value: OptionValueEntry = this.newProductSelectedOption.values.find(x => x.value == this.newProductSelectedOptionValue);
+    option.title = this.newProductSelectedOption.title;
+    if (value) {
+      option.selectedValue = value;
+    } else {
+      value = new OptionValueEntry();
+      if (this.newProductSelectedOptionValue) {
+        value.value = this.newProductSelectedOptionValue;
+      } else {
+        value.value = "";
+      }
+      value.editMode = true;
+    }
+    option.selectedValue = value;
+    console.log(option);
+    if (!this.newProduct.options) {
+      this.newProduct.options = [];
+    }
+    this.newProduct.options.push(option);
+    this.newProductSelectedOption = {};
+    this.newProductSelectedOptionValue = "";
+  }
+
+  public changeCategoryForProduct(): void {
+    let cat = this.categories.find(x => x.id == this.newProductCategoryId);
+    if (cat) {
+      this.newProduct.category = cat;
+    }
+  }
+
+  public editOption(option: OfferOptionEntry) {
+    for (let opt of this.offerOptions) {
+      opt.editMode = false;
+    }
+    option.editMode = true;
+    this.editingOption = option;
+    console.log(this.editingOption);
+  }
+
+  public cancelEditing(option: OfferOptionEntry) {
+    option.editMode = false;
+    this.editingOption = {};
+  }
+
+  public createOrUpdateOption(option: OfferOptionEntry) {
+    let observable: Observable<any>;
+    console.log(option);
+    if (this.editingOption.id) {
+      observable = this.optionsService.updateOption(this.editingOption);
+    } else {
+      observable = this.optionsService.createOption(this.editingOption);
+    }
+    observable.subscribe(result => {
+      option.id = result.id;
+      option.title = result.title;
+      option.name = result.name;
+      option.values = result.values;
+      option.editMode = false;
+      this.loadProductOptions();
+      this.editingOption = {};
+    });
+  }
+
+  public removeOption(option: OfferOptionEntry): void {
+    this.optionsService.removeOption(option.id).subscribe(()=>{
+      let index = this.offerOptions.indexOf(option);
+      if (index) {
+        this.offerOptions.splice(index, 1);
+      }
+    });
+  }
+
+  public removeValueFromOption(option: OfferOptionEntry, value: OptionValueEntry): void {
+    let index = this.editingOption.values.indexOf(value);
+    if (index) {
+      this.editingOption.values.splice(index, 1);
+    }
+  }
+
+  public addOptionValueImage(value: OptionValueEntry): void {
+    let uploaderId: string = "optionValueImageUploader_" + value.id;
+    let file  = (<HTMLInputElement>document.getElementById(uploaderId)).files.item(0);
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.addEventListener('load', (event: any) => {
+      value.imageInput = reader.result;
+      console.log(this.editingOption);
+      // if (this.newCategory.image) {
+      //   this.newCategory.image.categoryImageLink = null;
+      // }
+      // this.newCategory.imageInput = reader.result;
+      // this.newCategory.imageChanged = true;
+    });
   }
 
 }

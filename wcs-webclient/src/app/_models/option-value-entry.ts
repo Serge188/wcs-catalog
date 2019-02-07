@@ -6,4 +6,6 @@ export class OptionValueEntry {
   option?: OfferOptionEntry;
   value?: string;
   image?: ImageEntry;
+  editMode?: boolean;
+  imageInput?: any;
 }

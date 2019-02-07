@@ -1,6 +1,7 @@
 package ru.wcscatalog.core.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,11 +15,14 @@ public class OfferOption {
     @Column(name="title")
     private String title;
 
+    @Column(name="name")
+    private String name;
+
     @Column(name="type")
     private String type;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "option", fetch = FetchType.LAZY)
-    private List<OptionValue> values;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "option", fetch = FetchType.LAZY)
+//    private List<OptionValue> values = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -36,6 +40,14 @@ public class OfferOption {
         this.title = title;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getType() {
         return type;
     }
@@ -44,11 +56,11 @@ public class OfferOption {
         this.type = type;
     }
 
-    public List<OptionValue> getValues() {
-        return values;
-    }
-
-    public void setValues(List<OptionValue> values) {
-        this.values = values;
-    }
+//    public List<OptionValue> getValues() {
+//        return values;
+//    }
+//
+//    public void setValues(List<OptionValue> values) {
+//        this.values = values;
+//    }
 }
