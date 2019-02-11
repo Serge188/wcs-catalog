@@ -8,6 +8,7 @@ import {Observable} from "rxjs/internal/Observable";
 import {OfferOptionEntry} from "../_models/offer-option-entry";
 import {OptionsService} from "../options.service";
 import {OptionValueEntry} from "../_models/option-value-entry";
+import {SaleOfferEntry} from "../_models/sale-offer-entry";
 
 @Component({
   selector: 'app-admin-panel',
@@ -29,6 +30,8 @@ export class AdminPanelComponent implements OnInit {
   public newProductSelectedOptionValue: string = "";
   public newProductCategoryId: number;
   public editingOption: OfferOptionEntry = {};
+  public newProductSaleOffersOptionId: number;
+  public newProductSaleOfferOption: OfferOptionEntry;
 
   constructor(private categoriesService: CategoriesService,
               private productsService: ProductsService, private optionsService: OptionsService) { }
@@ -43,7 +46,6 @@ export class AdminPanelComponent implements OnInit {
     this.itemsInList = [];
     this.topLevelCategories = [];
     this.categoriesService.getCategories().subscribe(result => {
-      console.log(result);
       this.categories = result;
       for (let cat of this.categories) {
         cat.expanded = false;
@@ -60,7 +62,6 @@ export class AdminPanelComponent implements OnInit {
   public loadProductsForActiveCategory(): void {
       this.productsService.getOneLevelCategoryProducts(this.activeCategory.id).subscribe(result => {
         this.activeCategory.products = result;
-        console.log(result);
         // let index = this.itemsInList.indexOf(cat, 0);
         // if (index != -1) {
         //   for (let p of cat.products) {
@@ -75,14 +76,11 @@ export class AdminPanelComponent implements OnInit {
   public loadProductOptions(): void {
     this.optionsService.getProductOptions().subscribe(result => {
       this.offerOptions = result;
-      console.log(this.offerOptions);
     })
   }
 
   public removeProductsFromList(category: CategoryEntry): void {
-    console.log(category);
     for (let p of category.products) {
-      console.log(p);
       let index = this.itemsInList.indexOf(p, 0);
       if (index != -1) {
         this.itemsInList.splice(index, 1);
@@ -181,7 +179,7 @@ export class AdminPanelComponent implements OnInit {
     }
   }
 
-  public openModalProduct(event: any, product: ProductEntry, category: CategoryEntry) {
+  public openModalProduct(event: any, product: ProductEntry) {
     this.openModal("modal-product");
     if (product) {
       this.newProduct.id = product.id;
@@ -193,11 +191,19 @@ export class AdminPanelComponent implements OnInit {
       this.newProduct.description = product.description;
       this.newProduct.mainImage = product.mainImage;
       this.newProduct.images = product.images;
+      this.newProduct.saleOffers = product.saleOffers;
+      this.newProduct.options = product.options;
+
+      if (product.saleOffers && product.saleOffers.length > 0) {
+        this.newProductSaleOffersOptionId = product.saleOffers[0].offerOption.id;
+        this.newProductSaleOfferOption = this.offerOptions.find(x => x.id == this.newProductSaleOffersOptionId);
+        for (let so of this.newProduct.saleOffers) {
+          so.optionValueId = so.optionValue.id;
+        }
+      }
+    } else {
+      this.newProduct.categoryId = this.activeCategory.id;
     }
-    if (category) {
-      this.newProduct.category = category;
-    }
-    console.log(this.newProduct);
   }
 
   private openModal(modalId: string): void {
@@ -252,7 +258,37 @@ export class AdminPanelComponent implements OnInit {
   }
 
   public addProductMainImage() {
+    let file  = (<HTMLInputElement>document.getElementById("productMainImageUploader")).files.item(0);
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.addEventListener('load', (event: any) => {
+      this.newProduct.imageInput = reader.result;
+    });
+  }
 
+  public addProductImages() {
+    let files  = (<HTMLInputElement>document.getElementById("productImagesUploader")).files;
+    for (let i = 0; i < files.length; i++) {
+      let reader = new FileReader();
+      reader.readAsDataURL(files.item(i));
+      reader.addEventListener('load', (event: any) => {
+        if (!this.newProduct.imagesInput) {
+          this.newProduct.imagesInput = [];
+        }
+        this.newProduct.imagesInput.push(reader.result);
+      });
+    }
+  }
+
+  public addImageForSaleOffer(offer: SaleOfferEntry): void {
+    let index = this.newProduct.saleOffers.indexOf(offer);
+    let uploaderId = "saleOfferImagesUploader_" + index;
+    let file  = (<HTMLInputElement>document.getElementById(uploaderId)).files.item(0);
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.addEventListener('load', (event: any) => {
+      offer.imageInput = reader.result;
+    });
   }
 
   public removeCategory(categoryId: number): void {
@@ -268,6 +304,21 @@ export class AdminPanelComponent implements OnInit {
         err => {
         alert("При удалении категории произошла оишбка: " + err);
       });
+  }
+
+  public createOrUpdateProduct(): void {
+    let result: Observable<any>;
+    if (this.newProduct.id) {
+      result = this.productsService.updateProduct(this.newProduct);
+    } else {
+      result = this.productsService.createProduct(this.newProduct);
+    }
+    result.subscribe(() => {
+      this.loadProductsForActiveCategory();
+      this.newProduct = {};
+      this.closeModal();
+    });
+
   }
 
   public changeView(viewName: string, event: any): void {
@@ -303,7 +354,6 @@ export class AdminPanelComponent implements OnInit {
     let option: OfferOptionEntry = this.offerOptions.find(x => x.id == this.newProductSelectedOptionId);
     if (option) {
       this.newProductSelectedOption = option;
-      console.log(this.newProductSelectedOption);
     }
   }
 
@@ -311,6 +361,7 @@ export class AdminPanelComponent implements OnInit {
     event.preventDefault();
     let option: OfferOptionEntry = new OfferOptionEntry();
     let value: OptionValueEntry = this.newProductSelectedOption.values.find(x => x.value == this.newProductSelectedOptionValue);
+    option.id = this.newProductSelectedOption.id;
     option.title = this.newProductSelectedOption.title;
     if (value) {
       option.selectedValue = value;
@@ -324,7 +375,6 @@ export class AdminPanelComponent implements OnInit {
       value.editMode = true;
     }
     option.selectedValue = value;
-    console.log(option);
     if (!this.newProduct.options) {
       this.newProduct.options = [];
     }
@@ -346,7 +396,6 @@ export class AdminPanelComponent implements OnInit {
     }
     option.editMode = true;
     this.editingOption = option;
-    console.log(this.editingOption);
   }
 
   public cancelEditing(option: OfferOptionEntry) {
@@ -356,7 +405,6 @@ export class AdminPanelComponent implements OnInit {
 
   public createOrUpdateOption(option: OfferOptionEntry) {
     let observable: Observable<any>;
-    console.log(option);
     if (this.editingOption.id) {
       observable = this.optionsService.updateOption(this.editingOption);
     } else {
@@ -396,13 +444,61 @@ export class AdminPanelComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.addEventListener('load', (event: any) => {
       value.imageInput = reader.result;
-      console.log(this.editingOption);
-      // if (this.newCategory.image) {
-      //   this.newCategory.image.categoryImageLink = null;
-      // }
-      // this.newCategory.imageInput = reader.result;
-      // this.newCategory.imageChanged = true;
     });
+  }
+
+  public removeProduct(productId: number): void {
+    this.productsService.removeProduct(productId).subscribe(() => {
+      this.loadProductsForActiveCategory();
+      this.newProduct = {};
+      this.closeModal();
+    });
+  }
+
+  public isSaleOffersInEditingProductPresent(): boolean {
+    if (this.newProduct.saleOffers && this.newProduct.saleOffers.length > 0) {
+      return true;
+    }
+    return false;
+  }
+
+  public addSaleOfferToEditingProduct(event: any): void {
+    event.preventDefault();
+    let saleOffer: SaleOfferEntry = new SaleOfferEntry();
+    if (!this.newProduct.saleOffers) {
+      this.newProduct.saleOffers = [];
+    }
+    if (!this.newProductSaleOfferOption) {
+      this.newProductSaleOffersOptionId = this.offerOptions[0].id;
+      this.newProductSaleOfferOption = this.offerOptions[0];
+    }
+    saleOffer.offerOption = this.newProductSaleOfferOption;
+    this.newProduct.saleOffers.push(saleOffer);
+  }
+
+  public removeSaleOfferFromEditingProduct(event: any, offer:SaleOfferEntry): void {
+    event.preventDefault();
+    let index = this.newProduct.saleOffers.indexOf(offer);
+    if (index) {
+      this.newProduct.saleOffers.splice(index, 1);
+    }
+  }
+
+  public changeOptionOfSaleOffersOfEditingProduct(): void {
+    let option: OfferOptionEntry = this.offerOptions.find(x => x.id == this.newProductSaleOffersOptionId);
+    if (option) {
+      this.newProductSaleOfferOption = option;
+      for (let offer of this.newProduct.saleOffers) {
+        offer.offerOption = option;
+      }
+    }
+  }
+
+  public changeOptionValueOfSaleOffer(offer: SaleOfferEntry, option: OfferOptionEntry): void {
+    let optionValue = this.newProductSaleOfferOption.values.find(x => x.id == offer.optionValueId);
+    if (optionValue) {
+      offer.optionValue = optionValue;
+    }
   }
 
 }

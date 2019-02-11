@@ -24,6 +24,7 @@ public class ProductEntry {
     private CategoryEntry category;
     private FactoryEntry factory;
     private Float discount;
+    private List<OfferOptionEntry> options = new ArrayList<>();
 
     private List<SaleOfferEntry> saleOffers = new ArrayList<>();
 
@@ -179,12 +180,19 @@ public class ProductEntry {
         this.discount = discount;
     }
 
+    public List<OfferOptionEntry> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<OfferOptionEntry> options) {
+        this.options = options;
+    }
+
     public static ProductEntry fromProduct(Product product) {
         if (product != null) {
             ProductEntry entry = new ProductEntry();
             entry.setId(product.getId());
             entry.setTitle(product.getTitle());
-            entry.setMainImage(ImageEntry.fromImage(product.getMainImage()));
             entry.setAlias(product.getAlias());
             entry.setDescription(product.getDescription());
             entry.setProductOfDay(product.isProductOfDay());
@@ -195,13 +203,19 @@ public class ProductEntry {
             entry.setDiscountPrice(product.getDiscountPrice());
             entry.setPopular(product.isPopular());
             entry.setAltTitle(product.getTitle().replace("\"", "&quot;"));
-            if (product.getDescription().length() > 163) {
+            if (product.getDescription() != null && product.getDescription().length() > 163) {
                 entry.setShortDescription(product.getDescription().substring(0, 159) + "...");
             } else {
                 entry.setShortDescription(product.getDescription());
             }
-            if (product.getImages() != null) {
-                product.getImages().forEach(image -> entry.getImages().add(ImageEntry.fromImage(image)));
+            if (product.getImages() != null && !product.getImages().isEmpty()) {
+                product.getImages().forEach(image -> {
+                    if (image.isMainImage() != null && image.isMainImage()) {
+                        entry.setMainImage(ImageEntry.fromImage(image));
+                    } else {
+                        entry.getImages().add(ImageEntry.fromImage(image));
+                    }
+                });
             }
             entry.setCategory(CategoryEntry.fromCategory(product.getCategory()));
             entry.setFactory(FactoryEntry.fromFactory(product.getFactory()));

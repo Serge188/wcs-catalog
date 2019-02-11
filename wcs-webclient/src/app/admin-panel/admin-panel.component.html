@@ -49,7 +49,7 @@
     <div class="form-group" style="text-align: left">
       <label for="parentCategoryForProductSelect">Категория</label>
       <select class="form-control" id="parentCategoryForProductSelect" (change)="changeCategoryForProduct()" [(ngModel)]="newProduct.categoryId" name="categoryId">
-        <option *ngFor="let cat of categories" [value]="cat.id">{{cat.title}}</option>
+        <option *ngFor="let cat of categories" [value]="cat.id">{{cat.title}} <span *ngIf="cat.parentCategoryTitle != null">({{cat.parentCategoryTitle}})</span></option>
       </select>
     </div>
     <div class="form-group" style="text-align: left">
@@ -58,17 +58,21 @@
     </div>
     <div class="form-group" style="text-align: left">
       <label for="productMainImageUploader">Главное изображение</label>
-      <input type="file" accept="image/*" class="form-control-file" id="productMainImageUploader" name="fileInput">
+      <input type="file" accept="image/*" class="form-control-file" id="productMainImageUploader" name="fileInput" (change)="addProductMainImage()">
     </div>
     <div class="form-group">
       <img src="{{newProduct?.mainImage?.galleryImageLink}}"/>
     </div>
     <div class="form-group" style="text-align: left">
       <label for="productMainImageUploader">Дополнительные изображения</label>
-      <input type="file" accept="image/*" class="form-control-file" id="productImagesUploader" multiple name="fileInput">
+      <input type="file" accept="image/*" class="form-control-file" id="productImagesUploader" multiple name="fileInput" (change)="addProductImages()">
     </div>
     <div class="form-group">
-      <img *ngFor="let img of newProduct?.images" src="{{img.galleryImageLink}}"/>
+      <div class="row">
+        <div class="col-sm-3" *ngFor="let img of newProduct?.images">
+          <img src="{{img.galleryImageLink}}"/>
+        </div>
+      </div>
     </div>
     <div class="form-group" style="text-align: left">
       <label for="categoryDescriptionArea">Описание</label>
@@ -156,12 +160,60 @@
       </label>
     </div>
   </div>
+  <div class="text-left">
+    <h5>Варианты товара:</h5>
+  </div>
+  <div class="row" *ngIf="isSaleOffersInEditingProductPresent()">
+    <div class="col-sm-6" *ngFor="let offer of newProduct.saleOffers; let i = index">
+      <div class="card border-secondary mb-3">
+        <div class="card-header">
+          <div class="row text-left">
+            <span class="col-sm-6 mb-3">
+              <select class="form-control" (change)="changeOptionOfSaleOffersOfEditingProduct()" [(ngModel)]="newProductSaleOffersOptionId" name="optionId">
+                <option *ngFor="let option of offerOptions" [value]="option.id" >{{option.title}}</option>
+              </select>
+            </span>
+            <span class="col-sm-6 mb-3">
+              <select class="form-control" (change)="changeOptionValueOfSaleOffer(offer, option)" [(ngModel)]="offer.optionValueId" name="optionId">
+                <option *ngFor="let value of newProductSaleOfferOption.values" [value]="value.id" >{{value.value}}</option>
+              </select>
+            </span>
+            <span class="col-sm-6">Цена:</span>
+            <span class="col-sm-6">
+              <input type="number" style="width: 75px" [(ngModel)]="offer.price"> руб.
+            </span>
+            <span class="col-sm-6">Цена со скидкой:</span>
+            <!--<span class="col-sm-6"><b>{{offer.discountPrice}}</b> руб.</span>-->
+            <span class="col-sm-6"><input type="number" style="width: 75px" [(ngModel)]="offer.discountPrice"> руб.</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <img src="{{offer?.mainImage?.cardImageLink}}"/>
+          </div>
+          <div>
+            <input type="file" accept="image/*" class="form-control-file" id="saleOfferImagesUploader_{{i}}" name="fileInput" (change)="addImageForSaleOffer(offer)">
+          </div>
+          <div class="row mt-3">
+            <div class="col-sm-12 text-right">
+              <a href="" class="btn btn-sm btn-danger" (click)="removeSaleOfferFromEditingProduct($event, offer)"><span class="ion ion-md-close"></span></a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-left mb-3">
+    <a href="" (click)="addSaleOfferToEditingProduct($event)">Добавить вариант</a>
+  </div>
   <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
     <div class="btn-group mr-2" role="group" aria-label="First group">
-      <button type="button" class="btn btn-primary" (click)="createOrUpdateCategory()">Сохранить</button>
+      <button type="button" class="btn btn-primary" (click)="createOrUpdateProduct()">Сохранить</button>
     </div>
     <div class="btn-group mr-2" role="group" aria-label="Second group">
-      <button type="button" class="btn btn-danger" (click)="removeCategory(newCategory.id)">Удалить</button>
+      <button type="button" class="btn btn-danger" (click)="removeProduct(newProduct.id)">Удалить</button>
     </div>
     <div class="btn-group" role="group" aria-label="Third group">
       <button type="button" class="btn btn-secondary" (click)="closeModal()">Отмена</button>
@@ -246,8 +298,10 @@
                 {{product.title}}
               </span>
               <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-outline-secondary btn-sm" title="Редактировать товар" (click)="openModalProduct($event, product, null)"><span class="ion ion-md-create"></span></button>
-                <button type="button" class="btn btn-outline-danger btn-sm" title="Удалить товар" (click)="removeCategory(item.id)">
+                <button type="button" class="btn btn-outline-secondary btn-sm" title="Редактировать товар" (click)="openModalProduct($event, product)">
+                  <span class="ion ion-md-create"></span>
+                </button>
+                <button type="button" class="btn btn-outline-danger btn-sm" title="Удалить товар" (click)="removeProduct(product.id)">
                   <span class="ion ion-md-close"></span>
                 </button>
               </div>
@@ -262,7 +316,7 @@
             <button type="button" class="btn btn-sm btn-outline-primary" (click)="openModalCategory($event, null, false)">Создать категорию</button>
           </div>
           <div class="btn-group mr-2">
-            <button type="button" class="btn btn-sm btn-outline-primary" (click)="openModalProduct($event, null, newCategory)">Добавить товар</button>
+            <button type="button" class="btn btn-sm btn-outline-primary" (click)="openModalProduct($event, null)">Добавить товар</button>
           </div>
         </div>
       </div>

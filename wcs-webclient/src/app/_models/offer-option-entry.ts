@@ -4,7 +4,7 @@ export class OfferOptionEntry {
   id?: number;
   title?: string;
   name?: string;
-  values?: OptionValueEntry[];
+  values?: OptionValueEntry[] = [];
   selectedValue?: OptionValueEntry;
   editMode?: boolean;
 }

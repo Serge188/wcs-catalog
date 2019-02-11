@@ -15,11 +15,7 @@ public class Product {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="main_image_id")
-    private Image mainImage;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<Image> images = new ArrayList<>();
 
     @Column(name="alias_name", nullable = false)
@@ -71,14 +67,6 @@ public class Product {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public Image getMainImage() {
-        return mainImage;
-    }
-
-    public void setMainImage(Image mainImage) {
-        this.mainImage = mainImage;
     }
 
     public List<Image> getImages() {

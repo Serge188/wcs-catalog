@@ -1,6 +1,9 @@
 package ru.wcscatalog.core.utils;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -8,10 +11,12 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+@Component
 public class AliasChecker {
-    private final EntityManagerFactory entityManagerFactory;
-    private static EntityManager entityManager;
-    private static CriteriaBuilder criteriaBuilder;
+
+    private EntityManagerFactory entityManagerFactory;
+    private EntityManager entityManager;
+    private CriteriaBuilder criteriaBuilder;
 
 
     public AliasChecker(EntityManagerFactory entityManagerFactory) {
@@ -22,8 +27,12 @@ public class AliasChecker {
         criteriaBuilder = entityManager.getCriteriaBuilder();
     }
 
-    public static String findUniqueAliasForEntity(Class clazz, String title) {
+    public String findUniqueAliasForEntity(Class clazz, String title) {
         String alias = Transliterator.transliteration(title);
+        if (entityManager == null) {
+            entityManager = entityManagerFactory.createEntityManager();
+        }
+        criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery(clazz);
         Root<?> root = criteriaQuery.from(clazz);
 

@@ -16,8 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Base64;
-import java.util.Date;
+import java.util.*;
 
 @Repository
 public class ImageRepository {
@@ -79,9 +78,9 @@ public class ImageRepository {
             } else if (o instanceof Product || o instanceof SaleOffer) {
                 String fileName;
                 if (o instanceof Product) {
-                    fileName = ((Product) o).getAlias() + "." + fileExtension;
+                    fileName = ((Product) o).getAlias() + String.valueOf(new Date().getTime()) + "." + fileExtension;
                 } else {
-                    String valueAlias = Transliterator.transliteration(((SaleOffer) o).getOptionValue());
+                    String valueAlias = Transliterator.transliteration(((SaleOffer) o).getOptionValue().getValue());
                     fileName = ((SaleOffer) o).getProduct().getAlias() + "_" + valueAlias + "." + fileExtension;
                 }
 
@@ -143,6 +142,13 @@ public class ImageRepository {
                 e.printStackTrace();
             }
             entityManager.remove(entityManager.contains(img) ? img : entityManager.merge(img));
+        } else if (o instanceof Product) {
+            List<Image> images = ((Product) o).getImages();
+            images.forEach(img -> removeProductImage(img));
+
+        } else if (o instanceof SaleOffer) {
+            Image img = ((SaleOffer) o).getMainImage();
+            removeProductImage(img);
         } else if (o instanceof OptionValue && ((OptionValue) o).getImage() != null) {
             Image img = ((OptionValue) o).getImage();
             String path = SERVER_FOLDER + img.getOptionImageLink();
@@ -162,5 +168,24 @@ public class ImageRepository {
         criteriaBuilder = entityManager.getCriteriaBuilder();
         criteriaQuery = criteriaBuilder.createQuery(Image.class);
         root = criteriaQuery.from(Image.class);
+    }
+
+    private void removeProductImage(Image img) {
+        String originalPath = SERVER_FOLDER + img.getOriginalImageLink();
+        String basePath = SERVER_FOLDER + img.getBaseImageLink();
+        String cardPath = SERVER_FOLDER + img.getCardImageLink();
+        String galleryPath = SERVER_FOLDER + img.getGalleryImageLink();
+        String previewPath = SERVER_FOLDER + img.getPreviewImageLink();
+        List<String> paths = Arrays.asList(originalPath, basePath, cardPath, galleryPath, previewPath);
+        paths.forEach(p -> {
+            if (p != null) {
+                try {
+                    Files.delete(Paths.get(p));
+                } catch (Exception e) {
+
+                }
+            }
+        });
+        entityManager.remove(entityManager.contains(img) ? img : entityManager.merge(img));
     }
 }

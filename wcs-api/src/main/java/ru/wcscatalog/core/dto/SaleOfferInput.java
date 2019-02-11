@@ -6,9 +6,10 @@ public class SaleOfferInput {
     private Object mainImage;
     private Long productId;
     private OfferOptionInput offerOption;
-    private String optionValue;
+    private OptionValueInput optionValue;
     private Float discountPrice;
     private Object buttonImage;
+    private Object imageInput;
 
     public Long getId() {
         return id;
@@ -50,11 +51,11 @@ public class SaleOfferInput {
         this.offerOption = offerOption;
     }
 
-    public String getOptionValue() {
+    public OptionValueInput getOptionValue() {
         return optionValue;
     }
 
-    public void setOptionValue(String optionValue) {
+    public void setOptionValue(OptionValueInput optionValue) {
         this.optionValue = optionValue;
     }
 
@@ -72,5 +73,13 @@ public class SaleOfferInput {
 
     public void setButtonImage(Object buttonImage) {
         this.buttonImage = buttonImage;
+    }
+
+    public Object getImageInput() {
+        return imageInput;
+    }
+
+    public void setImageInput(Object imageInput) {
+        this.imageInput = imageInput;
     }
 }

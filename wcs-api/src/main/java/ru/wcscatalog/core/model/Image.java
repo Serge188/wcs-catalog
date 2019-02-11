@@ -35,6 +35,9 @@ public class Image {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @Column(name = "is_main_image")
+    private Boolean mainImage = false;
+
     public long getId() {
         return id;
     }
@@ -105,5 +108,13 @@ public class Image {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Boolean isMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(Boolean mainImage) {
+        this.mainImage = mainImage;
     }
 }

@@ -27,8 +27,9 @@ public class SaleOffer {
     @JoinColumn(name="option_id")
     private OfferOption offerOption;
 
-    @Column(name="option_value")
-    private String optionValue;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="option_value_id")
+    private OptionValue optionValue;
 
     @Column(name="discount_price")
     private Float discountPrice;
@@ -77,11 +78,11 @@ public class SaleOffer {
         this.offerOption = offerOption;
     }
 
-    public String getOptionValue() {
+    public OptionValue getOptionValue() {
         return optionValue;
     }
 
-    public void setOptionValue(String optionValue) {
+    public void setOptionValue(OptionValue optionValue) {
         this.optionValue = optionValue;
     }
 

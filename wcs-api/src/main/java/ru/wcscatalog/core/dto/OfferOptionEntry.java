@@ -12,6 +12,7 @@ public class OfferOptionEntry {
     private String name;
     private String type;
     private List<OptionValueEntry> values = new ArrayList<>();
+    private OptionValueEntry selectedValue;
 
     public long getId() {
         return id;
@@ -51,6 +52,14 @@ public class OfferOptionEntry {
 
     public void setValues(List<OptionValueEntry> values) {
         this.values = values;
+    }
+
+    public OptionValueEntry getSelectedValue() {
+        return selectedValue;
+    }
+
+    public void setSelectedValue(OptionValueEntry selectedValue) {
+        this.selectedValue = selectedValue;
     }
 
     public static OfferOptionEntry fromOfferOption(OfferOption option) {

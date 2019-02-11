@@ -7,6 +7,7 @@ public class OfferOptionInput {
     private String title;
     private String name;
     private List<OptionValueInput> values;
+    private OptionValueInput selectedValue;
 
     public Long getId() {
         return id;
@@ -38,5 +39,13 @@ public class OfferOptionInput {
 
     public void setValues(List<OptionValueInput> values) {
         this.values = values;
+    }
+
+    public OptionValueInput getSelectedValue() {
+        return selectedValue;
+    }
+
+    public void setSelectedValue(OptionValueInput selectedValue) {
+        this.selectedValue = selectedValue;
     }
 }

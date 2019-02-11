@@ -1,10 +1,7 @@
 package ru.wcscatalog.core.repository;
 
 import org.springframework.stereotype.Repository;
-import ru.wcscatalog.core.dto.ProductEntry;
-import ru.wcscatalog.core.dto.ProductInput;
-import ru.wcscatalog.core.dto.SaleOfferEntry;
-import ru.wcscatalog.core.dto.SaleOfferInput;
+import ru.wcscatalog.core.dto.*;
 import ru.wcscatalog.core.model.*;
 import ru.wcscatalog.core.utils.AliasChecker;
 import ru.wcscatalog.core.utils.Transliterator;
@@ -23,17 +20,19 @@ public class ProductRepository {
     private final FactoryRepository factoryRepository;
     private final ImageRepository imageRepository;
     private final OptionsRepository optionsRepository;
+    private final AliasChecker aliasChecker;
     private EntityManager entityManager;
     private CriteriaBuilder criteriaBuilder;
 
     public ProductRepository(EntityManagerFactory entityManagerFactory, CategoriesRepository categoriesRepository,
                              FactoryRepository factoryRepository, ImageRepository imageRepository,
-                             OptionsRepository optionsRepository) {
+                             OptionsRepository optionsRepository, AliasChecker aliasChecker) {
         this.entityManagerFactory = entityManagerFactory;
         this.categoriesRepository = categoriesRepository;
         this.factoryRepository = factoryRepository;
         this.imageRepository = imageRepository;
         this.optionsRepository = optionsRepository;
+        this.aliasChecker = aliasChecker;
         initializeCriteriaBuilder();
     }
 
@@ -111,6 +110,7 @@ public class ProductRepository {
         List<Product> products = query.getResultList();
         List<ProductEntry> entries = products.stream().map(ProductEntry::fromProduct).collect(Collectors.toList());
         fillSaleOffers(entries);
+        fillOptions(entries);
         return entries;
     }
 
@@ -121,7 +121,7 @@ public class ProductRepository {
         }
         if (product == null) {
             product = new Product();
-            product.setAlias(AliasChecker.findUniqueAliasForEntity(product.getClass(), input.getTitle()));
+            product.setAlias(aliasChecker.findUniqueAliasForEntity(product.getClass(), input.getTitle()));
         }
         product.setTitle(input.getTitle());
 
@@ -135,22 +135,55 @@ public class ProductRepository {
         product.setDiscountPrice(input.getDiscountPrice());
         product.setCategory(categoriesRepository.getCategoryById(input.getCategoryId()));
         product.setFactory(factoryRepository.getFactoyById(input.getFactoryId()));
-        if (input.getMainImageInput() != null) {
-            String data = ((String) input.getMainImageInput());
+        if (input.getImageInput() != null) {
+            if (product.getImages() != null && !product.getImages().isEmpty()) {
+                Optional<Image> mainImage = product.getImages()
+                        .stream()
+                        .filter(x -> x.isMainImage() != null)
+                        .filter(Image::isMainImage).findAny();
+                if (mainImage.isPresent()) {
+                    product.getImages().remove(mainImage.get());
+                }
+            }
+            String data = ((String) input.getImageInput());
             Image image = imageRepository.createImageForObject(product, data);
-            product.setMainImage(image);
-        }
-        for (Object o: input.getImageInputs()) {
-            String data = ((String) o);
-            Image image = imageRepository.createImageForObject(product, data);
+            image.setMainImage(true);
             product.getImages().add(image);
         }
-        for (SaleOfferInput soi: input.getSaleOffers()) {
-            createOrUpdateSaleOffer(soi, product);
+
+        if (product.getImages() != null && input.getImagesInput() != null && !input.getImagesInput().isEmpty()) {
+            List<Image> images = product.getImages()
+                    .stream()
+                    .filter(x -> x.isMainImage() != null && x.isMainImage())
+                    .collect(Collectors.toList());
+            product.setImages(images);
         }
+
+        for (Object o: input.getImagesInput()) {
+
+            String data = ((String) o);
+            Image image = imageRepository.createImageForObject(product, data);
+            image.setMainImage(false);
+            product.getImages().add(image);
+        }
+
         entityManager.getTransaction().begin();
         entityManager.persist(product);
         entityManager.getTransaction().commit();
+
+        for (OfferOptionInput optionInput: input.getOptions()) {
+            ProductOptionsRelation relation = new ProductOptionsRelation();
+            relation.setProduct(product);
+            relation.setOption(optionsRepository.getOptionById(optionInput.getId()));
+            relation.setValue(optionsRepository.getOptionValueById(optionInput.getSelectedValue().getId()));
+            entityManager.getTransaction().begin();
+            entityManager.persist(relation);
+            entityManager.getTransaction().commit();
+        }
+
+        for (SaleOfferInput soi: input.getSaleOffers()) {
+            createOrUpdateSaleOffer(soi, product);
+        }
     }
 
     public SaleOffer createOrUpdateSaleOffer(SaleOfferInput input, Product product) throws Exception{
@@ -167,18 +200,20 @@ public class ProductRepository {
         saleOffer.setProduct(product);
         saleOffer.setPrice(input.getPrice());
         saleOffer.setDiscountPrice(input.getDiscountPrice());
-        if (input.getMainImage() != null) {
-            String data = ((String) input.getMainImage());
+        saleOffer.setOfferOption(optionsRepository.createOrUpdateOption(input.getOfferOption()));
+        saleOffer.setOptionValue(optionsRepository.createOrUpdateValue(input.getOptionValue(), saleOffer.getOfferOption()));
+        if (input.getImageInput() != null) {
+            String data = ((String) input.getImageInput());
             Image image = imageRepository.createImageForObject(saleOffer, data);
             saleOffer.setMainImage(image);
         }
-        saleOffer.setOfferOption(optionsRepository.createOrUpdateOption(input.getOfferOption()));
-        saleOffer.setOptionValue(input.getOptionValue());
         //todo create new OptionValue if not exists
         OptionValue newValue = new OptionValue();
         newValue.setOption(saleOffer.getOfferOption());
-        newValue.setAlias(Transliterator.transliteration(input.getOptionValue()));
-        saleOffer.setMainImage(imageRepository.createImageForObject(newValue, String.valueOf(input.getMainImage())));
+        newValue.setAlias(Transliterator.transliteration(input.getOptionValue().getValue()));
+//        if (input.getMainImage() != null) {
+//            saleOffer.setMainImage(imageRepository.createImageForObject(newValue, String.valueOf(input.getMainImage())));
+//        }
         entityManager.getTransaction().begin();
         entityManager.persist(saleOffer);
         entityManager.getTransaction().commit();
@@ -194,9 +229,21 @@ public class ProductRepository {
             criteriaQuery.where(criteriaBuilder.equal(productJoin.get("id"), productId));
             Query query = entityManager.createQuery(criteriaQuery);
             List<SaleOffer> saleOffers = query.getResultList();
+
             saleOffers.forEach(so -> entityManager.remove(so));
+
+            CriteriaQuery<ProductOptionsRelation> relationsCriteriaQuery = criteriaBuilder.createQuery(ProductOptionsRelation.class);
+            Root<ProductOptionsRelation> relationsRoot = relationsCriteriaQuery.from(ProductOptionsRelation.class);
+            Join relatedProductJoin = relationsRoot.join("product");
+            criteriaQuery.where(criteriaBuilder.equal(relatedProductJoin.get("id"), productId));
+            Query relationsQuery = entityManager.createQuery(relationsCriteriaQuery);
+            List<ProductOptionsRelation> optionRelations = relationsQuery.getResultList();
+
+            optionRelations.forEach(r -> entityManager.remove(r));
+
+            entityManager.getTransaction().begin();
             entityManager.remove(product);
-            //todo removing images for saleOffers
+            entityManager.getTransaction().commit();
         }
     }
 
@@ -232,6 +279,33 @@ public class ProductRepository {
                     .map(SaleOfferEntry::fromSaleOffer)
                     .collect(Collectors.toList());
             p.setSaleOffers(so);
+        });
+    }
+
+    private void fillOptions(List<ProductEntry> products) {
+        if (products == null || products.isEmpty()) {
+            return;
+        }
+        List<Long> productIds = products.stream().map(ProductEntry::getId).collect(Collectors.toList());
+        CriteriaQuery<ProductOptionsRelation> criteriaQuery = criteriaBuilder.createQuery(ProductOptionsRelation.class);
+        Root<ProductOptionsRelation> offer = criteriaQuery.from(ProductOptionsRelation.class);
+        Join product = offer.join("product");
+        criteriaQuery.where(product.get("id").in(productIds));
+        Query query = entityManager.createQuery(criteriaQuery);
+        List<ProductOptionsRelation> optionRelations = query.getResultList();
+        products.forEach(p -> {
+            Optional<ProductOptionsRelation> r = optionRelations
+                    .stream()
+                    .filter(x -> x.getProduct().getId().equals(p.getId()))
+                    .findAny();
+            if (r.isPresent()) {
+                OfferOptionEntry option = OfferOptionEntry.fromOfferOption(r.get().getOption());
+                OptionValueEntry value = OptionValueEntry.fromOptionValue(r.get().getValue());
+                if (option != null && value!=  null) {
+                    option.setSelectedValue(value);
+                    p.getOptions().add(option);
+                }
+            }
         });
     }
 }

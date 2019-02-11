@@ -41,7 +41,7 @@ public class OptionsRepository {
         return optionEntries;
     }
 
-    private OfferOption getOptionById(Long id) {
+    public OfferOption getOptionById(Long id) {
         CriteriaQuery<OfferOption> criteriaQuery = criteriaBuilder.createQuery(OfferOption.class);
         Root<OfferOption> root = criteriaQuery.from(OfferOption.class);
         criteriaQuery.where(criteriaBuilder.equal(root.get("id"), id));
@@ -49,7 +49,7 @@ public class OptionsRepository {
         return option.orElse(null);
     }
 
-    private OptionValue getOptionValueById(Long id) {
+    public OptionValue getOptionValueById(Long id) {
         CriteriaQuery<OptionValue> criteriaQuery = criteriaBuilder.createQuery(OptionValue.class);
         Root<OptionValue> root = criteriaQuery.from(OptionValue.class);
         criteriaQuery.where(criteriaBuilder.equal(root.get("id"), id));
@@ -102,7 +102,7 @@ public class OptionsRepository {
         }
     }
 
-    public void createOrUpdateValue(OptionValueInput input, OfferOption option) throws Exception{
+    public OptionValue createOrUpdateValue(OptionValueInput input, OfferOption option) throws Exception{
         OptionValue optionValue = null;
         if (input.getId() != null) {
             optionValue = getOptionValueById(input.getId());
@@ -132,6 +132,7 @@ public class OptionsRepository {
             Image image = imageRepository.createImageForObject(optionValue, data);
             optionValue.setImage(image);
         }
+        return optionValue;
     }
 
     public void removeValue(Long valueId) throws Exception{

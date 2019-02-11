@@ -13,7 +13,7 @@ public class SaleOfferEntry {
     private ImageEntry mainImage;
     private Long productId;
     private OfferOptionEntry offerOption;
-    private String optionValue;
+    private OptionValueEntry optionValue;
     private Float discountPrice;
     private ImageEntry buttonImage;
 
@@ -57,11 +57,11 @@ public class SaleOfferEntry {
         this.offerOption = offerOption;
     }
 
-    public String getOptionValue() {
+    public OptionValueEntry getOptionValue() {
         return optionValue;
     }
 
-    public void setOptionValue(String optionValue) {
+    public void setOptionValue(OptionValueEntry optionValue) {
         this.optionValue = optionValue;
     }
 
@@ -89,7 +89,7 @@ public class SaleOfferEntry {
             entry.setMainImage(ImageEntry.fromImage(offer.getMainImage()));
             entry.setProductId(offer.getProduct().getId());
             entry.setOfferOption(OfferOptionEntry.fromOfferOption(offer.getOfferOption()));
-            entry.setOptionValue(offer.getOptionValue());
+            entry.setOptionValue(OptionValueEntry.fromOptionValue(offer.getOptionValue()));
             entry.setDiscountPrice(offer.getDiscountPrice());
             entry.setButtonImage(ImageEntry.fromImage(offer.getButtonImage()));
             return entry;

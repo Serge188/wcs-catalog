@@ -30,4 +30,6 @@ export class ProductEntry {
   offerCurrentImage?: ImageEntry;
   level?: number;
   expanded?: boolean;
+  imageInput?: any;
+  imagesInput?: any[];
 }

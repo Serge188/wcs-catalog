@@ -6,8 +6,8 @@ import java.util.List;
 public class ProductInput {
     private Long id;
     private String title;
-    private Object mainImageInput;
-    private List<Object> imageInputs = new ArrayList<>();
+    private Object imageInput;
+    private List<Object> imagesInput = new ArrayList<>();
     private String description;
     private Boolean productOfDay;
     private Boolean newProduct;
@@ -18,6 +18,7 @@ public class ProductInput {
     private Boolean popular;
     private Long categoryId;
     private Long factoryId;
+    private List<OfferOptionInput> options = new ArrayList<>();
     private List<SaleOfferInput> saleOffers = new ArrayList<>();
 
     public Long getId() {
@@ -36,20 +37,20 @@ public class ProductInput {
         this.title = title;
     }
 
-    public Object getMainImageInput() {
-        return mainImageInput;
+    public Object getImageInput() {
+        return imageInput;
     }
 
-    public void setMainImageInput(Object mainImageInput) {
-        this.mainImageInput = mainImageInput;
+    public void setImageInput(Object imageInput) {
+        this.imageInput = imageInput;
     }
 
-    public List<Object> getImageInputs() {
-        return imageInputs;
+    public List<Object> getImagesInput() {
+        return imagesInput;
     }
 
-    public void setImageInputs(List<Object> imageInputs) {
-        this.imageInputs = imageInputs;
+    public void setImagesInput(List<Object> imagesInput) {
+        this.imagesInput = imagesInput;
     }
 
     public String getDescription() {
@@ -134,6 +135,14 @@ public class ProductInput {
 
     public List<SaleOfferInput> getSaleOffers() {
         return saleOffers;
+    }
+
+    public List<OfferOptionInput> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<OfferOptionInput> options) {
+        this.options = options;
     }
 
     public void setSaleOffers(List<SaleOfferInput> saleOffers) {
