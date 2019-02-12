@@ -28,6 +28,7 @@ export class ProductPageComponent implements OnInit {
   private loadProduct(): void {
     this.productService.getProductByAlias(this.productAlias).subscribe(result => {
       this.product = result;
+      console.log(this.product);
       this.calculateDiscount();
       if (this.product.discountPrice) {
         this.economy = this.product.price - this.product.discountPrice;
@@ -129,5 +130,12 @@ export class ProductPageComponent implements OnInit {
       return this.product.offerCurrentImage.baseImageLink;
     }
     return this.product.mainImage.baseImageLink;
+  }
+
+  public showAdditionalImages(): boolean {
+    if (this.product.images && this.product.images.length > 0) {
+      return true;
+    }
+    return false;
   }
 }

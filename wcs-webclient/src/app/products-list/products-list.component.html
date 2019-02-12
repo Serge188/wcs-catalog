@@ -3,21 +3,21 @@
     <!--<div class="tab-sorter">-->
       <div class="b-sorter js-sorter clearfix" data-ajaxpagesid="ajaxpages_main">
         <div class="b-sorter__template hidden-print">
-          <a
-            id="list-switcher"
-            class="js-sorter__a"
-            href="#"
-            data-fvalue="table"
-            title="Список"
-            (click)="changeView('LIST', $event)">
-            <svg class="svg-icon icon-table">
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-view-table">
-                <svg viewBox="0 0 14 14" id="svg-4x-view-table" width="100%" height="100%">
-                  <path d="M13,1V3H1V1H13m0,5V8H1V6H13m0,5v2H1V11H13M14,0H0V4H14V0Zm0,5H0V9H14V5Zm0,5H0v4H14V10Z"></path>
-                </svg>
-              </use>
-            </svg>
-            <span>Список</span></a>
+          <!--<a-->
+            <!--id="list-switcher"-->
+            <!--class="js-sorter__a"-->
+            <!--href="#"-->
+            <!--data-fvalue="table"-->
+            <!--title="Список"-->
+            <!--(click)="changeView('LIST', $event)">-->
+            <!--<svg class="svg-icon icon-table">-->
+              <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-view-table">-->
+                <!--<svg viewBox="0 0 14 14" id="svg-4x-view-table" width="100%" height="100%">-->
+                  <!--<path d="M13,1V3H1V1H13m0,5V8H1V6H13m0,5v2H1V11H13M14,0H0V4H14V0Zm0,5H0V9H14V5Zm0,5H0v4H14V10Z"></path>-->
+                <!--</svg>-->
+              <!--</use>-->
+            <!--</svg>-->
+            <!--<span>Список</span></a>-->
           <a
             id="gallery-switcher"
             class="js-sorter__a"
@@ -64,7 +64,7 @@
               <div class="list-showcase__part-main">
                 <div class="list-showcase__mix">
                   <div class="list-showcase__picture">
-                    <a href="{{p.link}}">
+                    <a href="{{getProductUrl(p)}}">
                       <img class="js-list-picture js-lazy lazy-animation"
                            src={{getCardImageLink(p)}}
                            data-src="{{getCardImageLink(p)}}"
@@ -92,8 +92,7 @@
                     </a>
                   </div>
                   <div class="list-showcase__favorite">
-                    <a rel="nofollow" class="c-favorite js-add2favorite"
-                       href="{{p.link}}">
+                    <a rel="nofollow" class="c-favorite js-add2favorite" href="{{getProductUrl(p)}}">
                       <svg class="svg-icon">
                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use>
                       </svg>
@@ -102,7 +101,7 @@
                 </div>
                 <div class="list-showcase__name-rating">
                   <div class="list-showcase__name">
-                    <a href="{{p.link}}">{{p.title}}</a>
+                    <a href="{{getProductUrl(p)}}">{{p.title}}</a>
                   </div>
                   <div class="list-showcase__rating">
                   </div>
@@ -143,7 +142,7 @@
                   <!--/noindex-->
                 </div>
                 <div class="list-showcase__pay-mobile hidden-md hidden-lg">
-                  <a class="btn-primary" href="{{p.link}}">Подробнее</a>
+                  <a class="btn-primary" href="{{getProductUrl(p)}}">Подробнее</a>
                 </div>
               </div>
               <!-- /part main -->
@@ -161,8 +160,8 @@
                                       <span class="c-attributes__current-value__pseudo-option">
                                         <span class="c-attributes__value-pic js-attributes__set-value-pic"
                                               style="background-image:url('/upload/uf/f5d/f5de333248c540c800face7a41d37b19.jpg');"
-                                              title="Коричневый"></span>
-                                        <span class="c-attributes__value js-attributes__set-value-text">{{p.currentOffer.optionValue}}</span>
+                                              title="{{p.currentOffer.optionValue.value}}"></span>
+                                        <span class="c-attributes__value js-attributes__set-value-text">{{p.currentOffer.optionValue.value}}</span>
                                         <svg class="c-attributes__arrow svg-icon">
                                           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use>
                                         </svg>
@@ -176,10 +175,13 @@
                                     <span class="c-attributes__option js-attributes__option"
                                           *ngFor="let offer of p.saleOffers"
                                           (click)="setCurrentOffer(p, offer)" [ngClass]="getOfferClass(p, offer)">
+                                      <!--<span class="c-attributes__value-pic js-attributes__value-pic"-->
+                                            <!--[ngStyle]="getOptionButtonStyle(offer)" *ngIf="p.optionsAreImages"-->
+                                            <!--title="{{offer.optionValue}}"></span>-->
                                       <span class="c-attributes__value-pic js-attributes__value-pic"
-                                            [ngStyle]="getOptionButtonStyle(offer)" *ngIf="p.optionsAreImages"
-                                            title="{{offer.optionValue}}"></span>
-                                      <span class="c-attributes__value c-attributes__option__value js-attributes__value-text">{{offer.optionValue}}</span>
+                                            [ngStyle]="getOptionButtonStyle(offer)" *ngIf="offer.optionValue.image != null"
+                                            title="{{offer.optionValue.value}}"></span>
+                                      <span class="c-attributes__value c-attributes__option__value js-attributes__value-text" *ngIf="offer.optionValue.image == null">{{offer.optionValue.value}}</span>
                                     </span>
                                   </span>
                                 </span>
@@ -228,8 +230,8 @@
             <div class="row no-gutter">
               <div class="list-gallery__left-side col-xs-3 col-sm-2 col-md-2 col-lg-2">
                 <div class="list-gallery__picture">
-                  <a href="{{p.link}}">
-                    <img class="js-list-picture js-lazy" src="{{p.mainImage.galleryImageLink}}" alt="{{p.altTitle}}" style="">
+                  <a href="{{getProductUrl(p)}}">
+                    <img class="js-list-picture js-lazy" src="{{p?.mainImage?.galleryImageLink}}" alt="{{p.altTitle}}" style="">
                   </a>
                 </div>
               </div>
@@ -253,7 +255,7 @@
                       <div class="list-gallery__name-rating-article">
                         <div class="list-gallery__name-rating">
                                       <span class="list-gallery__name">
-                                        <a href="{{p.link}}">{{p.title}}</a>
+                                        <a href="{{getProductUrl(p)}}">{{p.title}}</a>
                                       </span>
                           <span class="list-gallery__rating hidden-xs"></span>
                         </div>
@@ -269,7 +271,11 @@
                                   <svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg><span class="c-compare__title">Сравнить</span><span class="c-compare__title-in">В сравнении</span></a>
                               </span>
                         <span class="list-gallery__favorite">
-			<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_kabineta/kresla_office/kreslo_van_gog/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg><span class="c-favorite__title">В закладки</span><span class="c-favorite__title-in">В закладках</span></a>
+			<a rel="nofollow" class="c-favorite js-add2favorite" href="{{getProductUrl(p)}}">
+        <svg class="svg-icon">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use>
+        </svg><span class="c-favorite__title">В закладки</span>
+        <span class="c-favorite__title-in">В закладках</span></a>
 		</span>
                       </div>
 
@@ -289,7 +295,7 @@
                   </div>
                   <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                     <div class="list-gallery__more hidden-print">
-                      <a class="btn-primary waves-effect" href="{{p.link}}">Подробнее</a>
+                      <a class="btn-primary waves-effect" href="{{getProductUrl(p)}}">Подробнее</a>
                     </div>
                   </div>
                 </div>

@@ -40,17 +40,15 @@ export class CategoryPageComponent implements OnInit {
   }
 
   public loadCategoryProducts(): void {
-    console.log("1");
     this.productService.getCategoryProducts(this.category.id).subscribe(result => {
       this.products = result;
       for (let p of this.products) {
-        p.link = "/catalog/mebel_dlya_kabineta/kresla_office/kreslo_van_gog/";
+        // p.link = "/catalog/mebel_dlya_kabineta/kresla_office/kreslo_van_gog/";
         this.calculateDiscount(p);
         if (p.saleOffers.length > 0) {
           this.setCurrentOffer(p, p.saleOffers[0]);
         }
       }
-      console.log(this.products);
     });
   }
 

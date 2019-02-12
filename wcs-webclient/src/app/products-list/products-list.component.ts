@@ -45,7 +45,7 @@ export class ProductsListComponent implements OnInit {
         listSwitcher.classList.remove("selected");
         break;
       case "LIST":
-        this.view = "CARD";
+        this.view = "LIST";
         cardSwitcher.classList.remove("selected");
         gallerySwitcher.classList.remove("selected");
         listSwitcher.classList.add("selected");
@@ -67,10 +67,13 @@ export class ProductsListComponent implements OnInit {
   }
 
   public getCardImageLink(product: ProductEntry): string {
-    if (product.offerCurrentImage) {
+    if (product.offerCurrentImage && product.offerCurrentImage) {
       return product.offerCurrentImage.cardImageLink;
     }
-    return product.mainImage.cardImageLink;
+    if (product.mainImage) {
+      return product.mainImage.cardImageLink;
+    }
+    return null;
   }
 
   public setCurrentOffer(p: ProductEntry, currentOffer: SaleOfferEntry) {
@@ -112,11 +115,19 @@ export class ProductsListComponent implements OnInit {
   }
 
   public getOptionButtonStyle(offer: SaleOfferEntry):any {
-    if (offer.buttonImage && offer.buttonImage.optionImageLink) {
-      let style = {'background-image': 'url(\'' + offer.buttonImage.optionImageLink + '\')'};
+    // if (offer.buttonImage && offer.buttonImage.optionImageLink) {
+    //   let style = {'background-image': 'url(\'' + offer.buttonImage.optionImageLink + '\')'};
+    //   return style;
+    // }
+    if (offer.optionValue.image && offer.optionValue.image.optionImageLink) {
+      let style = {'background-image': 'url(\'' + offer.optionValue.image.optionImageLink + '\')'};
       return style;
     }
     return null;
+  }
+
+  public getProductUrl(product: ProductEntry): string {
+    return "/product/" + product.alias;
   }
 
 }

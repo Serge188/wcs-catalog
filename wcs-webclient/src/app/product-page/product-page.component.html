@@ -62,7 +62,7 @@
                   <svg class="svg-icon">
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-search"></use>
                   </svg>Для увеличения картинки нажмите на изображение</div>
-                <div class="scroll-wrapper detail__pic__preview js-scroll scrollbar-inner" style="position: relative;" *ngIf="product.images.length > 0">
+                <div class="scroll-wrapper detail__pic__preview js-scroll scrollbar-inner" style="position: relative;" *ngIf="showAdditionalImages()">
                   <div class="detail__pic__preview js-scroll scrollbar-inner scroll-content" style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 80px;">
                     <div class="detail__pic__dots js-detail-dots owl-carousel">
                       <div class="owl-dot active" *ngFor="let img of product.images">
@@ -150,8 +150,8 @@
                           <span class="c-attributes__name">{{product.currentOffer.offerOption.title}}: </span>
                           <span class="c-attributes__current-value js-attributes__curent-value" (click)="switchOptionsWindow()">
                             <span class="c-attributes__current-value__pseudo-option">
-                              <span class="c-attributes__value-pic js-attributes__set-value-pic" [ngStyle]="getOptionButtonStyle(product.currentOffer)" title="{{product.currentOffer.optionValue}}"></span>
-                              <span class="c-attributes__value js-attributes__set-value-text">{{product.currentOffer.optionValue}}</span>
+                              <span class="c-attributes__value-pic js-attributes__set-value-pic" [ngStyle]="getOptionButtonStyle(product.currentOffer)" title="{{product.currentOffer.optionValue.value}}"></span>
+                              <span class="c-attributes__value js-attributes__set-value-text">{{product.currentOffer.optionValue.value}}</span>
                               <svg class="c-attributes__arrow svg-icon">
                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down">
                                   <svg viewBox="0 0 129 129" id="svg-arrow-linear-down" width="100%" height="100%">
@@ -168,8 +168,8 @@
                           <span class="c-attributes__option js-attributes__option" *ngFor="let offer of product.saleOffers" (click)="selectOption(offer)" data-value="Белый" data-value-pic="/upload/uf/2e3/2e3fb12bf845f48d1dcd81c6c74e9f6e.jpg">
                             <!--<span class="c-attributes__value-pic js-attributes__value-pic" style="background-image:url('/upload/uf/2e3/2e3fb12bf845f48d1dcd81c6c74e9f6e.jpg');" title="Белый"></span>-->
                             <span class="js-attributes__value-pic" [ngClass]="getOptionButtonClass(offer)"
-                                  [ngStyle]="getOptionButtonStyle(offer)" title="{{offer.optionValue}}"></span>
-                            <span class="c-attributes__value c-attributes__option__value js-attributes__value-text">{{offer.optionValue}}</span>
+                                  [ngStyle]="getOptionButtonStyle(offer)" title="{{offer.optionValue.value}}"></span>
+                            <span class="c-attributes__value c-attributes__option__value js-attributes__value-text">{{offer.optionValue.value}}</span>
                           </span>
                           <!--<span class="c-attributes__option js-attributes__option " data-value="Коричневый" data-value-pic="/upload/uf/f5d/f5de333248c540c800face7a41d37b19.jpg">-->
                             <!--<span class="c-attributes__value-pic js-attributes__value-pic" style="background-image:url('/upload/uf/f5d/f5de333248c540c800face7a41d37b19.jpg');" title="Коричневый"></span>-->
@@ -395,14 +395,13 @@
               </div>
             </div>
             <div class="tab-pane-in2">
-              Здесь будут характеристики
         <!-- grupped properties -->
-        <!--<div class="c-gruppedprops">-->
-          <!--<div class="row">-->
+        <div class="c-gruppedprops">
+          <div class="row">
 
-            <!--<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">-->
-              <!--<div class="c-gruppedprops__group">-->
-                <!--<div class="c-gruppedprops__group-props">-->
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+              <div class="c-gruppedprops__group">
+                <div class="c-gruppedprops__group-props">
                   <!--<span class="c-gruppedprops__prop">-->
                     <!--<span class="c-gruppedprops__prop-name">-->
                       <!--Артикул:-->
@@ -415,10 +414,11 @@
                     <!--<span class="c-gruppedprops__prop-name">Производитель:</span>-->
                     <!--<span class="c-gruppedprops__prop-value">Altrenotti</span>-->
                   <!--</span>-->
+                  <span class="c-gruppedprops__prop" *ngFor="let o of product.options">
+                    <span class="c-gruppedprops__prop-name">{{o.title}}:</span>
+                    <span class="c-gruppedprops__prop-value">{{o.selectedValue.value}}</span>
+                  </span>
                   <!--<span class="c-gruppedprops__prop">-->
-                    <!--<span class="c-gruppedprops__prop-name">Цвет:</span>-->
-                    <!--<span class="c-gruppedprops__prop-value">Красный</span>-->
-                  <!--</span><span class="c-gruppedprops__prop">-->
                   <!--<span class="c-gruppedprops__prop-name">Тема форума для комментариев:</span>-->
                   <!--<span class="c-gruppedprops__prop-value">9</span></span><span class="c-gruppedprops__prop">-->
                   <!--<span class="c-gruppedprops__prop-name">Количество комментариев к элементу:</span>-->
@@ -428,11 +428,11 @@
                     <!--<span class="c-gruppedprops__prop-name">Материал:</span>-->
                     <!--<span class="c-gruppedprops__prop-value">Пластик</span>-->
                   <!--</span>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <!-- /grupped properties -->
       </div>
     </div>

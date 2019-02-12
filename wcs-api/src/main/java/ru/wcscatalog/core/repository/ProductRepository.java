@@ -74,6 +74,7 @@ public class ProductRepository {
         Product product = (Product) query.getSingleResult();
         ProductEntry entry = ProductEntry.fromProduct(product);
         fillSaleOffers(Collections.singletonList(entry));
+        fillOptions(Collections.singletonList(entry));
         return entry;
     }
 
@@ -98,6 +99,7 @@ public class ProductRepository {
         List<Product> products = query.getResultList();
         List<ProductEntry> entries = products.stream().map(ProductEntry::fromProduct).collect(Collectors.toList());
         fillSaleOffers(entries);
+        fillOptions(entries);
         return entries;
     }
 

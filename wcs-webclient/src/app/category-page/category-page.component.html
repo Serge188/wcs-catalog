@@ -22,7 +22,7 @@
         <div class="sidebar">
 
 
-          <ul class="menu-sidebar clearfix" *ngIf="category?.childCategories.length > 0">
+          <ul class="menu-sidebar clearfix" *ngIf="category?.childCategories?.length > 0">
             <li class="first" *ngFor="let subCat of category.childCategories">
               <a class="clearfix waves-effect" href="{{getSubCategoryLink(subCat)}}">
                 <span class="imya">{{subCat.title}}</span>
