@@ -20,7 +20,8 @@ export class AuthenticationService {
   }
 
   login(usernameOrEmail: string, password: string) {
-    return this.http.post<any>(`http://localhost:8080/api/auth/signin`, { usernameOrEmail, password })
+    console.log(usernameOrEmail);
+    return this.http.post<any>(`http://localhost:8080/api/auth/signin`, { username: usernameOrEmail, password: password })
       .pipe(map(user => {
         if (user && user.accessToken) {
           localStorage.setItem('currentUser', JSON.stringify(user));

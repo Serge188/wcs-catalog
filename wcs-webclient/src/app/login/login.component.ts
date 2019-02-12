@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     this.loading = true;
+    console.log(this.user);
     this.authenticationService.login(this.user.username, this.user.password)
       .toPromise()
       .then(result => {

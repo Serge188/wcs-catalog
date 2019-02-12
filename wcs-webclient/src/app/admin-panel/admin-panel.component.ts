@@ -9,6 +9,7 @@ import {OfferOptionEntry} from "../_models/offer-option-entry";
 import {OptionsService} from "../options.service";
 import {OptionValueEntry} from "../_models/option-value-entry";
 import {SaleOfferEntry} from "../_models/sale-offer-entry";
+import {AuthenticationService} from "../authentication.service";
 
 @Component({
   selector: 'app-admin-panel',
@@ -34,7 +35,9 @@ export class AdminPanelComponent implements OnInit {
   public newProductSaleOfferOption: OfferOptionEntry;
 
   constructor(private categoriesService: CategoriesService,
-              private productsService: ProductsService, private optionsService: OptionsService) { }
+              private productsService: ProductsService,
+              private optionsService: OptionsService,
+              private authenticationService: AuthenticationService,) { }
 
   ngOnInit() {
     this.view = "categories";
@@ -499,6 +502,11 @@ export class AdminPanelComponent implements OnInit {
     if (optionValue) {
       offer.optionValue = optionValue;
     }
+  }
+
+  public logout(event: any): void {
+    event.preventDefault();
+    this.authenticationService.logout();
   }
 
 }
