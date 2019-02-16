@@ -10,7 +10,7 @@ import {CategoriesService} from "../categories.service";
 export class SideMenuComponent implements OnInit {
 
   @Input() hideMenu: boolean;
-  private categories: CategoryEntry[] = [];
+  public categories: CategoryEntry[] = [];
 
   constructor(private categoriesService: CategoriesService) { }
 
