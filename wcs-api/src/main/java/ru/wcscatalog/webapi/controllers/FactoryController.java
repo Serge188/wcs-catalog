@@ -11,7 +11,7 @@ import ru.wcscatalog.core.repository.FactoryRepository;
 import java.util.List;
 
 @Controller
-@RequestMapping("/api/brands")
+@RequestMapping("/brands")
 public class FactoryController {
     private final FactoryRepository factoryRepository;
 

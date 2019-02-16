@@ -26,7 +26,7 @@ import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthController {
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;

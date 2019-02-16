@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/api/options")
+@RequestMapping("/options")
 public class OptionsController {
 
     private final OptionsRepository optionsRepository;
