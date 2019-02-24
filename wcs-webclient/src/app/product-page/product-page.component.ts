@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductsService} from "../products.service";
 import {ActivatedRoute} from "@angular/router";
-import {ProductEntry} from "../_models/product-entry";
+import {PriceType, ProductEntry} from "../_models/product-entry";
 import {SaleOfferEntry} from "../_models/sale-offer-entry";
 
 @Component({
@@ -137,5 +137,28 @@ export class ProductPageComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  public getPriceName(product: ProductEntry, price: number): string {
+    console.log(product.priceType);
+    switch (PriceType[product.priceType]) {
+      case "NORMAL":
+        return price + " руб.";
+        break;
+      case "PRICE_FROM":
+        return "от " + price + " руб.";
+        break;
+      case "UNIT_PRICE_FROM":
+        return "от " + price + " руб. за пог. м.";
+        break;
+      case "FROM_TO":
+        return price + " руб.";
+        break;
+      case "PRICE_FOR_SET":
+        return price + " руб. за комплект";
+        break;
+      default:
+        return price + " руб.";
+    }
   }
 }

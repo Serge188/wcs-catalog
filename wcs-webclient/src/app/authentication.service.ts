@@ -3,10 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import {BehaviorSubject, config, Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 import {User} from "./_models/User";
+import { environment } from '../environments/environment';
 
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
+
+  // private apiUrl: string = `http://178.62.212.25:8080/`;
+  private apiUrl: string = environment.apiUrl;
+
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
@@ -21,7 +26,7 @@ export class AuthenticationService {
 
   login(usernameOrEmail: string, password: string) {
     console.log(usernameOrEmail);
-    return this.http.post<any>(`http://localhost:8080/api/auth/signin`, { username: usernameOrEmail, password: password })
+    return this.http.post<any>(this.apiUrl + `auth/signin`, { username: usernameOrEmail, password: password })
       .pipe(map(user => {
         if (user && user.accessToken) {
           localStorage.setItem('currentUser', JSON.stringify(user));

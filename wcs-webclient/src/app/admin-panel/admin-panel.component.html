@@ -79,18 +79,22 @@
       <textarea class="form-control" id="productDescriptionArea" rows="7" [(ngModel)]="newProduct.description" name="description"></textarea>
     </div>
   <div class="row">
-    <div class="form-group col-sm-5" style="text-align: left">
+    <div class="form-group col-sm-4" style="text-align: left">
       <label for="productPriceInput">Цена</label>
       <input type="number" class="form-control" id="productPriceInput" [(ngModel)]="newProduct.price" name="price">
     </div>
-    <div class="form-group col-sm-5" style="text-align: left">
+    <div class="form-group col-sm-4" style="text-align: left">
       <label for="productDiscountPriceInput" >Цена со скидкой</label>
       <input type="number" class="form-control" id="productDiscountPriceInput" [(ngModel)]="newProduct.discountPrice" name="discountPrice">
     </div>
-    <div class="form-group col-sm-2" style="text-align: left">
+    <div class="form-group col-sm-4" style="text-align: left">
       <label for="priceType">Тип цены</label>
-      <select class="form-control" id="priceType">
-        <option>руб.</option>
+      <select class="form-control" id="priceType" [(ngModel)]="newProduct.priceType">
+        <option [value]="'NORMAL'">руб.</option>
+        <option [value]="'UNIT_PRICE_FROM'">от ... руб. за пог. м.</option>
+        <option [value]="'PRICE_FROM'">от ... руб.</option>
+        <option [value]="'FROM_TO'">от ... до ... руб.</option>
+        <option [value]="'PRICE_FOR_SET'">руб. за комплект</option>
       </select>
     </div>
   </div>

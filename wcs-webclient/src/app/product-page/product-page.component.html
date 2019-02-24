@@ -118,10 +118,10 @@
                     <div class="c-prices js-prices view-list page-detail product-alone multyprice-no">
                       <span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE">
                         <span class="c-prices__name">Розничная цена:</span>
-                        <span class="c-prices__value js-prices_pdv_BASE" *ngIf="product.discountPrice == null">{{product.price}} руб.</span>
-                        <span class="c-prices__value js-prices_pdv_BASE" *ngIf="product.discountPrice != null">{{product.discountPrice}} руб.</span>
+                        <span class="c-prices__value js-prices_pdv_BASE" *ngIf="product.discountPrice == null">{{getPriceName(product, product.price)}}</span>
+                        <span class="c-prices__value js-prices_pdv_BASE" *ngIf="product.discountPrice != null">{{getPriceName(product, product.discountPrice)}}</span>
                         <span class="c-prices__value-old-before">
-                          <span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE">{{product.price}} руб.</span>
+                          <span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE">{{getPriceName(product, product.price)}}</span>
                         </span>
                         <span class="c-prices__discount js-prices-discount js-prices_pd_BASE_hide" *ngIf="economy != null">
                           <span class="c-prices__value-discount-name">экономия</span>

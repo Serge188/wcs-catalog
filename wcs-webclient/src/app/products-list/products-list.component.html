@@ -110,11 +110,13 @@
                   <div class="c-prices js-prices view-list page-list product-alone multyprice-no">
                               <span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE">
                                 <span class="c-prices__name">Розничная цена:</span>
-                                <span class="c-prices__value js-prices_pdv_BASE" *ngIf="hasDiscount(p)">{{p.discountPrice}} руб.</span>
-                                <span class="c-prices__value js-prices_pdv_BASE" *ngIf="!hasDiscount(p)">{{p.price}} руб.</span>
+                                <!--<span class="c-prices__value js-prices_pdv_BASE" *ngIf="hasDiscount(p)">{{p.discountPrice}} руб.</span>-->
+                                <span class="c-prices__value js-prices_pdv_BASE" *ngIf="hasDiscount(p)">{{getPriceName(p, p.discountPrice)}}</span>
+                                <!--<span class="c-prices__value js-prices_pdv_BASE" *ngIf="!hasDiscount(p)">{{p.price}} руб.</span>-->
+                                <span class="c-prices__value js-prices_pdv_BASE" *ngIf="!hasDiscount(p)">{{getPriceName(p, p.price)}}</span>
                                 <span class="c-prices__value-old-before" *ngIf="hasDiscount(p)">
                                   <span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE">
-                                    {{p.price}} руб.
+                                    {{getPriceName(p, p.price)}}
                                   </span>
                                 </span>
                               </span>
@@ -287,8 +289,8 @@
                       <div class="c-prices js-prices view-list page-list product-multiple multyprice-no">
                                     <span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE">
                                       <span class="c-prices__name">Розничная цена:</span>
-                                      <span class="c-prices__value js-prices_pdv_BASE" *ngIf="!hasDiscount(p)">{{p.price}} руб.</span>
-                                      <span class="c-prices__value js-prices_pdv_BASE" *ngIf="hasDiscount(p)">{{p.discountPrice}} руб.</span>
+                                      <span class="c-prices__value js-prices_pdv_BASE" *ngIf="!hasDiscount(p)">{{getPriceName(p, p.price)}}</span>
+                                      <span class="c-prices__value js-prices_pdv_BASE" *ngIf="hasDiscount(p)">{{getPriceName(p, p.discountPrice)}}</span>
                                     </span>
                       </div>
                     </div>

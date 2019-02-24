@@ -53,6 +53,10 @@ public class Product {
     @JoinColumn(name="factory_id")
     private Factory factory;
 
+    @Column(name="price_type")
+    @Enumerated(EnumType.STRING)
+    private PriceType priceType;
+
     public Long getId() {
         return id;
     }
@@ -163,5 +167,13 @@ public class Product {
 
     public void setFactory(Factory factory) {
         this.factory = factory;
+    }
+
+    public PriceType getPriceType() {
+        return priceType;
+    }
+
+    public void setPriceType(PriceType priceType) {
+        this.priceType = priceType;
     }
 }

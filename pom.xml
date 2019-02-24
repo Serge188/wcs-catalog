@@ -41,7 +41,7 @@
     </dependencies>
 
     <build>
-        <finalName>api-test</finalName>
+        <finalName>api</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

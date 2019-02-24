@@ -137,6 +137,7 @@ public class ProductRepository {
         product.setDiscountPrice(input.getDiscountPrice());
         product.setCategory(categoriesRepository.getCategoryById(input.getCategoryId()));
         product.setFactory(factoryRepository.getFactoyById(input.getFactoryId()));
+        product.setPriceType(input.getPriceType());
         if (input.getImageInput() != null) {
             if (product.getImages() != null && !product.getImages().isEmpty()) {
                 Optional<Image> mainImage = product.getImages()

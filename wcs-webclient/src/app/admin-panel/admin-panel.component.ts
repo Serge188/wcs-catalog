@@ -65,6 +65,7 @@ export class AdminPanelComponent implements OnInit {
   public loadProductsForActiveCategory(): void {
       this.productsService.getOneLevelCategoryProducts(this.activeCategory.id).subscribe(result => {
         this.activeCategory.products = result;
+        console.log(this.activeCategory.products);
         // let index = this.itemsInList.indexOf(cat, 0);
         // if (index != -1) {
         //   for (let p of cat.products) {
@@ -196,6 +197,7 @@ export class AdminPanelComponent implements OnInit {
       this.newProduct.images = product.images;
       this.newProduct.saleOffers = product.saleOffers;
       this.newProduct.options = product.options;
+      this.newProduct.priceType = product.priceType;
 
       if (product.saleOffers && product.saleOffers.length > 0) {
         this.newProductSaleOffersOptionId = product.saleOffers[0].offerOption.id;
@@ -311,6 +313,7 @@ export class AdminPanelComponent implements OnInit {
 
   public createOrUpdateProduct(): void {
     let result: Observable<any>;
+    console.log(this.newProduct);
     if (this.newProduct.id) {
       result = this.productsService.updateProduct(this.newProduct);
     } else {

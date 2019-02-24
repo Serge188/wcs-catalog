@@ -3,6 +3,8 @@ import {ImageEntry} from "./image-entry";
 import {CategoryEntry} from "./category-entry";
 import {OfferOptionEntry} from "./offer-option-entry";
 
+export enum PriceType {NORMAL = "NORMAL", PRICE_FROM = "PRICE_FROM", UNIT_PRICE_FROM = "UNIT_PRICE_FROM", FROM_TO = "FROM_TO", PRICE_FOR_SET = "PRICE_FOR_SET"}
+
 export class ProductEntry {
   id?: number;
   categoryId?: number;
@@ -32,4 +34,5 @@ export class ProductEntry {
   expanded?: boolean;
   imageInput?: any;
   imagesInput?: any[];
+  priceType?: PriceType;
 }

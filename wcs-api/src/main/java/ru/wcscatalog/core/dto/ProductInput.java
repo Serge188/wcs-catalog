@@ -1,5 +1,7 @@
 package ru.wcscatalog.core.dto;
 
+import ru.wcscatalog.core.model.PriceType;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,7 @@ public class ProductInput {
     private Long factoryId;
     private List<OfferOptionInput> options = new ArrayList<>();
     private List<SaleOfferInput> saleOffers = new ArrayList<>();
+    private PriceType priceType;
 
     public Long getId() {
         return id;
@@ -147,5 +150,13 @@ public class ProductInput {
 
     public void setSaleOffers(List<SaleOfferInput> saleOffers) {
         this.saleOffers = saleOffers;
+    }
+
+    public PriceType getPriceType() {
+        return priceType;
+    }
+
+    public void setPriceType(PriceType priceType) {
+        this.priceType = priceType;
     }
 }

@@ -81,9 +81,9 @@ public class OptionsRepository {
         List<OptionValue> oldValues = getValuesForOptions(Collections.singletonList(option.getId()));
         for (OptionValue v: oldValues) {
             Optional<OptionValueInput> correspondingNewValue = input.getValues().stream().filter(x -> x.getId().equals(v.getId())).findFirst();
-            if (!correspondingNewValue.isPresent()) {
-                removeValue(v.getId());
-            }
+//            if (!correspondingNewValue.isPresent()) {
+//                removeValue(v.getId());
+//            }
         }
         for (OptionValueInput v: input.getValues()) {
             createOrUpdateValue(v, option);
