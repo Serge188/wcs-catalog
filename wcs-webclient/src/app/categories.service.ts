@@ -15,7 +15,6 @@ export class CategoriesService {
   constructor(private http: HttpClient) {}
 
   public getCategories(): Observable<any> {
-    // return this.http.get(`http://localhost:8080/api/categories/sideMenuCategories`).pipe();
     return this.http.get(this.apiUrl + `categories/sideMenuCategories`).pipe();
   }
 

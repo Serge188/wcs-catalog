@@ -10,6 +10,8 @@ import {OptionsService} from "../options.service";
 import {OptionValueEntry} from "../_models/option-value-entry";
 import {SaleOfferEntry} from "../_models/sale-offer-entry";
 import {AuthenticationService} from "../authentication.service";
+import {FactoriesService} from "../factories.service";
+import {FactoryEntry} from "../_models/factory-entry";
 
 @Component({
   selector: 'app-admin-panel',
@@ -34,15 +36,20 @@ export class AdminPanelComponent implements OnInit {
   public newProductSaleOffersOptionId: number;
   public newProductSaleOfferOption: OfferOptionEntry;
 
+  public factories: FactoryEntry[] = [];
+  public newFactory: FactoryEntry = {};
+
   constructor(private categoriesService: CategoriesService,
               private productsService: ProductsService,
               private optionsService: OptionsService,
-              private authenticationService: AuthenticationService,) { }
+              private authenticationService: AuthenticationService,
+              private factoriesService: FactoriesService) { }
 
   ngOnInit() {
     this.view = "categories";
     this.loadCategories();
     this.loadProductOptions();
+    this.loadFactories();
   }
 
   public loadCategories(): void {
@@ -162,12 +169,6 @@ export class AdminPanelComponent implements OnInit {
 
   public openModalCategory(event: any, item: any, createChild: boolean): void {
     event.preventDefault();
-    // let mask: HTMLElement = document.getElementById("cover-mask");
-    // let form: HTMLElement = document.getElementById("modal-category");
-    // mask.classList.add("modal-visible");
-    // mask.classList.remove("modal-hidden");
-    // form.classList.add("modal-visible");
-    // form.classList.remove("modal-hidden");
     this.openModal("modal-category");
     if (item) {
       if (createChild) {
@@ -198,6 +199,7 @@ export class AdminPanelComponent implements OnInit {
       this.newProduct.saleOffers = product.saleOffers;
       this.newProduct.options = product.options;
       this.newProduct.priceType = product.priceType;
+      this.newProduct.factoryId = product.factoryId;
 
       if (product.saleOffers && product.saleOffers.length > 0) {
         this.newProductSaleOffersOptionId = product.saleOffers[0].offerOption.id;
@@ -224,6 +226,7 @@ export class AdminPanelComponent implements OnInit {
     let elements: HTMLElement[] = [];
     elements.push(document.getElementById("modal-category"));
     elements.push(document.getElementById("modal-product"));
+    elements.push(document.getElementById("modal-factory"));
     elements.push(document.getElementById("cover-mask"));
 
     for (let el of elements) {
@@ -507,9 +510,66 @@ export class AdminPanelComponent implements OnInit {
     }
   }
 
+  public loadFactories(): void {
+    this.factoriesService.getFactories().subscribe(result => {
+      this.factories = result;
+    })
+  }
+
+  public createOrUpdateFactory(): void {
+    if (this.newFactory.id) {
+      this.factoriesService.updateFactory(this.newFactory).subscribe(
+        () => {},
+        () => {},
+        () => {
+          this.loadFactories();
+          this.closeModal();
+          this.newFactory = {};
+        });
+    } else {
+      this.factoriesService.createFactory(this.newFactory).subscribe(
+        () => {}, () => {}, () => {
+          this.loadFactories();
+          this.closeModal();
+          this.newFactory = {};
+        });
+    }
+  }
+
+  public removeFactory(factory: FactoryEntry): void {
+    if (factory.id) {
+      this.factoriesService.removeFactory(factory.id).subscribe(
+        () => {},
+        () => {},
+        () => {
+          this.newFactory = {};
+          this.loadFactories();
+          this.closeModal();
+        });
+    }
+  }
+
   public logout(event: any): void {
     event.preventDefault();
     this.authenticationService.logout();
   }
+
+  public openModalFactory(event: any, factory: FactoryEntry): void {
+    event.preventDefault();
+    if (factory) {
+      this.newFactory.id = factory.id;
+      this.newFactory.title = factory.title;
+      this.newFactory.description = factory.description;
+      this.newFactory.popular = factory.popular;
+    }
+    this.openModal("modal-factory");
+  }
+
+  // public changeFactoryForProduct(): void {
+  //   let factory = this.factories.find(x => x.id == this.newProductCategoryId);
+  //   if (factory) {
+  //     this.newProduct.factory = factory;
+  //   }
+  // }
 
 }

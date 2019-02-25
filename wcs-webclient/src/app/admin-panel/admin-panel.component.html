@@ -53,6 +53,12 @@
       </select>
     </div>
     <div class="form-group" style="text-align: left">
+      <label for="parentCategoryForProductSelect">Производитель</label>
+      <select class="form-control" id="factorySelect" [(ngModel)]="newProduct.factoryId" name="categoryId">
+        <option *ngFor="let factory of factories" [value]="factory.id">{{factory.title}}</option>
+      </select>
+    </div>
+    <div class="form-group" style="text-align: left">
       <label for="categoryTitleInput">Название</label>
       <input type="text" style="width:50%" class="form-control" id="productTitleInput" [(ngModel)]="newProduct.title" name="title">
     </div>
@@ -226,6 +232,41 @@
 
   <!--</form>-->
 </div>
+
+
+<div id="modal-factory" class="modal-window modal-hidden">
+  <!--<form>-->
+  <h3>Редактирование фабрики</h3>
+  <div class="form-group" style="text-align: left">
+    <label for="categoryTitleInput">Название</label>
+    <input type="text" style="width:50%" class="form-control" id="factoryTitleInput" [(ngModel)]="newFactory.title" name="title">
+  </div>
+  <!--<div class="form-group" style="text-align: left">-->
+    <!--<label for="productMainImageUploader">Изображение</label>-->
+    <!--<input type="file" accept="image/*" class="form-control-file" id="factoryImageUploader" name="fileInput" (change)="addProductMainImage()">-->
+  <!--</div>-->
+  <div class="form-group">
+    <img src="{{newFactory?.image?.originalImageLink}}"/>
+  </div>
+  <div class="form-group" style="text-align: left">
+    <label for="categoryDescriptionArea">Описание</label>
+    <textarea class="form-control" id="factoryDescriptionArea" rows="7" [(ngModel)]="newFactory.description" name="description"></textarea>
+  </div>
+  <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="btn btn-primary" (click)="createOrUpdateFactory()">Сохранить</button>
+    </div>
+    <div class="btn-group mr-2" role="group" aria-label="Second group">
+      <button type="button" class="btn btn-danger" (click)="removeFactory(newFactory)">Удалить</button>
+    </div>
+    <div class="btn-group" role="group" aria-label="Third group">
+      <button type="button" class="btn btn-secondary" (click)="closeModal()">Отмена</button>
+    </div>
+  </div>
+  <!--</form>-->
+</div>
+
+
 <div id="cover-mask" class="modal-hidden" (click)="closeModal()"></div>
 <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">КУХНИ-40</a>
@@ -253,6 +294,11 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link active" href="" (click)="changeView('factories', $event)">
+              Фабрики
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link active" href="" (click)="changeView('users', $event)">
               Пользователи
             </a>
@@ -266,8 +312,8 @@
         <h1 class="h2" *ngIf="view == 'categories'">Категории</h1>
         <h1 class="h2" *ngIf="view == 'options'">Характеристики товаров</h1>
         <h1 class="h2" *ngIf="view == 'users'">Пользователи</h1>
+        <h1 class="h2" *ngIf="view == 'factories'">Фабрики</h1>
       </div>
-
 
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3" *ngIf="view == 'categories'">
         <div class="col-lg-6">
@@ -421,135 +467,27 @@
           </div>
         </div>
       </div>
-
-      <!--<h2>Section title</h2>-->
-      <!--<div class="table-responsive">-->
-        <!--<table class="table table-striped table-sm">-->
-          <!--<thead>-->
-          <!--<tr>-->
-            <!--<th>#</th>-->
-            <!--<th>Header</th>-->
-            <!--<th>Header</th>-->
-            <!--<th>Header</th>-->
-            <!--<th>Header</th>-->
-          <!--</tr>-->
-          <!--</thead>-->
-          <!--<tbody>-->
-          <!--<tr>-->
-            <!--<td>1,001</td>-->
-            <!--<td>Lorem</td>-->
-            <!--<td>ipsum</td>-->
-            <!--<td>dolor</td>-->
-            <!--<td>sit</td>-->
-          <!--</tr>-->
-          <!--<tr>-->
-            <!--<td>1,002</td>-->
-            <!--<td>amet</td>-->
-            <!--<td>consectetur</td>-->
-            <!--<td>adipiscing</td>-->
-            <!--<td>elit</td>-->
-          <!--</tr>-->
-          <!--<tr>-->
-            <!--<td>1,003</td>-->
-            <!--<td>Integer</td>-->
-            <!--<td>nec</td>-->
-            <!--<td>odio</td>-->
-            <!--<td>Praesent</td>-->
-          <!--</tr>-->
-          <!--<tr>-->
-            <!--<td>1,003</td>-->
-            <!--<td>libero</td>-->
-            <!--<td>Sed</td>-->
-            <!--<td>cursus</td>-->
-            <!--<td>ante</td>-->
-          <!--</tr>-->
-          <!--<tr>-->
-            <!--<td>1,004</td>-->
-            <!--<td>dapibus</td>-->
-            <!--<td>diam</td>-->
-            <!--<td>Sed</td>-->
-            <!--<td>nisi</td>-->
-          <!--</tr>-->
-          <!--<tr>-->
-            <!--<td>1,005</td>-->
-            <!--<td>Nulla</td>-->
-            <!--<td>quis</td>-->
-            <!--<td>sem</td>-->
-            <!--<td>at</td>-->
-          <!--</tr>-->
-          <!--<tr>-->
-            <!--<td>1,006</td>-->
-            <!--<td>nibh</td>-->
-            <!--<td>elementum</td>-->
-            <!--<td>imperdiet</td>-->
-            <!--<td>Duis</td>-->
-          <!--</tr>-->
-          <!--<tr>-->
-            <!--<td>1,007</td>-->
-            <!--<td>sagittis</td>-->
-            <!--<td>ipsum</td>-->
-            <!--<td>Praesent</td>-->
-            <!--<td>mauris</td>-->
-          <!--</tr>-->
-          <!--<tr>-->
-            <!--<td>1,008</td>-->
-            <!--<td>Fusce</td>-->
-            <!--<td>nec</td>-->
-            <!--<td>tellus</td>-->
-            <!--<td>sed</td>-->
-          <!--</tr>-->
-          <!--<tr>-->
-            <!--<td>1,009</td>-->
-            <!--<td>augue</td>-->
-            <!--<td>semper</td>-->
-            <!--<td>porta</td>-->
-            <!--<td>Mauris</td>-->
-          <!--</tr>-->
-          <!--<tr>-->
-            <!--<td>1,010</td>-->
-            <!--<td>massa</td>-->
-            <!--<td>Vestibulum</td>-->
-            <!--<td>lacinia</td>-->
-            <!--<td>arcu</td>-->
-          <!--</tr>-->
-          <!--<tr>-->
-            <!--<td>1,011</td>-->
-            <!--<td>eget</td>-->
-            <!--<td>nulla</td>-->
-            <!--<td>Class</td>-->
-            <!--<td>aptent</td>-->
-          <!--</tr>-->
-          <!--<tr>-->
-            <!--<td>1,012</td>-->
-            <!--<td>taciti</td>-->
-            <!--<td>sociosqu</td>-->
-            <!--<td>ad</td>-->
-            <!--<td>litora</td>-->
-          <!--</tr>-->
-          <!--<tr>-->
-            <!--<td>1,013</td>-->
-            <!--<td>torquent</td>-->
-            <!--<td>per</td>-->
-            <!--<td>conubia</td>-->
-            <!--<td>nostra</td>-->
-          <!--</tr>-->
-          <!--<tr>-->
-            <!--<td>1,014</td>-->
-            <!--<td>per</td>-->
-            <!--<td>inceptos</td>-->
-            <!--<td>himenaeos</td>-->
-            <!--<td>Curabitur</td>-->
-          <!--</tr>-->
-          <!--<tr>-->
-            <!--<td>1,015</td>-->
-            <!--<td>sodales</td>-->
-            <!--<td>ligula</td>-->
-            <!--<td>in</td>-->
-            <!--<td>libero</td>-->
-          <!--</tr>-->
-          <!--</tbody>-->
-        <!--</table>-->
-      <!--</div>-->
+      <div *ngIf="view == 'factories'">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+              <button type="button" class="btn btn-sm btn-outline-primary" (click)="openModalFactory($event, null)">Добавить фабрику</button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12" *ngFor="let factory of factories">
+            <div class="card mb-3">
+              <img class="card-img-left" src="{{factory?.image?.originalImageLink}}" alt="{{factory.title}}">
+              <div class="card-body text-left">
+                <h5 class="card-title">{{factory.title}}</h5>
+                <p class="card-text">{{factory.description}}</p>
+                <button class="btn btn-primary" (click)="openModalFactory($event, factory)">Редактировать</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   </div>
 </div>

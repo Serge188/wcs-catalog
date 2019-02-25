@@ -17496,6 +17496,14 @@ div.bx-debug-summary {
   overflow: auto;
 }
 
+#modal-factory {
+  padding:10px;
+  width:700px;
+  height: 550px;
+  overflow: auto;
+}
+
+
 .modal-visible {
   display: block;
 }

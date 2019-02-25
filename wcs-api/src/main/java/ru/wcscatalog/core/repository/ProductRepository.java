@@ -136,8 +136,12 @@ public class ProductRepository {
         product.setPrice(input.getPrice());
         product.setDiscountPrice(input.getDiscountPrice());
         product.setCategory(categoriesRepository.getCategoryById(input.getCategoryId()));
-        product.setFactory(factoryRepository.getFactoyById(input.getFactoryId()));
+        product.setFactory(factoryRepository.getFactoryById(input.getFactoryId()));
         product.setPriceType(input.getPriceType());
+        Factory factory = factoryRepository.getFactoryById(input.getFactoryId());
+        if (factory != null) {
+            product.setFactory(factory);
+        }
         if (input.getImageInput() != null) {
             if (product.getImages() != null && !product.getImages().isEmpty()) {
                 Optional<Image> mainImage = product.getImages()

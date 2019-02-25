@@ -24,6 +24,7 @@ public class ProductEntry {
     private String shortDescription;
     private CategoryEntry category;
     private FactoryEntry factory;
+    private Long factoryId;
     private Float discount;
     private List<OfferOptionEntry> options = new ArrayList<>();
 
@@ -199,6 +200,14 @@ public class ProductEntry {
         this.priceType = priceType;
     }
 
+    public Long getFactoryId() {
+        return factoryId;
+    }
+
+    public void setFactoryId(Long factoryId) {
+        this.factoryId = factoryId;
+    }
+
     public static ProductEntry fromProduct(Product product) {
         if (product != null) {
             ProductEntry entry = new ProductEntry();
@@ -214,6 +223,9 @@ public class ProductEntry {
             entry.setDiscountPrice(product.getDiscountPrice());
             entry.setPopular(product.isPopular());
             entry.setAltTitle(product.getTitle().replace("\"", "&quot;"));
+            if (product.getFactory() != null) {
+                entry.setFactoryId(product.getFactory().getId());
+            }
             if (product.getDescription() != null && product.getDescription().length() > 163) {
                 entry.setShortDescription(product.getDescription().substring(0, 159) + "...");
             } else {

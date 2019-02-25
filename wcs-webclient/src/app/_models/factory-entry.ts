@@ -7,4 +7,6 @@ export class FactoryEntry {
   image?: ImageEntry;
   popular?: boolean;
   link?: string;
+  imageInput?: any;
+  description?: string;
 }

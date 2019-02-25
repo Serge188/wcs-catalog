@@ -6,4 +6,5 @@ export class ImageEntry {
   previewImageLink?: string;
   optionImageLink?: string;
   categoryImageLink?: string;
+  originalImageLink?: string;
 }

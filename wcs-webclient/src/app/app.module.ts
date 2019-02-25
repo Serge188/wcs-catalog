@@ -16,7 +16,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CarouselModule} from "ngx-owl-carousel-o";
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { HeaderComponent } from './header/header.component';
-import { FixedHeaderComponent } from './fixed-header/fixed-header.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { FooterComponent } from './footer/footer.component';
@@ -34,7 +33,6 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
     MainPageComponent,
     AdminPanelComponent,
     HeaderComponent,
-    FixedHeaderComponent,
     SideMenuComponent,
     ProductPageComponent,
     FooterComponent,

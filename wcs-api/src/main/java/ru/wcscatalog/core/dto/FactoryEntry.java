@@ -9,6 +9,7 @@ public class FactoryEntry {
     private String alias;
     private ImageEntry image;
     private Boolean popular;
+    private String description;
 
     public long getId() {
         return id;
@@ -50,6 +51,14 @@ public class FactoryEntry {
         this.popular = popular;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public static FactoryEntry fromFactory(Factory factory) {
         if (factory != null) {
             FactoryEntry entry = new FactoryEntry();
@@ -58,6 +67,7 @@ public class FactoryEntry {
             entry.setAlias(factory.getAlias());
             entry.setImage(ImageEntry.fromImage(factory.getImage()));
             entry.setPopular(factory.isPopular());
+            entry.setDescription(factory.getDescription());
             return entry;
         }
         return null;

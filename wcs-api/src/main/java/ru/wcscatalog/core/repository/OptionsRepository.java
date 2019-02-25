@@ -158,6 +158,9 @@ public class OptionsRepository {
     }
 
     private List<OptionValue> getValuesForOptions(Collection<Long> optionIds) {
+        if (optionIds.isEmpty()) {
+            return new ArrayList<>();
+        }
         CriteriaQuery<OptionValue> criteriaQuery = criteriaBuilder.createQuery(OptionValue.class);
         Root<OptionValue> root = criteriaQuery.from(OptionValue.class);
         Join optionJoin = root.join("option");
@@ -168,9 +171,6 @@ public class OptionsRepository {
     private void fillOptionValues(List<OfferOptionEntry> options) {
         Map<Long, OfferOptionEntry> optionsMap = options.stream().collect(Collectors.toMap(OfferOptionEntry::getId, o -> o));
         List<OptionValue> values = getValuesForOptions(optionsMap.keySet());
-        for (OptionValue v: values) {
-
-        }
         values.forEach(v -> {
             if (optionsMap.containsKey(v.getOption().getId())) {
                 optionsMap.get(v.getOption().getId()).getValues().add(OptionValueEntry.fromOptionValue(v));

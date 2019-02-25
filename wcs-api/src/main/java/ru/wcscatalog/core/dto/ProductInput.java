@@ -159,4 +159,6 @@ public class ProductInput {
     public void setPriceType(PriceType priceType) {
         this.priceType = priceType;
     }
+
+
 }

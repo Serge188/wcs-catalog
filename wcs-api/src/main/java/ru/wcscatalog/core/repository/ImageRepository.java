@@ -1,5 +1,7 @@
 package ru.wcscatalog.core.repository;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Repository;
 import ru.wcscatalog.core.model.*;
 import ru.wcscatalog.core.utils.ImageResizer;
@@ -23,14 +25,21 @@ public class ImageRepository {
 
     private static final String SERVER_FOLDER = "E:/wcs-catalog/wcs-webclient/src/";
 
+//    private static final String SERVER_FOLDER = "D:/wcs-catalog/wcs-webclient/src/";
+
+
     private final EntityManagerFactory entityManagerFactory;
+    private final Environment environment;
+    private String serverFolder;
     private EntityManager entityManager;
     private CriteriaBuilder criteriaBuilder;
     private CriteriaQuery<Image> criteriaQuery;
     private Root<Image> root;
 
-    public ImageRepository(EntityManagerFactory entityManagerFactory) {
+    public ImageRepository(EntityManagerFactory entityManagerFactory, Environment environment) {
         this.entityManagerFactory = entityManagerFactory;
+        this.environment = environment;
+        this.serverFolder = environment.getRequiredProperty("storage");
         buildCriteriaQuery();
     }
 
@@ -51,7 +60,7 @@ public class ImageRepository {
                 BufferedImage categoryAvatar = ImageResizer.resize(imageFile, 220, 160);
                 String appFolder = "assets/img/category/";
                 String fileName = ((Category) o).getAlias() + "." + fileExtension ;
-                String path = SERVER_FOLDER + appFolder + fileName;
+                String path = serverFolder + appFolder + fileName;
                 File outputfile = new File(path);
                 ImageIO.write(categoryAvatar, fileExtension, outputfile);
                 Image image = new Image();
@@ -66,7 +75,7 @@ public class ImageRepository {
                 String optionAlias = Transliterator.transliteration(((OptionValue) o).getOption().getTitle());
                 String valueAlias = ((OptionValue) o).getAlias();
                 String fileName = optionAlias + "_" + valueAlias + "." + fileExtension ;
-                String path = SERVER_FOLDER + appFolder + fileName;
+                String path = serverFolder + appFolder + fileName;
                 File outputfile = new File(path);
                 ImageIO.write(categoryAvatar, fileExtension, outputfile);
                 Image image = new Image();
@@ -95,11 +104,11 @@ public class ImageRepository {
                 String imgGalleryFolder = "assets/img/catalog/gallery/";
                 String imgPreviewFolder = "assets/img/catalog/preview/";
 
-                String originalPath = SERVER_FOLDER + imgOriginalFolder + fileName;
-                String basePath = SERVER_FOLDER + imgBaseFolder + fileName;
-                String cardPath = SERVER_FOLDER + imgCardFolder + fileName;
-                String galleryPath = SERVER_FOLDER + imgGalleryFolder + fileName;
-                String previewPath = SERVER_FOLDER + imgPreviewFolder + fileName;
+                String originalPath = serverFolder + imgOriginalFolder + fileName;
+                String basePath = serverFolder + imgBaseFolder + fileName;
+                String cardPath = serverFolder + imgCardFolder + fileName;
+                String galleryPath = serverFolder + imgGalleryFolder + fileName;
+                String previewPath = serverFolder + imgPreviewFolder + fileName;
 
                 File originalImgFile = new File(originalPath);
                 File baseImgFile = new File(basePath);
@@ -135,7 +144,7 @@ public class ImageRepository {
     public void removeImageForObject(Object o) {
         if (o instanceof Category && ((Category) o).getImage() != null) {
             Image img = ((Category) o).getImage();
-            String path = SERVER_FOLDER + img.getCategoryImageLink();
+            String path = serverFolder + img.getCategoryImageLink();
             try {
                 Files.delete(Paths.get(path));
             } catch (Exception e) {
@@ -151,7 +160,7 @@ public class ImageRepository {
             removeProductImage(img);
         } else if (o instanceof OptionValue && ((OptionValue) o).getImage() != null) {
             Image img = ((OptionValue) o).getImage();
-            String path = SERVER_FOLDER + img.getOptionImageLink();
+            String path = serverFolder + img.getOptionImageLink();
             try {
                 Files.delete(Paths.get(path));
             } catch (Exception e) {
@@ -171,11 +180,11 @@ public class ImageRepository {
     }
 
     private void removeProductImage(Image img) {
-        String originalPath = SERVER_FOLDER + img.getOriginalImageLink();
-        String basePath = SERVER_FOLDER + img.getBaseImageLink();
-        String cardPath = SERVER_FOLDER + img.getCardImageLink();
-        String galleryPath = SERVER_FOLDER + img.getGalleryImageLink();
-        String previewPath = SERVER_FOLDER + img.getPreviewImageLink();
+        String originalPath = serverFolder + img.getOriginalImageLink();
+        String basePath = serverFolder + img.getBaseImageLink();
+        String cardPath = serverFolder + img.getCardImageLink();
+        String galleryPath = serverFolder + img.getGalleryImageLink();
+        String previewPath = serverFolder + img.getPreviewImageLink();
         List<String> paths = Arrays.asList(originalPath, basePath, cardPath, galleryPath, previewPath);
         paths.forEach(p -> {
             if (p != null) {

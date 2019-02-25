@@ -1,36 +1,18 @@
-package ru.wcscatalog.core.model;
+package ru.wcscatalog.core.dto;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "factories")
-public class Factory {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private long id;
-
-    @Column(name = "title")
+public class FactoryInput {
+    private Long id;
     private String title;
-
-    @Column(name = "alias")
     private String alias;
-
-    @Column(name="is_popular")
+    private Object imageInput;
     private Boolean popular;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="image_id")
-    private Image image;
-
-    @Column(name="description")
     private String description;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -50,15 +32,15 @@ public class Factory {
         this.alias = alias;
     }
 
-    public Image getImage() {
-        return image;
+    public Object getImageInput() {
+        return imageInput;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setImageInput(Object imageInput) {
+        this.imageInput = imageInput;
     }
 
-    public Boolean isPopular() {
+    public Boolean getPopular() {
         return popular;
     }
 
