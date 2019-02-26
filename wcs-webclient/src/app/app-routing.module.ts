@@ -13,7 +13,7 @@ const routes: Routes = [
   {path: '', component: MainPageComponent },
   {path: 'secondPage', component: SecondComponentComponent, canActivate: [AuthGuard] },
   {path: 'login', component: LoginComponent },
-  {path: 'manager', component: AdminPanelComponent },
+  {path: 'manager', component: AdminPanelComponent, canActivate: [AuthGuard] },
   {path: 'product/:alias', component: ProductPageComponent },
   {path: 'catalog/:categoryAlias', component: CategoryPageComponent },
   {path: 'catalog/:parentCategoryAlias/:categoryAlias', component: CategoryPageComponent }

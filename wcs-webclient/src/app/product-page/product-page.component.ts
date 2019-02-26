@@ -132,6 +132,13 @@ export class ProductPageComponent implements OnInit {
     return this.product.mainImage.baseImageLink;
   }
 
+  public getOriginalImageLink(): string {
+    if (this.product.offerCurrentImage) {
+      return this.product.offerCurrentImage.originalImageLink;
+    }
+    return this.product.mainImage.originalImageLink;
+  }
+
   public showAdditionalImages(): boolean {
     if (this.product.images && this.product.images.length > 0) {
       return true;

@@ -93,7 +93,7 @@ public class ImageRepository {
                     fileName = ((SaleOffer) o).getProduct().getAlias() + "_" + valueAlias + "." + fileExtension;
                 }
 
-                BufferedImage imgBase = ImageResizer.resize(imageFile, 1200, 800);
+                BufferedImage imgBase = imageFile;
                 BufferedImage imgCard = ImageResizer.resize(imageFile, 198, 198);
                 BufferedImage imgGallery = ImageResizer.resize(imageFile, 100, 100);
                 BufferedImage imgPreview = ImageResizer.resize(imageFile, 90, 90);

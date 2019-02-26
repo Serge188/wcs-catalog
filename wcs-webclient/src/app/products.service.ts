@@ -42,4 +42,8 @@ export class ProductsService {
   public removeProduct(productId: number): Observable<any> {
     return this.http.delete(this.apiUrl + `products/${productId}`).pipe();
   }
+
+  public removeSaleOffer(saleOfferId: number): Observable<any> {
+    return this.http.delete(this.apiUrl + `products/saleOffer/${saleOfferId}`).pipe();
+  }
 }

@@ -207,20 +207,15 @@ public class ProductRepository {
         saleOffer.setProduct(product);
         saleOffer.setPrice(input.getPrice());
         saleOffer.setDiscountPrice(input.getDiscountPrice());
-        saleOffer.setOfferOption(optionsRepository.createOrUpdateOption(input.getOfferOption()));
-        saleOffer.setOptionValue(optionsRepository.createOrUpdateValue(input.getOptionValue(), saleOffer.getOfferOption()));
+        OfferOption option = optionsRepository.getOptionById(input.getOfferOption().getId());
+        saleOffer.setOfferOption(option);
+        OptionValue value = optionsRepository.getOptionValueById(input.getOptionValue().getId());
+        saleOffer.setOptionValue(value);
         if (input.getImageInput() != null) {
             String data = ((String) input.getImageInput());
             Image image = imageRepository.createImageForObject(saleOffer, data);
             saleOffer.setMainImage(image);
         }
-        //todo create new OptionValue if not exists
-        OptionValue newValue = new OptionValue();
-        newValue.setOption(saleOffer.getOfferOption());
-        newValue.setAlias(Transliterator.transliteration(input.getOptionValue().getValue()));
-//        if (input.getMainImage() != null) {
-//            saleOffer.setMainImage(imageRepository.createImageForObject(newValue, String.valueOf(input.getMainImage())));
-//        }
         entityManager.getTransaction().begin();
         entityManager.persist(saleOffer);
         entityManager.getTransaction().commit();
@@ -247,6 +242,7 @@ public class ProductRepository {
             List<ProductOptionsRelation> optionRelations = relationsQuery.getResultList();
 
             optionRelations.forEach(r -> entityManager.remove(r));
+            imageRepository.removeImageForObject(product);
 
             entityManager.getTransaction().begin();
             entityManager.remove(product);
@@ -257,8 +253,11 @@ public class ProductRepository {
     public void removeSaleOfferFromProduct(Long saleOfferId) {
         SaleOffer saleOffer = getSaleOfferById(saleOfferId);
         if (saleOffer != null) {
-            entityManager.remove(saleOffer);
+            entityManager.getTransaction().begin();
+            entityManager.remove(entityManager.contains(saleOffer) ? saleOffer : entityManager.merge(saleOffer));
+            entityManager.getTransaction().commit();
         }
+        imageRepository.removeImageForObject(saleOffer);
     }
 
     private void initializeCriteriaBuilder() {

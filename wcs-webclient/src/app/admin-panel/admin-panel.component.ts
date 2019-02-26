@@ -200,6 +200,11 @@ export class AdminPanelComponent implements OnInit {
       this.newProduct.options = product.options;
       this.newProduct.priceType = product.priceType;
       this.newProduct.factoryId = product.factoryId;
+      this.newProduct.productOfDay = product.productOfDay;
+      this.newProduct.newProduct = product.newProduct;
+      this.newProduct.hit = product.hit;
+      this.newProduct.promo = product.promo;
+      this.newProduct.popular = product.popular;
 
       if (product.saleOffers && product.saleOffers.length > 0) {
         this.newProductSaleOffersOptionId = product.saleOffers[0].offerOption.id;
@@ -487,10 +492,12 @@ export class AdminPanelComponent implements OnInit {
 
   public removeSaleOfferFromEditingProduct(event: any, offer:SaleOfferEntry): void {
     event.preventDefault();
-    let index = this.newProduct.saleOffers.indexOf(offer);
-    if (index) {
-      this.newProduct.saleOffers.splice(index, 1);
-    }
+    this.productsService.removeSaleOffer(offer.id).subscribe(() => {
+      let index = this.newProduct.saleOffers.indexOf(offer);
+      if (index != -1) {
+        this.newProduct.saleOffers.splice(index, 1);
+      }
+    });
   }
 
   public changeOptionOfSaleOffersOfEditingProduct(): void {
