@@ -36,5 +36,6 @@ export class ProductEntry {
   imageInput?: any;
   imagesInput?: any[];
   priceType?: PriceType;
+  factory?: FactoryEntry;
   factoryId?: number;
 }

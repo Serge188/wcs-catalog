@@ -51,7 +51,7 @@ public class ProductController {
             productRepository.createOrUpdateProduct(input);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.of(Optional.of("error.creating.new.product"));
+            return ResponseEntity.of(Optional.of(e.getStackTrace()));
         }
     }
 
@@ -61,7 +61,7 @@ public class ProductController {
             productRepository.createOrUpdateProduct(input);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.of(Optional.of("error.updating.new.product"));
+            return ResponseEntity.of(Optional.of(e.getStackTrace()));
         }
     }
 

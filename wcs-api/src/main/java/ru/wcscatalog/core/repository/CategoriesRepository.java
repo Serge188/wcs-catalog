@@ -85,7 +85,6 @@ public class CategoriesRepository {
         entityManager.getTransaction().begin();
         entityManager.persist(category);
         entityManager.getTransaction().commit();
-        entityManager.flush();
     }
 
     @Transactional
