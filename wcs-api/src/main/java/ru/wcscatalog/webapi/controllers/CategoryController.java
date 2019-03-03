@@ -28,6 +28,12 @@ public class CategoryController {
         return ResponseEntity.ok(categories);
     }
 
+    @GetMapping("/sideMenuCategoriesWithProductCount")
+    public ResponseEntity<List<CategoryEntry>> getCategoriesWithProductCount() {
+        List<CategoryEntry> categories = categoriesRepository.getCategoriesWithProductCount();
+        return ResponseEntity.ok(categories);
+    }
+
     @GetMapping("/byAlias/{alias}")
     public ResponseEntity<CategoryEntry> getCategoryByAlias(@PathVariable("alias") String alias) {
         CategoryEntry category = categoriesRepository.getCategoryByAlias(alias);

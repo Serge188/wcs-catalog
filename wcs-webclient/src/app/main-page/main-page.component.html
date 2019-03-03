@@ -116,11 +116,15 @@
           <ul class="row list-unstyled">
             <li class="section col-xs-4 col-md-3 col-md-4 col-lg-3" *ngFor="let cat of popularCategories">
               <a class="around_image" href="{{cat.link}}"><img
-                src="{{cat.image.categoryImageLink}}" alt="{{cat.title}}"
+                src="{{cat?.image?.categoryImageLink}}" alt="{{cat.title}}"
                 title="{{cat.title}}"/></a>
               <a class="parent" href="{{cat.link}}" title="{{cat.title}}">{{cat.title}}</a>
               <ul class="subsections list-unstyled">
-                <li *ngFor="let subCat of cat.childCategories"><a href="{{subCat.link}}" title="{{subCat.title}}">{{subCat.title}}</a></li>
+                <li *ngFor="let subCat of popularCategoriesMap.get(cat.id)">
+                  <a href="{{subCat.link}}" title="{{subCat.title}}">
+                    {{subCat.title}} <span *ngIf="subCat.productsCount">({{subCat.productsCount}})</span>
+                  </a>
+                </li>
                 <li *ngIf="cat.hasHiddenSubCategories">
                   <a class="b-section-list__show-more" href="{{cat.link}}" title="">
                     Еще ({{cat.hiddenSubCategoriesQty}})...

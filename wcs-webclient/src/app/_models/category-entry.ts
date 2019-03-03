@@ -21,4 +21,5 @@ export class CategoryEntry {
   products?: ProductEntry[] = [];
   imageInput?: any;
   imageChanged?: boolean;
+  productsCount?: number;
 }

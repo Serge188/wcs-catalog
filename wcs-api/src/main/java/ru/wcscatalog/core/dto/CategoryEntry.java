@@ -15,6 +15,7 @@ public class CategoryEntry {
     private Boolean popular;
     private String description;
     private List<CategoryEntry> childCategories;
+    private Integer productsCount;
 
     public Long getId() {
         return id;
@@ -94,6 +95,14 @@ public class CategoryEntry {
 
     public void setChildCategories(List<CategoryEntry> childCategories) {
         this.childCategories = childCategories;
+    }
+
+    public Integer getProductsCount() {
+        return productsCount;
+    }
+
+    public void setProductsCount(Integer productsCount) {
+        this.productsCount = productsCount;
     }
 
     public static CategoryEntry fromCategory(Category category) {

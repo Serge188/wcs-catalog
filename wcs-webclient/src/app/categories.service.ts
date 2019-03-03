@@ -18,6 +18,10 @@ export class CategoriesService {
     return this.http.get(this.apiUrl + `categories/sideMenuCategories`).pipe();
   }
 
+  public getCategoriesWithProductsCount(): Observable<any> {
+    return this.http.get(this.apiUrl + `categories/sideMenuCategoriesWithProductCount`).pipe();
+  }
+
   public getCategoryByAlias(alias: string): Observable<any> {
     return this.http.get(this.apiUrl + `categories/byAlias/${alias}`).pipe();
   }

@@ -12,10 +12,10 @@ public class ImageResizer {
         if (targetRatio != sourceRatio) {
             if (targetRatio > sourceRatio) {
                 float newWidth = image.getHeight() / targetRatio;
-                cutImage = image.getSubimage(0, 0, (int) newWidth, image.getHeight());
+                cutImage = image.getSubimage((int)Math.abs(newWidth - image.getWidth())/2, 0, (int) newWidth, image.getHeight());
             } else {
                 float newHeight = image.getWidth() * targetRatio;
-                cutImage = image.getSubimage(0, 0, image.getWidth(), (int) newHeight);
+                cutImage = image.getSubimage(0, (int)Math.abs(newHeight - image.getHeight())/2, image.getWidth(), (int) newHeight);
             }
         }
         BufferedImage resizedImage = new BufferedImage(width, height, cutImage.getType());

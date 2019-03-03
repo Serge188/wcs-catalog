@@ -47,7 +47,7 @@ export class MainPageComponent implements OnInit {
   }
 
   public loadCategories(): void {
-    this.categoriesService.getCategories().subscribe(result => {
+    this.categoriesService.getCategoriesWithProductsCount().subscribe(result => {
       for (let cat of result) {
         if (!cat.parentCategoryId) {
           cat.link = "/catalog/" + cat.alias;

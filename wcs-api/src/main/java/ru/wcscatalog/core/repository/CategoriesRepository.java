@@ -6,14 +6,14 @@ import ru.wcscatalog.core.dto.CategoryEntry;
 import ru.wcscatalog.core.dto.CategoryInput;
 import ru.wcscatalog.core.model.Category;
 import ru.wcscatalog.core.model.Image;
+import ru.wcscatalog.core.model.Product;
 import ru.wcscatalog.core.utils.Transliterator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.criteria.*;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -38,6 +38,13 @@ public class CategoriesRepository {
         Query query = entityManager.createQuery(criteriaQuery);
         List<Category> categories = query.getResultList();
         List<CategoryEntry> entries = categories.stream().map(CategoryEntry::fromCategory).collect(Collectors.toList());
+        return entries;
+    }
+
+    @Transactional
+    public List<CategoryEntry> getCategoriesWithProductCount() {
+        List<CategoryEntry> entries = getCategories();
+        fillProductCount(entries);
         return entries;
     }
 
@@ -141,5 +148,32 @@ public class CategoriesRepository {
         criteriaBuilder = entityManager.getCriteriaBuilder();
         criteriaQuery = criteriaBuilder.createQuery(Category.class);
         root = criteriaQuery.from(Category.class);
+    }
+
+    private void fillProductCount(List<CategoryEntry> entries) {
+        Map<Long, List<CategoryEntry>> categoriesMap = new HashMap<>();
+        entries.forEach(e -> {
+            if (e.getParentCategoryId() == null) {
+                categoriesMap.put(e.getId(), new ArrayList<>());
+            }
+        });
+        for (CategoryEntry entry : entries) {
+            if (entry.getParentCategoryId() != null) {
+                categoriesMap.putIfAbsent(entry.getParentCategoryId(), new ArrayList<>());
+                categoriesMap.get(entry.getParentCategoryId()).add(entry);
+            }
+        }
+        entries.forEach(e -> {
+            if (e.isPopular() != null && e.isPopular() && categoriesMap.containsKey(e.getId())) {
+                categoriesMap.get(e.getId()).forEach(childCat -> {
+                    CriteriaQuery<Product> criteriaQueryProduct = criteriaBuilder.createQuery(Product.class);
+                    Root<Product> root = criteriaQueryProduct.from(Product.class);
+                    criteriaQueryProduct.where(criteriaBuilder.equal(root.get("category"), childCat.getId()));
+                    List<Product> p = entityManager.createQuery(criteriaQueryProduct).getResultList();
+                    Integer productsCount = entityManager.createQuery(criteriaQueryProduct).getResultList().size();
+                    childCat.setProductsCount(productsCount);
+                });
+            }
+        });
     }
 }
