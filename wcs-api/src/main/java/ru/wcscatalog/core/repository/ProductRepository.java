@@ -149,13 +149,14 @@ public class ProductRepository {
                         .filter(x -> x.isMainImage() != null)
                         .filter(Image::isMainImage).findAny();
                 if (mainImage.isPresent()) {
-                    product.getImages().remove(mainImage.get());
+                    imageRepository.removeProductImage(mainImage.get());
                 }
             }
             String data = ((String) input.getImageInput());
             Image image = imageRepository.createImageForObject(product, data);
             image.setMainImage(true);
-            product.getImages().add(image);
+            image.setProduct(product);
+            entityManager.merge(image);
         }
 
         if (product.getImages() != null && input.getImagesInput() != null && !input.getImagesInput().isEmpty()) {
@@ -163,7 +164,10 @@ public class ProductRepository {
                     .stream()
                     .filter(x -> x.isMainImage() != null && x.isMainImage())
                     .collect(Collectors.toList());
-            product.setImages(images);
+            for (Image i : images) {
+                i.setProduct(product);
+                entityManager.merge(i);
+            }
         }
 
         for (Object o: input.getImagesInput()) {
@@ -171,7 +175,8 @@ public class ProductRepository {
             String data = ((String) o);
             Image image = imageRepository.createImageForObject(product, data);
             image.setMainImage(false);
-            product.getImages().add(image);
+            image.setProduct(product);
+            entityManager.merge(image);
         }
 
         entityManager.getTransaction().begin();

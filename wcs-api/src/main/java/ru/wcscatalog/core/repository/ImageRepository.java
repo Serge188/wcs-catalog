@@ -179,7 +179,7 @@ public class ImageRepository {
         root = criteriaQuery.from(Image.class);
     }
 
-    private void removeProductImage(Image img) {
+    public void removeProductImage(Image img) {
         String originalPath = serverFolder + img.getOriginalImageLink();
         String basePath = serverFolder + img.getBaseImageLink();
         String cardPath = serverFolder + img.getCardImageLink();
