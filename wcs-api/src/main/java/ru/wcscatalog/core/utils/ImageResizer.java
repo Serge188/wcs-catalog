@@ -18,9 +18,10 @@ public class ImageResizer {
                 cutImage = image.getSubimage(0, (int)Math.abs(newHeight - image.getHeight())/2, image.getWidth(), (int) newHeight);
             }
         }
-        BufferedImage resizedImage = new BufferedImage(width, height, cutImage.getType());
+        BufferedImage resizedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Image scaledImage = cutImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         Graphics2D g = resizedImage.createGraphics();
-        g.drawImage(cutImage, 0, 0, width, height, null);
+        g.drawImage(scaledImage, 0, 0,  null);
         g.dispose();
         return resizedImage;
     }
