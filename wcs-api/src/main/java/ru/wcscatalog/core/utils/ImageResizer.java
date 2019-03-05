@@ -1,11 +1,13 @@
 package ru.wcscatalog.core.utils;
 
+import net.coobird.thumbnailator.Thumbnails;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ImageResizer {
 
-    public static BufferedImage resize(BufferedImage image, int width, int height) {
+    public static BufferedImage resize(BufferedImage image, int width, int height) throws Exception {
         float targetRatio = ((float)height) / width;
         float sourceRatio = ((float)image.getHeight()) / image.getWidth();
         BufferedImage cutImage = image;
@@ -18,11 +20,7 @@ public class ImageResizer {
                 cutImage = image.getSubimage(0, (int)Math.abs(newHeight - image.getHeight())/2, image.getWidth(), (int) newHeight);
             }
         }
-        BufferedImage resizedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        Image scaledImage = cutImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        Graphics2D g = resizedImage.createGraphics();
-        g.drawImage(scaledImage, 0, 0,  null);
-        g.dispose();
+        BufferedImage resizedImage = Thumbnails.of(cutImage).size(width, height).outputQuality(1.0).asBufferedImage();
         return resizedImage;
     }
 }
