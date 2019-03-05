@@ -18,11 +18,8 @@
       <div class="js-detail js-element detail b-product-detail clearfix">
         <div class="detail__inner js-element__shadow">
           <div class="detail__anchor js-detail-anchor hidden-xs">
-            <a class="detail__anchor__link link-dashed js-easy-scroll" href="#detailtext" data-es-offset="-135">Описание</a>
-            <a class="detail__anchor__link link-dashed js-easy-scroll" href="#properties" data-es-offset="-135">Характеристики</a>
-            <!--<a class="detail__anchor__link link-dashed js-easy-scroll" href="#deliverycost" data-es-offset="-135">Доставка</a>-->
-            <!--<a class="detail__anchor__link link-dashed js-easy-scroll" href="#stocks" data-es-offset="-135">Наличие</a>-->
-            <!--<a class="detail__anchor__link link-dashed js-easy-scroll" href="#review">Отзывы (<span class="js-detailelement-review-count">0</span>)</a>-->
+            <a class="detail__anchor__link link-dashed js-easy-scroll" href="#detailtext" (click)="scrollToElement($event, 'detailtext')" data-es-offset="-135">Описание</a>
+            <a class="detail__anchor__link link-dashed js-easy-scroll" href="#properties" (click)="scrollToElement($event, 'properties')" data-es-offset="-135">Характеристики</a>
           </div>
           <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5 b-print__product-page__pictures">
@@ -46,7 +43,7 @@
                       <!--<div class="owl-stage" style="transform: translate3d(-890px, 0px, 0px); transition: all 0s ease 0s; width: 2670px;">-->
                       <div class="owl-stage">
                         <div class="owl-item" style="width: 425px; margin-right: 20px;">
-                          <a class="js_picture_glass detail__pic__a js-picslide-a" href="{{getBaseImageLink()}}">
+                          <a class="js_picture_glass detail__pic__a js-picslide-a" data-fancybox="gallery" href="{{getOriginalImageLink()}}">
                             <img class="detail__pic__img" src="{{getOriginalImageLink()}}" alt="{{product.altTitle}}" title="{{product.altTitle}}">
                           </a>
                         </div>
@@ -66,7 +63,9 @@
                   <div class="detail__pic__preview js-scroll scrollbar-inner scroll-content" style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 80px;">
                     <div class="detail__pic__dots js-detail-dots owl-carousel">
                       <div class="owl-dot active" *ngFor="let img of product.images">
-                        <img class="owl-preview" src="{{img.previewImageLink}}">
+                        <a href="{{img.originalImageLink}}" data-fancybox="gallery">
+                          <img class="owl-preview" src="{{img.previewImageLink}}">
+                        </a>
                       </div>
                     </div>
                   </div>

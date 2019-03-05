@@ -3,6 +3,7 @@ import {ProductsService} from "../products.service";
 import {ActivatedRoute} from "@angular/router";
 import {PriceType, ProductEntry} from "../_models/product-entry";
 import {SaleOfferEntry} from "../_models/sale-offer-entry";
+declare var jQuery:any;
 
 @Component({
   selector: 'app-product-page',
@@ -22,7 +23,13 @@ export class ProductPageComponent implements OnInit {
 
   ngOnInit() {
     this.productAlias = this.route.snapshot.paramMap.get('alias');
-    this.loadProduct()
+    this.loadProduct();
+    jQuery(document).ready(function(){
+      jQuery(".fancybox").fancybox({
+        openEffect: "elastic",
+        closeEffect: "none"
+      });
+    });
   }
 
   private loadProduct(): void {
@@ -147,7 +154,6 @@ export class ProductPageComponent implements OnInit {
   }
 
   public getPriceName(product: ProductEntry, price: number): string {
-    console.log(product.priceType);
     switch (PriceType[product.priceType]) {
       case "NORMAL":
         return price + " руб.";
@@ -167,5 +173,14 @@ export class ProductPageComponent implements OnInit {
       default:
         return price + " руб.";
     }
+  }
+
+  public scrollToElement(event: any, elementId: string): void {
+    event.preventDefault();
+    if (elementId == "detailtext") this.changeTab("description", event);
+    if (elementId == "properties") this.changeTab("properties", event);
+    jQuery([document.documentElement, document.body]).animate({
+      scrollTop: jQuery(".nav-tabs").offset().top
+    }, 500);
   }
 }
