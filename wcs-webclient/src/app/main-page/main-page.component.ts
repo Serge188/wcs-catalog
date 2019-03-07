@@ -8,6 +8,7 @@ import {SaleOfferEntry} from "../_models/sale-offer-entry";
 import {BrandService} from "../brand.service";
 import {FactoryEntry} from "../_models/factory-entry";
 import {SideMenuComponent} from "../side-menu/side-menu.component";
+declare var jQuery:any;
 
 @Component({
   selector: 'app-main-page',
@@ -44,6 +45,16 @@ export class MainPageComponent implements OnInit {
     this.loadCategories();
     this.loadPopularProducts();
     this.loadPopularBrands();
+    jQuery(document).ready(function(){
+      jQuery(".owl-carousel").owlCarousel({
+        center: true,
+        items:1,
+        loop:true,
+        margin:10,
+        nav: true,
+        autoplay: true
+      });
+    });
   }
 
   public loadCategories(): void {

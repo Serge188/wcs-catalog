@@ -12301,7 +12301,7 @@ body .popup-window-close-icon:hover:after {
   opacity: 0
 }
 
-.gopro-banners .owl-carousel .owl-nav div.owl-next, .gopro-banners .owl-carousel .owl-nav div.owl-prev {
+.gopro-banners .owl-carousel .owl-nav button.owl-next, .gopro-banners .owl-carousel .owl-nav div.owl-prev {
   position: absolute;
   top: 50%;
   margin-top: -32px;
@@ -12312,7 +12312,7 @@ body .popup-window-close-icon:hover:after {
   left: 0
 }
 
-.gopro-banners .owl-carousel .owl-nav div.owl-next {
+.gopro-banners .owl-carousel .owl-nav button.owl-next {
   right: 0
 }
 
@@ -12442,7 +12442,7 @@ body .popup-window-close-icon:hover:after {
     line-height: 5vw
   }
 
-  .gopro-banners .owl-carousel .owl-nav div.owl-next, .gopro-banners .owl-carousel .owl-nav div.owl-prev {
+  .gopro-banners .owl-carousel .owl-nav button.owl-next, .gopro-banners .owl-carousel .owl-nav div.owl-prev {
     margin-top: -52px
   }
 
@@ -12694,14 +12694,14 @@ body .popup-window-close-icon:hover:after {
   opacity: 0
 }
 
-.brandslistimgowl1 .owl-carousel .owl-nav div.owl-next, .brandslistimgowl1 .owl-carousel .owl-nav div.owl-prev {
+.brandslistimgowl1 .owl-carousel .owl-nav button.owl-next, .brandslistimgowl1 .owl-carousel .owl-nav div.owl-prev {
   position: absolute;
   top: 50%;
   margin-top: -32px;
   cursor: pointer
 }
 
-.brandslistimgowl1 .owl-carousel .owl-nav div.owl-next {
+.brandslistimgowl1 .owl-carousel .owl-nav button.owl-next {
   right: 0
 }
 
@@ -12751,14 +12751,14 @@ body .popup-window-close-icon:hover:after {
   opacity: 1
 }
 
-.brandslistimgowl1 .owl-nav div.owl-next, .brandslistimgowl1 .owl-nav div.owl-prev {
+.brandslistimgowl1 .owl-nav button.owl-next, .brandslistimgowl1 .owl-nav div.owl-prev {
   position: absolute;
   top: 50px;
   margin-top: -32px;
   cursor: pointer
 }
 
-.brandslistimgowl1 .owl-nav div.owl-next {
+.brandslistimgowl1 .owl-nav button.owl-next {
   right: 0
 }
 

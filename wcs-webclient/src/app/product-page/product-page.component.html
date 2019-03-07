@@ -204,7 +204,7 @@
                   <div class="detail__previewtext hidden-xs">
                     {{product.description}}
                     <div class="detail__previewtext__go-to">
-                      <a class="link-dashed m-color-primary js-easy-scroll" href="#detailtext" data-es-offset="-135">
+                      <a class="link-dashed m-color-primary js-easy-scroll" href="#detailtext" (click)="scrollToElement($event, 'detailtext')" data-es-offset="-135">
                         Подробнее
                       </a>
                     </div>
