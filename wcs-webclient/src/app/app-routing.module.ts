@@ -8,6 +8,7 @@ import {MainPageComponent} from "./main-page/main-page.component";
 import {AdminPanelComponent} from "./admin-panel/admin-panel.component";
 import {ProductPageComponent} from "./product-page/product-page.component";
 import {CategoryPageComponent} from "./category-page/category-page.component";
+import {PageComponent} from "./page/page.component";
 
 const routes: Routes = [
   {path: '', component: MainPageComponent },
@@ -16,7 +17,8 @@ const routes: Routes = [
   {path: 'manager', component: AdminPanelComponent, canActivate: [AuthGuard] },
   {path: 'product/:alias', component: ProductPageComponent },
   {path: 'catalog/:categoryAlias', component: CategoryPageComponent },
-  {path: 'catalog/:parentCategoryAlias/:categoryAlias', component: CategoryPageComponent }
+  {path: 'catalog/:parentCategoryAlias/:categoryAlias', component: CategoryPageComponent },
+  {path: 'page/:pageAlias', component: PageComponent }
 ];
 
 @NgModule({

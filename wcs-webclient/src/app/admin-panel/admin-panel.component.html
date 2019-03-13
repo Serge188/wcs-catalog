@@ -299,6 +299,11 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link active" href="" (click)="changeView('pages', $event)">
+              Страницы
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link active" href="" (click)="changeView('users', $event)">
               Пользователи
             </a>
@@ -313,6 +318,7 @@
         <h1 class="h2" *ngIf="view == 'options'">Характеристики товаров</h1>
         <h1 class="h2" *ngIf="view == 'users'">Пользователи</h1>
         <h1 class="h2" *ngIf="view == 'factories'">Фабрики</h1>
+        <h1 class="h2" *ngIf="view == 'pages'">Страницы</h1>
       </div>
 
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3" *ngIf="view == 'categories'">
@@ -483,6 +489,33 @@
                 <h5 class="card-title">{{factory.title}}</h5>
                 <p class="card-text">{{factory.description}}</p>
                 <button class="btn btn-primary" (click)="openModalFactory($event, factory)">Редактировать</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="view == 'pages'">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+              <button type="button" class="btn btn-sm btn-outline-primary" (click)="addNewPage()">Добавить страницу</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="text-left" *ngFor="let page of topLevelPages">
+            <a href="" (click)="editPage($event, page)">{{page.title}}</a>
+            <div class="mb-5" *ngIf="page.active">
+              <app-page-editor
+                [parentPages]="topLevelPages"
+                [page]="page"></app-page-editor>
+            </div>
+            <div style="padding-left: 20px" *ngFor="let subPage of page.childPages">
+              <a href="" (click)="editPage($event, subPage)">{{subPage.title}}</a>
+              <div class="mb-5" *ngIf="subPage.active">
+                <app-page-editor
+                  [parentPages]="topLevelPages"
+                  [page]="subPage"></app-page-editor>
               </div>
             </div>
           </div>

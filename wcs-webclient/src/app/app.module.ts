@@ -23,6 +23,7 @@ import { ProductsListComponent } from './products-list/products-list.component';
 import { CategoryPageComponent } from './category-page/category-page.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { PageComponent } from './page/page.component';
+import { PageEditorComponent } from './page-editor/page-editor.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { PageComponent } from './page/page.component';
     ProductsListComponent,
     CategoryPageComponent,
     BreadcrumbsComponent,
-    PageComponent
+    PageComponent,
+    PageEditorComponent
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,8 @@ import {SaleOfferEntry} from "../_models/sale-offer-entry";
 import {AuthenticationService} from "../authentication.service";
 import {FactoriesService} from "../factories.service";
 import {FactoryEntry} from "../_models/factory-entry";
+import {PageService} from "../page.service";
+import {PageEntry} from "../_models/page-entry";
 
 @Component({
   selector: 'app-admin-panel',
@@ -39,17 +41,22 @@ export class AdminPanelComponent implements OnInit {
   public factories: FactoryEntry[] = [];
   public newFactory: FactoryEntry = {};
 
+  public pages: PageEntry[];
+  public topLevelPages: PageEntry[] = [];
+  public newPageActive: boolean = false;
+
   constructor(private categoriesService: CategoriesService,
               private productsService: ProductsService,
               private optionsService: OptionsService,
               private authenticationService: AuthenticationService,
-              private factoriesService: FactoriesService) { }
+              private factoriesService: FactoriesService, private pageService: PageService) { }
 
   ngOnInit() {
     this.view = "categories";
     this.loadCategories();
     this.loadProductOptions();
     this.loadFactories();
+    this.loadPages();
   }
 
   public loadCategories(): void {
@@ -155,13 +162,13 @@ export class AdminPanelComponent implements OnInit {
     category.expanded = false;
   }
 
-  public getPadding(category: CategoryEntry): any {
+  public getPadding(entry: any): any {
       let padding: any = {};
-      if (category.level == 1) {
+      if (entry.level == 1) {
         padding['font-weight'] = 'bold';
       }
-      if (category.level > 1) {
-        let value = (category.level - 1) * 45;
+      if (entry.level > 1) {
+        let value = (entry.level - 1) * 45;
         padding['padding-left'] = value + 'px';
       }
       return padding;
@@ -572,11 +579,41 @@ export class AdminPanelComponent implements OnInit {
     this.openModal("modal-factory");
   }
 
-  // public changeFactoryForProduct(): void {
-  //   let factory = this.factories.find(x => x.id == this.newProductCategoryId);
-  //   if (factory) {
-  //     this.newProduct.factory = factory;
-  //   }
-  // }
+  public loadPages(): void {
+    this.pageService.getPages().subscribe(result => {
+      this.pages = result;
+      for (let page of this.pages) {
+        if (!page.parentPageId) {
+          this.topLevelPages.push(page);
+        } else {
+          let parentPage = this.pages.find(x => x.id == page.parentPageId);
+          if (parentPage) {
+            if (!parentPage.childPages) parentPage.childPages = [];
+            parentPage.childPages.push(page);
+          }
+        }
+      }
+    });
+  }
+
+  public editPage(event: any, page: PageEntry): void {
+    if (event) event.preventDefault();
+    for (let p of this.pages) {
+      if (p.id != page.id) p.active = false;
+    }
+    for (let p of this.topLevelPages) {
+      if (p.id != page.id) p.active = false;
+    }
+    page.active = !page.active;
+  }
+
+  public addNewPage(): void {
+    let newPage = new PageEntry();
+    for (let p of this.pages) {
+      p.active = false;
+    }
+    newPage.active = true;
+    this.topLevelPages.splice(0, 0, newPage);
+  }
 
 }

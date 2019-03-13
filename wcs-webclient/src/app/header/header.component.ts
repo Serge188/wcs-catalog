@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {PageService} from "../page.service";
+import {PageEntry} from "../_models/page-entry";
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  public mainMenuPages: PageEntry[];
+
+  constructor(private pageService: PageService) { }
 
   ngOnInit() {
+    this.pageService.getMainMenuPages().subscribe(result => {
+      this.mainMenuPages = result;
+    });
   }
 
 }

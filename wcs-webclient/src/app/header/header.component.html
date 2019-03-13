@@ -122,17 +122,9 @@
         </div>
       </div>
       <div class="tpanel_menu clearfix mobile_hide">
-        <a href="https://www.redsign.ru/templates/store/gopro/redsign.profurniture/">О решении</a>
-        <a href="/about/">О компании</a>
-        <a href="/vendors/">Вендорам</a>
-        <a href="/suppliers/">Поставщикам</a>
-        <a href="/docs/">Образцы документов</a>
-        <a href="/news/">Новости</a>
-        <a href="/action/">Акции</a>
-        <a href="/delivery/">Доставка</a>
-        <a href="/payment/">Оплата</a>
-        <a href="/shops/">Наши магазины</a>
-        <a href="/contacts/">Контакты</a>
+        <span *ngFor="let p of mainMenuPages">
+          <a href="/page/{{p.alias}}">{{p.title}}</a>
+        </span>
       </div>
     </div>
   </div>

@@ -1,0 +1,84 @@
+<app-header></app-header>
+
+<app-side-menu [hideMenu]="true"></app-side-menu>
+
+<div id="title" class="title">
+  <div class="centering">
+    <div class="centeringin clearfix">
+      <ul class="rsbreadcrumb list-unstyled">
+        <li id="bx_breadcrumb_0" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" itemref="bx_breadcrumb_1">
+          <a href="/" title="Главная" itemprop="url">
+            <span itemprop="title">Главная</span>
+          </a>
+        </li>
+
+        <li class="rsbreadcrumb__free" *ngIf="page?.parentPageTitle != null">
+          <span>/</span>
+        </li>
+        <li id="bx_breadcrumb_1"
+            itemscope=""
+            itemtype="http://data-vocabulary.org/Breadcrumb"
+            itemprop="child"
+            *ngIf="page?.parentPageTitle != null">
+          <a href="page/{{page?.parentPageTitle}}/" title="{{page?.parentPageTitle}}" itemprop="url">
+            <span itemprop="title">{{page?.parentPageTitle}}</span>
+          </a>
+        </li>
+
+        <li class="rsbreadcrumb__free">
+          <span>/</span>
+        </li>
+        <li>{{page?.title}}</li>
+      </ul>
+      <h1 class="pagetitle">{{page?.title}}</h1>
+    </div>
+  </div>
+</div>
+<div id="content" class="content">
+  <div class="centering">
+    <div class="centeringin clearfix">
+      <div class="b-news">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="b-iblockdetail clearfix">
+              <div class="row">
+                <div class="col-sm-12 clearfix">
+                  <div class="b-iblockdetail__pic" *ngIf="page?.image != null">
+                    <img src="{{page?.image?.categoryImageLink}}" alt="{{page?.title}}" title="{{page?.title}}">
+                  </div>
+                  <div class="b-iblockdetail__text" [ngStyle]="page?.image == null ? {'width':'100%'} : {}">
+                    {{page?.content}}
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="b-iblockdetail__ya-share"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br><br>
+      </div>
+      <div class="iblocklist">
+        <div class="item clearfix" *ngFor="let cp of page?.childPages">
+          <div class="pic" *ngIf="cp.image != null">
+            <a href="/page/{{cp.alias}}">
+              <img src="{{cp.image.categoryImageLink}}" alt="{{cp.title}}" title="{{cp.title}}"/>
+            </a>
+          </div>
+          <div class="info">
+            <div class="name">
+              <a href="/page/{{cp.alias}}">{{cp.title}}</a>
+            </div>
+            <div class="text">
+              {{getShortContent(cp.content)}}
+            </div>
+            <div class="more">
+              <a href="/page/{{cp.alias}}">Подробнее →</a>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

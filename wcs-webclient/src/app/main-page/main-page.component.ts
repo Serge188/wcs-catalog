@@ -8,6 +8,8 @@ import {SaleOfferEntry} from "../_models/sale-offer-entry";
 import {BrandService} from "../brand.service";
 import {FactoryEntry} from "../_models/factory-entry";
 import {SideMenuComponent} from "../side-menu/side-menu.component";
+import {PageService} from "../page.service";
+import {PageEntry} from "../_models/page-entry";
 declare var jQuery:any;
 
 @Component({
@@ -16,16 +18,6 @@ declare var jQuery:any;
   styleUrls: ['./main-page.component.css']
 })
 export class MainPageComponent implements OnInit {
-  customOptions: any = {
-    // loop: true,
-    // mouseDrag: false,
-    // touchDrag: false,
-    // pullDrag: false,
-    // dots: false,
-    // navSpeed: 700,
-    // navText: ['', ''],
-    // nav: true
-  };
 
   public categories: CategoryEntry[] = [];
   public products: ProductEntry[];
@@ -33,18 +25,23 @@ export class MainPageComponent implements OnInit {
   public popularCategories: CategoryEntry[] = [];
   public popularCategoriesMap: Map<number, CategoryEntry[]> = new Map();
   public factories: FactoryEntry[];
+  public pages: PageEntry[];
+  public sliderPages: PageEntry[] = [];
+  public sideMenuPages: PageEntry[] = [];
+  public mainMenuPages: PageEntry[] = [];
 
   @ViewChild(SideMenuComponent)
   public sideMenu: SideMenuComponent;
 
   constructor(private categoriesService: CategoriesService,
               private productsService: ProductsService,
-              private brandService: BrandService) { }
+              private brandService: BrandService, private pageService: PageService) { }
 
   ngOnInit() {
     this.loadCategories();
     this.loadPopularProducts();
     this.loadPopularBrands();
+    this.loadPages();
     jQuery(document).ready(function(){
       jQuery(".owl-carousel").owlCarousel({
         center: true,
@@ -120,60 +117,6 @@ export class MainPageComponent implements OnInit {
     });
   }
 
-  // public hasDiscount(product: ProductEntry): boolean {
-  //   if (product.discountPrice) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
-  //
-  // public changeView(view: string, event: any): void {
-  //   let cardSwitcher: HTMLElement = document.getElementById("card-switcher");
-  //   let gallerySwitcher: HTMLElement = document.getElementById("gallery-switcher");
-  //   let listSwitcher: HTMLElement = document.getElementById("list-switcher");
-  //   event.preventDefault();
-  //   switch (view) {
-  //     case "GALLERY":
-  //       this.view = "GALLERY";
-  //       cardSwitcher.classList.remove("selected");
-  //       gallerySwitcher.classList.add("selected");
-  //       listSwitcher.classList.remove("selected");
-  //       break;
-  //     case "CARD":
-  //       this.view = "CARD";
-  //       cardSwitcher.classList.add("selected");
-  //       gallerySwitcher.classList.remove("selected");
-  //       listSwitcher.classList.remove("selected");
-  //       break;
-  //     case "LIST":
-  //       this.view = "CARD";
-  //       cardSwitcher.classList.remove("selected");
-  //       gallerySwitcher.classList.remove("selected");
-  //       listSwitcher.classList.add("selected");
-  //       break;
-  //     default: this.view = "CARD";
-  //   }
-  // }
-
-  // public getViewClass(view: string): string {
-  //   if (view == this.view) {
-  //     return "selected";
-  //   } else {
-  //     return "";
-  //   }
-  // }
-  //
-  // public productHasOptions(product: ProductEntry): boolean {
-  //   return product.saleOffers.length > 0;
-  // }
-  //
-  // public getCardImageLink(product: ProductEntry): string {
-  //   if (product.offerCurrentImage) {
-  //     return product.offerCurrentImage.cardImageLink;
-  //   }
-  //   return product.mainImage.cardImageLink;
-  // }
-  //
   public setCurrentOffer(p: ProductEntry, currentOffer: SaleOfferEntry) {
       if (currentOffer.buttonImage && currentOffer.buttonImage.optionImageLink) {
         p.optionsAreImages = true;
@@ -186,21 +129,7 @@ export class MainPageComponent implements OnInit {
       p.discountPrice = currentOffer.discountPrice;
       this.calculateDiscount(p);
   }
-  //
-  // public getOptionsClass(p: ProductEntry): string {
-  //   if (p.optionsAreImages) {
-  //     return "is-pic";
-  //   }
-  //   return "";
-  // }
-  //
-  // public getOfferClass(p: ProductEntry, offer: SaleOfferEntry): string {
-  //   if (p.currentOffer.id == offer.id) {
-  //     return "selected";
-  //   }
-  //   return "";
-  // }
-  //
+
   private calculateDiscount(p: ProductEntry): void {
     if (p.discountPrice) {
       let discount = (100 * (p.price - p.discountPrice)/p.price);
@@ -211,12 +140,26 @@ export class MainPageComponent implements OnInit {
       }
     }
   }
-  //
-  // public getOptionButtonStyle(offer: SaleOfferEntry):any {
-  //   if (offer.buttonImage && offer.buttonImage.optionImageLink) {
-  //     let style = {'background-image': 'url(\'' + offer.buttonImage.optionImageLink + '\')'};
-  //     return style;
-  //   }
-  //   return null;
-  // }
-}
+
+  public loadPages(): void {
+    this.pageService.getPages().subscribe(result => {
+      this.pages = result;
+      for (let p of this.pages) {
+        if (p.slider) this.sliderPages.push(p);
+        if (p.showInMainMenu) this.mainMenuPages.push(p);
+        if (p.showInSideMenu) this.sideMenuPages.push(p);
+      }
+    });
+  }
+
+  public getSliderBackground(page: PageEntry): any {
+    return {"background-image":"url('" + page.sliderImage.originalImageLink + "')"};
+  }
+
+  public getParentPage(page: PageEntry): PageEntry {
+    if (page.parentPageId) {
+      return this.pages.find(p => p.id == page.parentPageId);
+    }
+    return null;
+  }
+ }

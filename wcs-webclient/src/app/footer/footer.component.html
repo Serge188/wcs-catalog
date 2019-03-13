@@ -126,7 +126,58 @@
         </div>
       </div>
       <div class="block three hidden-print">
-        <div class="footmenu clearfix"><div class="title">Товары</div><div class="item"><a href="/about/"><span>О компании</span></a></div><div class="item"><a href="/vendors/"><span>Вендорам</span></a></div><div class="item"><a href="/suppliers/"><span>Поставщикам</span></a></div><div class="item"><a href="/docs/"><span>Образцы документов</span></a></div><div class="item"><a href="/news/"><span>Новости</span></a></div><div class="item"><a href="/action/"><span>Акции</span></a></div><div class="item"><a href="/delivery/"><span>Доставка</span></a></div><div class="item"><a href="/payment/"><span>Оплата</span></a></div><div class="item"><a href="/shops/"><span>Наши магазины</span></a></div><div class="item"><a href="/contacts/"><span>Контакты</span></a></div></div>				</div>
+        <div class="footmenu clearfix">
+          <div class="title">Товары</div>
+          <div class="item" *ngFor="let p of mainMenuPages">
+            <a href="/page/{{p.alias}}">
+              <span>{{p.title}}</span>
+            </a>
+          </div>
+          <!--<div class="item">-->
+            <!--<a href="/vendors/">-->
+              <!--<span>Вендорам</span>-->
+            <!--</a>-->
+          <!--</div>-->
+          <!--<div class="item">-->
+            <!--<a href="/suppliers/">-->
+              <!--<span>Поставщикам</span>-->
+            <!--</a></div>-->
+          <!--<div class="item">-->
+            <!--<a href="/docs/">-->
+              <!--<span>Образцы документов</span>-->
+            <!--</a>-->
+          <!--</div>-->
+          <!--<div class="item">-->
+            <!--<a href="/news/">-->
+              <!--<span>Новости</span>-->
+            <!--</a>-->
+          <!--</div>-->
+          <!--<div class="item">-->
+            <!--<a href="/action/">-->
+              <!--<span>Акции</span>-->
+            <!--</a>-->
+          <!--</div>-->
+          <!--<div class="item">-->
+            <!--<a href="/delivery/">-->
+              <!--<span>Доставка</span>-->
+            <!--</a></div>-->
+          <!--<div class="item">-->
+            <!--<a href="/payment/">-->
+              <!--<span>Оплата</span>-->
+            <!--</a>-->
+          <!--</div>-->
+          <!--<div class="item">-->
+            <!--<a href="/shops/">-->
+              <!--<span>Наши магазины</span>-->
+            <!--</a>-->
+          <!--</div>-->
+          <!--<div class="item">-->
+            <!--<a href="/contacts/">-->
+              <!--<span>Контакты</span>-->
+            <!--</a>-->
+          <!--</div>-->
+        </div>
+      </div>
       <div class="block four hidden-print">
         <div class="sovservice">
           <div style="margin-bottom:5px;">
@@ -139,9 +190,9 @@
             <br>
             <script type="text/javascript" src="//vk.com/js/api/openapi.js?136"></script>
             <div id="vk_groups"></div>
-            <script type="text/javascript">
-              VK.Widgets.Group("vk_groups", {mode: 1, no_cover: 1, color1: 'fafafa', color3: '7a6137'}, 125317513);
-            </script>
+            <!--<script type="text/javascript">-->
+              <!--VK.Widgets.Group("vk_groups", {mode: 1, no_cover: 1, color1: 'fafafa', color3: '7a6137'}, 125317513);-->
+            <!--</script>-->
             <!-- /VK Widget -->
           </div>
 

@@ -6,70 +6,28 @@
   <div id="content" class="content">
     <div class="centering">
       <div class="centeringin clearfix">
-        <!-- banner -->
-          <!--<div class="gopro-banners owl-gopro-banners" data-change-speed="2000" data-change-delay="8000" data-banner-height="411" style="max-height: 411px;" >-->
           <div class="gopro-banners owl-gopro-banners">
             <div id="owlGoProBanners" class="owl-carousel">
-              <!--<owl-carousel-o [options]="customOptions">-->
-              <!--<ng-template carouselSlide >-->
-                <div class="gopro-banners__banner js-item item">
-                  <div class="gopro-banners__background text" data-banner-type="text" data-img-src="/assets/img/slide1.png" style="background-image:url('/assets/img/slide1.png');" >
+                <div class="gopro-banners__banner js-item item" *ngFor="let sp of sliderPages">
+                  <div class="gopro-banners__background text" data-banner-type="text" data-img-src="/assets/img/slide111.png" [ngStyle]="getSliderBackground(sp)" >
                   </div>
                   <div class="gopro-banners__wrap">
                     <div class="gopro-banners__infowrap">
                       <div class="gopro-banners__info">
                         <div class="gopro-banners__text">
-                          <div class="gopro-banners__text1">Лучшие предложения сезона</div>
-                          <div class="gopro-banners__text2">PROFESSIONAL EDITION</div>
+                          <div class="gopro-banners__text1">{{sp.sliderHeader}}</div>
+                          <div class="gopro-banners__text2">{{sp.sliderPromo}}</div>
                           <div class="gopro-banners__text3 hidden-xs">
-                            Успей купить по сниженным ценам в нашем магазине. Акция продлится всего месяц. Поторопитесь выбрать себе что-то из нашей коллекции!
+                            {{sp.sliderAnnotation}}
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <a href="/catalog/" class="gopro-banners__link" ></a>
+                  <a href="/page/{{sp.alias}}" class="gopro-banners__link" ></a>
                 </div>
-              <!--</ng-template>-->
-              <!--<ng-template carouselSlide>-->
-                <div class="gopro-banners__banner js-item item" id="bx_3218110189_122">
-                <div class="gopro-banners__background text" data-banner-type="text" data-img-src="/assets/img/slide2.png" style="background-image:url('/assets/img/slide2.png');" ></div>
-                <div class="gopro-banners__wrap">
-                  <div class="gopro-banners__infowrap">
-                    <div class="gopro-banners__info">
-                      <div class="gopro-banners__text">
-                        <div class="gopro-banners__text1">Лучшее предложение сезона</div>
-                        <div class="gopro-banners__text2">PROFESSIONAL EDITION</div>
-                        <div class="gopro-banners__text3 hidden-xs">Успей купить по сниженным ценам в нашем магазине. Акция продлится всего месяц. Поторопитесь выбрать себе что-то из нашей коллекции!</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <a href="/catalog/" class="gopro-banners__link" ></a>
-              </div>
-            <!--</ng-template>-->
-              <!--<ng-template carouselSlide>-->
-            <div class="gopro-banners__banner js-item item" id="bx_3218110189_123">
-              <div class="gopro-banners__background text" data-banner-type="text" data-img-src="/assets/img/slide3.png" style="background-image:url('/assets/img/slide3.png');" ></div>
-              <div class="gopro-banners__wrap">
-                <div class="gopro-banners__infowrap">
-                  <div class="gopro-banners__info">
-                    <div class="gopro-banners__text">
-                      <div class="gopro-banners__text1">Лучшие предложения сезона</div>
-                      <div class="gopro-banners__text2">PROFESSIONAL EDITION</div>
-                      <div class="gopro-banners__text3 hidden-xs">Успей купить по сниженным ценам в нашем магазине. Акция продлится всего месяц. Поторопитесь выбрать себе что-то из нашей коллекции!</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <a href="/catalog/" class="gopro-banners__link" ></a>
-            </div>
-                <!--</ng-template>-->
-        <!--</owl-carousel-o>-->
           </div>
         </div>
-        <!-- /banner -->
-        <!-- banner -->
         <div class="fichi">
           <div class="fichi__inner">
             <div class="row">
@@ -139,7 +97,21 @@
         <!-- news -->
 
         <div class="presscentermainn clearfix">
-          <div class="in clearfix"><div class="item" id="bx_4665576_101"><div class="img"><a href="/action/novye_ofisnye_stoly_dlya_prodvinutykh_po_nizkoy_tsene/"><img src="/upload/iblock/df5/df55921ab9fba3f080979454278c741e.jpg" alt="Новые офисные столы для продвинутых по низкой цене" title="Новые офисные столы для продвинутых по низкой цене" /></a></div><div class="data"><a class="name" href="/action/novye_ofisnye_stoly_dlya_prodvinutykh_po_nizkoy_tsene/" title="Новые офисные столы для продвинутых по низкой цене">Новые офисные столы для продвинутых по низкой цене</a> | <a class="blockname" href="/action/" title="Акции">Акции</a></div></div><div class="item" id="bx_4665576_100"><div class="img"><a href="/action/skidki_na_vsyu_santekhniku/"><img src="/upload/iblock/0de/0de11b8f20b5f906cf5b1cbe4b478de7.jpg" alt="Скидки на всю сантехнику" title="Скидки на всю сантехнику" /></a></div><div class="data"><a class="name" href="/action/skidki_na_vsyu_santekhniku/" title="Скидки на всю сантехнику">Скидки на всю сантехнику</a> | <a class="blockname" href="/action/" title="Акции">Акции</a></div></div><div class="item last" id="bx_4665576_98"><div class="img"><a href="/news/novaya_kollektsiya_svetilnikov_dlya_vashego_doma/"><img src="/upload/iblock/ad4/ad4446718a8a5dd04ca950c0709ec806.jpg" alt="Новая коллекция светильников для вашего дома" title="Новая коллекция светильников для вашего дома" /></a></div><div class="data"><a class="name" href="/news/novaya_kollektsiya_svetilnikov_dlya_vashego_doma/" title="Новая коллекция светильников для вашего дома">Новая коллекция светильников для вашего дома</a> | <a class="blockname" href="/news/" title="Новости">Новости</a></div></div></div></div>
+          <div class="in clearfix">
+            <div class="item" *ngFor="let p of sideMenuPages">
+              <div class="img">
+                <a href="/page/{{p?.alias}}">
+                  <img src="{{p?.image?.categoryImageLink}}" alt="{{p?.title}}" title="{{p?.title}}" />
+                </a>
+              </div>
+              <div class="data">
+                <a class="name" href="/page/{{p.alias}}" title="{{p.title}}">
+                  {{p.title}}
+                </a> <span *ngIf="p.parentPageId != null">| <a class="blockname" href="/page/{{getParentPage(p)?.alias}}" title="{{getParentPage(p)?.title}}">{{getParentPage(p)?.title}}</a></span>
+              </div>
+            </div>
+          </div>
+        </div>
         <!-- /news -->
 
         <!-- best.offers -->

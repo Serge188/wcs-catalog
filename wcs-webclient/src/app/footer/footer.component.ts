@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {CategoryEntry} from "../_models/category-entry";
 import {CategoriesService} from "../categories.service";
+import {PageService} from "../page.service";
+import {PageEntry} from "../_models/page-entry";
 
 @Component({
   selector: 'app-footer',
@@ -14,10 +16,13 @@ export class FooterComponent implements OnInit {
   public popularCategories: CategoryEntry[] = [];
   public popularCategoriesMap: Map<number, CategoryEntry[]> = new Map();
 
-  constructor(private categoriesService: CategoriesService) { }
+  public mainMenuPages: PageEntry[];
+
+  constructor(private categoriesService: CategoriesService, private pageService: PageService) { }
 
   ngOnInit() {
     this.loadCategories();
+    this.pageService.getMainMenuPages().subscribe(result => this.mainMenuPages = result);
   }
 
   public loadCategories(): void {

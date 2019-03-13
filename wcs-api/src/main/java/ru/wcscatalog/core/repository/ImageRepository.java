@@ -56,10 +56,16 @@ public class ImageRepository {
             ByteArrayInputStream bais = new ByteArrayInputStream(buf);
             BufferedImage imageFile = ImageIO.read(bais);
 
-            if (o instanceof Category) {
+            if (o instanceof Category || o instanceof Page) {
                 BufferedImage categoryAvatar = ImageResizer.resize(imageFile, 220, 160);
                 String appFolder = "assets/img/category/";
-                String fileName = ((Category) o).getAlias() + "." + fileExtension ;
+                String fileName;
+                if (o instanceof Category) {
+                    fileName = ((Category) o).getAlias() + "." + fileExtension;
+                } else {
+                    fileName = ((Page) o).getAlias() + "." + fileExtension;
+                }
+
                 String path = serverFolder + appFolder + fileName;
                 File outputfile = new File(path);
                 ImageIO.write(categoryAvatar, fileExtension, outputfile);
@@ -137,6 +143,36 @@ public class ImageRepository {
             }
         } else {
             throw new Exception("Could not create an image");
+        }
+        return null;
+    }
+
+    public Image createSliderImage(Page page, String data) throws Exception {
+        String[] separatedData = data.split(",");
+        if (separatedData.length > 1) {
+            String fileExtension;
+            if (separatedData[0].toLowerCase().contains("png")) {
+                fileExtension = "png";
+            } else {
+                fileExtension = "jpg";
+            }
+            byte[] buf = Base64.getDecoder().decode(separatedData[1]);
+
+            ByteArrayInputStream bais = new ByteArrayInputStream(buf);
+            BufferedImage imageFile = ImageIO.read(bais);
+//            BufferedImage categoryAvatar = ImageResizer.resize(imageFile, 220, 160);
+            String appFolder = "assets/img/catalog/original/";
+            String fileName = page.getAlias() + "." + fileExtension;
+
+            String path = serverFolder + appFolder + fileName;
+            File outputfile = new File(path);
+            ImageIO.write(imageFile, fileExtension, outputfile);
+            Image image = new Image();
+            image.setOriginalImageLink(appFolder + fileName);
+            entityManager.getTransaction().begin();
+            entityManager.persist(image);
+            entityManager.getTransaction().commit();
+            return image;
         }
         return null;
     }
