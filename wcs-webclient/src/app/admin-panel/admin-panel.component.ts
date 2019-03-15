@@ -41,7 +41,7 @@ export class AdminPanelComponent implements OnInit {
   public factories: FactoryEntry[] = [];
   public newFactory: FactoryEntry = {};
 
-  public pages: PageEntry[];
+  public pages: PageEntry[] = [];
   public topLevelPages: PageEntry[] = [];
   public newPageActive: boolean = false;
 

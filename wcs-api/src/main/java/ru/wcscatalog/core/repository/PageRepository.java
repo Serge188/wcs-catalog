@@ -65,7 +65,9 @@ public class PageRepository {
         }
         Page page = new Page();
         updatePageFromInput(page, input);
-        entityManager.getTransaction().begin();
+        if (!entityManager.getTransaction().isActive()) {
+            entityManager.getTransaction().begin();
+        }
         entityManager.persist(page);
         entityManager.getTransaction().commit();
     }

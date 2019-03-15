@@ -139,8 +139,9 @@ public class Page {
     public void setSlider(Boolean slider) {
         if (slider == null) {
             this.slider = false;
+        } else {
+            this.slider = slider;
         }
-        this.slider = slider;
     }
 
     public Page getParentPage() {
