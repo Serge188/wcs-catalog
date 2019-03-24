@@ -1,8 +1,10 @@
 package ru.wcscatalog.webapi.controllers;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import ru.wcscatalog.core.dto.CategoryFilter;
 import ru.wcscatalog.core.dto.ProductEntry;
 import ru.wcscatalog.core.dto.ProductInput;
 import ru.wcscatalog.core.dto.SaleOfferInput;
@@ -33,9 +35,10 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
-    @GetMapping("/byCategory/{categoryId}")
-    public ResponseEntity<List<ProductEntry>> getProductsByCategory(@PathVariable("categoryId") Long categoryId) {
-        List<ProductEntry> products = productRepository.getProductsByCategory(categoryId);
+    @PostMapping("/byCategory/{categoryId}")
+    public ResponseEntity<List<ProductEntry>> getProductsByCategory(@PathVariable("categoryId") Long categoryId,
+                                                                    @Nullable @RequestBody CategoryFilter categoryFilter) {
+        List<ProductEntry> products = productRepository.getProductsByCategory(categoryId, categoryFilter);
         return ResponseEntity.ok(products);
     }
 

@@ -55,9 +55,9 @@
                       </a>
                       <div class="property number">
                         <span class="smartf-div inputs">
-                          <input class="min-price min" type="text" name="arrFilter_P1_MIN" id="arrFilter_P1_MIN" [(ngModel)]="minPrice" (change)="applyFilter()" value="" size="9">
+                          <input class="min-price min" type="text" name="arrFilter_P1_MIN" id="arrFilter_P1_MIN" [(ngModel)]="minFilteredPrice" (input)="applyFilter()" value="" size="9">
                           <span class="separator">—</span>
-                          <input class="max-price max" type="text" name="arrFilter_P1_MAX" id="arrFilter_P1_MAX" [(ngModel)]="maxPrice" (change)="applyFilter()" value="" size="9">
+                          <input class="max-price max" type="text" name="arrFilter_P1_MAX" id="arrFilter_P1_MAX" [(ngModel)]="maxFilteredPrice" (input)="applyFilter()" value="" size="9">
                         </span>
                         <span class="smartf-div aroundslider">
                           <span class="smartf-div" style="clear: both;"></span>
@@ -65,9 +65,9 @@
                             <span class="smartf-div bx_ui_slider_pricebar_VD" style="left: 0; right: 0;" id="colorUnavailableActive_c4ca4238a0b923820dcc509a6f75849b"></span>
                             <span class="smartf-div bx_ui_slider_pricebar_VN" style="left: 0%; right: 0%;" id="colorAvailableInactive_c4ca4238a0b923820dcc509a6f75849b"></span>
                             <span class="smartf-div bx_ui_slider_pricebar_V" style="left: 0%; right: 0%;" id="colorAvailableActive_c4ca4238a0b923820dcc509a6f75849b"></span>
-                            <span class="smartf-div bx_ui_slider_range" id="drag_tracker_c4ca4238a0b923820dcc509a6f75849b" style="left: 0;right: 0;">
-                              <a class="bx_ui_slider_handle left" style="left:0;" href="" id="left_slider_c4ca4238a0b923820dcc509a6f75849b"></a>
-                              <a class="bx_ui_slider_handle right" style="right:0;" href="" id="right_slider_c4ca4238a0b923820dcc509a6f75849b"></a>
+                            <span class="smartf-div bx_ui_slider_range" id="drag_tracker" style="left: 0;right: 0;" (change)="applyFilter()">
+                              <a class="bx_ui_slider_handle left" style="left:0;" href="" id="left_slider" (click)="applyFilter()" (change)="applyFilter()"></a>
+                              <a class="bx_ui_slider_handle right" style="right:0;" href="" id="right_slider" (click)="applyFilter()" (change)="applyFilter()"></a>
                             </span>
                           </span>
                         </span>
@@ -83,272 +83,31 @@
                       <div class="property standart">
                         <div class="lvl2" *ngFor="let f of factories let i = index">
                           <span class="smartf-div ">
-                            <input type="checkbox" id="arrFilter_{{i}}" value="Y" (change)="factoryFilterChanged(f)">
-                            <label for="arrFilter_{{i}}"  class="name">
+                            <input type="checkbox" disabled id="factoryFilter_{{i}}" name="factoryFilter_{{i}}" value="Y" [(ngModel)]="f.selected" (change)="applyFilter()">
+                            <label for="factoryFilter_{{i}}"  class="name">
                               <span class="val">{{f.title}}</span>
                             </label>
                           </span>
                         </div>
-                        <!--<div class="lvl2">-->
-                          <!--<span class="smartf-div ">-->
-                            <!--<input type="checkbox" name="arrFilter_2_2138649906" id="arrFilter_2_2138649906" value="Y">-->
-                            <!--<label for="arrFilter_2_2138649906" class="name ">-->
-                              <!--<span class="val">Taluste</span>-->
-                              <!--<span class="role_count">&nbsp;(<span data-role="count_arrFilter_2_2138649906">2</span>)</span>-->
-                            <!--</label>-->
-                          <!--</span>-->
-                        <!--</div>-->
-                        <!--<div class="lvl2">-->
-                        <!--<span class="smartf-div ">-->
-                          <!--<input type="checkbox" name="arrFilter_2_2518323207" id="arrFilter_2_2518323207" value="Y">-->
-                          <!--<label for="arrFilter_2_2518323207" data-role="label_arrFilter_2_2518323207" class="name " onclick="smartFilter.keyup(BX('arrFilter_2_2518323207')); BX.toggleClass(this, 'active');">-->
-                            <!--<span class="val">Altrenotti</span>-->
-                            <!--<span class="role_count">&nbsp;(<span data-role="count_arrFilter_2_2518323207">8</span>)</span>-->
-                          <!--</label>-->
-                        <!--</span>-->
-                        <!--</div>-->
-                        <!--<div class="lvl2">-->
-                          <!--<span class="smartf-div ">-->
-                            <!--<input type="checkbox" name="arrFilter_2_3776815249" id="arrFilter_2_3776815249" value="Y">-->
-                            <!--<label for="arrFilter_2_3776815249" data-role="label_arrFilter_2_3776815249" class="name " onclick="smartFilter.keyup(BX('arrFilter_2_3776815249')); BX.toggleClass(this, 'active');">-->
-                              <!--<span class="val">Old World Chairs</span>-->
-                              <!--<span class="role_count">&nbsp;(<span data-role="count_arrFilter_2_3776815249">13</span>)</span>-->
-                            <!--</label>-->
-                          <!--</span>-->
-                        <!--</div>-->
                       </div>
                     </div>
-                    <!--<div class="lvl1" data-propid="4" data-propcode="CASING_MATERIAL">-->
-                      <!--<a href="#" class="showchild">Материал обивки<svg class="svg-icon">-->
-                        <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use>-->
-                      <!--</svg></a>-->
-                      <!--<div class="property standart">-->
-                        <!--<div class="lvl2">-->
-                          <!--<span class="smartf-div ">-->
-                      <!--<input type="checkbox" name="arrFilter_4_4088798008" id="arrFilter_4_4088798008" value="Y">-->
-                      <!--<label for="arrFilter_4_4088798008" data-role="label_arrFilter_4_4088798008" class="name " onclick="smartFilter.keyup(BX('arrFilter_4_4088798008')); BX.toggleClass(this, 'active');">-->
-                        <!--<span class="val">Кожа</span>-->
-                        <!--<span class="role_count">&nbsp;(<span data-role="count_arrFilter_4_4088798008">4</span>)</span>-->
-                      <!--</label>-->
-                    <!--</span>-->
-                    <!--</div>-->
-                      <!--<div class="lvl2">-->
-                        <!--<span class="smartf-div ">-->
-                          <!--<input type="checkbox" name="arrFilter_4_450215437" id="arrFilter_4_450215437" value="Y">-->
-                          <!--<label for="arrFilter_4_450215437" data-role="label_arrFilter_4_450215437" class="name " onclick="smartFilter.keyup(BX('arrFilter_4_450215437')); BX.toggleClass(this, 'active');">-->
-                            <!--<span class="val">Ткань</span>-->
-                            <!--<span class="role_count">&nbsp;(<span data-role="count_arrFilter_4_450215437">6</span>)</span>-->
-                          <!--</label></span>-->
-                      <!--</div>-->
-                      <!--<div class="lvl2">-->
-                        <!--<span class="smartf-div ">-->
-                          <!--<input type="checkbox" name="arrFilter_4_1842515611" id="arrFilter_4_1842515611" value="Y">-->
-                        <!--<label for="arrFilter_4_1842515611" data-role="label_arrFilter_4_1842515611" class="name " onclick="smartFilter.keyup(BX('arrFilter_4_1842515611')); BX.toggleClass(this, 'active');"><span class="val">Экокожа</span><span class="role_count">&nbsp;(<span data-role="count_arrFilter_4_1842515611">5</span>)-->
-                        <!--</span>-->
-                        <!--</label>-->
-                      <!--</span>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="lvl1 closed" data-propid="5" data-propcode="COLOR">-->
-                      <!--<a href="#" class="showchild">Цвет<svg class="svg-icon">-->
-                        <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use>-->
-                      <!--</svg></a><div class="property dd wpal">-->
-                      <!--<div class="dropdown" id="fltr_COLOR">-->
-                        <!--<div class="dropdown">-->
-                          <!--<div class="lvl2 clearfix">-->
-                            <!--<span class="smartf-div">-->
-                              <!--<span>-->
-                                <!--<input type="radio" value="" name="arrFilter_5" id="all_arrFilter_5" onclick="smartFilter.click(this)"></span>-->
-                              <!--<label for="all_arrFilter_5" data-role="label_arrFilter_5_1517085475" class="pic "><span class="nopic"></span>-->
-                              <!--</label>-->
-                              <!--<label for="all_arrFilter_5" data-role="label_arrFilter_5_1517085475" class="name ">-->
-                                <!--<span class="val">Все</span>-->
-                              <!--</label>-->
-                            <!--</span>-->
-                          <!--</div>-->
-                          <!--<div class="lvl2 clearfix">-->
-                            <!--<span class="smartf-div ">-->
-                              <!--<span>-->
-                                <!--<input type="radio" value="1517085475" name="arrFilter_5" id="arrFilter_5_1517085475" onclick="smartFilter.click(this)">-->
-                              <!--</span>-->
-                              <!--<label for="arrFilter_5_1517085475" data-role="label_arrFilter_5_1517085475" class="pic ">-->
-                                <!--<span style="background-image:url('/upload/uf/c45/c4599574c620333fc13968a494203c41.jpg');"></span>-->
-                              <!--</label>-->
-                              <!--<label for="arrFilter_5_1517085475" data-role="label_arrFilter_5_1517085475" class="name ">-->
-                                <!--<span class="val">Черный</span>-->
-                                <!--<span class="role_count">&nbsp;(<span data-role="count_arrFilter_5_1517085475">5</span>)</span>-->
-                              <!--</label>-->
-                            <!--</span>-->
-                          <!--</div>-->
-                          <!--<div class="lvl2 clearfix">-->
-                            <!--<span class="smartf-div ">-->
-                              <!--<span>-->
-                                <!--<input type="radio" value="3278221977" name="arrFilter_5" id="arrFilter_5_3278221977" onclick="smartFilter.click(this)"></span><label for="arrFilter_5_3278221977" data-role="label_arrFilter_5_3278221977" class="pic ">-->
-                              <!--<span style="background-image:url('/upload/uf/2e3/2e3fb12bf845f48d1dcd81c6c74e9f6e.jpg');"></span>-->
-                            <!--</label>-->
-                              <!--<label for="arrFilter_5_3278221977" data-role="label_arrFilter_5_3278221977" class="name ">-->
-                                <!--<span class="val">Белый</span>-->
-                                <!--<span class="role_count">&nbsp;(<span data-role="count_arrFilter_5_3278221977">6</span>)-->
-                                <!--</span>-->
-                              <!--</label>-->
-                            <!--</span>-->
-                          <!--</div>-->
-                          <!--&lt;!&ndash;<div class="lvl2 clearfix">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<span class="smartf-div ">&ndash;&gt;-->
-                              <!--&lt;!&ndash;<span>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<input type="radio" value="705042348" name="arrFilter_5" id="arrFilter_5_705042348" onclick="smartFilter.click(this)"></span>&ndash;&gt;-->
-                              <!--&lt;!&ndash;<label for="arrFilter_5_705042348" data-role="label_arrFilter_5_705042348" class="pic ">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<span style="background-image:url('/upload/uf/fae/fae01ac1ffd4cba185575b767ac566b7.jpg');"></span>&ndash;&gt;-->
-                              <!--&lt;!&ndash;</label>&ndash;&gt;-->
-                              <!--&lt;!&ndash;<label for="arrFilter_5_705042348" data-role="label_arrFilter_5_705042348" class="name ">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<span class="val">Зелёный</span>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<span class="role_count">&nbsp;(<span data-role="count_arrFilter_5_705042348">2</span>)</span>&ndash;&gt;-->
-                              <!--&lt;!&ndash;</label>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</span>&ndash;&gt;-->
-                          <!--</div>-->
-                        <!--<div class="lvl2 clearfix"><span class="smartf-div "><span><input type="radio"-->
-                                                                                          <!--value="1560356666"-->
-                                                                                          <!--name="arrFilter_5"-->
-                                                                                          <!--id="arrFilter_5_1560356666"-->
-                                                                                          <!--onclick="smartFilter.click(this)"></span><label-->
-                          <!--for="arrFilter_5_1560356666" data-role="label_arrFilter_5_1560356666" class="pic "><span-->
-                          <!--style="background-image:url('/upload/uf/68b/68ba507ce2df20b3daeee7b7838a11c1.jpg');"></span></label><label-->
-                          <!--for="arrFilter_5_1560356666" data-role="label_arrFilter_5_1560356666" class="name "><span-->
-                          <!--class="val">Красный</span><span class="role_count">&nbsp;(<span-->
-                          <!--data-role="count_arrFilter_5_1560356666">1</span>)</span></label></span></div>-->
-                        <!--<div class="lvl2 clearfix"><span class="smartf-div "><span><input type="radio"-->
-                                                                                          <!--value="1457963696"-->
-                                                                                          <!--name="arrFilter_5"-->
-                                                                                          <!--id="arrFilter_5_1457963696"-->
-                                                                                          <!--onclick="smartFilter.click(this)"></span><label-->
-                          <!--for="arrFilter_5_1457963696" data-role="label_arrFilter_5_1457963696" class="pic "><span-->
-                          <!--style="background-image:url('/upload/uf/c2c/c2c9e8c4bec3f22a4440f486eef416de.jpg');"></span></label><label-->
-                          <!--for="arrFilter_5_1457963696" data-role="label_arrFilter_5_1457963696" class="name "><span-->
-                          <!--class="val">Серый</span><span class="role_count">&nbsp;(<span-->
-                          <!--data-role="count_arrFilter_5_1457963696">2</span>)</span></label></span></div>-->
-                        <!--<div class="lvl2 clearfix"><span class="smartf-div "><span><input type="radio"-->
-                                                                                          <!--value="3102253980"-->
-                                                                                          <!--name="arrFilter_5"-->
-                                                                                          <!--id="arrFilter_5_3102253980"-->
-                                                                                          <!--onclick="smartFilter.click(this)"></span><label-->
-                          <!--for="arrFilter_5_3102253980" data-role="label_arrFilter_5_3102253980" class="pic "><span-->
-                          <!--style="background-image:url('/upload/uf/3c9/3c9510ef2aedbc9185039b1dc78feac9.jpg');"></span></label><label-->
-                          <!--for="arrFilter_5_3102253980" data-role="label_arrFilter_5_3102253980" class="name "><span-->
-                          <!--class="val">Оранжевый</span><span class="role_count">&nbsp;(<span-->
-                          <!--data-role="count_arrFilter_5_3102253980">1</span>)</span></label></span></div>-->
-                        <!--<div class="lvl2 clearfix"><span class="smartf-div "><span><input type="radio"-->
-                                                                                          <!--value="3488584458"-->
-                                                                                          <!--name="arrFilter_5"-->
-                                                                                          <!--id="arrFilter_5_3488584458"-->
-                                                                                          <!--onclick="smartFilter.click(this)"></span><label-->
-                          <!--for="arrFilter_5_3488584458" data-role="label_arrFilter_5_3488584458" class="pic "><span-->
-                          <!--style="background-image:url('/upload/uf/80a/80a87dcd324a898dff723d61a7842380.jpg');"></span></label><label-->
-                          <!--for="arrFilter_5_3488584458" data-role="label_arrFilter_5_3488584458" class="name "><span-->
-                          <!--class="val">Слоновая кость</span><span class="role_count">&nbsp;(<span-->
-                          <!--data-role="count_arrFilter_5_3488584458">1</span>)</span></label></span></div>-->
-                        <!--<div class="lvl2 clearfix"><span class="smartf-div "><span><input type="radio"-->
-                                                                                          <!--value="1368065705"-->
-                                                                                          <!--name="arrFilter_5"-->
-                                                                                          <!--id="arrFilter_5_1368065705"-->
-                                                                                          <!--onclick="smartFilter.click(this)"></span><label-->
-                          <!--for="arrFilter_5_1368065705" data-role="label_arrFilter_5_1368065705" class="pic "><span-->
-                          <!--style="background-image:url('/upload/uf/af3/af34272a97b3f4e8cabe7336fdfd5e56.jpg');"></span></label><label-->
-                          <!--for="arrFilter_5_1368065705" data-role="label_arrFilter_5_1368065705" class="name "><span-->
-                          <!--class="val">Голубой</span><span class="role_count">&nbsp;(<span-->
-                          <!--data-role="count_arrFilter_5_1368065705">1</span>)</span></label></span></div>-->
-                        <!--<div class="lvl2 clearfix"><span class="smartf-div "><span><input type="radio"-->
-                                                                                          <!--value="3213191045"-->
-                                                                                          <!--name="arrFilter_5"-->
-                                                                                          <!--id="arrFilter_5_3213191045"-->
-                                                                                          <!--onclick="smartFilter.click(this)"></span><label-->
-                          <!--for="arrFilter_5_3213191045" data-role="label_arrFilter_5_3213191045" class="pic "><span-->
-                          <!--style="background-image:url('/upload/uf/f5d/f5de333248c540c800face7a41d37b19.jpg');"></span></label><label-->
-                          <!--for="arrFilter_5_3213191045" data-role="label_arrFilter_5_3213191045" class="name "><span-->
-                          <!--class="val">Коричневый</span><span class="role_count">&nbsp;(<span-->
-                          <!--data-role="count_arrFilter_5_3213191045">1</span>)</span></label></span></div>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                      <!--<div class="lvl2 selected"><span class="smartf-div"><label data-role="label_"-->
-                                                                                 <!--class="pic select"><span-->
-                        <!--class="nopic"></span></label><label data-role="label_" class="name select"><span>Все</span><svg-->
-                        <!--class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink"-->
-                                              <!--xlink:href="#svg-arrow-linear-down"></use></svg></label></span></div>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                  <!--<div class="lvl1 closed" data-propid="7" data-propcode="FURNITURE_MATERIAL">-->
-                    <!--<a href="#"-->
-                                                                                                 <!--class="showchild">Материал-->
-                    <!--<svg class="svg-icon">-->
-                      <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use>-->
-                    <!--</svg>-->
-                  <!--</a>-->
-                    <!--<div class="property standart">-->
-                      <!--<div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_7_498629140"-->
-                                                                         <!--id="arrFilter_7_498629140" value="Y"><label-->
-                        <!--for="arrFilter_7_498629140" data-role="label_arrFilter_7_498629140" class="name "-->
-                        <!--onclick="smartFilter.keyup(BX('arrFilter_7_498629140')); BX.toggleClass(this, 'active');"><span-->
-                        <!--class="val">Аллюминий</span><span class="role_count">&nbsp;(<span-->
-                        <!--data-role="count_arrFilter_7_498629140">2</span>)</span></label></span></div>-->
-                      <!--<div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_7_2366072709"-->
-                                                                         <!--id="arrFilter_7_2366072709" value="Y"><label-->
-                        <!--for="arrFilter_7_2366072709" data-role="label_arrFilter_7_2366072709" class="name "-->
-                        <!--onclick="smartFilter.keyup(BX('arrFilter_7_2366072709')); BX.toggleClass(this, 'active');"><span-->
-                        <!--class="val">Бук</span><span class="role_count">&nbsp;(<span-->
-                        <!--data-role="count_arrFilter_7_2366072709">2</span>)</span></label></span></div>-->
-                      <!--<div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_7_2707236321"-->
-                                                                         <!--id="arrFilter_7_2707236321" value="Y"><label-->
-                        <!--for="arrFilter_7_2707236321" data-role="label_arrFilter_7_2707236321" class="name "-->
-                        <!--onclick="smartFilter.keyup(BX('arrFilter_7_2707236321')); BX.toggleClass(this, 'active');"><span-->
-                        <!--class="val">Красное дерево</span><span class="role_count">&nbsp;(<span-->
-                        <!--data-role="count_arrFilter_7_2707236321">1</span>)</span></label></span></div>-->
-                      <!--<div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_7_4194326291"-->
-                                                                         <!--id="arrFilter_7_4194326291" value="Y"><label-->
-                        <!--for="arrFilter_7_4194326291" data-role="label_arrFilter_7_4194326291" class="name "-->
-                        <!--onclick="smartFilter.keyup(BX('arrFilter_7_4194326291')); BX.toggleClass(this, 'active');"><span-->
-                        <!--class="val">Ольха</span><span class="role_count">&nbsp;(<span-->
-                        <!--data-role="count_arrFilter_7_4194326291">2</span>)</span></label></span></div>-->
-                      <!--<div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_7_1790921346"-->
-                                                                         <!--id="arrFilter_7_1790921346" value="Y"><label-->
-                        <!--for="arrFilter_7_1790921346" data-role="label_arrFilter_7_1790921346" class="name "-->
-                        <!--onclick="smartFilter.keyup(BX('arrFilter_7_1790921346')); BX.toggleClass(this, 'active');"><span-->
-                        <!--class="val">Пенополиуретан</span><span class="role_count">&nbsp;(<span-->
-                        <!--data-role="count_arrFilter_7_1790921346">5</span>)</span></label></span></div>-->
-                      <!--<div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_7_3596227959"-->
-                                                                         <!--id="arrFilter_7_3596227959" value="Y"><label-->
-                        <!--for="arrFilter_7_3596227959" data-role="label_arrFilter_7_3596227959" class="name "-->
-                        <!--onclick="smartFilter.keyup(BX('arrFilter_7_3596227959')); BX.toggleClass(this, 'active');"><span-->
-                        <!--class="val">Пластик</span><span class="role_count">&nbsp;(<span-->
-                        <!--data-role="count_arrFilter_7_3596227959">1</span>)</span></label></span></div>-->
-                      <!--<div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_7_2226203566"-->
-                                                                         <!--id="arrFilter_7_2226203566" value="Y"><label-->
-                        <!--for="arrFilter_7_2226203566" data-role="label_arrFilter_7_2226203566" class="name "-->
-                        <!--onclick="smartFilter.keyup(BX('arrFilter_7_2226203566')); BX.toggleClass(this, 'active');"><span-->
-                        <!--class="val">Сосна</span><span class="role_count">&nbsp;(<span-->
-                        <!--data-role="count_arrFilter_7_2226203566">10</span>)</span></label></span></div>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                  <!--<div class="lvl1 closed" data-propid="11" data-propcode="WIDTH_SIZE"><a href="#" class="showchild">Количество-->
-                    <!--мест-->
-                    <!--<svg class="svg-icon">-->
-                      <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use>-->
-                    <!--</svg>-->
-                  <!--</a>-->
-                    <!--<div class="property standart">-->
-                      <!--<div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_11_450215437"-->
-                                                                         <!--id="arrFilter_11_450215437" value="Y"><label-->
-                        <!--for="arrFilter_11_450215437" data-role="label_arrFilter_11_450215437" class="name "-->
-                        <!--onclick="smartFilter.keyup(BX('arrFilter_11_450215437')); BX.toggleClass(this, 'active');"><span-->
-                        <!--class="val">2</span><span class="role_count">&nbsp;(<span-->
-                        <!--data-role="count_arrFilter_11_450215437">1</span>)</span></label></span></div>-->
-                      <!--<div class="lvl2"><span class="smartf-div "><input type="checkbox" name="arrFilter_11_1842515611"-->
-                                                                         <!--id="arrFilter_11_1842515611" value="Y"><label-->
-                        <!--for="arrFilter_11_1842515611" data-role="label_arrFilter_11_1842515611" class="name "-->
-                        <!--onclick="smartFilter.keyup(BX('arrFilter_11_1842515611')); BX.toggleClass(this, 'active');"><span-->
-                        <!--class="val">3</span><span class="role_count">&nbsp;(<span-->
-                        <!--data-role="count_arrFilter_11_1842515611">1</span>)</span></label></span></div>-->
-                    <!--</div>-->
-                  <!--</div>-->
+                    <div class="lvl1" *ngFor="let option of optionsForFiltration let i = index">
+                      <a href="" class="showchild" (click)="toggleFilterBlock($event)">
+                        {{option.title}}
+                        <svg class="svg-icon">
+                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use>
+                        </svg>
+                      </a>
+                      <div class="property standart">
+                        <div class="lvl2" *ngFor="let value of option.values let j = index">
+                          <span class="smartf-div ">
+                            <input type="checkbox" id="optionFilter_{{i}}_{{j}}" name="optionFilter_{{i}}_{{j}}" value="Y" [(ngModel)]="value.selected" (change)="applyFilter()">
+                            <label for="optionFilter_{{i}}_{{j}}" class="name">
+                              <span class="val">{{value.value}}</span></label>
+                          </span>
+                        </div>
+                    </div>
+                    </div>
                 </div>
 
             <!--<div class="buttons">-->
@@ -377,7 +136,7 @@
             </div>
           </div>
           <div class="mix clearfix">
-            <app-products-list [products]="filteredProducts"></app-products-list>
+            <app-products-list [products]="products"></app-products-list>
           </div>
         </div>
 

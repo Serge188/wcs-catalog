@@ -78,7 +78,7 @@ public class ProductRepository {
         return entry;
     }
 
-    public List<ProductEntry> getProductsByCategory(Long categoryId) {
+    public List<ProductEntry> getProductsByCategory(Long categoryId, CategoryFilter filter) {
         CriteriaQuery<Category> categoryCriteriaQuery = criteriaBuilder.createQuery(Category.class);
         Root<Category> categoryRoot = categoryCriteriaQuery.from(Category.class);
         categoryCriteriaQuery.select(categoryRoot.get("id"));
@@ -94,7 +94,40 @@ public class ProductRepository {
 
         Root<Product> root = criteriaQuery.from(Product.class);
         Join categoryJoin = root.join("category");
-        criteriaQuery.where(categoryJoin.get("id").in(categoryIds));
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(categoryJoin.get("id").in(categoryIds));
+        if (filter != null) {
+            if (filter.getMaxPrice() != null) {
+                predicates.add(criteriaBuilder.le(root.get("price"), filter.getMaxPrice()));
+            }
+            if (filter.getMinPrice() != null) {
+                predicates.add(criteriaBuilder.ge(root.get("price"), filter.getMinPrice()));
+            }
+            if (filter.getFactoryIds() != null && !filter.getFactoryIds().isEmpty()) {
+                for (Long fid: filter.getFactoryIds()) {
+                    Join factoryJoin = root.join("factory");
+                    predicates.add(criteriaBuilder.equal(factoryJoin.get("id"), fid));
+                }
+            }
+            if (filter.getOptions() != null && !filter.getOptions().isEmpty()) {
+                List<Long> valueIds = new ArrayList<>();
+                for (OfferOptionInput ooi: filter.getOptions()) {
+                    valueIds.addAll(ooi.getValues().stream().map(OptionValueInput::getId).collect(Collectors.toList()));
+                }
+                Subquery productOptionRelationSubquery = criteriaQuery.subquery(ProductOptionsRelation.class);
+                Root subqueryRoot = productOptionRelationSubquery.from(ProductOptionsRelation.class);
+                Join valueSubqueryJoin = subqueryRoot.join("value");
+                Join productSubqueryJoin = subqueryRoot.join("product");
+                productOptionRelationSubquery.where(valueSubqueryJoin.get("id").in(valueIds));
+                productOptionRelationSubquery.select(productSubqueryJoin.get("id"));
+                predicates.add(root.get("id").in(productOptionRelationSubquery));
+            }
+        }
+
+//        criteriaQuery.where(categoryJoin.get("id").in(categoryIds));
+        Predicate[] pr = new Predicate[predicates.size()];
+        predicates.toArray(pr);
+        criteriaQuery.where(pr);
         Query query = entityManager.createQuery(criteriaQuery);
         List<Product> products = query.getResultList();
         List<ProductEntry> entries = products.stream().map(ProductEntry::fromProduct).collect(Collectors.toList());

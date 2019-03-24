@@ -145,7 +145,7 @@ export class MainPageComponent implements OnInit {
     this.pageService.getPages().subscribe(result => {
       this.pages = result;
       for (let p of this.pages) {
-        if (p.slider) this.sliderPages.push(p);
+        if (p.isSlider) this.sliderPages.push(p);
         if (p.showInMainMenu) this.mainMenuPages.push(p);
         if (p.showInSideMenu) this.sideMenuPages.push(p);
       }

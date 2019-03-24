@@ -37,4 +37,16 @@ export class CategoriesService {
   public removeCategory(categoryId: number): Observable<any> {
     return this.http.delete(this.apiUrl + `categories/${categoryId}`).pipe();
   }
+
+  public getPosssibleFilterOptions(categoryId: number): Observable<any> {
+    return this.http.get(this.apiUrl + `categories/possibleFilterOptions/${categoryId}`).pipe();
+  }
+
+  public getPricesRange(categoryId: number): Observable<any> {
+    return this.http.get(this.apiUrl + `categories/pricesRange/${categoryId}`).pipe();
+  }
+
+  public getFactoriesInCategory(categoryId: number): Observable<any> {
+    return this.http.get(this.apiUrl + `categories/factories/${categoryId}`).pipe();
+  }
 }

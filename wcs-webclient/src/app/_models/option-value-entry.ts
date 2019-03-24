@@ -8,4 +8,5 @@ export class OptionValueEntry {
   image?: ImageEntry;
   editMode?: boolean;
   imageInput?: any;
+  selected?: boolean;
 }

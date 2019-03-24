@@ -4,6 +4,7 @@ import {Observable} from "rxjs/internal/Observable";
 import {ProductEntry} from "./_models/product-entry";
 import {CategoryEntry} from "./_models/category-entry";
 import { environment } from '../environments/environment';
+import {CategoryFilter} from "./_models/category-filter";
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,8 @@ export class ProductsService {
     return this.http.get(this.apiUrl + `products/byAlias/${alias}`).pipe();
   }
 
-  public getCategoryProducts(categoryId: number): Observable<any> {
-    return this.http.get(this.apiUrl + `products/byCategory/${categoryId}`).pipe();
+  public getCategoryProducts(categoryId: number, filter: CategoryFilter): Observable<any> {
+    return this.http.post(this.apiUrl + `products/byCategory/${categoryId}`, filter).pipe();
   }
 
   public getOneLevelCategoryProducts(categoryId: number): Observable<any> {

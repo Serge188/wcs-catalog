@@ -10,7 +10,7 @@ public class PageInput {
     private String content;
     private Object sliderImageInput;
     private Object imageInput;
-    private Boolean slider;
+    private Boolean isSlider;
     private Long parentPageId;
     private Boolean showInMainMenu;
     private Boolean showInSideMenu;
@@ -87,12 +87,12 @@ public class PageInput {
         this.imageInput = imageInput;
     }
 
-    public Boolean getSlider() {
-        return slider;
+    public Boolean getIsSlider() {
+        return isSlider;
     }
 
-    public void setSlider(Boolean slider) {
-        this.slider = slider;
+    public void setIsSlider(Boolean isSlider) {
+        this.isSlider = isSlider;
     }
 
     public Long getParentPageId() {

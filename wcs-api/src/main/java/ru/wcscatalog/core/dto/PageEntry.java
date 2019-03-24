@@ -14,7 +14,7 @@ public class PageEntry {
     private String content;
     private ImageEntry sliderImage;
     private ImageEntry image;
-    private boolean slider;
+    private boolean isSlider;
     private long parentPageId;
     private String parentPageTitle;
     private Boolean showInMainMenu;
@@ -94,11 +94,11 @@ public class PageEntry {
     }
 
     public boolean isSlider() {
-        return slider;
+        return isSlider;
     }
 
     public void setSlider(boolean slider) {
-        this.slider = slider;
+        this.isSlider = slider;
     }
 
     public long getParentPageId() {

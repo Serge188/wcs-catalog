@@ -2,11 +2,8 @@ package ru.wcscatalog.core.repository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.wcscatalog.core.dto.CategoryEntry;
-import ru.wcscatalog.core.dto.CategoryInput;
-import ru.wcscatalog.core.model.Category;
-import ru.wcscatalog.core.model.Image;
-import ru.wcscatalog.core.model.Product;
+import ru.wcscatalog.core.dto.*;
+import ru.wcscatalog.core.model.*;
 import ru.wcscatalog.core.utils.Transliterator;
 
 import javax.persistence.EntityManager;
@@ -139,6 +136,51 @@ public class CategoriesRepository {
         } catch (Exception e) {
             throw new Exception("error.occurred.while.removing.category");
         }
+    }
+
+    @Transactional
+    public Collection<OfferOptionEntry> getPossibleFilterOptions(Long categoryId) {
+        CriteriaQuery<ProductOptionsRelation> productOptionsCriteriaQuery =
+                criteriaBuilder.createQuery(ProductOptionsRelation.class);
+        Root root = productOptionsCriteriaQuery.from(ProductOptionsRelation.class);
+        Join productJoin = root.join("product");
+        Join categoryJoin = productJoin.join("category");
+        criteriaQuery.where(criteriaBuilder.equal(categoryJoin.get("id"), categoryId));
+        List<ProductOptionsRelation> productOptionsRelations = entityManager.createQuery(productOptionsCriteriaQuery).getResultList();
+        Map<Long, OfferOptionEntry> optionsMap = new HashMap<>();
+        productOptionsRelations.forEach(or -> {
+            optionsMap.putIfAbsent(or.getOption().getId(), OfferOptionEntry.fromOfferOption(or.getOption()));
+        });
+        productOptionsRelations.forEach(or -> {
+            optionsMap.get(or.getOption().getId()).getValues().add(OptionValueEntry.fromOptionValue(or.getValue()));
+        });
+        return optionsMap.values();
+    }
+
+    @Transactional
+    public List<Float> getPricesRange(long categoryId) {
+        CriteriaQuery productsCriteria = criteriaBuilder.createQuery();
+        Root<Product> root = productsCriteria.from(Product.class);
+        Join categoryJoin = root.join("category");
+        productsCriteria.where(criteriaBuilder.equal(categoryJoin.get("id"), categoryId));
+        productsCriteria.select(root.get("price"));
+        List<Float> prices = entityManager.createQuery(productsCriteria).getResultList();
+        List<Float> minMaxPrices = new ArrayList<>();
+        prices.stream().max(Comparator.comparing(Float::valueOf)).ifPresent(minMaxPrices::add);
+        prices.stream().min(Comparator.comparing(Float::valueOf)).ifPresent(minMaxPrices::add);
+        return minMaxPrices;
+    }
+
+    @Transactional
+    public List<FactoryEntry> getFactoriesForCategory(long categoryId) {
+        CriteriaQuery productsCriteria = criteriaBuilder.createQuery();
+        Root<Product> root = productsCriteria.from(Product.class);
+        Join categoryJoin = root.join("category");
+        productsCriteria.where(criteriaBuilder.equal(categoryJoin.get("id"), categoryId));
+        productsCriteria.select(root.get("factory"));
+        productsCriteria.distinct(true);
+        List<Factory> factories = entityManager.createQuery(productsCriteria).getResultList();
+        return factories.stream().map(FactoryEntry::fromFactory).collect(Collectors.toList());
     }
 
     private void buildCriteriaQuery() {

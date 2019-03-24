@@ -47,7 +47,7 @@ public class Page {
     private Boolean showInSideMenu;
 
     @Column(name = "is_slider", nullable = false)
-    private boolean slider;
+    private boolean isSlider;
 
     public Page() {
     }
@@ -133,14 +133,14 @@ public class Page {
     }
 
     public boolean isSlider() {
-        return slider;
+        return isSlider;
     }
 
     public void setSlider(Boolean slider) {
         if (slider == null) {
-            this.slider = false;
+            this.isSlider = false;
         } else {
-            this.slider = slider;
+            this.isSlider = slider;
         }
     }
 

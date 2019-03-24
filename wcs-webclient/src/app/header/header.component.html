@@ -90,37 +90,35 @@
   <div class="tline"></div>
   <div class="centering">
     <div class="centeringin clearfix">
-      <div class="authandlocation nowrap">
-        <div class="b-location" id="topline-location">
-          <span>Ваш город: </span>
-          <!--'start_frame_cache_topline-location'-->
-          <a class="b-topline-location__link fancyajax fancybox.ajax big" href="/include/popup/mycity/" title="Ваш город?">
-            Калуга
-            <svg class="svg-icon">
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-filled-down"></use>
-            </svg>
-          </a>
-          <div class="b-location-confirm" id="location_confirm" style="display: none">
-            <div class="b-location-confirm__triangle"></div>
-            <div class="b-location-confirm__your">Ваш город Калуга?</div>
-            <div class="b-location-confirm__controls">
-              <a class="btn btn-primary" onclick="RS.Location.hideConfirm(); return false;" href="">Верно</a>
-              <a class="btn btn-default fancyajax fancybox.ajax big" href="/include/popup/mycity/" title="Ваш город?">Найти</a>
-            </div>
-          </div>
-          <!--'end_frame_cache_topline-location'-->
-        </div>
-        <div class="authinhead" id="inheadauthform_8k8aZS">
-          <!--'start_frame_cache_inheadauthform'-->
-          <div class="authinheadinner guest">
-            <svg class="svg-icon">
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-lock"></use>
-            </svg>
-            <a href="/auth/">Вход</a> | <a href="/auth/?register=yes">Регистрация</a>
-          </div>
-          <!--'end_frame_cache_inheadauthform'-->
-        </div>
-      </div>
+      <!--<div class="authandlocation nowrap">-->
+        <!--<div class="b-location" id="topline-location">-->
+          <!--<span>Ваш город: </span>-->
+          <!--&lt;!&ndash;'start_frame_cache_topline-location'&ndash;&gt;-->
+          <!--<a class="b-topline-location__link fancyajax fancybox.ajax big" href="/include/popup/mycity/" title="Ваш город?">-->
+            <!--Калуга-->
+            <!--<svg class="svg-icon">-->
+              <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-filled-down"></use>-->
+            <!--</svg>-->
+          <!--</a>-->
+          <!--<div class="b-location-confirm" id="location_confirm" style="display: none">-->
+            <!--<div class="b-location-confirm__triangle"></div>-->
+            <!--<div class="b-location-confirm__your">Ваш город Калуга?</div>-->
+            <!--<div class="b-location-confirm__controls">-->
+              <!--<a class="btn btn-primary" onclick="RS.Location.hideConfirm(); return false;" href="">Верно</a>-->
+              <!--<a class="btn btn-default fancyajax fancybox.ajax big" href="/include/popup/mycity/" title="Ваш город?">Найти</a>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="authinhead" id="inheadauthform_8k8aZS">-->
+          <!--&lt;!&ndash;'start_frame_cache_inheadauthform'&ndash;&gt;-->
+          <!--<div class="authinheadinner guest">-->
+            <!--<svg class="svg-icon">-->
+              <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-lock"></use>-->
+            <!--</svg>-->
+            <!--<a href="/auth/">Вход</a> | <a href="/auth/?register=yes">Регистрация</a>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
       <div class="tpanel_menu clearfix mobile_hide">
         <span *ngFor="let p of mainMenuPages">
           <a href="/page/{{p.alias}}">{{p.title}}</a>
@@ -171,7 +169,7 @@
       <div class="favorite column1 nowrap hidden-print">
         <div class="column1inner">
           <div class="rsfavorite">
-            <a id="inheadfavorite" href="/personal/favorite/">
+            <a id="inheadfavorite" href="/personal/favorite/" (click)="openFavorites($event)">
               <!--'start_frame_cache_inheadfavorite'-->
               <svg class="svg-icon">
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-favorite-list">
@@ -201,7 +199,7 @@
         <div class="column1inner">
 
           <div class="header-basket">
-            <a class="header-basket__link" href="/personal/cart/">
+            <a class="header-basket__link" href="/personal/cart/" (click)="openCart($event)">
               <svg class="svg-icon">
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-cart-3">
                   <svg viewBox="0 0 64 64" id="svg-cart-3" width="100%" height="100%">

@@ -9,7 +9,6 @@ import ru.wcscatalog.core.utils.AliasChecker;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
@@ -86,7 +85,7 @@ public class PageRepository {
     public void updatePageFromInput(Page page, PageInput input) {
         page.setTitle(input.getTitle());
         page.setAlias(aliasChecker.findUniqueAliasForEntity(Page.class, input.getTitle()));
-        page.setSlider(input.getSlider());
+        page.setSlider(input.getIsSlider());
         page.setSliderHeader(input.getSliderHeader());
         page.setSliderPromo(input.getSliderPromo());
         page.setSliderAnnotation(input.getSliderAnnotation());

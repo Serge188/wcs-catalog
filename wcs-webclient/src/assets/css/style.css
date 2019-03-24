@@ -10449,7 +10449,7 @@ body .popup-window-close-icon:hover:after {
   padding-left: 30px
 }
 
-.smartfilter .bx_ui_slider_handle {
+.smartfilter .bx_ui_slider_handle .ui-slider .ui-slider-handle {
   top: -6px;
   width: 15px;
   height: 15px;

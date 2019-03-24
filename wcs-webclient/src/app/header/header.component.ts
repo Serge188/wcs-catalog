@@ -19,4 +19,12 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  public openFavorites(event: any): void {
+    event.preventDefault();
+  }
+
+  public openCart(event: any): void {
+    event.preventDefault();
+  }
+
 }

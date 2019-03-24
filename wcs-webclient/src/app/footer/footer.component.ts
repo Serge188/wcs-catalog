@@ -65,4 +65,8 @@ export class FooterComponent implements OnInit {
     });
   };
 
+  public recallRequest(event: any): void {
+     event.preventDefault();
+  }
+
 }
