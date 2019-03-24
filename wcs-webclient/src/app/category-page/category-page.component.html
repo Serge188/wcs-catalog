@@ -83,7 +83,7 @@
                       <div class="property standart">
                         <div class="lvl2" *ngFor="let f of factories let i = index">
                           <span class="smartf-div ">
-                            <input type="checkbox" disabled id="factoryFilter_{{i}}" name="factoryFilter_{{i}}" value="Y" [(ngModel)]="f.selected" (change)="applyFilter()">
+                            <input type="checkbox" id="factoryFilter_{{i}}" name="factoryFilter_{{i}}" value="Y" [(ngModel)]="f.selected" (change)="applyFilter()">
                             <label for="factoryFilter_{{i}}"  class="name">
                               <span class="val">{{f.title}}</span>
                             </label>
