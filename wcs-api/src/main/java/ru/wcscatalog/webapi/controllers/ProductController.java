@@ -110,10 +110,4 @@ public class ProductController {
         imageRepository.removeImageFromProduct(imageId);
         return ResponseEntity.ok().build();
     }
-
-    @GetMapping("/testProduct")
-    public ResponseEntity<?> testProduct() {
-        productRepository.testRemoveCategoryUpdateProduct();
-        return ResponseEntity.ok().build();
-    }
 }
