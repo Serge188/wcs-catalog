@@ -1,77 +1,54 @@
 package ru.wcscatalog.core.repository;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.wcscatalog.core.dto.*;
 import ru.wcscatalog.core.model.*;
 import ru.wcscatalog.core.utils.AliasChecker;
-import ru.wcscatalog.core.utils.Transliterator;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
 import javax.persistence.criteria.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
+@Transactional
 public class ProductRepository {
-    private final EntityManagerFactory entityManagerFactory;
     private final CategoriesRepository categoriesRepository;
     private final FactoryRepository factoryRepository;
     private final ImageRepository imageRepository;
     private final OptionsRepository optionsRepository;
     private final AliasChecker aliasChecker;
-    private EntityManager entityManager;
-    private CriteriaBuilder criteriaBuilder;
+    private Dao dao;
 
-    public ProductRepository(EntityManagerFactory entityManagerFactory, CategoriesRepository categoriesRepository,
+    public ProductRepository(CategoriesRepository categoriesRepository,
                              FactoryRepository factoryRepository, ImageRepository imageRepository,
-                             OptionsRepository optionsRepository, AliasChecker aliasChecker) {
-        this.entityManagerFactory = entityManagerFactory;
+                             OptionsRepository optionsRepository, AliasChecker aliasChecker, Dao dao) {
         this.categoriesRepository = categoriesRepository;
         this.factoryRepository = factoryRepository;
         this.imageRepository = imageRepository;
         this.optionsRepository = optionsRepository;
         this.aliasChecker = aliasChecker;
-        initializeCriteriaBuilder();
+        this.dao = dao;
     }
 
     public List<ProductEntry> getPopularProducts() {
-        CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
-        Root<Product> root = criteriaQuery.from(Product.class);
-        criteriaQuery.where(criteriaBuilder.equal(root.get("popular"), true));
-        Query query = entityManager.createQuery(criteriaQuery);
-        List<Product> products = query.getResultList();
-        List<ProductEntry> entries = new ArrayList<>();
-        for (Product p: products) {
-            entries.add(ProductEntry.fromProduct(p));
-        }
-        fillSaleOffers(entries);
-        return entries;
+        List<ProductEntry> products = dao.listByProperty("popular", true, Product.class)
+                .stream()
+                .map(ProductEntry::fromProduct)
+                .collect(Collectors.toList());
+        fillSaleOffers(products);
+        return products;
     }
 
     public Product getProductById(Long id) {
-        CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
-        Root<Product> root = criteriaQuery.from(Product.class);
-        criteriaQuery.where(criteriaBuilder.equal(root.get("id"), id));
-        Optional<Product> product = entityManager.createQuery(criteriaQuery).getResultList().stream().findAny();
-        return product.orElse(null);
+        return dao.byId(id, Product.class);
     }
 
     public SaleOffer getSaleOfferById(Long id) {
-        CriteriaQuery<SaleOffer> criteriaQuery = criteriaBuilder.createQuery(SaleOffer.class);
-        Root<SaleOffer> root = criteriaQuery.from(SaleOffer.class);
-        criteriaQuery.where(criteriaBuilder.equal(root.get("id"), id));
-        Optional<SaleOffer> saleOffer = entityManager.createQuery(criteriaQuery).getResultList().stream().findAny();
-        return saleOffer.orElse(null);
+        return dao.byId(id, SaleOffer.class);
     }
 
     public ProductEntry getProductByAlias(String alias) {
-        CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
-        Root<Product> root = criteriaQuery.from(Product.class);
-        criteriaQuery.where(criteriaBuilder.equal(root.get("alias"), alias));
-        Query query = entityManager.createQuery(criteriaQuery);
-        Product product = (Product) query.getSingleResult();
+        Product product = dao.singleByProperty("alias", alias, Product.class);
         ProductEntry entry = ProductEntry.fromProduct(product);
         fillSaleOffers(Collections.singletonList(entry));
         fillOptions(Collections.singletonList(entry));
@@ -79,15 +56,15 @@ public class ProductRepository {
     }
 
     public List<ProductEntry> getProductsByCategory(Long categoryId, CategoryFilter filter) {
+        CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
         CriteriaQuery<Category> categoryCriteriaQuery = criteriaBuilder.createQuery(Category.class);
         Root<Category> categoryRoot = categoryCriteriaQuery.from(Category.class);
-        categoryCriteriaQuery.select(categoryRoot.get("id"));
         categoryCriteriaQuery.where(criteriaBuilder.and(
                 criteriaBuilder.isNotNull(categoryRoot.get("parentCategory")),
                 criteriaBuilder.equal(categoryRoot.get("parentCategory"), categoryId)));
-
-        Query categoryQuery = entityManager.createQuery(categoryCriteriaQuery);
-        List<Long> categoryIds = categoryQuery.getResultList();
+        List<Long> categoryIds = dao.createQuery(categoryCriteriaQuery)
+                .stream()
+                .map(Category::getId).collect(Collectors.toList());
         categoryIds.add(categoryId);
 
         CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
@@ -124,12 +101,10 @@ public class ProductRepository {
             }
         }
 
-//        criteriaQuery.where(categoryJoin.get("id").in(categoryIds));
         Predicate[] pr = new Predicate[predicates.size()];
         predicates.toArray(pr);
         criteriaQuery.where(pr);
-        Query query = entityManager.createQuery(criteriaQuery);
-        List<Product> products = query.getResultList();
+        List<Product> products = dao.createQuery(criteriaQuery);
         List<ProductEntry> entries = products.stream().map(ProductEntry::fromProduct).collect(Collectors.toList());
         fillSaleOffers(entries);
         fillOptions(entries);
@@ -137,12 +112,13 @@ public class ProductRepository {
     }
 
     public List<ProductEntry> getProductsByCategoryForOneLevel(long categoryId) {
+        CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
         CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
         Root<Product> root = criteriaQuery.from(Product.class);
         Join categoryJoin = root.join("category");
         criteriaQuery.where(criteriaBuilder.equal(categoryJoin.get("id"), categoryId));
-        Query query = entityManager.createQuery(criteriaQuery);
-        List<Product> products = query.getResultList();
+        List<Product> products = dao.createQuery(criteriaQuery);
+
         List<ProductEntry> entries = products.stream().map(ProductEntry::fromProduct).collect(Collectors.toList());
         fillSaleOffers(entries);
         fillOptions(entries);
@@ -171,6 +147,11 @@ public class ProductRepository {
         product.setCategory(categoriesRepository.getCategoryById(input.getCategoryId()));
         product.setFactory(factoryRepository.getFactoryById(input.getFactoryId()));
         product.setPriceType(input.getPriceType());
+
+        if (product.getId() == null) {
+            dao.add(product);
+        }
+
         Factory factory = factoryRepository.getFactoryById(input.getFactoryId());
         if (factory != null) {
             product.setFactory(factory);
@@ -189,41 +170,26 @@ public class ProductRepository {
             Image image = imageRepository.createImageForObject(product, data);
             image.setMainImage(true);
             image.setProduct(product);
-            entityManager.merge(image);
+            dao.add(image);
         }
 
-        if (product.getImages() != null && input.getImagesInput() != null && !input.getImagesInput().isEmpty()) {
-            List<Image> images = product.getImages()
-                    .stream()
-                    .filter(x -> x.isMainImage() != null && x.isMainImage())
-                    .collect(Collectors.toList());
-            for (Image i : images) {
-                i.setProduct(product);
-                entityManager.merge(i);
+        if (input.getImagesInput() != null && !input.getImagesInput().isEmpty()) {
+            for (Object o: input.getImagesInput()) {
+                String data = ((String) o);
+                Image image = imageRepository.createImageForObject(product, data);
+                image.setMainImage(false);
+                image.setProduct(product);
+                dao.add(image);
             }
         }
 
-        for (Object o: input.getImagesInput()) {
-
-            String data = ((String) o);
-            Image image = imageRepository.createImageForObject(product, data);
-            image.setMainImage(false);
-            image.setProduct(product);
-            entityManager.merge(image);
-        }
-
-        entityManager.getTransaction().begin();
-        entityManager.persist(product);
-        entityManager.getTransaction().commit();
 
         for (OfferOptionInput optionInput: input.getOptions()) {
             ProductOptionsRelation relation = new ProductOptionsRelation();
             relation.setProduct(product);
             relation.setOption(optionsRepository.getOptionById(optionInput.getId()));
             relation.setValue(optionsRepository.getOptionValueById(optionInput.getSelectedValue().getId()));
-            entityManager.getTransaction().begin();
-            entityManager.persist(relation);
-            entityManager.getTransaction().commit();
+            dao.add(relation);
         }
 
         for (SaleOfferInput soi: input.getSaleOffers()) {
@@ -231,13 +197,14 @@ public class ProductRepository {
         }
     }
 
-    public SaleOffer createOrUpdateSaleOffer(SaleOfferInput input, Product product) throws Exception{
+    public SaleOffer createOrUpdateSaleOffer(SaleOfferInput input, Product product) throws Exception {
         SaleOffer saleOffer = null;
         if (input.getId() != null) {
             saleOffer = getSaleOfferById(input.getId());
         }
         if (saleOffer == null) {
             saleOffer = new SaleOffer();
+            dao.add(saleOffer);
         }
         if (product == null) {
             product = getProductById(input.getProductId());
@@ -254,55 +221,41 @@ public class ProductRepository {
             Image image = imageRepository.createImageForObject(saleOffer, data);
             saleOffer.setMainImage(image);
         }
-        entityManager.getTransaction().begin();
-        entityManager.persist(saleOffer);
-        entityManager.getTransaction().commit();
         return saleOffer;
     }
 
     public void removeProduct(Long productId) {
         Product product = getProductById(productId);
         if (product != null) {
+            CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
             CriteriaQuery<SaleOffer> criteriaQuery = criteriaBuilder.createQuery(SaleOffer.class);
             Root<SaleOffer> root = criteriaQuery.from(SaleOffer.class);
             Join productJoin = root.join("product");
             criteriaQuery.where(criteriaBuilder.equal(productJoin.get("id"), productId));
-            Query query = entityManager.createQuery(criteriaQuery);
-            List<SaleOffer> saleOffers = query.getResultList();
+            List<SaleOffer> saleOffers = dao.createQuery(criteriaQuery);
 
-            saleOffers.forEach(so -> entityManager.remove(so));
+            saleOffers.forEach(dao::remove);
 
             CriteriaQuery<ProductOptionsRelation> relationsCriteriaQuery = criteriaBuilder.createQuery(ProductOptionsRelation.class);
             Root<ProductOptionsRelation> relationsRoot = relationsCriteriaQuery.from(ProductOptionsRelation.class);
             Join relatedProductJoin = relationsRoot.join("product");
             criteriaQuery.where(criteriaBuilder.equal(relatedProductJoin.get("id"), productId));
-            Query relationsQuery = entityManager.createQuery(relationsCriteriaQuery);
-            List<ProductOptionsRelation> optionRelations = relationsQuery.getResultList();
+            List<ProductOptionsRelation> optionRelations = dao.createQuery(relationsCriteriaQuery);
 
-            optionRelations.forEach(r -> entityManager.remove(r));
+
+
+            optionRelations.forEach(dao::remove);
             imageRepository.removeImageForObject(product);
-
-            entityManager.getTransaction().begin();
-            entityManager.remove(product);
-            entityManager.getTransaction().commit();
+            dao.remove(product);
         }
     }
 
     public void removeSaleOfferFromProduct(Long saleOfferId) {
         SaleOffer saleOffer = getSaleOfferById(saleOfferId);
         if (saleOffer != null) {
-            entityManager.getTransaction().begin();
-            entityManager.remove(entityManager.contains(saleOffer) ? saleOffer : entityManager.merge(saleOffer));
-            entityManager.getTransaction().commit();
+            dao.remove(saleOffer);
         }
         imageRepository.removeImageForObject(saleOffer);
-    }
-
-    private void initializeCriteriaBuilder() {
-        if (entityManager == null) {
-            entityManager = entityManagerFactory.createEntityManager();
-        }
-        criteriaBuilder = entityManager.getCriteriaBuilder();
     }
 
     private void fillSaleOffers(List<ProductEntry> products) {
@@ -310,12 +263,12 @@ public class ProductRepository {
             return;
         }
         List<Long> productIds = products.stream().map(ProductEntry::getId).collect(Collectors.toList());
+        CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
         CriteriaQuery<SaleOffer> criteriaQuery = criteriaBuilder.createQuery(SaleOffer.class);
         Root<SaleOffer> offer = criteriaQuery.from(SaleOffer.class);
         Join product = offer.join("product");
         criteriaQuery.where(product.get("id").in(productIds));
-        Query query = entityManager.createQuery(criteriaQuery);
-        List<SaleOffer> offers = query.getResultList();
+        List<SaleOffer> offers = dao.createQuery(criteriaQuery);
         products.forEach(p -> {
             List<SaleOfferEntry> so = offers
                     .stream()
@@ -331,12 +284,12 @@ public class ProductRepository {
             return;
         }
         List<Long> productIds = products.stream().map(ProductEntry::getId).collect(Collectors.toList());
+        CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
         CriteriaQuery<ProductOptionsRelation> criteriaQuery = criteriaBuilder.createQuery(ProductOptionsRelation.class);
         Root<ProductOptionsRelation> offer = criteriaQuery.from(ProductOptionsRelation.class);
         Join product = offer.join("product");
         criteriaQuery.where(product.get("id").in(productIds));
-        Query query = entityManager.createQuery(criteriaQuery);
-        List<ProductOptionsRelation> optionRelations = query.getResultList();
+        List<ProductOptionsRelation> optionRelations = dao.createQuery(criteriaQuery);
         products.forEach(p -> {
             Optional<ProductOptionsRelation> r = optionRelations
                     .stream()

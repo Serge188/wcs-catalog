@@ -1,17 +1,14 @@
 package ru.wcscatalog.core.repository;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.wcscatalog.core.dto.OfferOptionEntry;
 import ru.wcscatalog.core.dto.OfferOptionInput;
-import ru.wcscatalog.core.dto.OptionValueEntry;
 import ru.wcscatalog.core.dto.OptionValueInput;
 import ru.wcscatalog.core.model.Image;
 import ru.wcscatalog.core.model.OfferOption;
 import ru.wcscatalog.core.model.OptionValue;
 import ru.wcscatalog.core.utils.Transliterator;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -20,52 +17,36 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
+@Transactional
 public class OptionsRepository {
     private final ImageRepository imageRepository;
-    private final EntityManagerFactory entityManagerFactory;
-    private EntityManager entityManager;
-    private CriteriaBuilder criteriaBuilder;
+    private Dao dao;
 
-    public OptionsRepository(ImageRepository imageRepository, EntityManagerFactory entityManagerFactory) {
+    public OptionsRepository(ImageRepository imageRepository, Dao dao) {
         this.imageRepository = imageRepository;
-        this.entityManagerFactory = entityManagerFactory;
-        initialiseCriteriaBuilder();
+        this.dao = dao;
     }
 
     public List<OfferOptionEntry> getAllOptions() {
-        CriteriaQuery<OfferOption> criteriaQuery = criteriaBuilder.createQuery(OfferOption.class);
-        Root<OfferOption> root = criteriaQuery.from(OfferOption.class);
-        List<OfferOption> options = entityManager.createQuery(criteriaQuery).getResultList();
+        List<OfferOption> options = dao.getAll(OfferOption.class);
         List<OfferOptionEntry> optionEntries = options.stream().map(OfferOptionEntry::fromOfferOption).collect(Collectors.toList());
-        fillOptionValues(optionEntries);
+//        fillOptionValues(optionEntries);
         return optionEntries;
     }
 
     public OfferOption getOptionById(Long id) {
-        CriteriaQuery<OfferOption> criteriaQuery = criteriaBuilder.createQuery(OfferOption.class);
-        Root<OfferOption> root = criteriaQuery.from(OfferOption.class);
-        criteriaQuery.where(criteriaBuilder.equal(root.get("id"), id));
-        Optional<OfferOption> option = entityManager.createQuery(criteriaQuery).getResultList().stream().findFirst();
-        return option.orElse(null);
+        return dao.byId(id, OfferOption.class);
     }
 
     public OptionValue getOptionValueById(Long id) {
-        CriteriaQuery<OptionValue> criteriaQuery = criteriaBuilder.createQuery(OptionValue.class);
-        Root<OptionValue> root = criteriaQuery.from(OptionValue.class);
-        criteriaQuery.where(criteriaBuilder.equal(root.get("id"), id));
-        Optional<OptionValue> option = entityManager.createQuery(criteriaQuery).getResultList().stream().findFirst();
-        return option.orElse(null);
+        return dao.byId(id, OptionValue.class);
     }
 
     private OptionValue getOptionValueByAlias(String alias) {
-        CriteriaQuery<OptionValue> criteriaQuery = criteriaBuilder.createQuery(OptionValue.class);
-        Root<OptionValue> root = criteriaQuery.from(OptionValue.class);
-        criteriaQuery.where(criteriaBuilder.equal(root.get("alias"), alias));
-        Optional<OptionValue> option = entityManager.createQuery(criteriaQuery).getResultList().stream().findFirst();
-        return option.orElse(null);
+        return dao.singleByProperty("alias", alias, OptionValue.class);
     }
 
-    public OfferOption createOrUpdateOption(OfferOptionInput input) throws Exception {
+    public OfferOptionEntry createOrUpdateOption(OfferOptionInput input) throws Exception {
         OfferOption option = null;
         if (input.getId() != null) {
             option = getOptionById(input.getId());
@@ -75,30 +56,29 @@ public class OptionsRepository {
         }
         option.setTitle(input.getTitle());
         option.setName(input.getName());
-        entityManager.getTransaction().begin();
-        entityManager.persist(option);
-        entityManager.getTransaction().commit();
         List<OptionValue> oldValues = getValuesForOptions(Collections.singletonList(option.getId()));
         for (OptionValue v: oldValues) {
-            Optional<OptionValueInput> correspondingNewValue = input.getValues().stream().filter(x -> x.getId().equals(v.getId())).findFirst();
-//            if (!correspondingNewValue.isPresent()) {
-//                removeValue(v.getId());
-//            }
+            Optional<OptionValueInput> correspondingNewValue = input
+                    .getValues()
+                    .stream()
+                    .filter(x -> x.getId() != null)
+                    .filter(x -> x.getId().equals(v.getId()))
+                    .findFirst();
+            if (!correspondingNewValue.isPresent()) {
+                removeValue(v.getId());
+            }
         }
+        dao.add(option);
         for (OptionValueInput v: input.getValues()) {
             createOrUpdateValue(v, option);
         }
-        return option;
+        return OfferOptionEntry.fromOfferOption(option);
     }
 
     public void removeOption(Long optionId) {
-        List<OptionValue> valuesList = getValuesForOptions(Collections.singletonList(optionId));
-        valuesList.forEach(v -> entityManager.remove(v));
         OfferOption option = getOptionById(optionId);
         if (option != null) {
-            entityManager.getTransaction().begin();
-            entityManager.remove(option);
-            entityManager.getTransaction().commit();
+            dao.remove(option);
         }
     }
 
@@ -124,14 +104,12 @@ public class OptionsRepository {
             }
         }
         optionValue.setAlias(alias);
-        entityManager.getTransaction().begin();
-        entityManager.persist(optionValue);
-        entityManager.getTransaction().commit();
         if (input.getImageInput() != null) {
             String data = ((String) input.getImageInput());
             Image image = imageRepository.createImageForObject(optionValue, data);
             optionValue.setImage(image);
         }
+        dao.add(optionValue);
         return optionValue;
     }
 
@@ -140,9 +118,7 @@ public class OptionsRepository {
         if (optionValue != null ){
             try {
                 imageRepository.removeImageForObject(optionValue);
-                entityManager.getTransaction().begin();
-                entityManager.remove(optionValue);
-                entityManager.getTransaction().commit();
+                dao.remove(optionValue);
             } catch (Exception e) {
                 throw new Exception("error.occurred.while.removing.option.value");
             }
@@ -150,31 +126,15 @@ public class OptionsRepository {
 
     }
 
-    private void initialiseCriteriaBuilder() {
-        if (entityManager == null) {
-            entityManager = entityManagerFactory.createEntityManager();
-        }
-        criteriaBuilder = entityManager.getCriteriaBuilder();
-    }
-
-    private List<OptionValue> getValuesForOptions(Collection<Long> optionIds) {
+    protected List<OptionValue> getValuesForOptions(Collection<Long> optionIds) {
         if (optionIds.isEmpty()) {
             return new ArrayList<>();
         }
+        CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
         CriteriaQuery<OptionValue> criteriaQuery = criteriaBuilder.createQuery(OptionValue.class);
         Root<OptionValue> root = criteriaQuery.from(OptionValue.class);
         Join optionJoin = root.join("option");
         criteriaQuery.where(optionJoin.get("id").in(optionIds));
-        return entityManager.createQuery(criteriaQuery).getResultList();
-    }
-
-    private void fillOptionValues(List<OfferOptionEntry> options) {
-        Map<Long, OfferOptionEntry> optionsMap = options.stream().collect(Collectors.toMap(OfferOptionEntry::getId, o -> o));
-        List<OptionValue> values = getValuesForOptions(optionsMap.keySet());
-        values.forEach(v -> {
-            if (optionsMap.containsKey(v.getOption().getId())) {
-                optionsMap.get(v.getOption().getId()).getValues().add(OptionValueEntry.fromOptionValue(v));
-            }
-        });
+        return dao.createQuery(criteriaQuery);
     }
 }

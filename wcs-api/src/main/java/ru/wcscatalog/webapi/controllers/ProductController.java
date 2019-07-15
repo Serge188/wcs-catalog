@@ -1,6 +1,7 @@
 package ru.wcscatalog.webapi.controllers;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import ru.wcscatalog.core.dto.CategoryFilter;
 import ru.wcscatalog.core.dto.ProductEntry;
 import ru.wcscatalog.core.dto.ProductInput;
 import ru.wcscatalog.core.dto.SaleOfferInput;
+import ru.wcscatalog.core.repository.ImageRepository;
 import ru.wcscatalog.core.repository.ProductRepository;
 
 import java.util.List;
@@ -18,9 +20,12 @@ import java.util.Optional;
 public class ProductController {
 
     private final ProductRepository productRepository;
+    private final ImageRepository imageRepository;
 
-    public ProductController(ProductRepository categoriesRepository) {
+    public ProductController(@NonNull  ProductRepository categoriesRepository,
+                             @NonNull ImageRepository imageRepository) {
         this.productRepository = categoriesRepository;
+        this.imageRepository = imageRepository;
     }
 
     @GetMapping("/popular")
@@ -93,9 +98,22 @@ public class ProductController {
             return ResponseEntity.of(Optional.of("error.updating.sale.offer"));
         }
     }
+
     @DeleteMapping("/saleOffer/{id}")
     public ResponseEntity<?> removeSaleOffer(@PathVariable("id") Long saleOfferId) {
         productRepository.removeSaleOfferFromProduct(saleOfferId);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{productId}/images/{imageId}")
+    public ResponseEntity<?> removeImageFromProduct(@PathVariable("imageId") Long imageId) {
+        imageRepository.removeImageFromProduct(imageId);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/testProduct")
+    public ResponseEntity<?> testProduct() {
+        productRepository.testRemoveCategoryUpdateProduct();
         return ResponseEntity.ok().build();
     }
 }

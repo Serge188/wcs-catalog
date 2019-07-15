@@ -31,7 +31,7 @@ public class Image {
     @Column(name="img_category")
     private String categoryImageLink;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "product_id")
     private Product product;
 

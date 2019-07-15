@@ -15,7 +15,7 @@ public class Product {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
     private List<Image> images = new ArrayList<>();
 
     @Column(name="alias_name", nullable = false)

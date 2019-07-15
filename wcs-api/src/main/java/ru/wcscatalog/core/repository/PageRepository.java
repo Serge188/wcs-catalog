@@ -1,6 +1,7 @@
 package ru.wcscatalog.core.repository;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.wcscatalog.core.dto.PageEntry;
 import ru.wcscatalog.core.dto.PageInput;
 import ru.wcscatalog.core.model.Image;
@@ -9,6 +10,7 @@ import ru.wcscatalog.core.utils.AliasChecker;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
@@ -17,45 +19,31 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
+@Transactional
 public class PageRepository {
-    private final EntityManagerFactory entityManagerFactory;
     private final AliasChecker aliasChecker;
     private final ImageRepository imageRepository;
-    private EntityManager entityManager;
+    private Dao dao;
 
-    public PageRepository(EntityManagerFactory entityManagerFactory,
-                          AliasChecker aliasChecker,
-                          ImageRepository imageRepository) {
-        this.entityManagerFactory = entityManagerFactory;
+    public PageRepository(AliasChecker aliasChecker,
+                          ImageRepository imageRepository, Dao dao) {
         this.aliasChecker = aliasChecker;
         this.imageRepository = imageRepository;
-        initialiseCriteriaBuilder();
+        this.dao = dao;
     }
 
     public List<PageEntry> getPages() {
-        CriteriaQuery<Page> criteriaQuery = entityManager.getCriteriaBuilder().createQuery(Page.class);
-        Root<Page> root = criteriaQuery.from(Page.class);
-        List<Page> pages = entityManager.createQuery(criteriaQuery).getResultList();
-        List<PageEntry> entries = pages.stream().map(PageEntry::fromPage).collect(Collectors.toList());
-        return entries;
+        List<Page> pages = dao.getAll(Page.class);
+        return pages.stream().map(PageEntry::fromPage).collect(Collectors.toList());
     }
 
     public Page getPageById(Long id) {
-        CriteriaQuery<Page> criteriaQuery = entityManager.getCriteriaBuilder().createQuery(Page.class);
-        Root<Page> root = criteriaQuery.from(Page.class);
-        criteriaQuery.where(entityManager.getCriteriaBuilder().equal(root.get("id"), id));
-        Optional<Page> page = entityManager.createQuery(criteriaQuery).getResultList().stream().findFirst();
-        return page.orElse(null);
+        return dao.byId(id, Page.class);
     }
 
     public PageEntry getPageByAlias(String alias) {
-        CriteriaQuery<Page> criteriaQuery = entityManager.getCriteriaBuilder().createQuery(Page.class);
-        Root<Page> root = criteriaQuery.from(Page.class);
-        criteriaQuery.where(entityManager.getCriteriaBuilder().equal(root.get("alias"), alias));
-        Page page = entityManager.createQuery(criteriaQuery).getSingleResult();
-        PageEntry entry = PageEntry.fromPage(page);
-        fillChildPages(entry);
-        return entry;
+        Page page = dao.singleByProperty("alias", alias, Page.class);
+        return PageEntry.fromPage(page);
     }
 
     public void createPage(PageInput input) {
@@ -64,11 +52,7 @@ public class PageRepository {
         }
         Page page = new Page();
         updatePageFromInput(page, input);
-        if (!entityManager.getTransaction().isActive()) {
-            entityManager.getTransaction().begin();
-        }
-        entityManager.persist(page);
-        entityManager.getTransaction().commit();
+        dao.add(page);
     }
 
     public void updatePage(PageInput input) {
@@ -77,9 +61,6 @@ public class PageRepository {
         }
         Page page = getPageById(input.getId());
         updatePageFromInput(page, input);
-        entityManager.getTransaction().begin();
-        entityManager.persist(page);
-        entityManager.getTransaction().commit();
     }
 
     public void updatePageFromInput(Page page, PageInput input) {
@@ -113,33 +94,17 @@ public class PageRepository {
 
     public void removePage(Long pageId) {
         Page page = getPageById(pageId);
-//        entityManager.remove(entityManager.contains(page) ? page : entityManager.merge(page));
-        entityManager.getTransaction().begin();
-        entityManager.remove(page);
-        entityManager.getTransaction().commit();
-    }
-
-    public List<PageEntry> getMainMenuPages() {
-        CriteriaQuery<Page> criteriaQuery = entityManager.getCriteriaBuilder().createQuery(Page.class);
-        Root<Page> root = criteriaQuery.from(Page.class);
-        criteriaQuery.where(entityManager.getCriteriaBuilder().equal(root.get("showInMainMenu"), true));
-        List<Page> pages = entityManager.createQuery(criteriaQuery).getResultList();
-        List<PageEntry> entries = pages.stream().map(PageEntry::fromPage).collect(Collectors.toList());
-        return entries;
-    }
-
-    private void initialiseCriteriaBuilder() {
-        if (entityManager == null) {
-            entityManager = entityManagerFactory.createEntityManager();
+        if (page != null) {
+            dao.remove(page);
         }
     }
 
-    private void fillChildPages(PageEntry page) {
-        CriteriaQuery<Page> criteriaQuery = entityManager.getCriteriaBuilder().createQuery(Page.class);
+    public List<PageEntry> getMainMenuPages() {
+        CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
+        CriteriaQuery<Page> criteriaQuery = criteriaBuilder.createQuery(Page.class);
         Root<Page> root = criteriaQuery.from(Page.class);
-        Join parent = root.join("parentPage");
-        criteriaQuery.where(entityManager.getCriteriaBuilder().equal(parent.get("id"), page.getId()));
-        List<Page> childPages = entityManager.createQuery(criteriaQuery).getResultList();
-        page.setChildPages(childPages.stream().map(PageEntry::fromPage).collect(Collectors.toList()));
+        criteriaQuery.where(criteriaBuilder.equal(root.get("showInMainMenu"), true));
+        List<Page> pages = dao.createQuery(criteriaQuery);
+        return pages.stream().map(PageEntry::fromPage).collect(Collectors.toList());
     }
 }

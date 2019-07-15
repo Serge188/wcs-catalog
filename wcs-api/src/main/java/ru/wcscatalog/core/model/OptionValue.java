@@ -10,7 +10,7 @@ public class OptionValue {
     @Column(name="id")
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "option_id")
     private OfferOption option;
 

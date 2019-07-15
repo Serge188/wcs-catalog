@@ -1,8 +1,8 @@
 package ru.wcscatalog.core.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.wcscatalog.core.model.*;
 import ru.wcscatalog.core.utils.ImageResizer;
 import ru.wcscatalog.core.utils.Transliterator;
@@ -23,26 +23,19 @@ import java.util.*;
 @Repository
 public class ImageRepository {
 
-    private static final String SERVER_FOLDER = "E:/wcs-catalog/wcs-webclient/src/";
-
-//    private static final String SERVER_FOLDER = "D:/wcs-catalog/wcs-webclient/src/";
-
-
     private final EntityManagerFactory entityManagerFactory;
     private final Environment environment;
     private String serverFolder;
-    private EntityManager entityManager;
-    private CriteriaBuilder criteriaBuilder;
-    private CriteriaQuery<Image> criteriaQuery;
-    private Root<Image> root;
+    private final Dao dao;
 
-    public ImageRepository(EntityManagerFactory entityManagerFactory, Environment environment) {
+    public ImageRepository(EntityManagerFactory entityManagerFactory, Environment environment, Dao dao) {
         this.entityManagerFactory = entityManagerFactory;
         this.environment = environment;
         this.serverFolder = environment.getRequiredProperty("storage");
-        buildCriteriaQuery();
+        this.dao = dao;
     }
 
+    @Transactional
     public Image createImageForObject(Object o, String data) throws Exception {
         String[] separatedData = data.split(",");
         if (separatedData.length > 1) {
@@ -55,7 +48,6 @@ public class ImageRepository {
             byte[] buf = Base64.getDecoder().decode(separatedData[1]);
             ByteArrayInputStream bais = new ByteArrayInputStream(buf);
             BufferedImage imageFile = ImageIO.read(bais);
-
             if (o instanceof Category || o instanceof Page) {
                 BufferedImage categoryAvatar = ImageResizer.resize(imageFile, 220, 160);
                 String appFolder = "assets/img/category/";
@@ -71,9 +63,7 @@ public class ImageRepository {
                 ImageIO.write(categoryAvatar, fileExtension, outputfile);
                 Image image = new Image();
                 image.setCategoryImageLink(appFolder + fileName);
-                entityManager.getTransaction().begin();
-                entityManager.persist(image);
-                entityManager.getTransaction().commit();
+                dao.add(image);
                 return image;
             } else if (o instanceof OptionValue) {
                 BufferedImage categoryAvatar = ImageResizer.resize(imageFile, 180, 180);
@@ -86,9 +76,7 @@ public class ImageRepository {
                 ImageIO.write(categoryAvatar, fileExtension, outputfile);
                 Image image = new Image();
                 image.setOptionImageLink(appFolder + fileName);
-                entityManager.getTransaction().begin();
-                entityManager.persist(image);
-                entityManager.getTransaction().commit();
+                dao.add(image);
                 return image;
             } else if (o instanceof Product || o instanceof SaleOffer) {
                 String fileName;
@@ -135,10 +123,7 @@ public class ImageRepository {
                 image.setCardImageLink(imgCardFolder + fileName);
                 image.setGalleryImageLink(imgGalleryFolder + fileName);
                 image.setPreviewImageLink(imgPreviewFolder + fileName);
-
-                entityManager.getTransaction().begin();
-                entityManager.persist(image);
-                entityManager.getTransaction().commit();
+                dao.add(image);
                 return image;
             }
         } else {
@@ -149,6 +134,7 @@ public class ImageRepository {
 
     public Image createSliderImage(Page page, String data) throws Exception {
         String[] separatedData = data.split(",");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         if (separatedData.length > 1) {
             String fileExtension;
             if (separatedData[0].toLowerCase().contains("png")) {
@@ -160,7 +146,6 @@ public class ImageRepository {
 
             ByteArrayInputStream bais = new ByteArrayInputStream(buf);
             BufferedImage imageFile = ImageIO.read(bais);
-//            BufferedImage categoryAvatar = ImageResizer.resize(imageFile, 220, 160);
             String appFolder = "assets/img/catalog/original/";
             String fileName = page.getAlias() + "." + fileExtension;
 
@@ -169,9 +154,7 @@ public class ImageRepository {
             ImageIO.write(imageFile, fileExtension, outputfile);
             Image image = new Image();
             image.setOriginalImageLink(appFolder + fileName);
-            entityManager.getTransaction().begin();
-            entityManager.persist(image);
-            entityManager.getTransaction().commit();
+            dao.add(image);
             return image;
         }
         return null;
@@ -186,7 +169,7 @@ public class ImageRepository {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            entityManager.remove(entityManager.contains(img) ? img : entityManager.merge(img));
+            dao.remove(img);
         } else if (o instanceof Product) {
             List<Image> images = ((Product) o).getImages();
             images.forEach(img -> removeProductImage(img));
@@ -202,19 +185,11 @@ public class ImageRepository {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            entityManager.remove(entityManager.contains(img) ? img : entityManager.merge(img));
+            dao.remove(img);
         }
     }
 
-    private void buildCriteriaQuery() {
-        if (entityManager == null) {
-            entityManager = entityManagerFactory.createEntityManager();
-        }
-        criteriaBuilder = entityManager.getCriteriaBuilder();
-        criteriaQuery = criteriaBuilder.createQuery(Image.class);
-        root = criteriaQuery.from(Image.class);
-    }
-
+    @Transactional
     public void removeProductImage(Image img) {
         String originalPath = serverFolder + img.getOriginalImageLink();
         String basePath = serverFolder + img.getBaseImageLink();
@@ -231,6 +206,13 @@ public class ImageRepository {
                 }
             }
         });
-        entityManager.remove(entityManager.contains(img) ? img : entityManager.merge(img));
+        dao.remove(img);
+    }
+
+    public void removeImageFromProduct(Long imageId) {
+        Image image = dao.byId(imageId, Image.class);
+        if (image != null) {
+            removeProductImage(image);
+        }
     }
 }

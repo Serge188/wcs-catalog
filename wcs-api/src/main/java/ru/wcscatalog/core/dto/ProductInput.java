@@ -9,7 +9,7 @@ public class ProductInput {
     private Long id;
     private String title;
     private Object imageInput;
-    private List<Object> imagesInput = new ArrayList<>();
+    private List<Object> imagesInput;
     private String description;
     private Boolean productOfDay;
     private Boolean newProduct;

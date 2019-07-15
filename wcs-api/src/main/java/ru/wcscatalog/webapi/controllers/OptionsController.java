@@ -31,7 +31,7 @@ public class OptionsController {
     @PostMapping("/option")
     public ResponseEntity<?> createNewOption(@RequestBody OfferOptionInput input) {
         try {
-            OfferOption option = optionsRepository.createOrUpdateOption(input);
+            OfferOptionEntry option = optionsRepository.createOrUpdateOption(input);
             return ResponseEntity.ok(option);
         } catch (Exception e) {
             return ResponseEntity.of(Optional.of("error.creating.option"));
@@ -47,7 +47,7 @@ public class OptionsController {
     @PutMapping("/option")
     public ResponseEntity<?> updateOption(@RequestBody OfferOptionInput input) {
         try {
-            OfferOption option = optionsRepository.createOrUpdateOption(input);
+            OfferOptionEntry option = optionsRepository.createOrUpdateOption(input);
             return ResponseEntity.ok(option);
         } catch (Exception e) {
             return ResponseEntity.of(Optional.of("error.updating.option"));

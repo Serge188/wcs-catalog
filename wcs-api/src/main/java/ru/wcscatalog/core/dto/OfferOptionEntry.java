@@ -69,7 +69,7 @@ public class OfferOptionEntry {
             entry.setTitle(option.getTitle());
             entry.setName(option.getName());
             entry.setType(option.getType());
-//            entry.setValues(option.getValues().stream().map(OptionValueEntry::fromOptionValue).collect(Collectors.toList()));
+            entry.setValues(option.getValues().stream().map(OptionValueEntry::fromOptionValue).collect(Collectors.toList()));
             return entry;
         }
         return null;

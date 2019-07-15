@@ -1,6 +1,8 @@
 package ru.wcscatalog.core.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "offer_options")
@@ -19,8 +21,8 @@ public class OfferOption {
     @Column(name="type")
     private String type;
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "option", fetch = FetchType.LAZY)
-//    private List<OptionValue> values = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "option", orphanRemoval = true)
+    private List<OptionValue> values = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -54,11 +56,11 @@ public class OfferOption {
         this.type = type;
     }
 
-//    public List<OptionValue> getValues() {
-//        return values;
-//    }
-//
-//    public void setValues(List<OptionValue> values) {
-//        this.values = values;
-//    }
+    public List<OptionValue> getValues() {
+        return values;
+    }
+
+    public void setValues(List<OptionValue> values) {
+        this.values = values;
+    }
 }

@@ -5,10 +5,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.wcscatalog.core.dto.*;
 import ru.wcscatalog.core.model.*;
 import ru.wcscatalog.core.utils.Transliterator;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
 import javax.persistence.criteria.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,26 +12,17 @@ import java.util.stream.Collectors;
 @Repository
 public class CategoriesRepository {
     private final ImageRepository imageRepository;
-    private final EntityManagerFactory entityManagerFactory;
-    private EntityManager entityManager;
-    private CriteriaBuilder criteriaBuilder;
-    private CriteriaQuery<Category> criteriaQuery;
-    private Root<Category> root;
+    private final Dao dao;
 
-    public CategoriesRepository(EntityManagerFactory entityManagerFactory, ImageRepository imageRepository) {
-        this.entityManagerFactory = entityManagerFactory;
+    public CategoriesRepository(ImageRepository imageRepository, Dao dao) {
         this.imageRepository = imageRepository;
-        buildCriteriaQuery();
+        this.dao = dao;
     }
 
     @Transactional
     public List<CategoryEntry> getCategories() {
-        criteriaQuery = criteriaBuilder.createQuery(Category.class);
-        root = criteriaQuery.from(Category.class);
-        Query query = entityManager.createQuery(criteriaQuery);
-        List<Category> categories = query.getResultList();
-        List<CategoryEntry> entries = categories.stream().map(CategoryEntry::fromCategory).collect(Collectors.toList());
-        return entries;
+        List<Category> categories = dao.getAll(Category.class);
+        return categories.stream().map(CategoryEntry::fromCategory).collect(Collectors.toList());
     }
 
     @Transactional
@@ -46,21 +33,14 @@ public class CategoriesRepository {
     }
 
     public Category getCategoryById(Long id) {
-        criteriaQuery = criteriaBuilder.createQuery(Category.class);
-        root = criteriaQuery.from(Category.class);
-        criteriaQuery.where(criteriaBuilder.equal(root.get("id"), id));
-        Optional<Category> category = entityManager.createQuery(criteriaQuery).getResultList().stream().findFirst();
-        return category.orElse(null);
+        return dao.byId(id, Category.class);
     }
 
     public CategoryEntry getCategoryByAlias(String alias) {
-        criteriaQuery = criteriaBuilder.createQuery(Category.class);
-        root = criteriaQuery.from(Category.class);
-        criteriaQuery.where(criteriaBuilder.equal(root.get("alias"), alias));
-        Optional<Category> category = entityManager.createQuery(criteriaQuery).getResultList().stream().findFirst();
-        if (category.isPresent()) {
-            CategoryEntry entry = CategoryEntry.fromCategory(category.get());
-            category.get().getChildCategories().forEach(e -> entry.getChildCategories().add(CategoryEntry.fromCategory(e)));
+        Category category = dao.singleByProperty("alias", alias, Category.class);
+        if (category != null) {
+            CategoryEntry entry = CategoryEntry.fromCategory(category);
+            category.getChildCategories().forEach(e -> entry.getChildCategories().add(CategoryEntry.fromCategory(e)));
             return entry;
         }
         return null;
@@ -68,17 +48,16 @@ public class CategoriesRepository {
 
     @Transactional
     public void updateCategory(CategoryInput input) throws Exception {
-        criteriaQuery.where(criteriaBuilder.equal(root.get("id"), input.getId()));
-        Category category = entityManager.createQuery(criteriaQuery).getSingleResult();
+        Category category = dao.byId(input.getId(), Category.class);
         category.setTitle(input.getTitle());
         category.setAlias(Transliterator.transliteration(input.getTitle()));
         if (input.getParentCategoryId() == null) {
             category.setParentCategory(null);
         } else if (!input.getParentCategoryId().equals(category.getParentCategory().getId())) {
-            criteriaQuery.where(criteriaBuilder.equal(root.get("id"), input.getParentCategoryId()));
-            Category parentCategory = entityManager.createQuery(criteriaQuery).getSingleResult();
+            Category parentCategory = dao.byId(input.getParentCategoryId(), Category.class);
             category.setParentCategory(parentCategory);
         }
+
         category.setDescription(input.getDescription());
         category.setPopular(input.isPopular());
         if (input.isImageChanged()) {
@@ -86,9 +65,6 @@ public class CategoriesRepository {
             Image image = imageRepository.createImageForObject(category, data);
             category.setImage(image);
         }
-        entityManager.getTransaction().begin();
-        entityManager.persist(category);
-        entityManager.getTransaction().commit();
     }
 
     @Transactional
@@ -110,8 +86,7 @@ public class CategoriesRepository {
         category.setDescription(input.getDescription());
         category.setPopular(input.isPopular());
         if (input.getParentCategoryId() != null) {
-            criteriaQuery.where(criteriaBuilder.equal(root.get("id"), input.getParentCategoryId()));
-            Category parentCategory = entityManager.createQuery(criteriaQuery).getSingleResult();
+            Category parentCategory = dao.byId(input.getParentCategoryId(), Category.class);
             category.setParentCategory(parentCategory);
         }
         if (input.getImageInput() != null) {
@@ -119,34 +94,34 @@ public class CategoriesRepository {
             Image image = imageRepository.createImageForObject(category, data);
             category.setImage(image);
         }
-        entityManager.getTransaction().begin();
-        entityManager.persist(category);
-        entityManager.getTransaction().commit();
+        dao.add(category);
     }
 
     @Transactional
     public void removeCategory(Long categoryId) throws Exception {
-        criteriaQuery.where(criteriaBuilder.equal(root.get("id"), categoryId));
-        Category category = entityManager.createQuery(criteriaQuery).getSingleResult();
+        Category category = dao.byId(categoryId, Category.class);
         try {
             imageRepository.removeImageForObject(category);
-            entityManager.getTransaction().begin();
-            entityManager.remove(category);
-            entityManager.getTransaction().commit();
         } catch (Exception e) {
-            throw new Exception("error.occurred.while.removing.category");
+            throw new Exception("error.occurred.while.removing.category.image");
         }
+        if (category.getChildCategories() != null) {
+            category.getChildCategories().forEach(c -> c.setParentCategory(null));
+        }
+        dao.remove(category);
+//        entityManager.close();
     }
 
     @Transactional
     public Collection<OfferOptionEntry> getPossibleFilterOptions(Long categoryId) {
+        CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
         CriteriaQuery<ProductOptionsRelation> productOptionsCriteriaQuery =
                 criteriaBuilder.createQuery(ProductOptionsRelation.class);
         Root root = productOptionsCriteriaQuery.from(ProductOptionsRelation.class);
         Join productJoin = root.join("product");
         Join categoryJoin = productJoin.join("category");
-        criteriaQuery.where(criteriaBuilder.equal(categoryJoin.get("id"), categoryId));
-        List<ProductOptionsRelation> productOptionsRelations = entityManager.createQuery(productOptionsCriteriaQuery).getResultList();
+        productOptionsCriteriaQuery.where(criteriaBuilder.equal(categoryJoin.get("id"), categoryId));
+        List<ProductOptionsRelation> productOptionsRelations = dao.createQuery(productOptionsCriteriaQuery);
         Map<Long, OfferOptionEntry> optionsMap = new HashMap<>();
         productOptionsRelations.forEach(or -> {
             optionsMap.putIfAbsent(or.getOption().getId(), OfferOptionEntry.fromOfferOption(or.getOption()));
@@ -159,12 +134,13 @@ public class CategoriesRepository {
 
     @Transactional
     public List<Float> getPricesRange(long categoryId) {
+        CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
         CriteriaQuery productsCriteria = criteriaBuilder.createQuery();
         Root<Product> root = productsCriteria.from(Product.class);
         Join categoryJoin = root.join("category");
         productsCriteria.where(criteriaBuilder.equal(categoryJoin.get("id"), categoryId));
         productsCriteria.select(root.get("price"));
-        List<Float> prices = entityManager.createQuery(productsCriteria).getResultList();
+        List<Float> prices = dao.createQuery(productsCriteria);
         List<Float> minMaxPrices = new ArrayList<>();
         prices.stream().max(Comparator.comparing(Float::valueOf)).ifPresent(minMaxPrices::add);
         prices.stream().min(Comparator.comparing(Float::valueOf)).ifPresent(minMaxPrices::add);
@@ -173,26 +149,19 @@ public class CategoriesRepository {
 
     @Transactional
     public List<FactoryEntry> getFactoriesForCategory(long categoryId) {
+        CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
         CriteriaQuery productsCriteria = criteriaBuilder.createQuery();
         Root<Product> root = productsCriteria.from(Product.class);
         Join categoryJoin = root.join("category");
         productsCriteria.where(criteriaBuilder.equal(categoryJoin.get("id"), categoryId));
         productsCriteria.select(root.get("factory"));
         productsCriteria.distinct(true);
-        List<Factory> factories = entityManager.createQuery(productsCriteria).getResultList();
+        List<Factory> factories = dao.createQuery(productsCriteria);
         return factories.stream().map(FactoryEntry::fromFactory).collect(Collectors.toList());
     }
 
-    private void buildCriteriaQuery() {
-        if (entityManager == null) {
-            entityManager = entityManagerFactory.createEntityManager();
-        }
-        criteriaBuilder = entityManager.getCriteriaBuilder();
-        criteriaQuery = criteriaBuilder.createQuery(Category.class);
-        root = criteriaQuery.from(Category.class);
-    }
-
-    private void fillProductCount(List<CategoryEntry> entries) {
+    @Transactional
+    protected void fillProductCount(List<CategoryEntry> entries) {
         Map<Long, List<CategoryEntry>> categoriesMap = new HashMap<>();
         entries.forEach(e -> {
             if (e.getParentCategoryId() == null) {
@@ -205,14 +174,15 @@ public class CategoriesRepository {
                 categoriesMap.get(entry.getParentCategoryId()).add(entry);
             }
         }
+        CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
         entries.forEach(e -> {
             if (e.isPopular() != null && e.isPopular() && categoriesMap.containsKey(e.getId())) {
                 categoriesMap.get(e.getId()).forEach(childCat -> {
                     CriteriaQuery<Product> criteriaQueryProduct = criteriaBuilder.createQuery(Product.class);
                     Root<Product> root = criteriaQueryProduct.from(Product.class);
                     criteriaQueryProduct.where(criteriaBuilder.equal(root.get("category"), childCat.getId()));
-                    List<Product> p = entityManager.createQuery(criteriaQueryProduct).getResultList();
-                    Integer productsCount = entityManager.createQuery(criteriaQueryProduct).getResultList().size();
+                    List<Product> p = dao.createQuery(criteriaQueryProduct);
+                    Integer productsCount = dao.createQuery(criteriaQueryProduct).size();
                     childCat.setProductsCount(productsCount);
                 });
             }
