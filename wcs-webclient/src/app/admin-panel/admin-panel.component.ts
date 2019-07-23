@@ -14,6 +14,9 @@ import {FactoriesService} from "../factories.service";
 import {FactoryEntry} from "../_models/factory-entry";
 import {PageService} from "../page.service";
 import {PageEntry} from "../_models/page-entry";
+import {ImageEntry} from "../_models/image-entry";
+import {PhotoGalleryItemEntry} from "../_models/photo-gallery-item-entry";
+import {PhotoGalleryItemService} from "../photo-gallery-item.service";
 
 @Component({
   selector: 'app-admin-panel',
@@ -29,7 +32,7 @@ export class AdminPanelComponent implements OnInit {
   public newProduct: ProductEntry = {};
   public view: any;
   public activeCategory: CategoryEntry;
-  public offerOptions: OfferOptionEntry[];
+  public offerOptions: OfferOptionEntry[] = [];
   public newProductSelectedOption: OfferOptionEntry = {};
   public newProductSelectedOptionId: number;
   public newProductSelectedOptionValue: string = "";
@@ -44,12 +47,16 @@ export class AdminPanelComponent implements OnInit {
   public pages: PageEntry[] = [];
   public topLevelPages: PageEntry[] = [];
   public newPageActive: boolean = false;
+  public photoGalleryItems: PhotoGalleryItemEntry[] = [];
+  public activeGalleryItem: PhotoGalleryItemEntry;
 
   constructor(private categoriesService: CategoriesService,
               private productsService: ProductsService,
               private optionsService: OptionsService,
               private authenticationService: AuthenticationService,
-              private factoriesService: FactoriesService, private pageService: PageService) { }
+              private factoriesService: FactoriesService,
+              private pageService: PageService,
+              private photoGalleryItemService: PhotoGalleryItemService) { }
 
   ngOnInit() {
     this.view = "categories";
@@ -57,6 +64,7 @@ export class AdminPanelComponent implements OnInit {
     this.loadProductOptions();
     this.loadFactories();
     this.loadPages();
+    this.loadPhotoGalleryItems();
   }
 
   public loadCategories(): void {
@@ -77,6 +85,7 @@ export class AdminPanelComponent implements OnInit {
   }
 
   public loadProductsForActiveCategory(): void {
+    if (this.activeCategory && this.activeCategory.id) {
       this.productsService.getOneLevelCategoryProducts(this.activeCategory.id).subscribe(result => {
         this.activeCategory.products = result;
         console.log(this.activeCategory.products);
@@ -89,12 +98,40 @@ export class AdminPanelComponent implements OnInit {
         //   }
         // }
       });
+    }
+
   }
 
   public loadProductOptions(): void {
     this.optionsService.getProductOptions().subscribe(result => {
       this.offerOptions = result;
     })
+  }
+
+  private loadPhotoGalleryItems() {
+    this.photoGalleryItemService.getPhotoGalleryItems().subscribe(result => {
+      this.photoGalleryItems = result;
+      console.log(result);
+    });
+  }
+
+  public createOrUpdateGalleryItem(item: PhotoGalleryItemEntry) {
+    this.photoGalleryItemService.createOrUpdateGalleryItem(item).subscribe(() => {
+      this.loadPhotoGalleryItems();
+    });
+  }
+
+  public deleteGalleryItem(item: PhotoGalleryItemEntry) {
+    if (item.id) {
+      this.photoGalleryItemService.deleteGalleryItem(item.id).subscribe(() => {
+        this.loadPhotoGalleryItems();
+      });
+    }
+  }
+
+  public deleteImageFromGalleryItem(event: any, imageId: number) {
+    event.preventDefault();
+    this.photoGalleryItemService.deleteImageFromGalleryItem(imageId).subscribe(() => {});
   }
 
   public removeProductsFromList(category: CategoryEntry): void {
@@ -220,7 +257,7 @@ export class AdminPanelComponent implements OnInit {
           so.optionValueId = so.optionValue.id;
         }
       }
-    } else {
+    } else if (this.activeCategory) {
       this.newProduct.categoryId = this.activeCategory.id;
     }
   }
@@ -298,6 +335,7 @@ export class AdminPanelComponent implements OnInit {
         this.newProduct.imagesInput.push(reader.result);
       });
     }
+    console.log(this.newProduct);
   }
 
   public addImageForSaleOffer(offer: SaleOfferEntry): void {
@@ -328,7 +366,6 @@ export class AdminPanelComponent implements OnInit {
 
   public createOrUpdateProduct(): void {
     let result: Observable<any>;
-    console.log(this.newProduct);
     if (this.newProduct.id) {
       result = this.productsService.updateProduct(this.newProduct);
     } else {
@@ -444,18 +481,20 @@ export class AdminPanelComponent implements OnInit {
 
   public removeOption(option: OfferOptionEntry): void {
     this.optionsService.removeOption(option.id).subscribe(()=>{
-      let index = this.offerOptions.indexOf(option);
-      if (index) {
-        this.offerOptions.splice(index, 1);
-      }
+      // let index = this.offerOptions.indexOf(option);
+      // if (index) {
+      //   this.offerOptions.splice(index, 1);
+      // }
+      this.offerOptions = this.offerOptions.filter(o => o.id != option.id);
     });
   }
 
-  public removeValueFromOption(option: OfferOptionEntry, value: OptionValueEntry): void {
-    let index = this.editingOption.values.indexOf(value);
-    if (index) {
-      this.editingOption.values.splice(index, 1);
-    }
+  public removeValueFromOption(value: OptionValueEntry): void {
+    // let index = this.editingOption.values.indexOf(value);
+    // if (index) {
+    //   this.editingOption.values.splice(index, 1);
+    // }
+    this.editingOption.values = this.editingOption.values.filter(v => v != value);
   }
 
   public addOptionValueImage(value: OptionValueEntry): void {
@@ -499,6 +538,10 @@ export class AdminPanelComponent implements OnInit {
 
   public removeSaleOfferFromEditingProduct(event: any, offer:SaleOfferEntry): void {
     event.preventDefault();
+    if (!offer.id) {
+      this.newProduct.saleOffers = this.newProduct.saleOffers.filter(x => x !== offer);
+      return;
+    }
     this.productsService.removeSaleOffer(offer.id).subscribe(() => {
       let index = this.newProduct.saleOffers.indexOf(offer);
       if (index != -1) {
@@ -582,6 +625,7 @@ export class AdminPanelComponent implements OnInit {
   public loadPages(): void {
     this.pageService.getPages().subscribe(result => {
       this.pages = result;
+      console.log(this.pages);
       for (let page of this.pages) {
         if (!page.parentPageId) {
           this.topLevelPages.push(page);
@@ -616,4 +660,53 @@ export class AdminPanelComponent implements OnInit {
     this.topLevelPages.splice(0, 0, newPage);
   }
 
+  public removeImageFromProduct(event: any, img: ImageEntry): void {
+    event.preventDefault();
+    if (this.newProduct.mainImage == img) this.newProduct.mainImage = null;
+    this.newProduct.images = this.newProduct.images.filter(x => x !== img);
+    this.productsService.removeImageFromProduct(this.newProduct.id, img.id).subscribe(() => {});
+  }
+
+  public removePage(page: PageEntry, parentPage: PageEntry): void {
+    if (page.id) {
+      this.pageService.removePage(page.id).subscribe(() => {
+        page.active = false;
+      });
+      if (!parentPage) {
+        this.topLevelPages = this.topLevelPages.filter(p => p != page);
+      } else {
+        parentPage.childPages = parentPage.childPages.filter(p => p != page);
+      }
+
+      console.log(this.pages);
+    }
+  }
+
+  public addPhotoGalleryItem() {
+    let photoGalleryItem = new PhotoGalleryItemEntry();
+    this.photoGalleryItems.push(photoGalleryItem);
+  }
+
+  public addImageToGalleryItem(item: PhotoGalleryItemEntry, index: number) {
+    let file  = (<HTMLInputElement>document.getElementById("galleryItemImageUploader_" + index)).files.item(0);
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.addEventListener('load', (event: any) => {
+      this.photoGalleryItemService.addImageToGalleryItem(item.id, reader.result).subscribe(() => {
+        this.loadPhotoGalleryItems();
+      });
+    });
+  }
+
+  public addImageToFactory() {
+    let file  = (<HTMLInputElement>document.getElementById("factoryImageUploader")).files.item(0);
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.addEventListener('load', (event: any) => {
+      if (this.newFactory.image) {
+        this.newFactory.image.originalImageLink = null;
+      }
+      this.newFactory.imageInput = reader.result;
+    });
+  }
 }

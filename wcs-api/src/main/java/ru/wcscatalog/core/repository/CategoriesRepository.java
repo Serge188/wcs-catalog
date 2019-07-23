@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
+@Transactional
 public class CategoriesRepository {
     private final ImageRepository imageRepository;
     private final Dao dao;
@@ -19,13 +20,11 @@ public class CategoriesRepository {
         this.dao = dao;
     }
 
-    @Transactional
     public List<CategoryEntry> getCategories() {
         List<Category> categories = dao.getAll(Category.class);
         return categories.stream().map(CategoryEntry::fromCategory).collect(Collectors.toList());
     }
 
-    @Transactional
     public List<CategoryEntry> getCategoriesWithProductCount() {
         List<CategoryEntry> entries = getCategories();
         fillProductCount(entries);
@@ -46,7 +45,6 @@ public class CategoriesRepository {
         return null;
     }
 
-    @Transactional
     public void updateCategory(CategoryInput input) throws Exception {
         Category category = dao.byId(input.getId(), Category.class);
         category.setTitle(input.getTitle());
@@ -67,7 +65,6 @@ public class CategoriesRepository {
         }
     }
 
-    @Transactional
     public void createCategory(CategoryInput input) throws Exception {
         Category category = new Category();
         category.setTitle(input.getTitle());
@@ -97,7 +94,6 @@ public class CategoriesRepository {
         dao.add(category);
     }
 
-    @Transactional
     public void removeCategory(Long categoryId) throws Exception {
         Category category = dao.byId(categoryId, Category.class);
         try {
@@ -112,7 +108,6 @@ public class CategoriesRepository {
 //        entityManager.close();
     }
 
-    @Transactional
     public Collection<OfferOptionEntry> getPossibleFilterOptions(Long categoryId) {
         CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
         CriteriaQuery<ProductOptionsRelation> productOptionsCriteriaQuery =
@@ -132,7 +127,6 @@ public class CategoriesRepository {
         return optionsMap.values();
     }
 
-    @Transactional
     public List<Float> getPricesRange(long categoryId) {
         CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
         CriteriaQuery productsCriteria = criteriaBuilder.createQuery();
@@ -142,12 +136,13 @@ public class CategoriesRepository {
         productsCriteria.select(root.get("price"));
         List<Float> prices = dao.createQuery(productsCriteria);
         List<Float> minMaxPrices = new ArrayList<>();
-        prices.stream().max(Comparator.comparing(Float::valueOf)).ifPresent(minMaxPrices::add);
-        prices.stream().min(Comparator.comparing(Float::valueOf)).ifPresent(minMaxPrices::add);
+        if (prices.size() >= 2) {
+            prices.stream().max(Comparator.comparing(Float::valueOf)).ifPresent(minMaxPrices::add);
+            prices.stream().min(Comparator.comparing(Float::valueOf)).ifPresent(minMaxPrices::add);
+        }
         return minMaxPrices;
     }
 
-    @Transactional
     public List<FactoryEntry> getFactoriesForCategory(long categoryId) {
         CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
         CriteriaQuery productsCriteria = criteriaBuilder.createQuery();
@@ -160,7 +155,6 @@ public class CategoriesRepository {
         return factories.stream().map(FactoryEntry::fromFactory).collect(Collectors.toList());
     }
 
-    @Transactional
     protected void fillProductCount(List<CategoryEntry> entries) {
         Map<Long, List<CategoryEntry>> categoriesMap = new HashMap<>();
         entries.forEach(e -> {
@@ -187,5 +181,14 @@ public class CategoriesRepository {
                 });
             }
         });
+    }
+
+    public List<CategoryEntry> getTopLevelCategories() {
+        CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
+        CriteriaQuery<Category> criteria = criteriaBuilder.createQuery(Category.class);
+        Root<Category> root = criteria.from(Category.class);
+        criteria.where(criteriaBuilder.isNull(root.get("parentCategory")));
+        List<Category> categories = dao.createQuery(criteria);
+        return categories.stream().map(CategoryEntry::fromCategory).collect(Collectors.toList());
     }
 }

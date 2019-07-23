@@ -66,7 +66,7 @@ public class PageRepository {
     public void updatePageFromInput(Page page, PageInput input) {
         page.setTitle(input.getTitle());
         page.setAlias(aliasChecker.findUniqueAliasForEntity(Page.class, input.getTitle()));
-        page.setSlider(input.getIsSlider());
+        page.setSlider(input.getSlider());
         page.setSliderHeader(input.getSliderHeader());
         page.setSliderPromo(input.getSliderPromo());
         page.setSliderAnnotation(input.getSliderAnnotation());

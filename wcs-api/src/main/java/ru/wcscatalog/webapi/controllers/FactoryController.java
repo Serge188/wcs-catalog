@@ -27,19 +27,19 @@ public class FactoryController {
     }
 
     @GetMapping("/popular")
-    public ResponseEntity<List<FactoryEntry>> getSideMenuItems() {
+    public ResponseEntity<List<FactoryEntry>> getPopularBrands() {
         List<FactoryEntry> factories = factoryRepository.getPopularBrands();
         return ResponseEntity.ok(factories);
     }
 
     @PostMapping()
-    public ResponseEntity<?> createFactory(@RequestBody FactoryInput input) {
+    public ResponseEntity<?> createFactory(@RequestBody FactoryInput input) throws Exception {
         factoryRepository.createFactory(input);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping()
-    public ResponseEntity<?> updateFactory(@RequestBody FactoryInput input) {
+    public ResponseEntity<?> updateFactory(@RequestBody FactoryInput input) throws Exception {
         factoryRepository.updateFactory(input);
         return ResponseEntity.ok().build();
     }

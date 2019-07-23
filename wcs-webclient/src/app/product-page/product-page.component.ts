@@ -18,12 +18,19 @@ export class ProductPageComponent implements OnInit {
   public showProperties: boolean = false;
   public optionsOpen: boolean = false;
   public productHasOptions: boolean = false;
+  public busketItemsCount: number;
+  public busketItemsSum: number;
+  public productQty: number = 1;
 
   constructor(private productService: ProductsService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.productAlias = this.route.snapshot.paramMap.get('alias');
     this.loadProduct();
+    this.busketItemsCount = JSON.parse(localStorage.getItem("busketItemsCount"));
+    if (this.busketItemsCount == null) this.busketItemsCount = 0;
+    this.busketItemsSum = JSON.parse(localStorage.getItem("busketItemsSum"));
+    if (this.busketItemsSum == null) this.busketItemsSum = 0;
     jQuery(document).ready(function(){
       jQuery(".fancybox").fancybox({
         openEffect: "elastic",
@@ -35,7 +42,6 @@ export class ProductPageComponent implements OnInit {
   private loadProduct(): void {
     this.productService.getProductByAlias(this.productAlias).subscribe(result => {
       this.product = result;
-      console.log(this.product);
       this.calculateDiscount();
       if (this.product.discountPrice) {
         this.economy = this.product.price - this.product.discountPrice;
@@ -44,7 +50,6 @@ export class ProductPageComponent implements OnInit {
         this.productHasOptions = true;
         this.product.currentOffer = this.product.saleOffers[0];
       }
-      console.log(this.product);
     });
   }
 
@@ -182,5 +187,23 @@ export class ProductPageComponent implements OnInit {
     jQuery([document.documentElement, document.body]).animate({
       scrollTop: jQuery(".nav-tabs").offset().top
     }, 500);
+  }
+
+  public addItemToBusket(event: any): void {
+    event.preventDefault();
+    this.busketItemsCount = this.busketItemsCount + this.productQty ;
+    this.busketItemsSum = this.product.discountPrice != null ? this.busketItemsSum + this.product.discountPrice * this.productQty : this.busketItemsSum + this.product.price * this.productQty;
+    localStorage.setItem("busketItemsCount", this.busketItemsCount.toString());
+    localStorage.setItem("busketItemsSum", this.busketItemsSum.toString());
+  }
+
+  public minusQty(event: any) {
+    event.preventDefault();
+    if (this.productQty > 0) this.productQty--;
+  }
+
+  public plusQty(event: any) {
+    event.preventDefault();
+    this.productQty++;
   }
 }

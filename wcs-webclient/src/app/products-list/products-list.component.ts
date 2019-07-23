@@ -11,12 +11,19 @@ export class ProductsListComponent implements OnInit {
 
   @Input() products: ProductEntry[];
 
-
   public view: any = "CARD";
-
+  public favoriteItemsIds: number[];
+  public busketItemsCount: number;
+  public busketItemsSum: number;
   constructor() {}
 
   ngOnInit() {
+    this.favoriteItemsIds = JSON.parse(localStorage.getItem("favorites"));
+    if (this.favoriteItemsIds == null) this.favoriteItemsIds = [];
+    this.busketItemsCount = JSON.parse(localStorage.getItem("busketItemsCount"));
+    if (this.busketItemsCount == null) this.busketItemsCount = 0;
+    this.busketItemsSum = JSON.parse(localStorage.getItem("busketItemsSum"));
+    if (this.busketItemsSum == null) this.busketItemsSum = 0;
   }
 
   public hasDiscount(product: ProductEntry): boolean {
@@ -152,4 +159,31 @@ export class ProductsListComponent implements OnInit {
     }
   }
 
+  public changeFavorite(event: any, p: ProductEntry) {
+    event.preventDefault();
+    p.favorite = !p.favorite;
+    if (p.favorite) {
+      if (this.favoriteItemsIds.find(x => x == p.id) === undefined) {
+        this.favoriteItemsIds.push(p.id);
+      }
+    } else {
+      this.favoriteItemsIds = this.favoriteItemsIds.filter(x => x!= p.id);
+    }
+    localStorage.setItem("favorites", JSON.stringify(this.favoriteItemsIds));
+  }
+
+  public getFavoriteClass(p: ProductEntry): string {
+    if (p.favorite) {
+      return "in";
+    }
+    return "";
+  }
+
+  public addItemToBusket(event: any, p: ProductEntry): void {
+    event.preventDefault();
+    this.busketItemsCount++;
+    this.busketItemsSum = p.discountPrice != null ? this.busketItemsSum + p.discountPrice : this.busketItemsSum + p.price;
+    localStorage.setItem("busketItemsCount", this.busketItemsCount.toString());
+    localStorage.setItem("busketItemsSum", this.busketItemsSum.toString());
+  }
 }

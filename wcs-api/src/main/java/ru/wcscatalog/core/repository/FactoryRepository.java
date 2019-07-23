@@ -1,21 +1,26 @@
 package ru.wcscatalog.core.repository;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.wcscatalog.core.dto.FactoryEntry;
 import ru.wcscatalog.core.dto.FactoryInput;
 import ru.wcscatalog.core.model.Factory;
+import ru.wcscatalog.core.model.Image;
 import ru.wcscatalog.core.utils.AliasChecker;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
+@Transactional
 public class FactoryRepository {
     private AliasChecker aliasChecker;
     private Dao dao;
+    private ImageRepository imageRepository;
 
-    public FactoryRepository(AliasChecker aliasChecker, Dao dao) {
+    public FactoryRepository(AliasChecker aliasChecker, Dao dao, ImageRepository imageRepository) {
         this.aliasChecker = aliasChecker;
         this.dao = dao;
+        this.imageRepository = imageRepository;
     }
 
     public List<FactoryEntry> getAllFactories() {
@@ -40,25 +45,39 @@ public class FactoryRepository {
         return dao.byId(id, Factory.class);
     }
 
-    public void createFactory(FactoryInput input) {
+    public void createFactory(FactoryInput input) throws Exception {
         Factory factory = new Factory();
         factory.setTitle(input.getTitle());
         factory.setAlias(aliasChecker.findUniqueAliasForEntity(factory.getClass(), input.getTitle()));
         factory.setDescription(input.getDescription());
         dao.add(factory);
+        if (input.getImageInput() != null) {
+            String data = ((String) input.getImageInput());
+            Image image = imageRepository.createFactoryImage(data, factory.getAlias());
+            factory.setImage(image);
+            dao.add(image);
+        }
     }
 
-    public void updateFactory(FactoryInput input) {
+    public void updateFactory(FactoryInput input) throws Exception {
         Factory factory = getFactoryById(input.getId());
         if (factory == null) {
             return;
         }
         factory.setTitle(input.getTitle());
+        factory.setDescription(input.getDescription());
+
+        if (input.getImageInput() != null) {
+            String data = ((String) input.getImageInput());
+            Image image = imageRepository.createFactoryImage(data, factory.getAlias());
+            factory.setImage(image);
+        }
     }
 
     public void removeFactory(Long id) {
         Factory factory = getFactoryById(id);
         if (factory != null) {
+            imageRepository.removeFactoryImage(factory.getImage().getId());
             dao.remove(factory);
         }
 

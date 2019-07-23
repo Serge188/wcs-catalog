@@ -49,4 +49,8 @@ export class CategoriesService {
   public getFactoriesInCategory(categoryId: number): Observable<any> {
     return this.http.get(this.apiUrl + `categories/factories/${categoryId}`).pipe();
   }
+
+  public getTopLevelCategories(): Observable<any> {
+    return this.http.get(this.apiUrl + `categories/topLevelCategories`);
+  }
 }

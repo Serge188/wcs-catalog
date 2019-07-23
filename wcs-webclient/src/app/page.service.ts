@@ -30,6 +30,7 @@ export class PageService {
   }
 
   public updatePage(page: PageEntry): Observable<any> {
+    console.log(page);
     return this.http.put(this.apiUrl + 'pages', page).pipe();
   }
 

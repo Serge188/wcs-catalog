@@ -19,7 +19,7 @@
             <a href="/"><img src="/assets/img/logo.png" srcset="/include/logo_retina.png 2x" alt=""></a>
           </div>
           <div class="header-fly__block phone link-dashed hidden-xs">
-            <a href="tel:80000000000">8 (000) 000 00 00</a>
+            <a href="">8 (920) 884 54 54</a>
           </div>
           <div class="header-fly__block callback link-dashed hidden-xs">
             <a class="fancyajax fancybox.ajax recall" href="/include/popup/recall/?AJAX_CALL=Y"
@@ -74,7 +74,7 @@
     <div class="header-fly__footer header-fly__subopen-hide header-fly__white-bg hidden-sm hidden-md hidden-lg">
       <span class="header-fly__footer-block"></span>
       <span class="header-fly__footer-block">
-          <a href="tel:80000000000">8 (000) 000 00 00</a>
+          <a href="tel:80000000000">8 (920) 884 54 54</a>
         </span>
       <span class="header-fly__footer-block">09:00-22:00</span>
       <span class="header-fly__footer-block">
@@ -154,7 +154,7 @@
                   C16.93,13.729,16.935,13.352,16.702,13.119z"></path>
             </svg>
           </use></svg>
-          <a href="tel:80000000000">8 (000) 000 00 01</a>
+          <a href="tel:80000000000">8 (920) 884 54 54</a>
         </div>
       </div>
       <!--<div class="callback column1 nowrap hidden-print">-->
@@ -190,7 +190,7 @@
                 </use>
               </svg>
               <div class="title opensansbold">Избранное</div>
-              <div class="descr">Товаров&nbsp;(<span id="favorinfo">0</span>)</div>
+              <div class="descr">Товаров&nbsp;(<span id="favorinfo">{{getFavoritesCount()}}</span>)</div>
               <!--'end_frame_cache_inheadfavorite'-->	</a>
           </div>
         </div>
@@ -223,7 +223,8 @@
               </svg>
               <div class="header-basket__info">
                 <div class="header-basket__title opensansbold">Корзина</div>
-                <div id="basketinfo" class="header-basket__descr">Ваша корзина пуста</div>
+                <div id="basketinfo" class="header-basket__descr" *ngIf="getBusketItemsCount() == 0">Ваша корзина пуста</div>
+                <div id="basketinfo" class="header-basket__descr" *ngIf="getBusketItemsCount() > 0">{{getBusketItemsCount()}} {{getItemsWord()}} на {{getBusketItemsSum()}} руб.</div>
               </div>
             </a>
           </div>

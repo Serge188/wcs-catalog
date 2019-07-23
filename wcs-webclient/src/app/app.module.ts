@@ -24,6 +24,8 @@ import { CategoryPageComponent } from './category-page/category-page.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { PageComponent } from './page/page.component';
 import { PageEditorComponent } from './page-editor/page-editor.component';
+import { OwlModule } from 'ngx-owl-carousel';
+import { CatalogComponent } from './catalog/catalog.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { PageEditorComponent } from './page-editor/page-editor.component';
     CategoryPageComponent,
     BreadcrumbsComponent,
     PageComponent,
-    PageEditorComponent
+    PageEditorComponent,
+    CatalogComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +54,7 @@ import { PageEditorComponent } from './page-editor/page-editor.component';
     FormsModule,
     CarouselModule,
     BrowserAnimationsModule,
+    OwlModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [

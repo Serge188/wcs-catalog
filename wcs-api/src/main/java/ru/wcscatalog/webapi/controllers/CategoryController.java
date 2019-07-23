@@ -92,4 +92,10 @@ public class CategoryController {
         List<FactoryEntry> factories = categoriesRepository.getFactoriesForCategory(categoryId);
         return ResponseEntity.ok(factories);
     }
+
+    @GetMapping("/topLevelCategories")
+    public ResponseEntity<List<CategoryEntry>> getTopLevelCategories() {
+        List<CategoryEntry> categories = categoriesRepository.getTopLevelCategories();
+        return ResponseEntity.ok(categories);
+    }
 }

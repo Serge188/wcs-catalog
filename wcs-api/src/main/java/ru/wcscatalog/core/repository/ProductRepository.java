@@ -204,7 +204,6 @@ public class ProductRepository {
         }
         if (saleOffer == null) {
             saleOffer = new SaleOffer();
-            dao.add(saleOffer);
         }
         if (product == null) {
             product = getProductById(input.getProductId());
@@ -212,6 +211,7 @@ public class ProductRepository {
         saleOffer.setProduct(product);
         saleOffer.setPrice(input.getPrice());
         saleOffer.setDiscountPrice(input.getDiscountPrice());
+        dao.add(saleOffer);
         OfferOption option = optionsRepository.getOptionById(input.getOfferOption().getId());
         saleOffer.setOfferOption(option);
         OptionValue value = optionsRepository.getOptionValueById(input.getOptionValue().getId());

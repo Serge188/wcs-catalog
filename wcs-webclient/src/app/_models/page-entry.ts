@@ -11,8 +11,9 @@ export class PageEntry {
   sliderImage?: ImageEntry;
   sliderImageInput?: any;
   image?: ImageEntry;
-  imageInput?: any
+  imageInput?: any;
   isSlider?: boolean;
+  slider?: boolean;
   parentPageId?: number;
   parentPageTitle?: string;
   showInMainMenu?: boolean;

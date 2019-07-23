@@ -38,4 +38,5 @@ export class ProductEntry {
   priceType?: PriceType;
   factory?: FactoryEntry;
   factoryId?: number;
+  favorite?: boolean;
 }

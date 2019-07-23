@@ -38,6 +38,10 @@ public class Image {
     @Column(name = "is_main_image")
     private Boolean mainImage = false;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "gallery_item_id")
+    private PhotoGalleryItem galleryItem;
+
     public long getId() {
         return id;
     }
@@ -111,10 +115,18 @@ public class Image {
     }
 
     public Boolean isMainImage() {
-        return mainImage;
+        return mainImage != null && mainImage;
     }
 
     public void setMainImage(Boolean mainImage) {
         this.mainImage = mainImage;
+    }
+
+    public PhotoGalleryItem getGalleryItem() {
+        return galleryItem;
+    }
+
+    public void setGalleryItem(PhotoGalleryItem galleryItem) {
+        this.galleryItem = galleryItem;
     }
 }

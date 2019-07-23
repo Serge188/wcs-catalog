@@ -21,6 +21,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 @Repository
+@Transactional
 public class ImageRepository {
 
     private final EntityManagerFactory entityManagerFactory;
@@ -35,8 +36,7 @@ public class ImageRepository {
         this.dao = dao;
     }
 
-    @Transactional
-    public Image createImageForObject(Object o, String data) throws Exception {
+    private String getFileExtension(String data) throws Exception {
         String[] separatedData = data.split(",");
         if (separatedData.length > 1) {
             String fileExtension;
@@ -45,9 +45,109 @@ public class ImageRepository {
             } else {
                 fileExtension = "jpg";
             }
+            return fileExtension;
+        } else {
+            throw new Exception("Could not create an image");
+        }
+    }
+
+    private BufferedImage createBufferedImageFromData(String data) throws Exception {
+        String[] separatedData = data.split(",");
+        if (separatedData.length > 1) {
             byte[] buf = Base64.getDecoder().decode(separatedData[1]);
             ByteArrayInputStream bais = new ByteArrayInputStream(buf);
-            BufferedImage imageFile = ImageIO.read(bais);
+            return ImageIO.read(bais);
+        } else {
+            throw new Exception("Could not create an image");
+        }
+    }
+
+    public Image createImageForGalleryItem(String data, String name, boolean isMainImage) throws Exception {
+        String fileExtension = getFileExtension(data);
+        BufferedImage imageFile = createBufferedImageFromData(data);
+        BufferedImage originalImage = imageFile;
+        BufferedImage previewImage = ImageResizer.resize(imageFile, 248, 186);
+        String imgOriginalFolder = "assets/img/photoGallery/";
+        String imgPreviewFolder = "assets/img/photoGallery/preview/";
+
+        String fileName = Transliterator.transliteration(name) + "_" + new Date().getTime();
+
+        String originalPath = serverFolder + imgOriginalFolder + fileName;
+        String previewPath = serverFolder + imgPreviewFolder + fileName;
+
+        File originalFile = new File(originalPath);
+        File previewFile = new File(previewPath);
+
+        ImageIO.write(originalImage, fileExtension, originalFile);
+        ImageIO.write(previewImage, fileExtension, previewFile);
+
+        Image image = new Image();
+        image.setOriginalImageLink(imgOriginalFolder + fileName);
+        image.setPreviewImageLink(imgPreviewFolder + fileName);
+        image.setMainImage(isMainImage);
+        dao.add(image);
+        return image;
+    }
+
+    public Image createFactoryImage(String data, String name) throws Exception {
+        String fileExtension = getFileExtension(data);
+        BufferedImage imageFile = createBufferedImageFromData(data);
+        BufferedImage originalImage = imageFile;
+        String imgOriginalFolder = "assets/img/factories/";
+
+        String fileName = name + "_" + new Date().getTime();
+
+        String originalPath = serverFolder + imgOriginalFolder + fileName;
+
+        File originalFile = new File(originalPath);
+
+        ImageIO.write(originalImage, fileExtension, originalFile);
+
+        Image image = new Image();
+        image.setOriginalImageLink(imgOriginalFolder + fileName);
+        dao.add(image);
+        return image;
+    }
+
+    public void removePhotoGalleryImage(Long imageId) {
+        Image image = dao.byId(imageId, Image.class);
+        String originalPath = serverFolder + image.getOriginalImageLink();
+        String previewPath = serverFolder + image.getPreviewImageLink();
+        try {
+            Files.delete(Paths.get(originalPath));
+            Files.delete(Paths.get(previewPath));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        dao.remove(image);
+    }
+
+    public void removeFactoryImage(Long imageId) {
+        if (imageId == null) return;
+        Image image = dao.byId(imageId, Image.class);
+        String originalPath = serverFolder + image.getOriginalImageLink();
+        try {
+            Files.delete(Paths.get(originalPath));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        dao.remove(image);
+    }
+
+    public Image createImageForObject(Object o, String data) throws Exception {
+        String fileExtension = getFileExtension(data);
+        BufferedImage imageFile = createBufferedImageFromData(data);
+//        String[] separatedData = data.split(",");
+//        if (separatedData.length > 1) {
+//            String fileExtension;
+//            if (separatedData[0].toLowerCase().contains("png")) {
+//                fileExtension = "png";
+//            } else {
+//                fileExtension = "jpg";
+//            }
+//            byte[] buf = Base64.getDecoder().decode(separatedData[1]);
+//            ByteArrayInputStream bais = new ByteArrayInputStream(buf);
+//            BufferedImage imageFile = ImageIO.read(bais);
             if (o instanceof Category || o instanceof Page) {
                 BufferedImage categoryAvatar = ImageResizer.resize(imageFile, 220, 160);
                 String appFolder = "assets/img/category/";
@@ -126,15 +226,15 @@ public class ImageRepository {
                 dao.add(image);
                 return image;
             }
-        } else {
-            throw new Exception("Could not create an image");
-        }
+//        } else {
+//            throw new Exception("Could not create an image");
+//        }
         return null;
     }
 
     public Image createSliderImage(Page page, String data) throws Exception {
         String[] separatedData = data.split(",");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//        EntityManager entityManager = entityManagerFactory.createEntityManager();
         if (separatedData.length > 1) {
             String fileExtension;
             if (separatedData[0].toLowerCase().contains("png")) {
@@ -189,7 +289,6 @@ public class ImageRepository {
         }
     }
 
-    @Transactional
     public void removeProductImage(Image img) {
         String originalPath = serverFolder + img.getOriginalImageLink();
         String basePath = serverFolder + img.getBaseImageLink();

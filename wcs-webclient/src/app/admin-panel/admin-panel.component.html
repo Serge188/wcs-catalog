@@ -68,6 +68,7 @@
     </div>
     <div class="form-group">
       <img src="{{newProduct?.mainImage?.galleryImageLink}}"/>
+      <a href="" (click)="removeImageFromProduct($event, newProduct?.mainImage)" *ngIf="newProduct?.mainImage">Удалить</a>
     </div>
     <div class="form-group" style="text-align: left">
       <label for="productMainImageUploader">Дополнительные изображения</label>
@@ -77,6 +78,7 @@
       <div class="row">
         <div class="col-sm-3" *ngFor="let img of newProduct?.images">
           <img src="{{img.galleryImageLink}}"/>
+          <a href="" (click)="removeImageFromProduct($event, img)">Удалить</a>
         </div>
       </div>
     </div>
@@ -241,10 +243,10 @@
     <label for="categoryTitleInput">Название</label>
     <input type="text" style="width:50%" class="form-control" id="factoryTitleInput" [(ngModel)]="newFactory.title" name="title">
   </div>
-  <!--<div class="form-group" style="text-align: left">-->
-    <!--<label for="productMainImageUploader">Изображение</label>-->
-    <!--<input type="file" accept="image/*" class="form-control-file" id="factoryImageUploader" name="fileInput" (change)="addProductMainImage()">-->
-  <!--</div>-->
+  <div class="form-group" style="text-align: left">
+    <label for="productMainImageUploader">Изображение</label>
+    <input type="file" accept="image/*" class="form-control-file" id="factoryImageUploader" name="fileInput" (change)="addImageToFactory()">
+  </div>
   <div class="form-group">
     <img src="{{newFactory?.image?.originalImageLink}}"/>
   </div>
@@ -308,6 +310,11 @@
               Пользователи
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="" (click)="changeView('photoGallery', $event)">
+              Фотогалерея
+            </a>
+          </li>
         </ul>
       </div>
     </nav>
@@ -319,6 +326,7 @@
         <h1 class="h2" *ngIf="view == 'users'">Пользователи</h1>
         <h1 class="h2" *ngIf="view == 'factories'">Фабрики</h1>
         <h1 class="h2" *ngIf="view == 'pages'">Страницы</h1>
+        <h1 class="h2" *ngIf="view == 'photoGallery'">Фотогалерея</h1>
       </div>
 
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3" *ngIf="view == 'categories'">
@@ -434,7 +442,7 @@
                         <div class="input-group input-group-sm mb-3">
                           <input type="text" class="form-control" [(ngModel)]="optionValue.value">
                           <div class="input-group-append">
-                            <button class="btn btn-outline-danger" type="button" (click)="removeValueFromOption(option, value)">
+                            <button class="btn btn-outline-danger" type="button" (click)="removeValueFromOption(optionValue)">
                               <span class="ion ion-md-close-circle-outline"></span>
                             </button>
                           </div>
@@ -484,7 +492,7 @@
         <div class="row">
           <div class="col-sm-12" *ngFor="let factory of factories">
             <div class="card mb-3">
-              <img class="card-img-left" src="{{factory?.image?.originalImageLink}}" alt="{{factory.title}}">
+              <img style="width:100px; height:100px" class="card-img-left" src="{{factory?.image?.originalImageLink}}" alt="{{factory.title}}">
               <div class="card-body text-left">
                 <h5 class="card-title">{{factory.title}}</h5>
                 <p class="card-text">{{factory.description}}</p>
@@ -504,18 +512,66 @@
         </div>
         <div>
           <div class="text-left" *ngFor="let page of topLevelPages">
-            <a href="" (click)="editPage($event, page)">{{page.title}}</a>
+            <div class="list-group-item col-lg-6">
+              <a href="" (click)="editPage($event, page)">{{page.title}}</a>
+              <button class="btn btn-sm btn-outline-danger ml-3" *ngIf="page.id" (click)="removePage(page, null)" type="button">
+                <span class="ion ion-md-close-circle-outline"></span>
+              </button>
+            </div>
             <div class="mb-5" *ngIf="page.active">
               <app-page-editor
                 [parentPages]="topLevelPages"
                 [page]="page"></app-page-editor>
             </div>
+
             <div style="padding-left: 20px" *ngFor="let subPage of page.childPages">
-              <a href="" (click)="editPage($event, subPage)">{{subPage.title}}</a>
+              <div class="list-group-item col-lg-6">
+                <a href="" (click)="editPage($event, subPage)">{{subPage.title}}</a>
+                <button class="btn btn-sm btn-outline-danger ml-3" type="button" *ngIf="page.id" (click)="removePage(subPage, page)">
+                  <span class="ion ion-md-close-circle-outline"></span>
+                </button>
+              </div>
               <div class="mb-5" *ngIf="subPage.active">
                 <app-page-editor
                   [parentPages]="topLevelPages"
                   [page]="subPage"></app-page-editor>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="view == 'photoGallery'">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+              <button type="button" class="btn btn-sm btn-outline-primary" (click)="addPhotoGalleryItem()">Добавить галерею</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="col-sm-12" *ngFor="let item of photoGalleryItems; let i = index">
+            <div class="card border-primary mb-3">
+              <div class="card-header">
+                <div class="input-group col-sm-6">
+                  <input type="text" class="form-control" [(ngModel)]="item.title" placeholder="Название галереи">
+                  <div class="input-group-append" id="button-addon4">
+                    <button class="btn btn-outline-primary" type="button" (click)="createOrUpdateGalleryItem(item)">Сохранить</button>
+                    <button class="btn btn-outline-danger" type="button" (click)="deleteGalleryItem(item)">Удалить</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="col-sm-2 mb-1" *ngFor="let img of item.images">
+                  <a href="" (click)="deleteImageFromGalleryItem($event, img.id)">
+                    <img src="{{img.previewImageLink}}"/>
+                  </a>
+                </div>
+                <input type="file"
+                       accept="image/*"
+                       class="form-control-file"
+                       id="galleryItemImageUploader_{{i}}"
+                       name="fileInput" (change)="addImageToGalleryItem(item, i)" *ngIf="item.id">
               </div>
             </div>
           </div>

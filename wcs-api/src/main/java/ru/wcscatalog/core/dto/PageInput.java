@@ -11,6 +11,7 @@ public class PageInput {
     private Object sliderImageInput;
     private Object imageInput;
     private Boolean isSlider;
+    private Boolean slider;
     private Long parentPageId;
     private Boolean showInMainMenu;
     private Boolean showInSideMenu;
@@ -117,5 +118,13 @@ public class PageInput {
 
     public void setShowInSideMenu(Boolean showInSideMenu) {
         this.showInSideMenu = showInSideMenu;
+    }
+
+    public Boolean getSlider() {
+        return slider;
+    }
+
+    public void setSlider(Boolean slider) {
+        this.slider = slider;
     }
 }

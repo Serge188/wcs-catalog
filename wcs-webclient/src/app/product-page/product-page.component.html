@@ -120,7 +120,7 @@
                         <span class="c-prices__value js-prices_pdv_BASE" *ngIf="product.discountPrice == null">{{getPriceName(product, product.price)}}</span>
                         <span class="c-prices__value js-prices_pdv_BASE" *ngIf="product.discountPrice != null">{{getPriceName(product, product.discountPrice)}}</span>
                         <span class="c-prices__value-old-before">
-                          <span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE">{{getPriceName(product, product.price)}}</span>
+                          <span class="c-prices__value-old js-prices_pv_BASE_hide js-prices_pv_BASE" *ngIf="product.discountPrice != null">{{getPriceName(product, product.price)}}</span>
                         </span>
                         <span class="c-prices__discount js-prices-discount js-prices_pd_BASE_hide" *ngIf="economy != null">
                           <span class="c-prices__value-discount-name">экономия</span>
@@ -204,7 +204,7 @@
                   <div class="detail__previewtext hidden-xs">
                     {{product.description}}
                     <div class="detail__previewtext__go-to">
-                      <a class="link-dashed m-color-primary js-easy-scroll" href="#detailtext" (click)="scrollToElement($event, 'detailtext')" data-es-offset="-135">
+                      <a class="link-dashed m-color-primary js-easy-scroll" href="" (click)="scrollToElement($event, 'detailtext')" data-es-offset="-135">
                         Подробнее
                       </a>
                     </div>
@@ -226,29 +226,36 @@
                           <!--<input type="hidden" name="id" class="js-add2basketpid" value="58">-->
                           <span class="b-pay__inner">
                           <span class="b-pay__quantity">
-                          <span class="c-quantity">
+                            <span class="c-quantity">
                               <span class="c-quantity__inner">
-                                  <a class="c-quantity__minus js-minus waves-effect"></a>
-                                  <input type="text" class="c-quantity__value js-quantity" name="quantity" value="1" data-ratio="1">
-                                          <span class="c-quantity__measure js-measurename">шт</span>
-                                          <a class="c-quantity__plus js-plus waves-effect"></a>
-                                  </span>
+                                <a class="c-quantity__minus js-minus waves-effect" (click)="minusQty($event)"></a>
+                                <input type="text" class="c-quantity__value js-quantity" name="quantity" [(ngModel)]="productQty" data-ratio="1">
+                                <span class="c-quantity__measure js-measurename">шт</span>
+                                <a class="c-quantity__plus js-plus waves-effect" (click)="plusQty($event)"></a>
                               </span>
+                            </span>
                           </span>
             <span class="b-pay__buttons">
-                <a rel="nofollow" class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary waves-effect" href="#" title="В корзину">
+                <a rel="nofollow"
+                   class="b-pay__button b-pay__add2basket js-add2basket js-submit btn-primary waves-effect"
+                   href=""
+                   (click)="addItemToBusket($event)"
+                   title="В корзину">
                   В корзину
                 </a>
-                <span id="_subscribe_link" class="b-pay__button b-pay__add2subscribe js-product-subscribe btn-default add2subscribe bx-catalog-subscribe-button waves-effect" data-item="58" style="" title="">
-                  Подписаться
-                </span>
-                <input type="hidden" id="_subscribe_link_hidden">
-                  <a rel="nofollow" class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken waves-effect" href="/personal/cart/" title="В корзине">
-                    В корзине
-                  </a>
-                  <a rel="nofollow" class="b-pay__button b-pay__buy1click js-buy1click fancyajax fancybox.ajax btn-default waves-effect" href="/include/popup/buy1click/" title="Купить в 1 клик" data-insertdata="{&quot;RS_ORDER_IDS&quot;:58}">
-                    Купить в 1 клик
-                  </a>
+                <!--<span id="_subscribe_link" class="b-pay__button b-pay__add2subscribe js-product-subscribe btn-default add2subscribe bx-catalog-subscribe-button waves-effect" data-item="58" style="" title="">-->
+                  <!--Подписаться-->
+                <!--</span>-->
+                <!--<input type="hidden" id="_subscribe_link_hidden">-->
+                  <!--<a rel="nofollow"-->
+                     <!--class="b-pay__button b-pay__inbasket js-inbasket btn-primary-darken waves-effect"-->
+                     <!--href="" title="В корзине"-->
+                     <!--*ngIf="itemInBasket">-->
+                    <!--В корзине-->
+                  <!--</a>-->
+                  <!--<a rel="nofollow" class="b-pay__button b-pay__buy1click js-buy1click fancyajax fancybox.ajax btn-default waves-effect" href="/include/popup/buy1click/" title="Купить в 1 клик" data-insertdata="{&quot;RS_ORDER_IDS&quot;:58}">-->
+                    <!--Купить в 1 клик-->
+                  <!--</a>-->
             </span>
         </span>
       <input type="submit" name="submit" class="nonep" value="">
@@ -256,34 +263,46 @@
   </div>
   <!--/noindex-->
 </div>
-  <div class="detail__stores">
-    <div class="b-stores js-stores" data-page="detail">
-      <div class="b-stores__inner">
-        <span class="js-stores__title">В наличии</span>
-        <a class="b-stores__genamount js-easy-scroll" href="#stocks" title="" data-es-offset="-135">
-          <span class="js-stores__value">
-            <svg class="svg-icon isset">
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-available"></use>
-            </svg>
-            <span class="sub">много</span>
-          </span>
-        </a>
-      </div>
-    </div>
-  </div>
+  <!--<div class="detail__stores">-->
+    <!--<div class="b-stores js-stores" data-page="detail">-->
+      <!--<div class="b-stores__inner">-->
+        <!--<span class="js-stores__title">В наличии</span>-->
+        <!--<a class="b-stores__genamount js-easy-scroll" href="#stocks" title="" data-es-offset="-135">-->
+          <!--<span class="js-stores__value">-->
+            <!--<svg class="svg-icon isset">-->
+              <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-stores-available"></use>-->
+            <!--</svg>-->
+            <!--<span class="sub">много</span>-->
+          <!--</span>-->
+        <!--</a>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
 </div>
                   <!-- /pay && stores -->
 
                   <!-- compare && favorite && cheaper -->
                   <div class="detail__compare-favorite-cheaper hidden-print">
 
-        <span class="detail__compare">
-        <a rel="nofollow" class="c-compare js-add2compare" href="/catalog/mebel_dlya_gostinnoy/stulya/stul_chikago/?action=ADD_TO_COMPARE_LIST&amp;id="><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use></svg><span class="c-compare__title">Сравнить</span><span class="c-compare__title-in">В сравнении</span></a>
-    </span>
+              <!--<span class="detail__compare">-->
+                <!--<a rel="nofollow" class="c-compare js-add2compare" href="/catalog/mebel_dlya_gostinnoy/stulya/stul_chikago/?action=ADD_TO_COMPARE_LIST&amp;id=">-->
+                  <!--<svg class="svg-icon">-->
+                    <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use>-->
+                  <!--</svg>-->
+                  <!--<span class="c-compare__title">Сравнить</span>-->
+                  <!--<span class="c-compare__title-in">В сравнении</span>-->
+                <!--</a>-->
+              <!--</span>-->
 
-                    <span class="detail__favorite">
-        <a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_gostinnoy/stulya/stul_chikago/"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use></svg><span class="c-favorite__title">В закладки</span><span class="c-favorite__title-in">В закладках</span></a>
-    </span>
+                    <!--<span class="detail__favorite">-->
+                      <!--<a rel="nofollow" class="c-favorite js-add2favorite" href="/catalog/mebel_dlya_gostinnoy/stulya/stul_chikago/">-->
+                        <!--<svg class="svg-icon">-->
+                          <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small"></use>-->
+                        <!--</svg>-->
+                        <!--<span class="c-favorite__title">В закладки</span>-->
+                        <!--<span class="c-favorite__title-in">В закладках</span>-->
+                      <!--</a>-->
+                    <!--</span>-->
 
                     <!--<span class="detail__cheaper">-->
         <!--<a rel="nofollow" class="c-cheaper js-cheaper fancyajax fancybox.ajax" href="/include/popup/cheaper/" title="Хотите дешевле?"><span class="c-cheaper__icon"><span class="c-cheaper__icon-in">%</span></span><span class="c-cheaper__title">Хотите дешевле?</span></a>-->

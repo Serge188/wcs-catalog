@@ -2,31 +2,54 @@
 <app-header></app-header>
 
 <app-side-menu [hideMenu]="false"></app-side-menu>
-
   <div id="content" class="content">
     <div class="centering">
       <div class="centeringin clearfix">
+
           <div class="gopro-banners owl-gopro-banners">
-            <div id="owlGoProBanners" class="owl-carousel">
-                <div class="gopro-banners__banner js-item item" *ngFor="let sp of sliderPages">
-                  <div class="gopro-banners__background text" data-banner-type="text" data-img-src="/assets/img/slide111.png" [ngStyle]="getSliderBackground(sp)" >
-                  </div>
-                  <div class="gopro-banners__wrap">
-                    <div class="gopro-banners__infowrap">
-                      <div class="gopro-banners__info">
-                        <div class="gopro-banners__text">
-                          <div class="gopro-banners__text1">{{sp.sliderHeader}}</div>
-                          <div class="gopro-banners__text2">{{sp.sliderPromo}}</div>
-                          <div class="gopro-banners__text3 hidden-xs">
-                            {{sp.sliderAnnotation}}
-                          </div>
+            <owl-carousel
+              [options]="{items: 3, dots: true, navigation: true}"
+              [items]="sliderImagesLinks"
+              [carouselClasses]="['gopro-banners__banner', 'js-item']">
+              <div class="gopro-banners__banner js-item item" *ngFor="let sp of sliderPages">
+                <div class="gopro-banners__background text" data-banner-type="text" data-img-src="assets/img/catalog/original/stranitsa_1.png" [ngStyle]="getSliderBackground(sp)" >
+                </div>
+                <div class="gopro-banners__wrap">
+                  <div class="gopro-banners__infowrap">
+                    <div class="gopro-banners__info">
+                      <div class="gopro-banners__text">
+                        <div class="gopro-banners__text1">{{sp.sliderHeader}}</div>
+                        <div class="gopro-banners__text2">{{sp.sliderPromo}}</div>
+                        <div class="gopro-banners__text3 hidden-xs">
+                          {{sp.sliderAnnotation}}
                         </div>
                       </div>
                     </div>
                   </div>
-                  <a href="/page/{{sp.alias}}" class="gopro-banners__link" ></a>
                 </div>
-          </div>
+                <!--<div class="thumbnail-image" [ngStyle]="{'background': 'url('abc.jpg')no-repeat scroll center center / 80px 80px'}"></div>-->
+              </div>
+            </owl-carousel>
+            <!--<div id="owlGoProBanners" class="owl-carousel">-->
+                <!--<div class="gopro-banners__banner js-item item" *ngFor="let sp of sliderPages">-->
+                  <!--<div class="gopro-banners__background text" data-banner-type="text" data-img-src="assets/img/catalog/original/stranitsa_1.png" [ngStyle]="getSliderBackground(sp)" >-->
+                  <!--</div>-->
+                  <!--<div class="gopro-banners__wrap">-->
+                    <!--<div class="gopro-banners__infowrap">-->
+                      <!--<div class="gopro-banners__info">-->
+                        <!--<div class="gopro-banners__text">-->
+                          <!--<div class="gopro-banners__text1">{{sp.sliderHeader}}</div>-->
+                          <!--<div class="gopro-banners__text2">{{sp.sliderPromo}}</div>-->
+                          <!--<div class="gopro-banners__text3 hidden-xs">-->
+                            <!--{{sp.sliderAnnotation}}-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--<a href="/page/{{sp.alias}}" class="gopro-banners__link" ></a>-->
+                <!--</div>-->
+          <!--</div>-->
         </div>
         <div class="fichi">
           <div class="fichi__inner">
@@ -438,26 +461,26 @@
 
         <!-- brands -->
 
-        <!--<div class="gallery-popup">-->
-          <!--<div class="nice-title">Фотогалерея</div>-->
+        <div class="gallery-popup">
+          <div class="nice-title">Фотогалерея</div>
 
-          <!--<div class="row">-->
-            <!--<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 gallery-popup__col_item">-->
-              <!--<div class="gallery-popup__item">-->
-                <!--<a data-fancybox="js-gallery-popup__tekstil-odezhda-obuv" class="gallery-popup__link js-gallery-item" href="/upload/iblock/00d/00dee86db14192661f2de5cecc783e13.jpg" data-caption="Текстиль, одежда, обувь">-->
-                  <!--<img class="gallery-popup__pic" src="/upload/iblock/15c/15c43d2b478867ad663e9e5e22ccb91b.jpg" data-src="/upload/iblock/15c/15c43d2b478867ad663e9e5e22ccb91b.jpg" alt="" title="">-->
-                  <!--<div class="gallery-popup__info">-->
-                    <!--<div class="gallery-popup__title">Текстиль, одежда, обувь</div>-->
-                  <!--</div>-->
-                <!--</a>-->
-                <!--<div class="hidden js-images">-->
-                  <!--<a data-fancybox="js-gallery-popup__tekstil-odezhda-obuv" href="/upload/iblock/947/9479c7eb21e66686fae5acd0df735ef9.jpg" title="Текстиль, одежда, обувь" data-open-mobile="true"></a>-->
+          <div class="row">
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 gallery-popup__col_item" *ngFor="let item of photoGalleryItems">
+              <div class="gallery-popup__item">
+                <a class="gallery-popup__link js-gallery-item" [attr.data-fancybox]="'js-gallery-popup__' + item.alias" href="{{item?.mainImage?.originalImageLink}}" [attr.data-caption]="item.title">
+                  <img class="gallery-popup__pic" src="{{item?.images[0]?.previewImageLink}}" data-src="{{item?.images[0]?.previewImageLink}}" alt="" title=""/>
+                  <div class="gallery-popup__info">
+                    <div class="gallery-popup__title">{{item.title}}</div>
+                  </div>
+                </a>
+                <div>
+                  <a *ngFor="let img of item.images" [attr.data-fancybox]="'js-gallery-popup__' + item.alias" href="{{img?.originalImageLink}}" title="{{item.title}}" [attr.data-open-mobile]="true"></a>
                   <!--<a data-fancybox="js-gallery-popup__tekstil-odezhda-obuv" href="/upload/iblock/1a8/1a8771251e862bc926879b33866d8cda.jpg" title="Текстиль, одежда, обувь" data-open-mobile="true"></a>-->
                   <!--<a data-fancybox="js-gallery-popup__tekstil-odezhda-obuv" href="/upload/iblock/687/6876204d34b223a0f94e8d27ac3747e0.jpg" title="Текстиль, одежда, обувь" data-open-mobile="true"></a>-->
                   <!--<a data-fancybox="js-gallery-popup__tekstil-odezhda-obuv" href="/upload/iblock/7c3/7c3adfc2c600274a9f8825d98b610df1.jpg" title="Текстиль, одежда, обувь" data-open-mobile="true"></a>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
+                </div>
+              </div>
+            </div>
             <!--<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 gallery-popup__col_item">-->
               <!--<div class="gallery-popup__item">-->
                 <!--<a data-fancybox="js-gallery-popup__otdelochnye-materialy" class="gallery-popup__link js-gallery-item" href="/upload/iblock/8f8/8f8e1c1f8b79d2ed9f77bc1da73d099d.jpg" data-caption="Отделочные материалы">-->
@@ -507,8 +530,8 @@
                 <!--</div>-->
               <!--</div>-->
             <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
+          </div>
+        </div>
         <!-- /brands -->
 
         <!-- brands -->
@@ -530,9 +553,9 @@
             <!--</div>-->
         <!--&lt;!&ndash; shops &ndash;&gt;-->
 
-        <!--<div class="shops2">-->
+        <div class="shops2">
 
-          <!--<div class="nice-title">Наши магазины</div>-->
+          <div class="nice-title">Наши магазины</div>
 
           <!--<div class="shops2-panel">-->
             <!--<div class="row">-->
@@ -551,44 +574,30 @@
             <!--</div>-->
           <!--</div>-->
 
-          <!--<div class="row">-->
-            <!--<div class="col-xs-12 col-sm-12  col-md-3 col-lg-3">-->
-              <!--<div class="shops2__list js-shops_list">-->
-                <!--<div-->
-                  <!--class="shops2-item js-item" data-coords="55.683097,37.549175" data-id="175" data-type="7e0edd584d3a140073e38ab8b52d08f7" >-->
-                  <!--<div class="shops2-item__name js-item__name">Торговый центр Триумфальный</div>-->
-                  <!--<div class="shops2-item__descr js-item__descr">Москва, ул. Вавилова, 66<br />-->
-                    <!--тел. &#43;7 &#40;495&#41; 978-30-08<br />-->
-                    <!--10:00-21:00</div>-->
-                <!--</div>-->
-                <!--<div-->
-                  <!--class="shops2-item js-item" data-coords="55.704925,37.764734" data-id="174" data-type="7e0edd584d3a140073e38ab8b52d08f7" >-->
-                  <!--<div class="shops2-item__name js-item__name">Торговый центр Ареал</div>-->
-                  <!--<div class="shops2-item__descr js-item__descr">Москва, ул. Маршала Чуйкова, стр. 1, вл. 1<br />-->
-                    <!--тел. &#43;7 &#40;495&#41; 926-34-78<br />-->
-                    <!--10:00-22:00</div>-->
-                <!--</div>-->
-                <!--<div-->
-                  <!--class="shops2-item js-item" data-coords="55.789608,37.752481" data-id="173" data-type="7e0edd584d3a140073e38ab8b52d08f7" >-->
-                  <!--<div class="shops2-item__name js-item__name">Торговый центр Ast</div>-->
-                  <!--<div class="shops2-item__descr js-item__descr">105187, Москва, Измайловское ш., 71а<br />-->
-                    <!--тел. &#43;7 &#40;495&#41; 987-32-27<br />-->
-                    <!--10:00-22:00</div>-->
-                <!--</div>-->
-                <!--<div-->
-                  <!--class="shops2-item js-item" data-coords="53.183985505,50.0949345449" data-id="172" data-type="14420b9931ddbd02ee031f9394b274f9" >-->
-                  <!--<div class="shops2-item__name js-item__name">Склад в Самаре</div>-->
-                  <!--<div class="shops2-item__descr js-item__descr">Самара, ул. Пограничника, до. 8-->
-                    <!--тел. +7 (495) 888-88-88-->
-                    <!--10:00-18:00</div>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 ">-->
-              <!--<div class="map"><div id="rsGoproShops2"></div></div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
+          <div class="row">
+            <div class="col-xs-12 col-sm-12  col-md-3 col-lg-3">
+              <div class="shops2__list js-shops_list">
+                <div class="shops2-item js-item">
+                  <a style="color: black" class="shops2-item__name js-item__name" (click)="goToShop($event, 54.515617, 36.242300)">Торговый центр Гагаринский</a>
+                  <div class="shops2-item__descr js-item__descr">Калуга, ул. Гагарина, 1<br />
+                    тел. &#43;7 &#40;000&#41; 000-00-00<br />
+                    0:00-0:00</div>
+                </div>
+                <div class="shops2-item js-item">
+                  <a style="color: black" class="shops2-item__name js-item__name" (click)="goToShop($event, 54.513078, 36.263901)">Торговый центр Образ</a>
+                  <div class="shops2-item__descr js-item__descr">Калуга, ул. Ленина, 77<br />
+                    тел. &#43;7 &#40;000&#41; 000-00-00<br />
+                    0:00-0:00</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 ">
+              <div id="map" class="map">
+                <!--<div id="rsGoproShops2"></div>-->
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!--&lt;!&ndash; /shops &ndash;&gt;-->
 

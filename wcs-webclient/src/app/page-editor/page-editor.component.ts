@@ -58,18 +58,11 @@ export class PageEditorComponent implements OnInit {
   }
 
   public createPage(): void {
+    console.log(this.page);
     if (this.page.id){
       this.pageService.updatePage(this.page).subscribe(() => this.page.active = false);
     } else {
       this.pageService.createPage(this.page).subscribe(() => this.page.active = false);
-    }
-  }
-
-  public removePage(): void {
-    if (this.page.id) {
-      this.pageService.removePage(this.page.id).subscribe(() => {
-        this.page.active = false;
-      });
     }
   }
 }

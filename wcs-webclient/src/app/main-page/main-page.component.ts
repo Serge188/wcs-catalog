@@ -10,7 +10,10 @@ import {FactoryEntry} from "../_models/factory-entry";
 import {SideMenuComponent} from "../side-menu/side-menu.component";
 import {PageService} from "../page.service";
 import {PageEntry} from "../_models/page-entry";
+import {PhotoGalleryItemEntry} from "../_models/photo-gallery-item-entry";
+import {PhotoGalleryItemService} from "../photo-gallery-item.service";
 declare var jQuery:any;
+declare var ymaps:any;
 
 @Component({
   selector: 'app-main-page',
@@ -29,29 +32,71 @@ export class MainPageComponent implements OnInit {
   public sliderPages: PageEntry[] = [];
   public sideMenuPages: PageEntry[] = [];
   public mainMenuPages: PageEntry[] = [];
+  public sliderImagesLinks: string[];
+  public photoGalleryItems: PhotoGalleryItemEntry[];
+  public map: any;
+  public mapZoom: number = 15;
+  public mapCenterX: number = 54.514145;
+  public mapCenterY: number = 36.253200;
 
   @ViewChild(SideMenuComponent)
   public sideMenu: SideMenuComponent;
 
   constructor(private categoriesService: CategoriesService,
               private productsService: ProductsService,
-              private brandService: BrandService, private pageService: PageService) { }
+              private brandService: BrandService, private pageService: PageService, private photoGalleryItemService: PhotoGalleryItemService) { }
 
   ngOnInit() {
     this.loadCategories();
     this.loadPopularProducts();
     this.loadPopularBrands();
     this.loadPages();
+    this.loadPhotoGalleryItems();
     jQuery(document).ready(function(){
       jQuery(".owl-carousel").owlCarousel({
         center: true,
-        items:1,
+        items:3,
         loop:true,
         margin:10,
         nav: true,
         autoplay: true
       });
     });
+    ymaps.ready().then(() => {
+      this.map = new ymaps.Map('map', {
+        center: [54.514145, 36.253200],
+        zoom: 15
+      });
+      this.map.geoObjects
+        .add(new ymaps.Placemark([54.513078, 36.263901], {
+          preset: 'islands#icon',
+          iconColor: '#0095b6'
+        }))
+        .add(new ymaps.Placemark([54.515617, 36.242300], {
+          preset: 'islands#icon',
+          iconColor: '#0095b6'
+        }))
+    });
+    // ymaps.ready(init);
+    // function init(){
+    //   var myMap = new ymaps.Map("map", {
+    //     center: [54.514145, 36.253200],
+    //     zoom: 15
+    //   });
+    //
+    //   myMap.geoObjects
+    //     .add(new ymaps.Placemark([54.513078, 36.263901], {
+    //       preset: 'islands#icon',
+    //       iconColor: '#0095b6'
+    //     })).add(
+    //     new ymaps.Placemark([54.515617, 36.242300], {
+    //       preset: 'islands#icon',
+    //       iconColor: '#0095b6'
+    //     })), {
+    //     preset: 'islands#blueCircleDotIconWithCaption',
+    //     iconCaptionMaxWidth: '50'
+    //   };
+    // }
   }
 
   public loadCategories(): void {
@@ -144,11 +189,25 @@ export class MainPageComponent implements OnInit {
   public loadPages(): void {
     this.pageService.getPages().subscribe(result => {
       this.pages = result;
+      console.log(this.pages);
       for (let p of this.pages) {
-        if (p.isSlider) this.sliderPages.push(p);
+        if (p.isSlider) {
+          this.sliderPages.push(p);
+          this.sliderImagesLinks.push(p.sliderImage.originalImageLink);
+        }
+        if (p.slider) this.sliderPages.push(p);
         if (p.showInMainMenu) this.mainMenuPages.push(p);
         if (p.showInSideMenu) this.sideMenuPages.push(p);
       }
+      console.log(this.sliderPages);
+    });
+  }
+
+  private loadPhotoGalleryItems() {
+    this.photoGalleryItemService.getPhotoGalleryItems().subscribe(result => {
+      this.photoGalleryItems = result;
+
+      console.log(result);
     });
   }
 
@@ -161,5 +220,23 @@ export class MainPageComponent implements OnInit {
       return this.pages.find(p => p.id == page.parentPageId);
     }
     return null;
+  }
+
+  public testProduct() {
+    this.productsService.testProduct().subscribe();
+  }
+
+  public goToShop(event: any, coordX: number, coordY: number) {
+    event.preventDefault();
+    document.getElementById('map').innerHTML = '';
+    this.map = new ymaps.Map('map', {
+      center: [coordX, coordY],
+      zoom: 17
+    });
+    this.map.geoObjects
+      .add(new ymaps.Placemark([coordX, coordY], {
+        preset: 'islands#icon',
+        iconColor: '#0095b6'
+      }));
   }
  }
