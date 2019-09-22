@@ -41,7 +41,9 @@ public class Dao {
         CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(clazz);
         Root<T> root = criteriaQuery.from(clazz);
         criteriaQuery.where(criteriaBuilder.equal(root.get(propertyName), value));
-        return entityManager.createQuery(criteriaQuery).getResultList();
+        List<T> list = entityManager.createQuery(criteriaQuery).getResultList();
+//        return entityManager.createQuery(criteriaQuery).getResultList();
+        return list;
     }
 
     @Transactional

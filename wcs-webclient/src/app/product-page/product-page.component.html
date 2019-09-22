@@ -201,13 +201,12 @@
                 <div class="col-xs-12">
 
                   <!-- preview text -->
-                  <div class="detail__previewtext hidden-xs">
-                    {{product.description}}
-                    <div class="detail__previewtext__go-to">
-                      <a class="link-dashed m-color-primary js-easy-scroll" href="" (click)="scrollToElement($event, 'detailtext')" data-es-offset="-135">
-                        Подробнее
-                      </a>
-                    </div>
+                  <div class="detail__previewtext hidden-xs" [innerHTML]="product?.description">
+                  </div>
+                  <div class="detail__previewtext__go-to">
+                    <a class="link-dashed m-color-primary js-easy-scroll" href="" (click)="scrollToElement($event, 'detailtext')" data-es-offset="-135">
+                      Подробнее
+                    </a>
                   </div>
                   <!-- /preview text -->
 
@@ -400,8 +399,7 @@
             <div class="b-print__tab-name clearfix">
               <div class="b-sorter__block-name visible-print-block">Описание</div>
             </div>
-            <div class="tab-pane-in2">
-              {{product.description}}
+            <div class="tab-pane-in2" [innerHTML]="product?.description">
             </div>
           </div>
         </div>
@@ -432,10 +430,10 @@
                     <!--<span class="c-gruppedprops__prop-name">Производитель:</span>-->
                     <!--<span class="c-gruppedprops__prop-value">Altrenotti</span>-->
                   <!--</span>-->
-                  <span class="c-gruppedprops__prop">
-                    <span class="c-gruppedprops__prop-name">Производитель:</span>
-                    <span class="c-gruppedprops__prop-value">{{product.factory.title}}</span>
-                  </span>
+                  <!--<span class="c-gruppedprops__prop">-->
+                    <!--<span class="c-gruppedprops__prop-name">Производитель:</span>-->
+                    <!--<span class="c-gruppedprops__prop-value">{{product.factory.title}}</span>-->
+                  <!--</span>-->
                   <span class="c-gruppedprops__prop" *ngFor="let o of product.options">
                     <span class="c-gruppedprops__prop-name">{{o.title}}:</span>
                     <span class="c-gruppedprops__prop-value">{{o.selectedValue.value}}</span>

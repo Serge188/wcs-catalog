@@ -21,6 +21,13 @@ public class OfferOption {
     @Column(name="type")
     private String type;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="category_id")
+    private Category category;
+
+    @Column(name="show_in_filter")
+    private Boolean showInFilter = false;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "option", orphanRemoval = true)
     private List<OptionValue> values = new ArrayList<>();
 
@@ -62,5 +69,21 @@ public class OfferOption {
 
     public void setValues(List<OptionValue> values) {
         this.values = values;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Boolean getShowInFilter() {
+        return showInFilter != null && showInFilter;
+    }
+
+    public void setShowInFilter(Boolean showInFilter) {
+        this.showInFilter = showInFilter;
     }
 }

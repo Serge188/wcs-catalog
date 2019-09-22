@@ -2,6 +2,7 @@ package ru.wcscatalog.core.dto;
 
 import ru.wcscatalog.core.model.Page;
 
+import java.util.Base64;
 import java.util.List;
 
 public class PageEntry {
@@ -152,7 +153,20 @@ public class PageEntry {
         entry.setSliderHeader(page.getSliederHeader());
         entry.setSliderPromo(page.getSliderPromo());
         entry.setSliderAnnotation(page.getSliderAnnotation());
-        entry.setContent(page.getContent());
+//        try {
+//            entry.setContent(new String(Base64.getDecoder().decode(page.getContent())));
+//        } catch (Exception e) {
+            entry.setContent(page.getContent());
+//        }
+
+//        if (page.getContent() != null) {
+//            entry.setContent(page
+//                    .getContent()
+//                    .replaceAll("<br/>", "\n")
+//                    .replaceAll("&nbsp;&nbsp;&nbsp;", "\t")
+//                    .replaceAll("&nbsp;", " "));
+//        }
+
         entry.setImage(ImageEntry.fromImage(page.getImage()));
         entry.setSliderImage(ImageEntry.fromImage(page.getSliderImage()));
         entry.setSlider(page.isSlider());

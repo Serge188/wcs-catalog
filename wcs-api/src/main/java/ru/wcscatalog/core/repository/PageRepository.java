@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -65,12 +66,20 @@ public class PageRepository {
 
     public void updatePageFromInput(Page page, PageInput input) {
         page.setTitle(input.getTitle());
-        page.setAlias(aliasChecker.findUniqueAliasForEntity(Page.class, input.getTitle()));
+        if ((!input.getTitle().equals(page.getTitle())) || page.getAlias() == null) {
+            page.setAlias(aliasChecker.findUniqueAliasForEntity(Page.class, input.getTitle()));
+        }
         page.setSlider(input.getSlider());
         page.setSliderHeader(input.getSliderHeader());
         page.setSliderPromo(input.getSliderPromo());
         page.setSliderAnnotation(input.getSliderAnnotation());
-        page.setContent(input.getContent());
+//        page.setContent(input.getContent());
+
+        page.setContent(input
+                .getContent()
+                .replaceAll("\\n", "<br/>")
+                .replaceAll("\\t", "&nbsp;&nbsp;&nbsp;")
+                .replaceAll(" ", "&nbsp;"));
         page.setShowInMainMenu(input.isShowInMainMenu());
         page.setShowInSideMenu(input.isShowInSideMenu());
         if (input.getParentPageId() != null) {

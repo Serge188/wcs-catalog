@@ -42,6 +42,10 @@ export class ProductPageComponent implements OnInit {
   private loadProduct(): void {
     this.productService.getProductByAlias(this.productAlias).subscribe(result => {
       this.product = result;
+      if (!this.product.price && this.product.saleOffers.length > 0) {
+        this.product.price = this.product.saleOffers[0].price;
+        this.product.discountPrice = this.product.saleOffers[0].discountPrice;
+      }
       this.calculateDiscount();
       if (this.product.discountPrice) {
         this.economy = this.product.price - this.product.discountPrice;

@@ -20,6 +20,16 @@ export class PageEditorComponent implements OnInit {
     for (let page of this.parentPages) {
       if (page.id != this.page.id) this.possibleParentPages.push(page);
     }
+    if (this.page.content) {
+      this.page.content = this.page.content
+        .split("<br/>").join("\n")
+        .split("&nbsp;&nbsp;&nbsp;").join("\t")
+        .split("&nbsp;").join(" ");
+      // this.page.content = content;
+        // .replace("<br/>", "\n")
+        // .replace("&nbsp;&nbsp;&nbsp;", "\t")
+        // .replace("&nbsp;", " ")
+    }
   }
 
   public addPageImageFile() {

@@ -115,14 +115,21 @@ public class CategoriesRepository {
         Root root = productOptionsCriteriaQuery.from(ProductOptionsRelation.class);
         Join productJoin = root.join("product");
         Join categoryJoin = productJoin.join("category");
-        productOptionsCriteriaQuery.where(criteriaBuilder.equal(categoryJoin.get("id"), categoryId));
+        Join optionsJoin = root.join("option");
+        productOptionsCriteriaQuery.where(criteriaBuilder.and(
+                criteriaBuilder.equal(categoryJoin.get("id"), categoryId),
+                criteriaBuilder.equal(optionsJoin.get("showInFilter"), true)
+        ));
         List<ProductOptionsRelation> productOptionsRelations = dao.createQuery(productOptionsCriteriaQuery);
         Map<Long, OfferOptionEntry> optionsMap = new HashMap<>();
         productOptionsRelations.forEach(or -> {
             optionsMap.putIfAbsent(or.getOption().getId(), OfferOptionEntry.fromOfferOption(or.getOption()));
         });
         productOptionsRelations.forEach(or -> {
-            optionsMap.get(or.getOption().getId()).getValues().add(OptionValueEntry.fromOptionValue(or.getValue()));
+            if (!optionsMap.get(or.getOption().getId()).getValues().stream().map(v -> v.getValue()).collect(Collectors.toList())
+                    .contains(or.getValue().getValue())) {
+                optionsMap.get(or.getOption().getId()).getValues().add(OptionValueEntry.fromOptionValue(or.getValue()));
+            }
         });
         return optionsMap.values();
     }
@@ -183,6 +190,7 @@ public class CategoriesRepository {
         });
     }
 
+    @Transactional
     public List<CategoryEntry> getTopLevelCategories() {
         CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
         CriteriaQuery<Category> criteria = criteriaBuilder.createQuery(Category.class);

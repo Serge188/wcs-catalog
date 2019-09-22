@@ -8,6 +8,7 @@ public class OfferOptionInput {
     private String name;
     private List<OptionValueInput> values;
     private OptionValueInput selectedValue;
+    private Boolean showInFilter;
 
     public Long getId() {
         return id;
@@ -47,5 +48,13 @@ public class OfferOptionInput {
 
     public void setSelectedValue(OptionValueInput selectedValue) {
         this.selectedValue = selectedValue;
+    }
+
+    public Boolean getShowInFilter() {
+        return showInFilter;
+    }
+
+    public void setShowInFilter(Boolean showInFilter) {
+        this.showInFilter = showInFilter;
     }
 }

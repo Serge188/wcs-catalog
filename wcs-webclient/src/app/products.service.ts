@@ -55,4 +55,8 @@ export class ProductsService {
   public testProduct(): Observable<any> {
     return this.http.get(this.apiUrl + `products/testProduct`);
   }
+
+  public uploadProductsFile(fileData: any): Observable<any> {
+    return this.http.post(this.apiUrl + `products/upload`, fileData);
+  }
 }

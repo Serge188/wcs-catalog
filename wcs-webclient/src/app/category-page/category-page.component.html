@@ -73,24 +73,24 @@
                         </span>
                       </div>
                     </div>
-                    <div class="lvl1" data-propid="2" data-propcode="BRANDS">
-                      <a href="#" class="showchild" (click)="toggleFilterBlock($event)">
-                        Производитель
-                        <svg class="svg-icon">
-                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use>
-                        </svg>
-                      </a>
-                      <div class="property standart">
-                        <div class="lvl2" *ngFor="let f of factories let i = index">
-                          <span class="smartf-div ">
-                            <input type="checkbox" id="factoryFilter_{{i}}" name="factoryFilter_{{i}}" value="Y" [(ngModel)]="f.selected" (change)="applyFilter()">
-                            <label for="factoryFilter_{{i}}"  class="name">
-                              <span class="val">{{f.title}}</span>
-                            </label>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                    <!--<div class="lvl1" data-propid="2" data-propcode="BRANDS">-->
+                      <!--<a href="#" class="showchild" (click)="toggleFilterBlock($event)">-->
+                        <!--Производитель-->
+                        <!--<svg class="svg-icon">-->
+                          <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use>-->
+                        <!--</svg>-->
+                      <!--</a>-->
+                      <!--<div class="property standart">-->
+                        <!--<div class="lvl2" *ngFor="let f of factories let i = index">-->
+                          <!--<span class="smartf-div ">-->
+                            <!--<input type="checkbox" id="factoryFilter_{{i}}" name="factoryFilter_{{i}}" value="Y" [(ngModel)]="f.selected" (change)="applyFilter()">-->
+                            <!--<label for="factoryFilter_{{i}}"  class="name">-->
+                              <!--<span class="val">{{f.title}}</span>-->
+                            <!--</label>-->
+                          <!--</span>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
                     <div class="lvl1" *ngFor="let option of optionsForFiltration let i = index">
                       <a href="" class="showchild" (click)="toggleFilterBlock($event)">
                         {{option.title}}

@@ -13,6 +13,7 @@ public class OfferOptionEntry {
     private String type;
     private List<OptionValueEntry> values = new ArrayList<>();
     private OptionValueEntry selectedValue;
+    private Boolean showInFilter;
 
     public long getId() {
         return id;
@@ -62,6 +63,14 @@ public class OfferOptionEntry {
         this.selectedValue = selectedValue;
     }
 
+    public Boolean getShowInFilter() {
+        return showInFilter;
+    }
+
+    public void setShowInFilter(Boolean showInFilter) {
+        this.showInFilter = showInFilter;
+    }
+
     public static OfferOptionEntry fromOfferOption(OfferOption option) {
         if (option != null) {
             OfferOptionEntry entry = new OfferOptionEntry();
@@ -69,6 +78,7 @@ public class OfferOptionEntry {
             entry.setTitle(option.getTitle());
             entry.setName(option.getName());
             entry.setType(option.getType());
+            entry.setShowInFilter(option.getShowInFilter());
             entry.setValues(option.getValues().stream().map(OptionValueEntry::fromOptionValue).collect(Collectors.toList()));
             return entry;
         }

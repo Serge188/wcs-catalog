@@ -88,7 +88,6 @@ export class AdminPanelComponent implements OnInit {
     if (this.activeCategory && this.activeCategory.id) {
       this.productsService.getOneLevelCategoryProducts(this.activeCategory.id).subscribe(result => {
         this.activeCategory.products = result;
-        console.log(this.activeCategory.products);
         // let index = this.itemsInList.indexOf(cat, 0);
         // if (index != -1) {
         //   for (let p of cat.products) {
@@ -237,7 +236,11 @@ export class AdminPanelComponent implements OnInit {
       this.newProduct.price = product.price;
       this.newProduct.discountPrice = product.discountPrice;
       this.newProduct.title = product.title;
-      this.newProduct.description = product.description;
+      // this.newProduct.description = product.description;
+      this.newProduct.description = product.description
+        .split("<br/>").join("\n")
+        .split("&nbsp;&nbsp;&nbsp;").join("\t")
+        .split("&nbsp;").join(" ");
       this.newProduct.mainImage = product.mainImage;
       this.newProduct.images = product.images;
       this.newProduct.saleOffers = product.saleOffers;
@@ -441,6 +444,12 @@ export class AdminPanelComponent implements OnInit {
     this.newProductSelectedOptionValue = "";
   }
 
+  public removeOptionFromProduct(event: any, option: OfferOptionEntry) {
+    event.preventDefault();
+    this.newProduct.options = this.newProduct.options.filter(x => x != option);
+
+  }
+
   public changeCategoryForProduct(): void {
     let cat = this.categories.find(x => x.id == this.newProductCategoryId);
     if (cat) {
@@ -570,7 +579,7 @@ export class AdminPanelComponent implements OnInit {
   public loadFactories(): void {
     this.factoriesService.getFactories().subscribe(result => {
       this.factories = result;
-    })
+    });
   }
 
   public createOrUpdateFactory(): void {
@@ -625,7 +634,6 @@ export class AdminPanelComponent implements OnInit {
   public loadPages(): void {
     this.pageService.getPages().subscribe(result => {
       this.pages = result;
-      console.log(this.pages);
       for (let page of this.pages) {
         if (!page.parentPageId) {
           this.topLevelPages.push(page);
@@ -677,8 +685,6 @@ export class AdminPanelComponent implements OnInit {
       } else {
         parentPage.childPages = parentPage.childPages.filter(p => p != page);
       }
-
-      console.log(this.pages);
     }
   }
 
@@ -707,6 +713,15 @@ export class AdminPanelComponent implements OnInit {
         this.newFactory.image.originalImageLink = null;
       }
       this.newFactory.imageInput = reader.result;
+    });
+  }
+
+  public uploadProducts() {
+    let file  = (<HTMLInputElement>document.getElementById("productsFileUploader")).files.item(0);
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.addEventListener('load', (event: any) => {
+      this.productsService.uploadProductsFile(reader.result).subscribe(() => {});
     });
   }
 }

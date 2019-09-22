@@ -38,6 +38,16 @@ public class OptionsRepository {
         return dao.byId(id, OfferOption.class);
     }
 
+    public OfferOption getOptionByNameAndCategory(String name, Long categoryId) {
+        CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
+        CriteriaQuery<OfferOption> criteriaQuery = criteriaBuilder.createQuery(OfferOption.class);
+        Root<OfferOption> root = criteriaQuery.from(OfferOption.class);
+        criteriaQuery.where(criteriaBuilder.and(
+                criteriaBuilder.equal(root.get("name"), name),
+                criteriaBuilder.equal(root.get("category"), categoryId)));
+        return dao.createQuery(criteriaQuery).stream().findFirst().orElse(null);
+    }
+
     public OptionValue getOptionValueById(Long id) {
         return dao.byId(id, OptionValue.class);
     }
@@ -68,6 +78,7 @@ public class OptionsRepository {
                 removeValue(v.getId());
             }
         }
+        option.setShowInFilter(input.getShowInFilter());
         dao.add(option);
         for (OptionValueInput v: input.getValues()) {
             createOrUpdateValue(v, option);

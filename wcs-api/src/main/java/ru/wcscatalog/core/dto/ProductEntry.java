@@ -215,6 +215,13 @@ public class ProductEntry {
             entry.setTitle(product.getTitle());
             entry.setAlias(product.getAlias());
             entry.setDescription(product.getDescription());
+//            if (product.getDescription() != null) {
+//                entry.setDescription(product
+//                        .getDescription()
+//                        .replaceAll("<br/>", "\n")
+//                        .replaceAll("&nbsp;&nbsp;&nbsp;", "\t")
+//                        .replaceAll("&nbsp;", " "));
+//            }
             entry.setProductOfDay(product.isProductOfDay());
             entry.setNewProduct(product.isNewProduct());
             entry.setHit(product.isHit());

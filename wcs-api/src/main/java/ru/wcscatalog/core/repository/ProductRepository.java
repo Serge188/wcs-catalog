@@ -55,6 +55,16 @@ public class ProductRepository {
         return entry;
     }
 
+    public Product getProductByTitleAndCategory(String title, Long categoryId) {
+        CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
+        CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
+        Root<Product> root = criteriaQuery.from(Product.class);
+        criteriaQuery.where(criteriaBuilder.and(
+                criteriaBuilder.equal(root.get("title"), title),
+                criteriaBuilder.equal(root.get("category"), categoryId)));
+        return dao.createQuery(criteriaQuery).stream().findFirst().orElse(null);
+    }
+
     public List<ProductEntry> getProductsByCategory(Long categoryId, CategoryFilter filter) {
         CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
         CriteriaQuery<Category> categoryCriteriaQuery = criteriaBuilder.createQuery(Category.class);
@@ -74,10 +84,10 @@ public class ProductRepository {
         List<Predicate> predicates = new ArrayList<>();
         predicates.add(categoryJoin.get("id").in(categoryIds));
         if (filter != null) {
-            if (filter.getMaxPrice() != null) {
+            if (filter.getMaxPrice() != null && filter.getMaxPrice() != 0) {
                 predicates.add(criteriaBuilder.le(root.get("price"), filter.getMaxPrice()));
             }
-            if (filter.getMinPrice() != null) {
+            if (filter.getMinPrice() != null && filter.getMinPrice() != 0) {
                 predicates.add(criteriaBuilder.ge(root.get("price"), filter.getMinPrice()));
             }
             if (filter.getFactoryIds() != null && !filter.getFactoryIds().isEmpty()) {
@@ -136,7 +146,11 @@ public class ProductRepository {
         }
         product.setTitle(input.getTitle());
 
-        product.setDescription(input.getDescription());
+        product.setDescription(input
+                .getDescription()
+                .replaceAll("\\n", "<br/>")
+                .replaceAll("\\t", "&nbsp;&nbsp;&nbsp;")
+                .replaceAll(" ", "&nbsp;"));
         product.setProductOfDay(input.getProductOfDay());
         product.setNewProduct(input.getNewProduct());
         product.setPromo(input.getPromo());
@@ -181,6 +195,14 @@ public class ProductRepository {
                 image.setProduct(product);
                 dao.add(image);
             }
+        }
+
+        if (product.getId() != null) {
+            CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
+            CriteriaQuery<ProductOptionsRelation> criteriaQuery = criteriaBuilder.createQuery(ProductOptionsRelation.class);
+            Root<ProductOptionsRelation> root = criteriaQuery.from(ProductOptionsRelation.class);
+            criteriaQuery.where(criteriaBuilder.equal(root.get("product"), product.getId()));
+            dao.createQuery(criteriaQuery).forEach(dao::remove);
         }
 
 
@@ -291,18 +313,19 @@ public class ProductRepository {
         criteriaQuery.where(product.get("id").in(productIds));
         List<ProductOptionsRelation> optionRelations = dao.createQuery(criteriaQuery);
         products.forEach(p -> {
-            Optional<ProductOptionsRelation> r = optionRelations
+            List<ProductOptionsRelation> relationList = optionRelations
                     .stream()
                     .filter(x -> x.getProduct().getId().equals(p.getId()))
-                    .findAny();
-            if (r.isPresent()) {
-                OfferOptionEntry option = OfferOptionEntry.fromOfferOption(r.get().getOption());
-                OptionValueEntry value = OptionValueEntry.fromOptionValue(r.get().getValue());
+                    .collect(Collectors.toList());
+            relationList.forEach(r -> {
+                OfferOptionEntry option = OfferOptionEntry.fromOfferOption(r.getOption());
+                OptionValueEntry value = OptionValueEntry.fromOptionValue(r.getValue());
                 if (option != null && value!=  null) {
                     option.setSelectedValue(value);
                     p.getOptions().add(option);
                 }
-            }
+            });
+
         });
     }
 }

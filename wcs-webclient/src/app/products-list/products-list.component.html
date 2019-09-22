@@ -195,8 +195,7 @@
                   </div>
                 </div>
                 <div class="list-showcase__preview-text">
-                  <div class="list-showcase__preview-text__text">
-                    {{p.shortDescription}}
+                  <div class="list-showcase__preview-text__text" [innerHTML]="p?.shortDescription">
                   </div>
                   <div class="list-showcase__preview-text__more">
                     <a href="{{getProductUrl(p)}}" title="">Подробнее</a>

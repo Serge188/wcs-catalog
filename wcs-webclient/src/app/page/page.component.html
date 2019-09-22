@@ -46,8 +46,7 @@
                   <div class="b-iblockdetail__pic" *ngIf="page?.image != null">
                     <img src="{{page?.image?.categoryImageLink}}" alt="{{page?.title}}" title="{{page?.title}}">
                   </div>
-                  <div class="b-iblockdetail__text" [ngStyle]="page?.image == null ? {'width':'100%'} : {}">
-                    {{page?.content}}
+                  <div class="b-iblockdetail__text" [ngStyle]="page?.image == null ? {'width':'100%'} : {}" [innerHTML]="page?.content">
                   </div>
                 </div>
                 <div class="col-sm-12">

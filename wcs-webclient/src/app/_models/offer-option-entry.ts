@@ -7,4 +7,5 @@ export class OfferOptionEntry {
   values?: OptionValueEntry[] = [];
   selectedValue?: OptionValueEntry;
   editMode?: boolean;
+  showInFilter?: boolean;
 }

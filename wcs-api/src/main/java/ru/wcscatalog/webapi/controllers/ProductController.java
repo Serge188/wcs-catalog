@@ -5,6 +5,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import ru.wcscatalog.core.Service.ProductService;
 import ru.wcscatalog.core.dto.CategoryFilter;
 import ru.wcscatalog.core.dto.ProductEntry;
 import ru.wcscatalog.core.dto.ProductInput;
@@ -12,6 +14,7 @@ import ru.wcscatalog.core.dto.SaleOfferInput;
 import ru.wcscatalog.core.repository.ImageRepository;
 import ru.wcscatalog.core.repository.ProductRepository;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,11 +24,14 @@ public class ProductController {
 
     private final ProductRepository productRepository;
     private final ImageRepository imageRepository;
+    private final ProductService productService;
 
     public ProductController(@NonNull  ProductRepository categoriesRepository,
-                             @NonNull ImageRepository imageRepository) {
+                             @NonNull ImageRepository imageRepository,
+                             @NonNull ProductService productService) {
         this.productRepository = categoriesRepository;
         this.imageRepository = imageRepository;
+        this.productService = productService;
     }
 
     @GetMapping("/popular")
@@ -108,6 +114,12 @@ public class ProductController {
     @DeleteMapping("/{productId}/images/{imageId}")
     public ResponseEntity<?> removeImageFromProduct(@PathVariable("imageId") Long imageId) {
         imageRepository.removeImageFromProduct(imageId);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(value = "/upload")
+    public ResponseEntity<?> uploadProductsFromFile(@RequestBody String fileData) throws IOException {
+        productService.createProductsFromFile(fileData);
         return ResponseEntity.ok().build();
     }
 }
