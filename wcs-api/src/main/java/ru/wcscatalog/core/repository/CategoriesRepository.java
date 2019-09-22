@@ -39,7 +39,11 @@ public class CategoriesRepository {
         Category category = dao.singleByProperty("alias", alias, Category.class);
         if (category != null) {
             CategoryEntry entry = CategoryEntry.fromCategory(category);
-            category.getChildCategories().forEach(e -> entry.getChildCategories().add(CategoryEntry.fromCategory(e)));
+            if (category.getChildCategories() != null) {
+                List<CategoryEntry> childCategories = new ArrayList<>();
+                category.getChildCategories().forEach(e -> childCategories.add(CategoryEntry.fromCategory(e)));
+                entry.setChildCategories(childCategories);
+            }
             return entry;
         }
         return null;
