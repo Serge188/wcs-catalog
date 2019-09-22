@@ -1,0 +1,77 @@
+<app-header></app-header>
+
+<app-side-menu [hideMenu]="true"></app-side-menu>
+
+<div id="title" class="title">
+  <div class="centering">
+    <div class="centeringin clearfix">
+      <ul class="rsbreadcrumb list-unstyled">
+        <li id="bx_breadcrumb_0" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" itemref="bx_breadcrumb_1">
+          <a href="/" title="Главная" itemprop="url"><span itemprop="title">Главная</span></a>
+        </li>
+        <li class="rsbreadcrumb__free">
+          <span>/</span>
+        </li>
+        <li>Каталог</li>
+      </ul>
+      <h1 class="pagetitle">КАТАЛОГ ТОВАРОВ</h1>
+    </div>
+  </div>
+</div>
+<div id="content" class="content">
+  <div class="centering">
+    <div class="centeringin clearfix">
+      <div class="b-section-list clearfix">
+        <ul class="row list-unstyled">
+          <li class="section col-xs-4 col-md-3 col-lg-5rs" *ngFor="let cat of categories">
+            <a class="around_image" href="/catalog/{{cat.alias}}/">
+              <img src="{{cat?.image?.categoryImageLink}}" alt="{{cat.title}}" title="{{cat.title}}"></a>
+            <a class="parent" href="/catalog/{{cat.alias}}/" title="{{cat.title}}">{{cat.title}}</a>
+          </li>
+          <!--<li class="section col-xs-4 col-md-3 col-lg-5rs" id="bx_1847241719_1">-->
+            <!--<a class="around_image" href="/catalog/mebel_dlya_gostinnoy/"><img src="/upload/resize_cache/iblock/a8a/300_160_140cd750bba9870f18aada2478b24840a/a8a1e44f0b26ba56cc274a4ec99b7cdd.jpg" alt="Мебель (демо-товары)" title="Мебель (демо-товары)"></a>-->
+            <!--<a class="parent" href="/catalog/mebel_dlya_gostinnoy/" title="Мебель (демо-товары)">Мебель (демо-товары)</a>-->
+          <!--</li>-->
+          <!--<li class="section col-xs-4 col-md-3 col-lg-5rs" id="bx_1847241719_17">-->
+            <!--<a class="around_image" href="/catalog/mebel_dlya_kabineta/"><img src="/upload/resize_cache/iblock/904/300_160_140cd750bba9870f18aada2478b24840a/904269f58e549a463642fc559dcbc0d3.jpg" alt="Мебель для кабинета" title="Мебель для кабинета"></a>-->
+            <!--<a class="parent" href="/catalog/mebel_dlya_kabineta/" title="Мебель для кабинета">Мебель для кабинета</a>-->
+          <!--</li>-->
+          <!--<li class="section col-xs-4 col-md-3 col-lg-5rs" id="bx_1847241719_39">-->
+            <!--<a class="around_image" href="/catalog/osveshchenie/"><img src="/upload/resize_cache/iblock/819/300_160_140cd750bba9870f18aada2478b24840a/819ef7dca888e6d7e1c89430a8ce46f7.jpg" alt="Освещение" title="Освещение"></a>-->
+            <!--<a class="parent" href="/catalog/osveshchenie/" title="Освещение">Освещение</a>-->
+          <!--</li>-->
+          <!--<li class="section col-xs-4 col-md-3 col-lg-5rs" id="bx_1847241719_12">-->
+            <!--<a class="around_image" href="/catalog/mebel_dlya_detskoy/"><img src="/upload/resize_cache/iblock/34b/300_160_140cd750bba9870f18aada2478b24840a/34b54c0fc322d752e7aa59691ca3377d.jpg" alt="Мебель для детской" title="Мебель для детской"></a>-->
+            <!--<a class="parent" href="/catalog/mebel_dlya_detskoy/" title="Мебель для детской">Мебель для детской</a>-->
+          <!--</li>-->
+          <!--<li class="section col-xs-4 col-md-3 col-lg-5rs" id="bx_1847241719_26">-->
+            <!--<a class="around_image" href="/catalog/mebel_dlya_prikhozhey/"><img src="/upload/resize_cache/iblock/566/300_160_140cd750bba9870f18aada2478b24840a/566572da7db505ae1cc0defc4cba36b4.jpg" alt="Мебель для прихожей" title="Мебель для прихожей"></a>-->
+            <!--<a class="parent" href="/catalog/mebel_dlya_prikhozhey/" title="Мебель для прихожей">Мебель для прихожей</a>-->
+          <!--</li>-->
+          <!--<li class="section col-xs-4 col-md-3 col-lg-5rs" id="bx_1847241719_30">-->
+            <!--<a class="around_image" href="/catalog/mebel_dlya_spalni/"><img src="/upload/resize_cache/iblock/8ec/300_160_140cd750bba9870f18aada2478b24840a/8ec84b8a11a997f0af8e04af96419d8d.jpg" alt="Мебель для спальни" title="Мебель для спальни"></a>-->
+            <!--<a class="parent" href="/catalog/mebel_dlya_spalni/" title="Мебель для спальни">Мебель для спальни</a>-->
+          <!--</li>-->
+          <!--<li class="section col-xs-4 col-md-3 col-lg-5rs" id="bx_1847241719_51">-->
+            <!--<a class="around_image" href="/catalog/stoly_main/"><img src="/upload/resize_cache/iblock/6ca/300_160_140cd750bba9870f18aada2478b24840a/6caf5dfb47a33f6c08b469c77ce28283.jpg" alt="Столы" title="Столы"></a>-->
+            <!--<a class="parent" href="/catalog/stoly_main/" title="Столы">Столы</a>-->
+          <!--</li>-->
+          <!--<li class="section col-xs-4 col-md-3 col-lg-5rs" id="bx_1847241719_58">-->
+            <!--<a class="around_image" href="/catalog/shkafy_main/"><img src="/upload/resize_cache/iblock/55f/300_160_140cd750bba9870f18aada2478b24840a/55fe43efd73f2984667d81eb0c089031.jpg" alt="Шкафы" title="Шкафы"></a>-->
+            <!--<a class="parent" href="/catalog/shkafy_main/" title="Шкафы">Шкафы</a>-->
+          <!--</li>-->
+          <!--<li class="section col-xs-4 col-md-3 col-lg-5rs" id="bx_1847241719_67">-->
+            <!--<a class="around_image" href="/catalog/ofisnaya_mebel/"><img src="/upload/resize_cache/redsign_devfunc_nophoto/6d4/300_160_1/6d453e2b2d45fabb60f68f321b70c1cd.jpg" alt="" title=""></a>-->
+            <!--<a class="parent" href="/catalog/ofisnaya_mebel/" title="Офисная мебель">Офисная мебель</a>-->
+          <!--</li>-->
+          <!--<li class="section col-xs-4 col-md-3 col-lg-5rs" id="bx_1847241719_68">-->
+            <!--<a class="around_image" href="/catalog/mebel_dlya_peregovornykh/"><img src="/upload/resize_cache/redsign_devfunc_nophoto/6d4/300_160_1/6d453e2b2d45fabb60f68f321b70c1cd.jpg" alt="" title=""></a>-->
+            <!--<a class="parent" href="/catalog/mebel_dlya_peregovornykh/" title="Мебель для переговорных">Мебель для переговорных</a>-->
+          <!--</li>-->
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
