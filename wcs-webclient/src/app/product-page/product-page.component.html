@@ -112,7 +112,7 @@
                 <div class="col-xs-12">
 
                   <!-- prices -->
-                  <div class="detail__prices">
+                  <div class="detail__prices" *ngIf="product.price || product.discountPrice">
                     <span class="detail__prices__title">Цена</span>
                     <div class="c-prices js-prices view-list page-detail product-alone multyprice-no">
                       <span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE">
