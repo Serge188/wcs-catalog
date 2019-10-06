@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PriceType, ProductEntry} from "../_models/product-entry";
 import {SaleOfferEntry} from "../_models/sale-offer-entry";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-products-list',
@@ -15,6 +16,8 @@ export class ProductsListComponent implements OnInit {
   public favoriteItemsIds: number[];
   public busketItemsCount: number;
   public busketItemsSum: number;
+  public noImageUrl: string = environment.noImageUrl;
+
   constructor() {}
 
   ngOnInit() {

@@ -3,6 +3,7 @@ import {ProductsService} from "../products.service";
 import {ActivatedRoute} from "@angular/router";
 import {PriceType, ProductEntry} from "../_models/product-entry";
 import {SaleOfferEntry} from "../_models/sale-offer-entry";
+import {environment} from "../../environments/environment";
 declare var jQuery:any;
 
 @Component({
@@ -21,6 +22,7 @@ export class ProductPageComponent implements OnInit {
   public busketItemsCount: number;
   public busketItemsSum: number;
   public productQty: number = 1;
+  public noImageUrl: string = environment.noImageUrl;
 
   constructor(private productService: ProductsService, private route: ActivatedRoute) { }
 
@@ -152,7 +154,9 @@ export class ProductPageComponent implements OnInit {
     if (this.product.offerCurrentImage) {
       return this.product.offerCurrentImage.originalImageLink;
     }
-    return this.product.mainImage.originalImageLink;
+    if (this.product.mainImage && this.product.mainImage.originalImageLink) {
+      return this.product.mainImage.originalImageLink;
+    }
   }
 
   public showAdditionalImages(): boolean {

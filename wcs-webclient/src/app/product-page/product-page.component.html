@@ -43,9 +43,15 @@
                       <!--<div class="owl-stage" style="transform: translate3d(-890px, 0px, 0px); transition: all 0s ease 0s; width: 2670px;">-->
                       <div class="owl-stage">
                         <div class="owl-item" style="width: 425px; margin-right: 20px;">
-                          <a class="js_picture_glass detail__pic__a js-picslide-a" data-fancybox="gallery" href="{{getOriginalImageLink()}}">
+                          <a class="js_picture_glass detail__pic__a js-picslide-a"
+                             data-fancybox="gallery"
+                             href="{{getOriginalImageLink()}}"
+                             *ngIf="getOriginalImageLink()">
                             <img class="detail__pic__img" src="{{getOriginalImageLink()}}" alt="{{product.altTitle}}" title="{{product.altTitle}}">
                           </a>
+                          <div class="js_picture_glass detail__pic__a js-picslide-a">
+                            <img class="detail__pic__img" src="{{noImageUrl}}" alt="{{product.altTitle}}" title="{{product.altTitle}}">
+                          </div>
                         </div>
                       </div>
                     </div>

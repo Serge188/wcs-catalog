@@ -68,7 +68,11 @@
                       <img class="js-list-picture js-lazy lazy-animation"
                            src={{getCardImageLink(p)}}
                            data-src="{{getCardImageLink(p)}}"
-                           alt="{{p.altTitle}}"/>
+                           alt="{{p.altTitle}}" *ngIf="getCardImageLink(p)"/>
+                      <img class="js-list-picture js-lazy lazy-animation"
+                           src={{noImageUrl}}
+                           data-src="{{noImageUrl}}"
+                           alt="{{p.altTitle}}" *ngIf="!getCardImageLink(p)"/>
                     </a>
                   </div>
                   <div class="list-showcase__timer-stickers">
