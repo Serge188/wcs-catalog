@@ -40,12 +40,27 @@ export class CategoryPageComponent implements OnInit {
 
   constructor(private categoriesService: CategoriesService,
               private productService: ProductsService,
-              private route: ActivatedRoute, private changeDetector: ChangeDetectorRef) {
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.categoryAlias = this.route.snapshot.paramMap.get('categoryAlias');
     this.loadCategoryByAlias();
+    // console.log(jQuery( "#slider-range" ));
+    // jQuery( function() {
+    //   jQuery( "#slider-range" ).slider({
+    //     range: true,
+    //     min: 0,
+    //     max: 500,
+    //     values: [ 75, 300 ],
+    //     slide: function( event, ui ) {
+    //       // jQuery( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+    //       console.log("moved");
+    //     }
+    //   });
+      // jQuery( "#amount" ).val( "$" + jQuery( "#slider-range" ).slider( "values", 0 ) +
+      //   " - $" + jQuery( "#slider-range" ).slider( "values", 1 ) );
+    // } );
   }
 
   public loadCategoryByAlias(): void {
@@ -86,13 +101,13 @@ export class CategoryPageComponent implements OnInit {
       // }
     });
     // jQuery( "#drag_tracker" ).on("click pointerout", (event, ui) => {
-    jQuery( "#drag_tracker" ).on("click", (event, ui) => {
-      if (this.products) {
-        this.minFilteredPrice = jQuery(".min-price").val();
-        this.maxFilteredPrice = jQuery(".max-price").val();
-        this.applyFilter();
-      }
-    });
+    // jQuery( "#drag_tracker" ).on("click", (event, ui) => {
+    //   if (this.products) {
+    //     this.minFilteredPrice = jQuery(".min-price").val();
+    //     this.maxFilteredPrice = jQuery(".max-price").val();
+    //     this.applyFilter();
+    //   }
+    // });
   }
 
   public setCurrentOffer(p: ProductEntry, currentOffer: SaleOfferEntry) {
@@ -187,22 +202,33 @@ export class CategoryPageComponent implements OnInit {
         }
       }
 
-      let dragTracker = jQuery("#drag_tracker");
+      // let dragTracker = jQuery("#drag_tracker");
       let minPrice = jQuery(".min-price");
       let maxPrice = jQuery(".max-price");
 
-      dragTracker.slider({
-        range: true,
-        min: this.minPrice,
-        max: this.maxPrice,
-        values: [this.minFilteredPrice, this.maxFilteredPrice],
-        slide: function (event, ui) {
-          minPrice.val(ui.values[0]);
-          maxPrice.val(ui.values[1]);
-        }
-      });
-      minPrice.val(dragTracker.slider("values", 0));
-      maxPrice.val(dragTracker.slider("values", 1));
+      // dragTracker.slider({
+      // jQuery( function() {
+        jQuery("#slider-range").slider({
+          range: true,
+          min: this.minPrice,
+          // min: 10,
+          max: this.maxPrice,
+          // max: 70,
+          values: [this.minFilteredPrice, this.maxFilteredPrice],
+          // values: [20, 60],
+          // slide: function (event, ui) {
+          slide: (event, ui) => {
+            minPrice.val(ui.values[0]);
+            maxPrice.val(ui.values[1]);
+            this.minFilteredPrice = ui.values[0];
+            this.maxFilteredPrice = ui.values[1];
+            this.applyFilter();
+            // this.applyFilter();
+          }
+        });
+      // });
+      // minPrice.val(dragTracker.slider("values", 0));
+      // maxPrice.val(dragTracker.slider("values", 1));
     });
 
     this.categoriesService.getFactoriesInCategory(this.category.id).subscribe(result => this.factories = result);

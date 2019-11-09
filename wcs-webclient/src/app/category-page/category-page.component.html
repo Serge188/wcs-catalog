@@ -59,18 +59,11 @@
                           <span class="separator">—</span>
                           <input class="max-price max" type="text" name="arrFilter_P1_MAX" id="arrFilter_P1_MAX" [(ngModel)]="maxFilteredPrice" (input)="applyFilter()" value="" size="9">
                         </span>
-                        <span class="smartf-div aroundslider">
                           <span class="smartf-div" style="clear: both;"></span>
-                          <span class="smartf-div bx_ui_slider_track" id="drag_track_c4ca4238a0b923820dcc509a6f75849b">
-                            <span class="smartf-div bx_ui_slider_pricebar_VD" style="left: 0; right: 0;" id="colorUnavailableActive_c4ca4238a0b923820dcc509a6f75849b"></span>
-                            <span class="smartf-div bx_ui_slider_pricebar_VN" style="left: 0%; right: 0%;" id="colorAvailableInactive_c4ca4238a0b923820dcc509a6f75849b"></span>
-                            <span class="smartf-div bx_ui_slider_pricebar_V" style="left: 0%; right: 0%;" id="colorAvailableActive_c4ca4238a0b923820dcc509a6f75849b"></span>
-                            <span class="smartf-div bx_ui_slider_range" id="drag_tracker" style="left: 0;right: 0;" (change)="applyFilter()">
-                              <a class="bx_ui_slider_handle left" style="left:0;" href="" id="left_slider" (click)="applyFilter()" (change)="applyFilter()"></a>
-                              <a class="bx_ui_slider_handle right" style="right:0;" href="" id="right_slider" (click)="applyFilter()" (change)="applyFilter()"></a>
-                            </span>
-                          </span>
-                        </span>
+                          <span class="smartf-div bx_ui_slider_track"></span>
+                        <div class="smartf-div aroundslider">
+                          <div class="slider-range" id="slider-range"></div>
+                        </div>
                       </div>
                     </div>
                     <!--<div class="lvl1" data-propid="2" data-propcode="BRANDS">-->
