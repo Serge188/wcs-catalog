@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
   baseHref: '/',
-  apiUrl: 'http://178.62.212.25:8080/api/',
+  apiUrl: 'https://mebel-40.ru:8443/api/',
   noImageUrl: 'assets/img/no-image.png'
 };
