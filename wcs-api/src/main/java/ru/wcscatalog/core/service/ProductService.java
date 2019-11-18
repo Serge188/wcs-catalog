@@ -1,4 +1,4 @@
-package ru.wcscatalog.core.Service;
+package ru.wcscatalog.core.service;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -14,8 +14,6 @@ import ru.wcscatalog.core.utils.AliasChecker;
 import ru.wcscatalog.core.utils.Transliterator;
 
 import java.io.*;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 

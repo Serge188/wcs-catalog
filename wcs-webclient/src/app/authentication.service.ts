@@ -8,8 +8,6 @@ import { environment } from '../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-
-  // private apiUrl: string = `http://178.62.212.25:8080/`;
   private apiUrl: string = environment.apiUrl;
 
   private currentUserSubject: BehaviorSubject<User>;
@@ -25,7 +23,6 @@ export class AuthenticationService {
   }
 
   login(usernameOrEmail: string, password: string) {
-    console.log(usernameOrEmail);
     return this.http.post<any>(this.apiUrl + `auth/signin`, { username: usernameOrEmail, password: password })
       .pipe(map(user => {
         if (user && user.accessToken) {

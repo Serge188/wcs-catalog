@@ -1,8 +1,10 @@
 package ru.wcscatalog.webapi.config;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -10,7 +12,7 @@ import javax.servlet.ServletException;
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class[] getRootConfigClasses() {
-        return new Class[] {RootConfig.class, HibernateConfig.class};
+        return new Class[] {RootConfig.class, HibernateConfig.class, SecurityConfig.class};
     }
 
     @Override
@@ -32,5 +34,12 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
         fr.setInitParameter("encoding", "UTF-8");
         fr.setInitParameter("forceEncoding", "true");
         fr.addMappingForUrlPatterns(null, true, "/*");
+    }
+
+    @Override
+    protected javax.servlet.Filter[] getServletFilters() {
+        DelegatingFilterProxy delegateFilterProxy = new DelegatingFilterProxy();
+        delegateFilterProxy.setTargetBeanName("jwtAuthenticationFilter");
+        return new Filter[]{delegateFilterProxy};
     }
 }

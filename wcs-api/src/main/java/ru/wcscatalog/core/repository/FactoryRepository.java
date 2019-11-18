@@ -1,5 +1,6 @@
 package ru.wcscatalog.core.repository;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.wcscatalog.core.dto.FactoryEntry;
@@ -45,6 +46,7 @@ public class FactoryRepository {
         return dao.byId(id, Factory.class);
     }
 
+    @PreAuthorize("isAuthenticated()")
     public void createFactory(FactoryInput input) throws Exception {
         Factory factory = new Factory();
         factory.setTitle(input.getTitle());
@@ -59,6 +61,7 @@ public class FactoryRepository {
         }
     }
 
+    @PreAuthorize("isAuthenticated()")
     public void updateFactory(FactoryInput input) throws Exception {
         Factory factory = getFactoryById(input.getId());
         if (factory == null) {
@@ -74,6 +77,7 @@ public class FactoryRepository {
         }
     }
 
+    @PreAuthorize("isAuthenticated()")
     public void removeFactory(Long id) {
         Factory factory = getFactoryById(id);
         if (factory != null) {

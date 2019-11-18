@@ -1,5 +1,6 @@
 package ru.wcscatalog.core.repository;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.wcscatalog.core.dto.PageEntry;
@@ -47,6 +48,7 @@ public class PageRepository {
         return PageEntry.fromPage(page);
     }
 
+    @PreAuthorize("isAuthenticated()")
     public void createPage(PageInput input) {
         if (input == null) {
             return;
@@ -56,6 +58,7 @@ public class PageRepository {
         dao.add(page);
     }
 
+    @PreAuthorize("isAuthenticated()")
     public void updatePage(PageInput input) {
         if (input == null || input.getId() == null) {
             return;
@@ -64,6 +67,7 @@ public class PageRepository {
         updatePageFromInput(page, input);
     }
 
+    @PreAuthorize("isAuthenticated()")
     public void updatePageFromInput(Page page, PageInput input) {
         page.setTitle(input.getTitle());
         if ((!input.getTitle().equals(page.getTitle())) || page.getAlias() == null) {
@@ -78,8 +82,7 @@ public class PageRepository {
         page.setContent(input
                 .getContent()
                 .replaceAll("\\n", "<br/>")
-                .replaceAll("\\t", "&nbsp;&nbsp;&nbsp;")
-                .replaceAll(" ", "&nbsp;"));
+                .replaceAll("\\t", "&nbsp;&nbsp;&nbsp;"));
         page.setShowInMainMenu(input.isShowInMainMenu());
         page.setShowInSideMenu(input.isShowInSideMenu());
         if (input.getParentPageId() != null) {
@@ -101,6 +104,7 @@ public class PageRepository {
         }
     }
 
+    @PreAuthorize("isAuthenticated()")
     public void removePage(Long pageId) {
         Page page = getPageById(pageId);
         if (page != null) {

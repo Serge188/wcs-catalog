@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   baseHref: '/',
-  apiUrl: 'http://localhost:8080/',
+  apiUrl: 'http://localhost:8080/api/',
   noImageUrl: 'assets/img/no-image.png'
 };
 

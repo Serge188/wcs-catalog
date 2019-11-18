@@ -1,5 +1,6 @@
 package ru.wcscatalog.core.repository;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.wcscatalog.core.dto.PhotoGalleryItemEntry;
@@ -33,6 +34,7 @@ public class PhotoGalleryItemsRepository {
                 .collect(Collectors.toList());
     }
 
+    @PreAuthorize("isAuthenticated()")
     public void createOrUpdateGalleryItem(PhotoGalleryItemInput input) throws Exception {
         PhotoGalleryItem photoGalleryItem;
         if (input.getId() != null) {
@@ -51,6 +53,7 @@ public class PhotoGalleryItemsRepository {
 //        }
     }
 
+    @PreAuthorize("isAuthenticated()")
     public void addImageToGalleryItem(Long itemId, String imageInput) throws Exception {
         PhotoGalleryItem photoGalleryItem = dao.byId(itemId, PhotoGalleryItem.class);
         Image image = imageRepository.createImageForGalleryItem(imageInput, photoGalleryItem.getTitle(), false);
@@ -58,10 +61,12 @@ public class PhotoGalleryItemsRepository {
         photoGalleryItem.getImages().add(image);
     }
 
+    @PreAuthorize("isAuthenticated()")
     public void removeImageFromGalleryItem(Long imageId) {
         imageRepository.removePhotoGalleryImage(imageId);
     }
 
+    @PreAuthorize("isAuthenticated()")
     public void removePhotoGalleryItem(Long itemId) {
         PhotoGalleryItem item = dao.byId(itemId, PhotoGalleryItem.class);
         item.getImages().forEach(i -> removeImageFromGalleryItem(i.getId()));

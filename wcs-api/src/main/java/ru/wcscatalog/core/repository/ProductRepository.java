@@ -1,5 +1,6 @@
 package ru.wcscatalog.core.repository;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.wcscatalog.core.dto.*;
@@ -135,6 +136,7 @@ public class ProductRepository {
         return entries;
     }
 
+    @PreAuthorize("isAuthenticated()")
     public void createOrUpdateProduct(ProductInput input) throws Exception{
         Product product = null;
         if (input.getId() != null) {
@@ -219,6 +221,7 @@ public class ProductRepository {
         }
     }
 
+    @PreAuthorize("isAuthenticated()")
     public SaleOffer createOrUpdateSaleOffer(SaleOfferInput input, Product product) throws Exception {
         SaleOffer saleOffer = null;
         if (input.getId() != null) {
@@ -246,6 +249,7 @@ public class ProductRepository {
         return saleOffer;
     }
 
+    @PreAuthorize("isAuthenticated()")
     public void removeProduct(Long productId) {
         Product product = getProductById(productId);
         if (product != null) {
@@ -272,6 +276,7 @@ public class ProductRepository {
         }
     }
 
+    @PreAuthorize("isAuthenticated()")
     public void removeSaleOfferFromProduct(Long saleOfferId) {
         SaleOffer saleOffer = getSaleOfferById(saleOfferId);
         if (saleOffer != null) {

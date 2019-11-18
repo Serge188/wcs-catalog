@@ -1,5 +1,6 @@
 package ru.wcscatalog.core.repository;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.wcscatalog.core.dto.OfferOptionEntry;
@@ -56,6 +57,7 @@ public class OptionsRepository {
         return dao.singleByProperty("alias", alias, OptionValue.class);
     }
 
+    @PreAuthorize("isAuthenticated()")
     public OfferOptionEntry createOrUpdateOption(OfferOptionInput input) throws Exception {
         OfferOption option = null;
         if (input.getId() != null) {
@@ -86,6 +88,7 @@ public class OptionsRepository {
         return OfferOptionEntry.fromOfferOption(option);
     }
 
+    @PreAuthorize("isAuthenticated()")
     public void removeOption(Long optionId) {
         OfferOption option = getOptionById(optionId);
         if (option != null) {
@@ -93,6 +96,7 @@ public class OptionsRepository {
         }
     }
 
+    @PreAuthorize("isAuthenticated()")
     public OptionValue createOrUpdateValue(OptionValueInput input, OfferOption option) throws Exception{
         OptionValue optionValue = null;
         if (input.getId() != null) {
@@ -124,6 +128,7 @@ public class OptionsRepository {
         return optionValue;
     }
 
+    @PreAuthorize("isAuthenticated()")
     public void removeValue(Long valueId) throws Exception{
         OptionValue optionValue = getOptionValueById(valueId);
         if (optionValue != null ){

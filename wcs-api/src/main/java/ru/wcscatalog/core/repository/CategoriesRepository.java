@@ -1,5 +1,6 @@
 package ru.wcscatalog.core.repository;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.wcscatalog.core.dto.*;
@@ -39,7 +40,7 @@ public class CategoriesRepository {
         Category category = dao.singleByProperty("alias", alias, Category.class);
         if (category != null) {
             CategoryEntry entry = CategoryEntry.fromCategory(category);
-            if (category.getChildCategories() != null) {
+            if (category != null && category.getChildCategories() != null) {
                 List<CategoryEntry> childCategories = new ArrayList<>();
                 category.getChildCategories().forEach(e -> childCategories.add(CategoryEntry.fromCategory(e)));
                 entry.setChildCategories(childCategories);
@@ -49,6 +50,7 @@ public class CategoriesRepository {
         return null;
     }
 
+    @PreAuthorize("isAuthenticated()")
     public void updateCategory(CategoryInput input) throws Exception {
         Category category = dao.byId(input.getId(), Category.class);
         category.setTitle(input.getTitle());
@@ -69,6 +71,7 @@ public class CategoriesRepository {
         }
     }
 
+    @PreAuthorize("isAuthenticated()")
     public void createCategory(CategoryInput input) throws Exception {
         Category category = new Category();
         category.setTitle(input.getTitle());
@@ -98,6 +101,7 @@ public class CategoriesRepository {
         dao.add(category);
     }
 
+    @PreAuthorize("isAuthenticated()")
     public void removeCategory(Long categoryId) throws Exception {
         Category category = dao.byId(categoryId, Category.class);
         try {
@@ -143,7 +147,12 @@ public class CategoriesRepository {
         CriteriaQuery productsCriteria = criteriaBuilder.createQuery();
         Root<Product> root = productsCriteria.from(Product.class);
         Join categoryJoin = root.join("category");
-        productsCriteria.where(criteriaBuilder.equal(categoryJoin.get("id"), categoryId));
+        productsCriteria.where(
+                criteriaBuilder.and(
+                        criteriaBuilder.equal(categoryJoin.get("id"), categoryId),
+                        criteriaBuilder.isNotNull(root.get("price"))
+                )
+        );
         productsCriteria.select(root.get("price"));
         List<Float> prices = dao.createQuery(productsCriteria);
         List<Float> minMaxPrices = new ArrayList<>();
