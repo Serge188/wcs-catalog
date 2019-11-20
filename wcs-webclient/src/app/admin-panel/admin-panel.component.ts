@@ -17,6 +17,7 @@ import {PageEntry} from "../_models/page-entry";
 import {ImageEntry} from "../_models/image-entry";
 import {PhotoGalleryItemEntry} from "../_models/photo-gallery-item-entry";
 import {PhotoGalleryItemService} from "../photo-gallery-item.service";
+import * as toastr from 'toastr';
 
 @Component({
   selector: 'app-admin-panel',
@@ -49,6 +50,11 @@ export class AdminPanelComponent implements OnInit {
   public newPageActive: boolean = false;
   public photoGalleryItems: PhotoGalleryItemEntry[] = [];
   public activeGalleryItem: PhotoGalleryItemEntry;
+
+  private SAVED_SUCCESSFULLY: string = "Успешно сохранено";
+  private SAVING_ERROR: string = "Ошибка при сохранении";
+  private REMOVED_SUCCESSFULLY: string = "Успешно удалено";
+  private REMOVING_ERROR: string = "Ошибка при удалении";
 
   constructor(private categoriesService: CategoriesService,
               private productsService: ProductsService,
@@ -110,27 +116,35 @@ export class AdminPanelComponent implements OnInit {
   private loadPhotoGalleryItems() {
     this.photoGalleryItemService.getPhotoGalleryItems().subscribe(result => {
       this.photoGalleryItems = result;
-      console.log(result);
     });
   }
 
   public createOrUpdateGalleryItem(item: PhotoGalleryItemEntry) {
     this.photoGalleryItemService.createOrUpdateGalleryItem(item).subscribe(() => {
+      toastr.success(this.SAVED_SUCCESSFULLY);
       this.loadPhotoGalleryItems();
-    });
+    }, () => toastr.error(this.SAVING_ERROR));
   }
 
   public deleteGalleryItem(item: PhotoGalleryItemEntry) {
-    if (item.id) {
-      this.photoGalleryItemService.deleteGalleryItem(item.id).subscribe(() => {
-        this.loadPhotoGalleryItems();
-      });
+    if (confirm("Вы уверены?")) {
+      if (item.id) {
+        this.photoGalleryItemService.deleteGalleryItem(item.id).subscribe(() => {
+          toastr.success(this.REMOVED_SUCCESSFULLY);
+          this.loadPhotoGalleryItems();
+        }, () => toastr.error(this.REMOVING_ERROR));
+      }
     }
   }
 
   public deleteImageFromGalleryItem(event: any, imageId: number) {
     event.preventDefault();
-    this.photoGalleryItemService.deleteImageFromGalleryItem(imageId).subscribe(() => {});
+    if (confirm("Вы уверены?")) {
+      this.photoGalleryItemService.deleteImageFromGalleryItem(imageId).subscribe(
+        () => {
+          toastr.success(this.REMOVED_SUCCESSFULLY)
+        }, () => toastr.error(this.REMOVING_ERROR));
+    }
   }
 
   public removeProductsFromList(category: CategoryEntry): void {
@@ -298,8 +312,9 @@ export class AdminPanelComponent implements OnInit {
       result = this.categoriesService.createCategory(this.newCategory);
     }
     result.subscribe(() => {
+      toastr.success(this.SAVED_SUCCESSFULLY);
       this.loadCategories();
-    });
+    }, () => toastr.error(this.SAVING_ERROR));
     this.newCategory = {};
     this.closeModal();
   }
@@ -338,7 +353,6 @@ export class AdminPanelComponent implements OnInit {
         this.newProduct.imagesInput.push(reader.result);
       });
     }
-    console.log(this.newProduct);
   }
 
   public addImageForSaleOffer(offer: SaleOfferEntry): void {
@@ -353,18 +367,21 @@ export class AdminPanelComponent implements OnInit {
   }
 
   public removeCategory(categoryId: number): void {
-    this.categoriesService.removeCategory(categoryId).subscribe(
-      res => {
-      this.closeModal();
-      let cat = this.itemsInList.find(x => x.id == categoryId);
-      if (cat) {
-        let index = this.itemsInList.indexOf(cat, 0);
-        this.itemsInList.splice(index, 1);
-      }
-    },
+    if (confirm("Вы уверены, что хотите удалить категорию?")) {
+      this.categoriesService.removeCategory(categoryId).subscribe(
+        res => {
+          this.closeModal();
+          let cat = this.itemsInList.find(x => x.id == categoryId);
+          if (cat) {
+            let index = this.itemsInList.indexOf(cat, 0);
+            this.itemsInList.splice(index, 1);
+          }
+          toastr.success(this.REMOVED_SUCCESSFULLY);
+        },
         err => {
-        alert("При удалении категории произошла оишбка: " + err);
-      });
+          toastr.error(this.REMOVING_ERROR);
+        });
+    }
   }
 
   public createOrUpdateProduct(): void {
@@ -378,7 +395,8 @@ export class AdminPanelComponent implements OnInit {
       this.loadProductsForActiveCategory();
       this.newProduct = {};
       this.closeModal();
-    });
+      toastr.success(this.SAVED_SUCCESSFULLY);
+    }, () => toastr.error(this.SAVING_ERROR));
 
   }
 
@@ -485,17 +503,21 @@ export class AdminPanelComponent implements OnInit {
       option.editMode = false;
       this.loadProductOptions();
       this.editingOption = {};
-    });
+      toastr.success(this.SAVED_SUCCESSFULLY)
+    }, () => toastr.error(this.SAVING_ERROR));
   }
 
   public removeOption(option: OfferOptionEntry): void {
-    this.optionsService.removeOption(option.id).subscribe(()=>{
-      // let index = this.offerOptions.indexOf(option);
-      // if (index) {
-      //   this.offerOptions.splice(index, 1);
-      // }
-      this.offerOptions = this.offerOptions.filter(o => o.id != option.id);
-    });
+    if (confirm("Вы уверены, что хотите удалить характеристику?")) {
+      this.optionsService.removeOption(option.id).subscribe(() => {
+        // let index = this.offerOptions.indexOf(option);
+        // if (index) {
+        //   this.offerOptions.splice(index, 1);
+        // }
+        this.offerOptions = this.offerOptions.filter(o => o.id != option.id);
+        toastr.success(this.REMOVED_SUCCESSFULLY);
+      }, () => toastr.error(this.REMOVING_ERROR));
+    }
   }
 
   public removeValueFromOption(value: OptionValueEntry): void {
@@ -517,11 +539,14 @@ export class AdminPanelComponent implements OnInit {
   }
 
   public removeProduct(productId: number): void {
-    this.productsService.removeProduct(productId).subscribe(() => {
-      this.loadProductsForActiveCategory();
-      this.newProduct = {};
-      this.closeModal();
-    });
+    if (confirm("Вы уверены, что хотите удалить товар?")) {
+      this.productsService.removeProduct(productId).subscribe(() => {
+        this.loadProductsForActiveCategory();
+        this.newProduct = {};
+        this.closeModal();
+        toastr.success(this.REMOVED_SUCCESSFULLY);
+      }, () => toastr.error(this.REMOVING_ERROR));
+    }
   }
 
   public isSaleOffersInEditingProductPresent(): boolean {
@@ -585,8 +610,8 @@ export class AdminPanelComponent implements OnInit {
   public createOrUpdateFactory(): void {
     if (this.newFactory.id) {
       this.factoriesService.updateFactory(this.newFactory).subscribe(
-        () => {},
-        () => {},
+        () => {toastr.success(this.SAVED_SUCCESSFULLY)},
+        () => {toastr.error(this.SAVING_ERROR)},
         () => {
           this.loadFactories();
           this.closeModal();
@@ -594,7 +619,7 @@ export class AdminPanelComponent implements OnInit {
         });
     } else {
       this.factoriesService.createFactory(this.newFactory).subscribe(
-        () => {}, () => {}, () => {
+        () => {toastr.success(this.SAVED_SUCCESSFULLY)}, () => {toastr.error(this.SAVING_ERROR)}, () => {
           this.loadFactories();
           this.closeModal();
           this.newFactory = {};
@@ -603,15 +628,21 @@ export class AdminPanelComponent implements OnInit {
   }
 
   public removeFactory(factory: FactoryEntry): void {
-    if (factory.id) {
-      this.factoriesService.removeFactory(factory.id).subscribe(
-        () => {},
-        () => {},
-        () => {
-          this.newFactory = {};
-          this.loadFactories();
-          this.closeModal();
-        });
+    if (confirm("Вы уверены, что хотите удалить производителя?")) {
+      if (factory.id) {
+        this.factoriesService.removeFactory(factory.id).subscribe(
+          () => {
+            toastr.success(this.REMOVED_SUCCESSFULLY);
+          },
+          () => {
+            toastr.error(this.REMOVING_ERROR);
+          },
+          () => {
+            this.newFactory = {};
+            this.loadFactories();
+            this.closeModal();
+          });
+      }
     }
   }
 
@@ -676,14 +707,17 @@ export class AdminPanelComponent implements OnInit {
   }
 
   public removePage(page: PageEntry, parentPage: PageEntry): void {
-    if (page.id) {
-      this.pageService.removePage(page.id).subscribe(() => {
-        page.active = false;
-      });
-      if (!parentPage) {
-        this.topLevelPages = this.topLevelPages.filter(p => p != page);
-      } else {
-        parentPage.childPages = parentPage.childPages.filter(p => p != page);
+    if (confirm("Вы уверены, что хотите удалить страницу?")) {
+      if (page.id) {
+        this.pageService.removePage(page.id).subscribe(() => {
+          toastr.success(this.REMOVED_SUCCESSFULLY);
+          page.active = false;
+        }, () => toastr.error(this.REMOVING_ERROR));
+        if (!parentPage) {
+          this.topLevelPages = this.topLevelPages.filter(p => p != page);
+        } else {
+          parentPage.childPages = parentPage.childPages.filter(p => p != page);
+        }
       }
     }
   }

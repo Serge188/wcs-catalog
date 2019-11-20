@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import {AuthenticationService} from "../authentication.service";
 import {AlertService} from "../alert.service";
 import {User} from "../_models/User";
+import * as toastr from 'toastr';
 
 
 @Component({templateUrl: 'login.component.html'})
@@ -33,11 +34,10 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     this.loading = true;
-    console.log(this.user);
     this.authenticationService.login(this.user.username, this.user.password)
       .toPromise()
       .then(result => {
         this.router.navigate([this.returnUrl]);
-      });
+      }, () => {toastr.error("Неверный логин или пароль")}).finally(() => this.loading = false);
   }
 }
