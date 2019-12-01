@@ -3,6 +3,7 @@ import {CategoryEntry} from "../_models/category-entry";
 import {CategoriesService} from "../categories.service";
 import {PageService} from "../page.service";
 import {PageEntry} from "../_models/page-entry";
+declare var jQuery: any;
 
 @Component({
   selector: 'app-footer',
@@ -17,12 +18,14 @@ export class FooterComponent implements OnInit {
   public popularCategoriesMap: Map<number, CategoryEntry[]> = new Map();
 
   public mainMenuPages: PageEntry[];
+  public bottomPanelType: string = null;
 
   constructor(private categoriesService: CategoriesService, private pageService: PageService) { }
 
   ngOnInit() {
     this.loadCategories();
     this.pageService.getMainMenuPages().subscribe(result => this.mainMenuPages = result);
+    this.initResizable();
   }
 
   public loadCategories(): void {
@@ -67,6 +70,40 @@ export class FooterComponent implements OnInit {
 
   public recallRequest(event: any): void {
      event.preventDefault();
+  }
+
+  public toggleBottomPanel(event: any, bottomPanelType: string) {
+    event.preventDefault();
+    if (this.bottomPanelType === bottomPanelType) {
+      this.bottomPanelType = null;
+      jQuery(".rsec_content").removeClass("open");
+      jQuery(".rsec_tab").css("display", "none");
+    } else {
+      this.bottomPanelType = bottomPanelType;
+        jQuery(".rsec_content").addClass("open");
+        jQuery(".rsec_tab").css("display", "block");
+    }
+  }
+
+  private initResizable() {
+    jQuery("#rsec_resizable").resizable({
+      handles: {
+        n: '#resizable-handle'
+      },
+      classes: {
+        "ui-resizable-handle": "rsec_tyanya"
+      },
+      resize: function( event, ui ) {
+        jQuery("#rsec_resizable").css("top", "0");
+      }
+    });
+  }
+
+  public getTabClass(bottomPanelType: string): string {
+    if (this.bottomPanelType === bottomPanelType) {
+      return "selected";
+    }
+    return "";
   }
 
 }

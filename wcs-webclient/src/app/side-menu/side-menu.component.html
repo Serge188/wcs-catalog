@@ -2,8 +2,9 @@
   <div class="centering">
     <div class="centeringin clearfix">
       <div class="b-mmenu type1">
-        <div class="catalogmenu2_column">
-          <ul class="catalogmenu2 clearfix">
+        <!--<div class="catalogmenu2_column">-->
+        <div class="catalogmenucolumn">
+          <ul class="catalogmenu clearfix">
             <li class="parent">
               <a href="/catalog/" class="parent">
                 Каталог товаров
@@ -22,15 +23,19 @@
                   <a href="{{cat.link}}" class="first" title="{{cat.title}}">
                     <span>{{cat.title}}</span>
                     <svg class="svg-icon arrow">
-                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-right"></use>
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-right">
+                        <svg viewBox="0 0 129 129" id="svg-arrow-linear-right">
+                          <path d="m40.4,121.3c-0.8,0.8-1.8,1.2-2.9,1.2s-2.1-0.4-2.9-1.2c-1.6-1.6-1.6-4.2 0-5.8l51-51-51-51c-1.6-1.6-1.6-4.2 0-5.8 1.6-1.6 4.2-1.6 5.8,0l53.9,53.9c1.6,1.6 1.6,4.2 0,5.8l-53.9,53.9z"></path>
+                        </svg>
+                      </use>
                     </svg>
                   </a>
-                  <ul class="lvl2 lvl2-count-4">
-                    <div class="mrow" *ngFor="let subCat of cat.childCategories">
+                  <ul class="list-unstyled lvl2">
+                    <li class="sub" *ngFor="let subCat of cat.childCategories">
                       <a href="{{subCat.link}}" class="sub" title="{{subCat.title}}">
                         <span>{{subCat.title}}</span>
                       </a>
-                    </div>
+                    </li>
                   </ul>
                 </li>
               </ul>

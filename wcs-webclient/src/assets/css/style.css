@@ -2623,7 +2623,7 @@ tbody.collapse.in {
   }
 
   #rs_easycart .rsec_content, #rs_easycart .rsec_content .rsec_tab {
-    opacity: 0
+    /*opacity: 0*/
   }
 }
 
@@ -3777,7 +3777,7 @@ img {
 
 #rs_easycart .rsec_content .rsec_tyanya span {
   display: inline-block;
-  margin: 7px 0 6px;
+  margin: 10px 0 6px;
   padding-left: 85px
 }
 
@@ -3787,14 +3787,23 @@ img {
   fill: #bbb
 }
 
+.rsec_tyanya {
+  height: 31px !important;
+}
+
 #rs_easycart .rsec_content .rsec_tyanya .rsec_close {
   display: block;
   float: right;
   width: 85px;
-  height: 10px;
+  height: 10px !important;
   padding: 8px 4px 12px 10px;
   margin-right: 3px;
-  cursor: pointer
+  cursor: pointer;
+  font-size: 13px;
+}
+
+#rsec_resizable {
+  height: 300px;
 }
 
 #rs_easycart .rsec_content .rsec_tyanya .rsec_close .svg-icon {
@@ -3901,6 +3910,7 @@ img {
   width: 100%;
   max-width: 180px;
   margin: 0 auto;
+  margin-top: 25px;
   padding-top: 140px;
   color: #ccc;
   font-size: 13px;
@@ -3913,6 +3923,7 @@ img {
   width: 100%;
   max-width: 146px;
   margin: 0 auto;
+  margin-top: 25px;
   padding-top: 155px;
   color: #ccc;
   font-size: 13px;
@@ -4149,6 +4160,10 @@ img {
   #rs_easycart .rsec.rsec_headers .rsec_body .rsec_changer {
     padding: 0 10px
   }
+}
+
+.rsec_changer {
+  cursor: pointer !important;
 }
 
 @media screen and (max-width: 970px) {
@@ -12301,19 +12316,26 @@ body .popup-window-close-icon:hover:after {
   opacity: 0
 }
 
-.gopro-banners .owl-carousel .owl-nav button.owl-next, .gopro-banners .owl-carousel .owl-nav div.owl-prev {
+.gopro-banners .owl-carousel .owl-nav div.owl-next, div.owl-prev, .gopro-banners .owl-carousel .owl-nav div.owl-prev {
   position: absolute;
   top: 50%;
-  margin-top: -32px;
+  margin-top: -32px !important;
   cursor: pointer
 }
 
-.gopro-banners .owl-carousel .owl-nav div.owl-prev {
-  left: 0
+.owl-theme .owl-nav [class*='owl-'] {
+  background: rgba(0, 50, 50, 0) !important;
+}
+.owl-theme .owl-nav [class*='owl-']:hover {
+  background: rgba(0, 50, 50, 0) !important;
 }
 
-.gopro-banners .owl-carousel .owl-nav button.owl-next {
-  right: 0
+.gopro-banners .owl-carousel .owl-nav div.owl-prev {
+  left: 0 !important
+}
+
+.gopro-banners .owl-carousel .owl-nav div.owl-next {
+  right: 0 !important
 }
 
 .gopro-banners .owl-carousel .owl-nav div span {
@@ -12337,7 +12359,6 @@ body .popup-window-close-icon:hover:after {
   width: 12px;
   height: 12px;
   margin-top: 5px;
-  margin-left: 6px;
   fill: #000
 }
 
@@ -12367,6 +12388,10 @@ body .popup-window-close-icon:hover:after {
 
 .gopro-banners .owl-dots .owl-dot.active {
   background-color: #7a6137
+}
+
+button.owl-dot > span {
+  display:none !important
 }
 
 .gopro-banners .owl-dots .owl-dot.active:hover, .gopro-banners .owl-dots .owl-dot:hover {

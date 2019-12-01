@@ -10,7 +10,6 @@ import {CategoryFilter} from "./_models/category-filter";
   providedIn: 'root'
 })
 export class ProductsService {
-  // private apiUrl: string = `http://178.62.212.25:8080/`;
   private apiUrl: string = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
