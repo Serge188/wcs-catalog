@@ -14,6 +14,7 @@ import {PhotoGalleryItemEntry} from "../_models/photo-gallery-item-entry";
 import {PhotoGalleryItemService} from "../photo-gallery-item.service";
 declare var jQuery:any;
 declare var ymaps:any;
+declare var $:any;
 
 @Component({
   selector: 'app-main-page',
@@ -52,16 +53,7 @@ export class MainPageComponent implements OnInit {
     this.loadPopularBrands();
     this.loadPages();
     this.loadPhotoGalleryItems();
-    jQuery(document).ready(function(){
-      jQuery(".owl-carousel").owlCarousel({
-        center: true,
-        items:3,
-        loop:true,
-        margin:10,
-        nav: true,
-        autoplay: true
-      });
-    });
+
     ymaps.ready().then(() => {
       this.map = new ymaps.Map('map', {
         center: [54.514145, 36.253200],
@@ -77,26 +69,6 @@ export class MainPageComponent implements OnInit {
           iconColor: '#0095b6'
         }))
     });
-    // ymaps.ready(init);
-    // function init(){
-    //   var myMap = new ymaps.Map("map", {
-    //     center: [54.514145, 36.253200],
-    //     zoom: 15
-    //   });
-    //
-    //   myMap.geoObjects
-    //     .add(new ymaps.Placemark([54.513078, 36.263901], {
-    //       preset: 'islands#icon',
-    //       iconColor: '#0095b6'
-    //     })).add(
-    //     new ymaps.Placemark([54.515617, 36.242300], {
-    //       preset: 'islands#icon',
-    //       iconColor: '#0095b6'
-    //     })), {
-    //     preset: 'islands#blueCircleDotIconWithCaption',
-    //     iconCaptionMaxWidth: '50'
-    //   };
-    // }
   }
 
   public loadCategories(): void {
@@ -189,7 +161,6 @@ export class MainPageComponent implements OnInit {
   public loadPages(): void {
     this.pageService.getPages().subscribe(result => {
       this.pages = result;
-      console.log(this.pages);
       for (let p of this.pages) {
         if (p.isSlider) {
           this.sliderPages.push(p);
@@ -199,7 +170,22 @@ export class MainPageComponent implements OnInit {
         if (p.showInMainMenu) this.mainMenuPages.push(p);
         if (p.showInSideMenu) this.sideMenuPages.push(p);
       }
-      console.log(this.sliderPages);
+      jQuery(document).ready(function(){
+        jQuery(".owl-carousel").owlCarousel({
+          center: true,
+          items:1 ,
+          loop:true,
+          nav: true,
+          autoplay: true,
+          autoplaySpeed: 1000,
+          navSpeed: 1000,
+          navElement: "div",
+          navText: ["<span><svg class=\"svg-icon\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-arrow-linear-left\"><svg viewBox=\"0 0 129 129\" id=\"svg-arrow-linear-left\">\n" +
+          "        <path d=\"m88.6,121.3c0.8,0.8 1.8,1.2 2.9,1.2s2.1-0.4 2.9-1.2c1.6-1.6 1.6-4.2 0-5.8l-51-51 51-51c1.6-1.6 1.6-4.2 0-5.8s-4.2-1.6-5.8,0l-54,53.9c-1.6,1.6-1.6,4.2 0,5.8l54,53.9z\"></path>\n" +
+          "\t</svg></use></svg></span>",
+                    "<span><svg class=\"svg-icon\"><use xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"#svg-arrow-linear-right\"></use></svg></span>"]
+        });
+      });
     });
   }
 

@@ -5,14 +5,10 @@
   <div id="content" class="content">
     <div class="centering">
       <div class="centeringin clearfix">
-
           <div class="gopro-banners owl-gopro-banners">
-            <owl-carousel
-              [options]="{items: 3, dots: true, navigation: true}"
-              [items]="sliderImagesLinks"
-              [carouselClasses]="['gopro-banners__banner', 'js-item']">
+            <div class="owl-carousel owl-theme">
               <div class="gopro-banners__banner js-item item" *ngFor="let sp of sliderPages">
-                <div class="gopro-banners__background text" data-banner-type="text" data-img-src="assets/img/catalog/original/stranitsa_1.png" [ngStyle]="getSliderBackground(sp)" >
+                <div class="gopro-banners__background text" [ngStyle]="getSliderBackground(sp)" >
                 </div>
                 <div class="gopro-banners__wrap">
                   <div class="gopro-banners__infowrap">
@@ -27,29 +23,8 @@
                     </div>
                   </div>
                 </div>
-                <!--<div class="thumbnail-image" [ngStyle]="{'background': 'url('abc.jpg')no-repeat scroll center center / 80px 80px'}"></div>-->
               </div>
-            </owl-carousel>
-            <!--<div id="owlGoProBanners" class="owl-carousel">-->
-                <!--<div class="gopro-banners__banner js-item item" *ngFor="let sp of sliderPages">-->
-                  <!--<div class="gopro-banners__background text" data-banner-type="text" data-img-src="assets/img/catalog/original/stranitsa_1.png" [ngStyle]="getSliderBackground(sp)" >-->
-                  <!--</div>-->
-                  <!--<div class="gopro-banners__wrap">-->
-                    <!--<div class="gopro-banners__infowrap">-->
-                      <!--<div class="gopro-banners__info">-->
-                        <!--<div class="gopro-banners__text">-->
-                          <!--<div class="gopro-banners__text1">{{sp.sliderHeader}}</div>-->
-                          <!--<div class="gopro-banners__text2">{{sp.sliderPromo}}</div>-->
-                          <!--<div class="gopro-banners__text3 hidden-xs">-->
-                            <!--{{sp.sliderAnnotation}}-->
-                          <!--</div>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                  <!--<a href="/page/{{sp.alias}}" class="gopro-banners__link" ></a>-->
-                <!--</div>-->
-          <!--</div>-->
+            </div>
         </div>
         <div class="fichi">
           <div class="fichi__inner">
@@ -82,7 +57,7 @@
                 <a class="fichi__link" id="bx_651765591_168" target="_blank" href="/delivery/">
                 <span class="fichi__img">
                   <img src="/assets/img/delivery.png" alt="Бесплатная доставка по всей Росcии" title="Бесплатная доставка по всей Росcии"></span>
-                <span class="fichi__name">Бесплатная доставка по всей Росcии</span>
+                <span class="fichi__name">Доставка по всей Росcии</span>
               </a>
               </div>
             </div>
