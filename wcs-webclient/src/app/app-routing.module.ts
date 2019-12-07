@@ -10,6 +10,7 @@ import {ProductPageComponent} from "./product-page/product-page.component";
 import {CategoryPageComponent} from "./category-page/category-page.component";
 import {PageComponent} from "./page/page.component";
 import {CatalogComponent} from "./catalog/catalog.component";
+import {CommonModule} from "@angular/common";
 
 const routes: Routes = [
   {path: '', component: MainPageComponent },
