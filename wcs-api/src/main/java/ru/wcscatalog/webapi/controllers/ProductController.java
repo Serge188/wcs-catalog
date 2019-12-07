@@ -56,23 +56,15 @@ public class ProductController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> createNewProduct(@RequestBody ProductInput input) {
-        try {
-            productRepository.createOrUpdateProduct(input);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.of(Optional.of(e.getStackTrace()));
-        }
+    public ResponseEntity<?> createNewProduct(@RequestBody ProductInput input) throws Exception {
+        productRepository.createOrUpdateProduct(input);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping()
-    public ResponseEntity<?> updateProduct(@RequestBody ProductInput input) {
-        try {
-            productRepository.createOrUpdateProduct(input);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.of(Optional.of(e.getStackTrace()));
-        }
+    public ResponseEntity<?> updateProduct(@RequestBody ProductInput input) throws Exception {
+        productRepository.createOrUpdateProduct(input);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
