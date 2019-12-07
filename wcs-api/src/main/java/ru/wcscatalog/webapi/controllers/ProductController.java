@@ -5,12 +5,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import ru.wcscatalog.core.Service.ProductService;
-import ru.wcscatalog.core.dto.CategoryFilter;
-import ru.wcscatalog.core.dto.ProductEntry;
-import ru.wcscatalog.core.dto.ProductInput;
-import ru.wcscatalog.core.dto.SaleOfferInput;
+import ru.wcscatalog.core.dto.*;
+import ru.wcscatalog.core.service.ProductService;
 import ru.wcscatalog.core.repository.ImageRepository;
 import ru.wcscatalog.core.repository.ProductRepository;
 
@@ -121,5 +117,11 @@ public class ProductController {
     public ResponseEntity<?> uploadProductsFromFile(@RequestBody String fileData) throws IOException {
         productService.createProductsFromFile(fileData);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(value = "/simplified")
+    public ResponseEntity<?> getSimplifiedProducts(@RequestBody List<Long> productIds) {
+        List<ProductSimplifiedEntry> entries = productRepository.getSimplifiedProducts(productIds);
+        return ResponseEntity.ok(entries);
     }
 }

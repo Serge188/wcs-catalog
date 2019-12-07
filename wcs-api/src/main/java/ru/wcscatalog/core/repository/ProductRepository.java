@@ -330,7 +330,26 @@ public class ProductRepository {
                     p.getOptions().add(option);
                 }
             });
-
         });
+    }
+
+    public List<ProductSimplifiedEntry> getSimplifiedProducts(List<Long> productIds) {
+        List<ProductSimplifiedEntry> entries = new LinkedList<>();
+        CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
+        CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
+        Root<Product> product = criteriaQuery.from(Product.class);
+        criteriaQuery.where(product.get("id").in(productIds));
+        List<Product> products = dao.createQuery(criteriaQuery);
+        products.forEach(p -> {
+            ProductSimplifiedEntry entry = new ProductSimplifiedEntry();
+            entry.setId(p.getId());
+            Optional<Image> img = p.getImages().stream().filter(i -> i.isMainImage()).findAny();
+            img.ifPresent(i -> entry.setImageLink(i.getPreviewImageLink()));
+            entry.setPrice(p.getPrice());
+            entry.setTitle(p.getTitle());
+            entry.setAlias(p.getAlias());
+            entries.add(entry);
+        });
+        return entries;
     }
 }

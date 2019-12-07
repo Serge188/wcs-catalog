@@ -3,6 +3,8 @@ import {CategoryEntry} from "../_models/category-entry";
 import {CategoriesService} from "../categories.service";
 import {PageService} from "../page.service";
 import {PageEntry} from "../_models/page-entry";
+import {ProductSimplifiedEntry} from "../_models/product-simplified-entry";
+import {ProductsService} from "../products.service";
 declare var jQuery: any;
 
 @Component({
@@ -17,15 +19,28 @@ export class FooterComponent implements OnInit {
   public popularCategories: CategoryEntry[] = [];
   public popularCategoriesMap: Map<number, CategoryEntry[]> = new Map();
 
-  public mainMenuPages: PageEntry[];
+  public mainMenuPages: PageEntry[] = [];
   public bottomPanelType: string = null;
+  public viewedProducts: ProductSimplifiedEntry[] = [];
 
-  constructor(private categoriesService: CategoriesService, private pageService: PageService) { }
+  constructor(
+    private categoriesService: CategoriesService,
+    private pageService: PageService,
+    private productService: ProductsService) { }
 
   ngOnInit() {
     this.loadCategories();
     this.pageService.getMainMenuPages().subscribe(result => this.mainMenuPages = result);
     this.initResizable();
+    let viewedProductIds = localStorage.getItem("viewedProductIds");
+    if (!viewedProductIds) {
+      this.viewedProducts = [];
+    } else {
+      this.productService.loadSimplifiedProducts(JSON.parse(viewedProductIds)).subscribe(result => {
+        this.viewedProducts = result;
+        console.log(this.viewedProducts);
+      });
+    }
   }
 
   public loadCategories(): void {

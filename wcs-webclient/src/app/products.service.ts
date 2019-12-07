@@ -58,4 +58,8 @@ export class ProductsService {
   public uploadProductsFile(fileData: any): Observable<any> {
     return this.http.post(this.apiUrl + `products/upload`, fileData);
   }
+
+  public loadSimplifiedProducts(productIds: number[]): Observable<any> {
+    return this.http.post(this.apiUrl + `products/simplified`, productIds);
+  }
 }

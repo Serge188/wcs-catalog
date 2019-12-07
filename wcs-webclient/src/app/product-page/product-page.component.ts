@@ -56,6 +56,19 @@ export class ProductPageComponent implements OnInit {
         this.productHasOptions = true;
         this.product.currentOffer = this.product.saleOffers[0];
       }
+      let viewedProductIds: any = localStorage.getItem("viewedProductIds");
+      if (!viewedProductIds) {
+        viewedProductIds = [];
+      } else {
+        viewedProductIds = JSON.parse(viewedProductIds);
+      }
+      if (viewedProductIds.indexOf(this.product.id) == -1) {
+        if (viewedProductIds.length >= 30) {
+          viewedProductIds.shift();
+        }
+        viewedProductIds.push(this.product.id);
+      }
+      localStorage.setItem("viewedProductIds", JSON.stringify(viewedProductIds));
     });
   }
 

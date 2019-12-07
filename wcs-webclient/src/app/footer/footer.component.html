@@ -258,7 +258,7 @@
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-view-table"></use>
             </svg>
           </span>
-            <a class="rsec_close" href="" (click)="toggleBottomPanel($event, bottomPanelType)">
+            <a class="rsec_close" href="" (click)="toggleBottomPanel($event, null)">
               Закрыть
               <svg class="svg-icon">
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-close-button">
@@ -275,10 +275,38 @@
             </a>
           </div>
           <div id="rsec_viewed" class="rsec_tab">
-            <div class="rsec_thistab_viewed" *ngIf="bottomPanelType == 'recentlyViewed'">
+            <div class="rsec_thistab_viewed" *ngIf="bottomPanelType == 'recentlyViewed' && viewedProducts.length == 0">
               <div class="rsec_emptytab rsec_clearfix">
                 <div class="rsec_emptytab_icon">Список просмотренных товаров пуст</div>
               </div>
+            </div>
+            <div class="rsec_thistab_viewed" style="margin-top: 25px" *ngIf="bottomPanelType == 'recentlyViewed' && viewedProducts.length > 0">
+                <table class="rsec_table">
+                  <thead>
+                  <tr>
+                    <th class="rsec_hov"></th>
+                    <th colspan="2">Товар</th>
+                    <th class="rsec_cen">Цена</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr class="rsec_jsline" *ngFor="let p of viewedProducts">
+                    <td class="rsec_hov"></td>
+                    <td class="rsec_image rsec_cen rsec_min">
+                      <a href="/product/{{p.alias}}" target="_blank">
+                        <img src="{{p.imageLink}}" alt="{{p.title}}" title="{{p.title}}"></a>
+                    </td>
+                    <td>
+                      <a href="/product/{{p.alias}}" target="_blank">
+                        {{p.title}}
+                      </a>
+                    </td>
+                    <td class="rsec_nowrap rsec_min rsec_padd" *ngIf="!p.price"></td>
+                    <td class="rsec_nowrap rsec_min rsec_padd" *ngIf="p.price">{{p.price}} руб.</td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div class="rsec_buttons rsec_clearfix"></div>
             </div>
           </div>
           <div id="rsec_compare" class="rsec_tab">
@@ -333,7 +361,7 @@
             </svg>
             <span class="rsec_name">Недавно просмотренные</span>
             &nbsp;
-            <span class="rsec_color rsec_cnt js-viewed-prod-count">0</span>
+            <span class="rsec_color rsec_cnt js-viewed-prod-count">{{viewedProducts.length}}</span>
           </a>
         </div>
         <div class="rsec_orlink">
