@@ -22,6 +22,7 @@ export class FooterComponent implements OnInit {
   public mainMenuPages: PageEntry[] = [];
   public bottomPanelType: string = null;
   public viewedProducts: ProductSimplifiedEntry[] = [];
+  public favoriteProducts: ProductSimplifiedEntry[] = [];
 
   constructor(
     private categoriesService: CategoriesService,
@@ -32,15 +33,8 @@ export class FooterComponent implements OnInit {
     this.loadCategories();
     this.pageService.getMainMenuPages().subscribe(result => this.mainMenuPages = result);
     this.initResizable();
-    let viewedProductIds = localStorage.getItem("viewedProductIds");
-    if (!viewedProductIds) {
-      this.viewedProducts = [];
-    } else {
-      this.productService.loadSimplifiedProducts(JSON.parse(viewedProductIds)).subscribe(result => {
-        this.viewedProducts = result;
-        console.log(this.viewedProducts);
-      });
-    }
+    this.initializeViewedProducts();
+    this.initializeFavoriteProducts();
   }
 
   public loadCategories(): void {
@@ -119,6 +113,66 @@ export class FooterComponent implements OnInit {
       return "selected";
     }
     return "";
+  }
+
+  private initializeViewedProducts() {
+    let viewedProductIds = this.getProductIdsFromLocalStorage("viewedProductIds");
+    this.productService.loadSimplifiedProducts(viewedProductIds).subscribe(result => {
+      this.viewedProducts = result;
+    });
+  }
+
+  private initializeFavoriteProducts() {
+    let favoriteProductIds = this.getProductIdsFromLocalStorage("favorites");
+    this.productService.loadSimplifiedProducts(favoriteProductIds).subscribe(result => {
+      this.favoriteProducts = result;
+    });
+  }
+
+  private getProductIdsFromLocalStorage(groupId: string): number[] {
+    let resultIds = [];
+    let targetItem = localStorage.getItem(groupId);
+    if (targetItem) {
+      resultIds = JSON.parse(targetItem);
+    }
+    return resultIds;
+  }
+
+  private removeProductIdFromLocalStorage(groupId: string, productId: number) {
+    let ids = this.getProductIdsFromLocalStorage(groupId);
+    localStorage.setItem(groupId, JSON.stringify(ids.filter(x => x != productId)));
+  }
+
+  private addProductIdToLocalStorage(groupId: string, productId: number) {
+    let ids = this.getProductIdsFromLocalStorage(groupId);
+    localStorage.setItem(groupId, JSON.stringify(ids.push(productId)));
+  }
+
+  public favoriteLineMouseEnter(event: any) {
+    var elem = event.target || event.srcElement;
+    jQuery(elem.querySelector(".rsec_hov")).css("background-color", "#7A6137");
+  }
+  public favoriteLineMouseLeave(event: any) {
+    var elem = event.target || event.srcElement;
+    jQuery(elem.querySelector(".rsec_hov")).css("background-color", "white");
+  }
+
+  public removeFromFavorites(event: any, productId: number) {
+    if (event) event.preventDefault();
+    this.favoriteProducts = this.favoriteProducts.filter(x => x.id != productId);
+    this.removeProductIdFromLocalStorage("favorites", productId);
+  }
+
+  public removeFromFavoritesMultiple(selectedOnly: boolean) {
+    this.favoriteProducts.forEach(x => {
+      if (selectedOnly) {
+        if (x.selected) {
+          this.removeFromFavorites(null, x.id);
+        }
+      } else {
+        this.removeFromFavorites(null, x.id);
+      }
+    });
   }
 
 }

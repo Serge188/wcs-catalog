@@ -317,9 +317,53 @@
             </div>
           </div>
           <div id="rsec_favorite" class="rsec_tab rsec_universalhandler" data-ajaxfinder="action=add2favorite" >
-            <div class="rsec_thistab_favorite" *ngIf="bottomPanelType == 'favouriteProducts'">
+            <div class="rsec_thistab_favorite" *ngIf="bottomPanelType == 'favouriteProducts' && favoriteProducts.length == 0">
               <div class="rsec_emptytab rsec_clearfix">
                 <div class="rsec_emptytab_icon">Список избранного пуст</div>
+              </div>
+            </div>
+            <div class="rsec_thistab_favorite" style="margin-top: 25px" *ngIf="bottomPanelType == 'favouriteProducts' && favoriteProducts.length > 0">
+              <table class="rsec_table">
+                <thead>
+                <tr>
+                  <th class="rsec_hov"></th>
+                  <th colspan="3">Товар</th>
+                  <th class="rsec_cen">Цена</th>
+                  <th class="rsec_cen">Удалить</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="rsec_jsline" (mouseenter)="favoriteLineMouseEnter($event)" (mouseleave)="favoriteLineMouseLeave($event)" *ngFor="let fp of favoriteProducts; let i = index">
+                  <td class="rsec_hov"></td>
+                  <td class="rsec_min rsec_cen">
+                    <input type="checkbox" id="rsec_thistab_favorite_DELETE_{{i}}" [(ngModel)]="fp.selected">
+                    <label for="rsec_thistab_favorite_DELETE_{{i}}"></label>
+                  </td>
+                  <td class="rsec_image rsec_cen rsec_min">
+                    <a href="/product/{{fp.alias}}" target="_blank">
+                      <img src="{{fp.imageLink}}" alt="{{fp.title}}">
+                    </a>
+                  </td>
+                  <td>
+                    <a href="/product/{{fp.alias}}" target="_blank">{{fp.title}}</a>
+                  </td>
+                  <td class="rsec_nowrap rsec_min rsec_padd" *ngIf="!fp.price"></td>
+                  <td class="rsec_nowrap rsec_min rsec_padd" *ngIf="fp.price">{{fp.price}} руб.</td>
+                  <td class="rsec_min rsec_cen rsec_padd">
+                    <a class="rsec_delete" href="#" (click)="removeFromFavorites($event, fp.id)">
+                      <svg class="svg-icon">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-close-button"></use>
+                      </svg>
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <div class="rsec_buttons rsec_clearfix">
+                <div class="rsec_leftp">
+                  <input class="btn2 rsec_delall" type="button" name="Refresh" value="Удалить все" (click)="removeFromFavoritesMultiple(false)">
+                  <input class="btn2 rsec_delsome" type="button" name="Refresh" value="Удалить" (click)="removeFromFavoritesMultiple(true)">
+                </div>
               </div>
             </div>
           </div>
@@ -399,7 +443,7 @@
             </svg>
             <span class="rsec_name">Избранное</span>
             &nbsp;
-            <span class="rsec_color rsec_cnt js-favorite-prod-count">0</span>
+            <span class="rsec_color rsec_cnt js-favorite-prod-count">{{favoriteProducts.length}}</span>
           </a>
         </div>
         <div class="rsec_orlink">
