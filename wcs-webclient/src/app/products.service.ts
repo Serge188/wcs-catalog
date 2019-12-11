@@ -1,18 +1,22 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/internal/Observable";
 import {ProductEntry} from "./_models/product-entry";
 import {CategoryEntry} from "./_models/category-entry";
 import { environment } from '../environments/environment';
 import {CategoryFilter} from "./_models/category-filter";
+import {ProductSimplifiedEntry} from "./_models/product-simplified-entry";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
   private apiUrl: string = environment.apiUrl;
+  public $itemFavoriteAdded: EventEmitter<ProductSimplifiedEntry>;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.$itemFavoriteAdded = new EventEmitter();
+  }
 
   public getPopularProducts(): Observable<any> {
     return this.http.get(this.apiUrl + 'products/popular').pipe();
@@ -61,5 +65,28 @@ export class ProductsService {
 
   public loadSimplifiedProducts(productIds: number[]): Observable<any> {
     return this.http.post(this.apiUrl + `products/simplified`, productIds);
+  }
+
+  public getProductIdsFromLocalStorage(groupId: string): number[] {
+    let resultIds = [];
+    let targetItem = localStorage.getItem(groupId);
+    if (targetItem) {
+      resultIds = JSON.parse(targetItem);
+    }
+    return resultIds;
+  }
+
+  public removeProductIdFromLocalStorage(groupId: string, productId: number) {
+    let ids = this.getProductIdsFromLocalStorage(groupId);
+    localStorage.setItem(groupId, JSON.stringify(ids.filter(x => x != productId)));
+  }
+
+  public addProductIdToLocalStorage(groupId: string, productId: number) {
+    let ids = this.getProductIdsFromLocalStorage(groupId);
+    localStorage.setItem(groupId, JSON.stringify(ids.push(productId)));
+  }
+
+  public emitFavoriteAdded(product: ProductSimplifiedEntry) {
+    this.$itemFavoriteAdded.emit(product);
   }
 }

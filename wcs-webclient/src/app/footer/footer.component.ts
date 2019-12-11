@@ -27,7 +27,15 @@ export class FooterComponent implements OnInit {
   constructor(
     private categoriesService: CategoriesService,
     private pageService: PageService,
-    private productService: ProductsService) { }
+    private productService: ProductsService) {
+    this.productService.$itemFavoriteAdded.subscribe(entry => {
+      if (entry.favorite) {
+        this.favoriteProducts.push(entry);
+      } else {
+        this.favoriteProducts = this.favoriteProducts.filter(x => x.id != entry.id);
+      }
+    });
+  }
 
   ngOnInit() {
     this.loadCategories();
@@ -116,36 +124,17 @@ export class FooterComponent implements OnInit {
   }
 
   private initializeViewedProducts() {
-    let viewedProductIds = this.getProductIdsFromLocalStorage("viewedProductIds");
+    let viewedProductIds = this.productService.getProductIdsFromLocalStorage("viewedProductIds");
     this.productService.loadSimplifiedProducts(viewedProductIds).subscribe(result => {
       this.viewedProducts = result;
     });
   }
 
   private initializeFavoriteProducts() {
-    let favoriteProductIds = this.getProductIdsFromLocalStorage("favorites");
+    let favoriteProductIds = this.productService.getProductIdsFromLocalStorage("favorites");
     this.productService.loadSimplifiedProducts(favoriteProductIds).subscribe(result => {
       this.favoriteProducts = result;
     });
-  }
-
-  private getProductIdsFromLocalStorage(groupId: string): number[] {
-    let resultIds = [];
-    let targetItem = localStorage.getItem(groupId);
-    if (targetItem) {
-      resultIds = JSON.parse(targetItem);
-    }
-    return resultIds;
-  }
-
-  private removeProductIdFromLocalStorage(groupId: string, productId: number) {
-    let ids = this.getProductIdsFromLocalStorage(groupId);
-    localStorage.setItem(groupId, JSON.stringify(ids.filter(x => x != productId)));
-  }
-
-  private addProductIdToLocalStorage(groupId: string, productId: number) {
-    let ids = this.getProductIdsFromLocalStorage(groupId);
-    localStorage.setItem(groupId, JSON.stringify(ids.push(productId)));
   }
 
   public favoriteLineMouseEnter(event: any) {
@@ -160,7 +149,7 @@ export class FooterComponent implements OnInit {
   public removeFromFavorites(event: any, productId: number) {
     if (event) event.preventDefault();
     this.favoriteProducts = this.favoriteProducts.filter(x => x.id != productId);
-    this.removeProductIdFromLocalStorage("favorites", productId);
+    this.productService.removeProductIdFromLocalStorage("favorites", productId);
   }
 
   public removeFromFavoritesMultiple(selectedOnly: boolean) {
@@ -174,5 +163,4 @@ export class FooterComponent implements OnInit {
       }
     });
   }
-
 }

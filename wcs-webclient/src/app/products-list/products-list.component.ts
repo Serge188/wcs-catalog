@@ -1,7 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {PriceType, ProductEntry} from "../_models/product-entry";
 import {SaleOfferEntry} from "../_models/sale-offer-entry";
 import {environment} from "../../environments/environment";
+import {ProductsService} from "../products.service";
+import {ProductSimplifiedEntry} from "../_models/product-simplified-entry";
 
 @Component({
   selector: 'app-products-list',
@@ -18,7 +20,7 @@ export class ProductsListComponent implements OnInit {
   public busketItemsSum: number;
   public noImageUrl: string = environment.noImageUrl;
 
-  constructor() {}
+  constructor(private productService: ProductsService) {}
 
   ngOnInit() {
     this.favoriteItemsIds = JSON.parse(localStorage.getItem("favorites"));
@@ -28,6 +30,31 @@ export class ProductsListComponent implements OnInit {
     this.busketItemsSum = JSON.parse(localStorage.getItem("busketItemsSum"));
     if (this.busketItemsSum == null) this.busketItemsSum = 0;
   }
+
+  ngAfterContentInit() {
+    console.log(this.products);
+    if (!this.products) return;
+    let favoriteIds: number[] = this.productService.getProductIdsFromLocalStorage("favorites");
+    this.products.forEach(p => {
+      if (favoriteIds.includes(p.id)) {
+        p.favorite = true;
+        console.log(p);
+      }
+    });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
+    if (changes.products && changes.products.currentValue) {
+      let favoriteIds: number[] = this.productService.getProductIdsFromLocalStorage("favorites");
+      this.products.forEach(p => {
+        if (favoriteIds.includes(p.id)) {
+          p.favorite = true;
+          console.log(p);
+        }
+      });
+    }
+}
 
   public hasDiscount(product: ProductEntry): boolean {
     if (product.discountPrice) {
@@ -164,15 +191,31 @@ export class ProductsListComponent implements OnInit {
 
   public changeFavorite(event: any, p: ProductEntry) {
     event.preventDefault();
+    let entry = new ProductSimplifiedEntry();
+    entry.id = p.id;
+    entry.title = p.title;
+    entry.alias = p.alias;
+    if (p.mainImage) {
+      entry.imageLink = p.mainImage.previewImageLink;
+    }
+    if (p.offerCurrentImage) {
+      entry.imageLink = p.offerCurrentImage.previewImageLink;
+    }
+    entry.price = p.price;
+    entry.favorite = false;
+
     p.favorite = !p.favorite;
     if (p.favorite) {
       if (this.favoriteItemsIds.find(x => x == p.id) === undefined) {
         this.favoriteItemsIds.push(p.id);
+        entry.favorite = true;
       }
     } else {
       this.favoriteItemsIds = this.favoriteItemsIds.filter(x => x!= p.id);
     }
+    this.productService.emitFavoriteAdded(entry);
     localStorage.setItem("favorites", JSON.stringify(this.favoriteItemsIds));
+
   }
 
   public getFavoriteClass(p: ProductEntry): string {

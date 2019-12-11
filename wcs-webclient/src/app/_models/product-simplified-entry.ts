@@ -13,4 +13,5 @@ export class ProductSimplifiedEntry {
   price?: number;
   link?: string;
   selected?: boolean;
+  favorite?: boolean;
 }
