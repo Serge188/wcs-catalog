@@ -89,14 +89,18 @@
                   </div>
 
                   <div class="list-showcase__compare">
-                    <a rel="nofollow" class="c-compare js-add2compare" href="/?action=ADD_TO_COMPARE_LIST&amp;id=117">
+                    <a rel="nofollow" class="c-compare js-add2compare" href="" [ngClass]="getIconClass(p, p.compared)" (click)="changeCompare($event, p)">
                       <svg class="svg-icon">
-                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small"></use>
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-compare-small">
+                          <svg viewBox="0 0 16 16" id="svg-4x-compare-small" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14,2H5V4H2V14h9V12h3ZM10,13H3V5h7v8Zm3-2H11V4H6V3h7Z"></path>
+                          </svg>
+                        </use>
                       </svg>
                     </a>
                   </div>
                   <div class="list-showcase__favorite">
-                    <a rel="nofollow" class="c-favorite js-add2favorite" [ngClass]="getFavoriteClass(p)" href="" (click)="changeFavorite($event, p)">
+                    <a rel="nofollow" class="c-favorite js-add2favorite" [ngClass]="getIconClass(p, p.favorite)" href="" (click)="changeFavorite($event, p)">
                       <svg class="svg-icon">
                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4x-favorite-small">
                           <svg viewBox="0 0 10 13" id="svg-4x-favorite-small" xmlns="http://www.w3.org/2000/svg">

@@ -26,6 +26,7 @@ import { PageComponent } from './page/page.component';
 import { PageEditorComponent } from './page-editor/page-editor.component';
 import { OwlModule } from 'ngx-owl-carousel';
 import { CatalogComponent } from './catalog/catalog.component';
+import { BottomPanelComponent } from './bottom-panel/bottom-panel.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { CatalogComponent } from './catalog/catalog.component';
     BreadcrumbsComponent,
     PageComponent,
     PageEditorComponent,
-    CatalogComponent
+    CatalogComponent,
+    BottomPanelComponent
   ],
   imports: [
     BrowserModule,

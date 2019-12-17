@@ -14,4 +14,5 @@ export class ProductSimplifiedEntry {
   link?: string;
   selected?: boolean;
   favorite?: boolean;
+  compared?: boolean;
 }

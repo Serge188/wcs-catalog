@@ -13,9 +13,11 @@ import {ProductSimplifiedEntry} from "./_models/product-simplified-entry";
 export class ProductsService {
   private apiUrl: string = environment.apiUrl;
   public $itemFavoriteAdded: EventEmitter<ProductSimplifiedEntry>;
+  public $itemComparisonAdded: EventEmitter<ProductSimplifiedEntry>;
 
   constructor(private http: HttpClient) {
     this.$itemFavoriteAdded = new EventEmitter();
+    this.$itemComparisonAdded = new EventEmitter();
   }
 
   public getPopularProducts(): Observable<any> {
@@ -81,12 +83,12 @@ export class ProductsService {
     localStorage.setItem(groupId, JSON.stringify(ids.filter(x => x != productId)));
   }
 
+  public clearLocalStorageForGroupId(groupId: string) {
+    localStorage.setItem(groupId, JSON.stringify([]));
+  }
+
   public addProductIdToLocalStorage(groupId: string, productId: number) {
     let ids = this.getProductIdsFromLocalStorage(groupId);
     localStorage.setItem(groupId, JSON.stringify(ids.push(productId)));
-  }
-
-  public emitFavoriteAdded(product: ProductSimplifiedEntry) {
-    this.$itemFavoriteAdded.emit(product);
   }
 }

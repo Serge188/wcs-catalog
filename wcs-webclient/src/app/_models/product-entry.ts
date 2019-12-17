@@ -39,4 +39,5 @@ export class ProductEntry {
   factory?: FactoryEntry;
   factoryId?: number;
   favorite?: boolean;
+  compared?: boolean;
 }

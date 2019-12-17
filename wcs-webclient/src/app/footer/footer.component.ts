@@ -23,6 +23,7 @@ export class FooterComponent implements OnInit {
   public bottomPanelType: string = null;
   public viewedProducts: ProductSimplifiedEntry[] = [];
   public favoriteProducts: ProductSimplifiedEntry[] = [];
+  public comparisonProducts: ProductSimplifiedEntry[] = [];
 
   constructor(
     private categoriesService: CategoriesService,
@@ -35,6 +36,14 @@ export class FooterComponent implements OnInit {
         this.favoriteProducts = this.favoriteProducts.filter(x => x.id != entry.id);
       }
     });
+    this.productService.$itemComparisonAdded.subscribe(entry => {
+
+      if (entry.compared) {
+        this.comparisonProducts.push(entry);
+      } else {
+        this.comparisonProducts = this.comparisonProducts.filter(x => x.id != entry.id);
+      }
+    });
   }
 
   ngOnInit() {
@@ -43,6 +52,7 @@ export class FooterComponent implements OnInit {
     this.initResizable();
     this.initializeViewedProducts();
     this.initializeFavoriteProducts();
+    this.initializeComparisonProducts();
   }
 
   public loadCategories(): void {
@@ -91,7 +101,7 @@ export class FooterComponent implements OnInit {
 
   public toggleBottomPanel(event: any, bottomPanelType: string) {
     event.preventDefault();
-    if (this.bottomPanelType === bottomPanelType) {
+    if (this.bottomPanelType === bottomPanelType || bottomPanelType == null) {
       this.bottomPanelType = null;
       jQuery(".rsec_content").removeClass("open");
       jQuery(".rsec_tab").css("display", "none");
@@ -137,30 +147,44 @@ export class FooterComponent implements OnInit {
     });
   }
 
-  public favoriteLineMouseEnter(event: any) {
+  private initializeComparisonProducts() {
+    let comparisonProductIds = this.productService.getProductIdsFromLocalStorage("comparison");
+    this.productService.loadSimplifiedProducts(comparisonProductIds).subscribe(result => {
+      this.comparisonProducts = result;
+    });
+  }
+
+  public productLineMouseEnter(event: any) {
     var elem = event.target || event.srcElement;
     jQuery(elem.querySelector(".rsec_hov")).css("background-color", "#7A6137");
   }
-  public favoriteLineMouseLeave(event: any) {
+  public productLineMouseLeave(event: any) {
     var elem = event.target || event.srcElement;
     jQuery(elem.querySelector(".rsec_hov")).css("background-color", "white");
   }
 
-  public removeFromFavorites(event: any, productId: number) {
+  public removeFromBottomPanel(event: any, product: ProductSimplifiedEntry, list: ProductSimplifiedEntry[], listId: string) {
     if (event) event.preventDefault();
-    this.favoriteProducts = this.favoriteProducts.filter(x => x.id != productId);
-    this.productService.removeProductIdFromLocalStorage("favorites", productId);
+    let index = list.indexOf(product);
+    if (index > -1) {
+      list.splice(index, 1);
+    }
+    this.productService.removeProductIdFromLocalStorage(listId, product.id);
   }
 
-  public removeFromFavoritesMultiple(selectedOnly: boolean) {
-    this.favoriteProducts.forEach(x => {
-      if (selectedOnly) {
-        if (x.selected) {
-          this.removeFromFavorites(null, x.id);
+  public removeFromBottomPanelMultiple(selectedOnly: boolean, list: ProductSimplifiedEntry[], listId: string) {
+    if (!selectedOnly) {
+      list.splice(0, list.length);
+      this.productService.clearLocalStorageForGroupId(listId);
+    } else {
+      list.forEach(x => {
+        if (selectedOnly) {
+          if (x.selected) {
+            this.removeFromBottomPanel(null, x, list, listId);
+          }
         }
-      } else {
-        this.removeFromFavorites(null, x.id);
-      }
-    });
+      });
+    }
+
   }
 }

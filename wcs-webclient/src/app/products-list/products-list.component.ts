@@ -16,6 +16,7 @@ export class ProductsListComponent implements OnInit {
 
   public view: any = "CARD";
   public favoriteItemsIds: number[];
+  public comparisonItemsIds: number[];
   public busketItemsCount: number;
   public busketItemsSum: number;
   public noImageUrl: string = environment.noImageUrl;
@@ -25,6 +26,8 @@ export class ProductsListComponent implements OnInit {
   ngOnInit() {
     this.favoriteItemsIds = JSON.parse(localStorage.getItem("favorites"));
     if (this.favoriteItemsIds == null) this.favoriteItemsIds = [];
+    this.comparisonItemsIds = JSON.parse(localStorage.getItem("comparison"));
+    if (this.comparisonItemsIds == null) this.comparisonItemsIds = [];
     this.busketItemsCount = JSON.parse(localStorage.getItem("busketItemsCount"));
     if (this.busketItemsCount == null) this.busketItemsCount = 0;
     this.busketItemsSum = JSON.parse(localStorage.getItem("busketItemsSum"));
@@ -32,13 +35,17 @@ export class ProductsListComponent implements OnInit {
   }
 
   ngAfterContentInit() {
-    console.log(this.products);
     if (!this.products) return;
     let favoriteIds: number[] = this.productService.getProductIdsFromLocalStorage("favorites");
     this.products.forEach(p => {
       if (favoriteIds.includes(p.id)) {
         p.favorite = true;
-        console.log(p);
+      }
+    });
+    let comparisonIds: number[] = this.productService.getProductIdsFromLocalStorage("comparison");
+    this.products.forEach(p => {
+      if (comparisonIds.includes(p.id)) {
+        p.favorite = true;
       }
     });
   }
@@ -189,8 +196,7 @@ export class ProductsListComponent implements OnInit {
     }
   }
 
-  public changeFavorite(event: any, p: ProductEntry) {
-    event.preventDefault();
+  private makeSimplifiedProductEntry(p: ProductEntry): ProductSimplifiedEntry {
     let entry = new ProductSimplifiedEntry();
     entry.id = p.id;
     entry.title = p.title;
@@ -202,24 +208,50 @@ export class ProductsListComponent implements OnInit {
       entry.imageLink = p.offerCurrentImage.previewImageLink;
     }
     entry.price = p.price;
+    return entry;
+  }
+
+  private updateIdsList(param: boolean, list: number[], entryId: number): boolean {
+    let result: boolean = false;
+    if (param) {
+      if (list.indexOf(entryId) == -1) {
+        list.push(entryId);
+        result = true;
+      }
+    } else {
+      // list = list.filter(x => x!= entryId);
+      let index = list.indexOf(entryId);
+      if (index > -1 ) list.splice(index, 1);
+    }
+    return result;
+  }
+  public changeFavorite(event: any, p: ProductEntry) {
+    event.preventDefault();
+    let entry = this.makeSimplifiedProductEntry(p);
     entry.favorite = false;
 
     p.favorite = !p.favorite;
-    if (p.favorite) {
-      if (this.favoriteItemsIds.find(x => x == p.id) === undefined) {
-        this.favoriteItemsIds.push(p.id);
-        entry.favorite = true;
-      }
-    } else {
-      this.favoriteItemsIds = this.favoriteItemsIds.filter(x => x!= p.id);
+    if (this.updateIdsList(p.favorite, this.favoriteItemsIds, p.id)) {
+      entry.favorite = true;
     }
-    this.productService.emitFavoriteAdded(entry);
+    this.productService.$itemFavoriteAdded.emit(entry);
     localStorage.setItem("favorites", JSON.stringify(this.favoriteItemsIds));
-
   }
 
-  public getFavoriteClass(p: ProductEntry): string {
-    if (p.favorite) {
+  public changeCompare(event: any, p: ProductEntry) {
+    event.preventDefault();
+    p.compared = !p.compared;
+    let entry = this.makeSimplifiedProductEntry(p);
+    entry.compared = false;
+    if (this.updateIdsList(p.compared, this.comparisonItemsIds, entry.id)) {
+      entry.compared = true;
+    }
+    this.productService.$itemComparisonAdded.emit(entry);
+    localStorage.setItem("comparison", JSON.stringify(this.comparisonItemsIds));
+  }
+
+  public getIconClass(p: ProductEntry, param: boolean): string {
+    if (param) {
       return "in";
     }
     return "";
