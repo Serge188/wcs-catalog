@@ -6,6 +6,8 @@ import {CategoryEntry} from "./_models/category-entry";
 import { environment } from '../environments/environment';
 import {CategoryFilter} from "./_models/category-filter";
 import {ProductSimplifiedEntry} from "./_models/product-simplified-entry";
+import {IdToIdEntry} from "./_models/id-to-id-entry";
+import {IdQtyEntry} from "./_models/id-qty-entry";
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +16,12 @@ export class ProductsService {
   private apiUrl: string = environment.apiUrl;
   public $itemFavoriteAdded: EventEmitter<ProductSimplifiedEntry>;
   public $itemComparisonAdded: EventEmitter<ProductSimplifiedEntry>;
+  public $itemBusketAdded: EventEmitter<ProductSimplifiedEntry>;
 
   constructor(private http: HttpClient) {
     this.$itemFavoriteAdded = new EventEmitter();
     this.$itemComparisonAdded = new EventEmitter();
+    this.$itemBusketAdded = new EventEmitter();
   }
 
   public getPopularProducts(): Observable<any> {
@@ -69,6 +73,10 @@ export class ProductsService {
     return this.http.post(this.apiUrl + `products/simplified`, productIds);
   }
 
+  public loadSimplifiedProductsWithOffers(entries: IdQtyEntry[]): Observable<any> {
+    return this.http.post(this.apiUrl + `products/simplifiedWithOffers`, entries);
+  }
+
   public getProductIdsFromLocalStorage(groupId: string): number[] {
     let resultIds = [];
     let targetItem = localStorage.getItem(groupId);
@@ -89,6 +97,7 @@ export class ProductsService {
 
   public addProductIdToLocalStorage(groupId: string, productId: number) {
     let ids = this.getProductIdsFromLocalStorage(groupId);
-    localStorage.setItem(groupId, JSON.stringify(ids.push(productId)));
+    ids.push(productId);
+    localStorage.setItem(groupId, JSON.stringify(ids));
   }
 }

@@ -15,4 +15,7 @@ export class ProductSimplifiedEntry {
   selected?: boolean;
   favorite?: boolean;
   compared?: boolean;
+  currentSaleOfferId?: number;
+  qty?: number;
+  sum?: number;
 }

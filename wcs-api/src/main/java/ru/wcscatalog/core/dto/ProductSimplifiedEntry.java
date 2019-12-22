@@ -7,7 +7,10 @@ public class ProductSimplifiedEntry {
     private String title;
     private String alias;
     private String imageLink;
-    private Float price;
+    private BigDecimal price;
+    private Integer qty;
+    private BigDecimal sum;
+    private Long currentSaleOfferId;
 
     public ProductSimplifiedEntry() {
     }
@@ -28,11 +31,11 @@ public class ProductSimplifiedEntry {
         this.imageLink = imageLink;
     }
 
-    public Float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -50,5 +53,29 @@ public class ProductSimplifiedEntry {
 
     public void setAlias(String alias) {
         this.alias = alias;
+    }
+
+    public Integer getQty() {
+        return qty;
+    }
+
+    public void setQty(Integer qty) {
+        this.qty = qty;
+    }
+
+    public BigDecimal getSum() {
+        return sum;
+    }
+
+    public void setSum(BigDecimal sum) {
+        this.sum = sum;
+    }
+
+    public Long getCurrentSaleOfferId() {
+        return currentSaleOfferId;
+    }
+
+    public void setCurrentSaleOfferId(Long currentSaleOfferId) {
+        this.currentSaleOfferId = currentSaleOfferId;
     }
 }

@@ -4,6 +4,8 @@ import {SaleOfferEntry} from "../_models/sale-offer-entry";
 import {environment} from "../../environments/environment";
 import {ProductsService} from "../products.service";
 import {ProductSimplifiedEntry} from "../_models/product-simplified-entry";
+import {IdToIdEntry} from "../_models/id-to-id-entry";
+import {IdQtyEntry} from "../_models/id-qty-entry";
 
 @Component({
   selector: 'app-products-list',
@@ -17,6 +19,7 @@ export class ProductsListComponent implements OnInit {
   public view: any = "CARD";
   public favoriteItemsIds: number[];
   public comparisonItemsIds: number[];
+  public busketItems: IdQtyEntry[];
   public busketItemsCount: number;
   public busketItemsSum: number;
   public noImageUrl: string = environment.noImageUrl;
@@ -28,6 +31,8 @@ export class ProductsListComponent implements OnInit {
     if (this.favoriteItemsIds == null) this.favoriteItemsIds = [];
     this.comparisonItemsIds = JSON.parse(localStorage.getItem("comparison"));
     if (this.comparisonItemsIds == null) this.comparisonItemsIds = [];
+    this.busketItems = JSON.parse(localStorage.getItem("busketItems"));
+    if (this.busketItems == null) this.busketItems = [];
     this.busketItemsCount = JSON.parse(localStorage.getItem("busketItemsCount"));
     if (this.busketItemsCount == null) this.busketItemsCount = 0;
     this.busketItemsSum = JSON.parse(localStorage.getItem("busketItemsSum"));
@@ -45,19 +50,23 @@ export class ProductsListComponent implements OnInit {
     let comparisonIds: number[] = this.productService.getProductIdsFromLocalStorage("comparison");
     this.products.forEach(p => {
       if (comparisonIds.includes(p.id)) {
-        p.favorite = true;
+        p.compared = true;
       }
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     if (changes.products && changes.products.currentValue) {
       let favoriteIds: number[] = this.productService.getProductIdsFromLocalStorage("favorites");
       this.products.forEach(p => {
         if (favoriteIds.includes(p.id)) {
           p.favorite = true;
-          console.log(p);
+        }
+      });
+      let comparisonIds: number[] = this.productService.getProductIdsFromLocalStorage("comparison");
+      this.products.forEach(p => {
+        if (comparisonIds.includes(p.id)) {
+          p.compared = true;
         }
       });
     }
@@ -207,7 +216,13 @@ export class ProductsListComponent implements OnInit {
     if (p.offerCurrentImage) {
       entry.imageLink = p.offerCurrentImage.previewImageLink;
     }
+    if (p.currentOffer) {
+      entry.title = entry.title + " (" + p.currentOffer.optionValue.value + ")";
+      entry.currentSaleOfferId = p.currentOffer.id;
+    }
     entry.price = p.price;
+    entry.qty = 1;
+    entry.sum = p.price;
     return entry;
   }
 
@@ -259,9 +274,21 @@ export class ProductsListComponent implements OnInit {
 
   public addItemToBusket(event: any, p: ProductEntry): void {
     event.preventDefault();
-    this.busketItemsCount++;
-    this.busketItemsSum = p.discountPrice != null ? this.busketItemsSum + p.discountPrice : this.busketItemsSum + p.price;
-    localStorage.setItem("busketItemsCount", this.busketItemsCount.toString());
-    localStorage.setItem("busketItemsSum", this.busketItemsSum.toString());
+    let entry = this.makeSimplifiedProductEntry(p);
+    if (this.busketItems.filter(
+      x => x.primaryId == entry.id && x.secondaryId == entry.currentSaleOfferId).length == 0) {
+      let busketEntry = new IdQtyEntry();
+      busketEntry.primaryId = entry.id;
+      busketEntry.secondaryId = entry.currentSaleOfferId;
+      busketEntry.qty = 1;
+      busketEntry.sum = entry.price;
+      this.busketItems.push(busketEntry);
+      this.busketItemsCount++;
+      this.busketItemsSum = p.discountPrice != null ? this.busketItemsSum + p.discountPrice : this.busketItemsSum + p.price;
+      localStorage.setItem("busketItemsCount", this.busketItemsCount.toString());
+      localStorage.setItem("busketItemsSum", this.busketItemsSum.toString());
+      this.productService.$itemBusketAdded.emit(entry);
+    }
+    localStorage.setItem("busketItems", JSON.stringify(this.busketItems));
   }
 }

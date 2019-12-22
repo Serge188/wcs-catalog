@@ -414,9 +414,79 @@
             </div>
           </div>
           <div id="rsec_basket" class="rsec_tab">
-            <div class="rsec_thistab_basket" *ngIf="bottomPanelType == 'basketPanel'">
+            <div class="rsec_thistab_basket" *ngIf="bottomPanelType == 'busketPanel' && busketItems.length == 0">
               <div class="rsec_emptytab rsec_clearfix">
                 <div class="rsec_emptytab_icon">Ваша корзина пуста</div>
+              </div>
+            </div>
+            <div class="rsec_thistab_basket" style="margin-top: 25px" *ngIf="bottomPanelType == 'busketPanel' && busketItems.length > 0">
+              <table class="rsec_table">
+                <thead>
+                <tr>
+                  <th class="rsec_hov"></th>
+                  <th colspan="3">Товар</th>
+                  <th class="rsec_cen">Цена</th>
+                  <th class="rsec_cen">Количество</th>
+                  <th class="rsec_cen">Сумма</th>
+                  <th class="rsec_cen">Удалить</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="rsec_jsline" (mouseenter)="productLineMouseEnter($event)" (mouseleave)="productLineMouseLeave($event)" *ngFor="let bi of busketItems; let i = index">
+                  <td class="rsec_hov"></td>
+                  <td class="rsec_min rsec_cen">
+                    <input type="checkbox" id="rsec_thistab_basket_DELETE_{{i}}" [(ngModel)]="bi.selected">
+                    <label for="rsec_thistab_basket_DELETE_{{i}}"></label>
+                  </td>
+                  <td class="rsec_image rsec_cen rsec_min">
+                    <a href="/product/{{bi.alias}}" target="_blank">
+                      <img src="{{bi.imageLink}}" alt="{{bi.title}}">
+                    </a>
+                  </td>
+                  <td>
+                    <a href="/product/{{bi.alias}}" target="_blank">{{bi.title}}</a>
+                  </td>
+                  <td class="rsec_nowrap rsec_min rsec_padd" *ngIf="!bi.price"></td>
+                  <td class="rsec_nowrap rsec_min rsec_padd" *ngIf="bi.price">{{bi.price}} руб.</td>
+                  <td class="rsec_nowrap rsec_min rsec_padd">
+                    <span class="rsec_quantity">
+                      <span class="rsec_quantity__inner">
+                        <a class="rsec_minus js-minus" (click)="changeProductQty($event, bi, false)"></a>
+                        <input type="text" class="rsec_quantity__input js-quantity" [(ngModel)]="bi.qty">
+                        <span class="rsec_measurename js-measurename">шт</span>
+                        <a class="rsec_plus js-plus" (click)="changeProductQty($event, bi, true)"></a>
+                      </span>
+                    </span>
+                  </td>
+                  <td class="rsec_nowrap rsec_min rsec_padd">{{bi.sum}} руб.</td>
+                  <td class="rsec_min rsec_cen rsec_padd">
+                    <a class="rsec_delete" href="#" (click)="removeItemFromBasket($event, bi)">
+                      <svg class="svg-icon">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-close-button"></use>
+                      </svg>
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <div class="rsec_buttons rsec_clearfix">
+                <div class="rsec_leftp">
+                  <input class="btn2 rsec_delall" type="button" name="Refresh" value="Удалить все" (click)="removeMultipleItemsFromBusket($event, false)">
+                  <input class="btn2 rsec_delsome" type="button" name="Refresh" value="Удалить" (click)="removeMultipleItemsFromBusket($event, true)">
+                </div>
+                <div class="rsec_rightp">
+                  <span class="rsec_totaltext">
+                    <span class="rsec_name">Товаров:</span>
+                    <span class="rsec_color">&nbsp;
+                      <span class="rsec_take_normalCount">{{busketItemsCount}}</span>
+                    </span> &nbsp;
+                    <span class="rsec_name">Сумма:</span>
+                    <span class="rsec_color">&nbsp;
+                      <span class="rsec_take_allSum_FORMATED">{{busketItemsSum}} руб.</span>
+                    </span>
+                  </span>
+                  <!--<input class="btn1" name="BasketRefresh" value="Оформить заказ" disabled>-->
+                </div>
               </div>
             </div>
           </div>
@@ -493,7 +563,7 @@
           </a>
         </div>
         <div class="rsec_orlink">
-          <a class="rsec_basket rsec_changer js-unload" [ngClass]="getTabClass('basketPanel')" (click)="toggleBottomPanel($event, 'basketPanel')">
+          <a class="rsec_basket rsec_changer js-unload" [ngClass]="getTabClass('busketPanel')" (click)="toggleBottomPanel($event, 'busketPanel')">
             <svg class="svg-icon">
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-cart-2">
                 <svg viewBox="0 0 495.401 495.401" id="svg-cart-2">
@@ -512,13 +582,13 @@
             <span class="rsec_name">Товаров</span>
             <span class="rsec_color">
               &nbsp;
-              <span class="rsec_normalCount js-basket-prod-count">0</span>
+              <span class="rsec_normalCount js-basket-prod-count">{{busketItemsCount}}</span>
             </span>
             &nbsp;
             <span class="rsec_name">Сумма</span>
             <span class="rsec_color rsec_sum">
               &nbsp;
-              <span class="rsec_allSum_FORMATED js-basket-allsum-formated">0</span>
+              <span class="rsec_allSum_FORMATED js-basket-allsum-formated">{{busketItemsSum}}</span>
             </span>
           </a>
         </div>

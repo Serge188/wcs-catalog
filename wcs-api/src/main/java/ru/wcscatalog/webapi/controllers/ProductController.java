@@ -116,4 +116,10 @@ public class ProductController {
         List<ProductSimplifiedEntry> entries = productRepository.getSimplifiedProducts(productIds);
         return ResponseEntity.ok(entries);
     }
+
+    @PostMapping(value = "/simplifiedWithOffers")
+    public ResponseEntity<?> getSimplifiedProductsWithOffers(@RequestBody List<IdQtyEntry> inputs) {
+        List<ProductSimplifiedEntry> entries = productRepository.getSimplifiedProductsWithOffers(inputs);
+        return ResponseEntity.ok(entries);
+    }
 }

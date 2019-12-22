@@ -7,6 +7,7 @@ import ru.wcscatalog.core.dto.*;
 import ru.wcscatalog.core.model.*;
 import ru.wcscatalog.core.utils.AliasChecker;
 import javax.persistence.criteria.*;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -86,10 +87,28 @@ public class ProductRepository {
         predicates.add(categoryJoin.get("id").in(categoryIds));
         if (filter != null) {
             if (filter.getMaxPrice() != null && filter.getMaxPrice() != 0) {
-                predicates.add(criteriaBuilder.le(root.get("price"), filter.getMaxPrice()));
+                predicates.add(
+                        criteriaBuilder.or(
+                                criteriaBuilder.and(
+                                        criteriaBuilder.isNotNull(root.get("discountPrice")),
+                                        criteriaBuilder.le(root.get("discountPrice"), filter.getMaxPrice())),
+                                criteriaBuilder.and(
+                                        criteriaBuilder.le(root.get("price"), filter.getMaxPrice()),
+                                        criteriaBuilder.isNull(root.get("discountPrice"))),
+                                criteriaBuilder.isNull(root.get("price"))
+                        ));
             }
             if (filter.getMinPrice() != null && filter.getMinPrice() != 0) {
-                predicates.add(criteriaBuilder.ge(root.get("price"), filter.getMinPrice()));
+                predicates.add(
+                        criteriaBuilder.or(
+                                criteriaBuilder.and(
+                                        criteriaBuilder.isNotNull(root.get("discountPrice")),
+                                        criteriaBuilder.ge(root.get("discountPrice"), filter.getMinPrice())),
+                                criteriaBuilder.and(
+                                        criteriaBuilder.ge(root.get("price"), filter.getMinPrice()),
+                                        criteriaBuilder.isNull(root.get("discountPrice"))),
+                                criteriaBuilder.isNull(root.get("price"))
+                ));
             }
             if (filter.getFactoryIds() != null && !filter.getFactoryIds().isEmpty()) {
                 for (Long fid: filter.getFactoryIds()) {
@@ -119,6 +138,26 @@ public class ProductRepository {
         List<ProductEntry> entries = products.stream().map(ProductEntry::fromProduct).collect(Collectors.toList());
         fillSaleOffers(entries);
         fillOptions(entries);
+
+        if (filter != null) {
+            entries = entries
+                    .stream()
+                    .filter(e -> {
+                        if (filter.getMaxPrice() != null) {
+                            return e.getPrice() != null
+                                    || e.getSaleOffers().stream().anyMatch(so -> so.getPrice() <= filter.getMaxPrice());
+                        }
+                        return true;
+                    })
+                    .filter(e -> {
+                        if (filter.getMinPrice() != null) {
+                            return e.getPrice() != null
+                                    || e.getSaleOffers().stream().anyMatch(so -> so.getPrice() >= filter.getMinPrice());
+                        }
+                        return true;
+                    })
+                    .collect(Collectors.toList());
+        }
         return entries;
     }
 
@@ -148,11 +187,13 @@ public class ProductRepository {
         }
         product.setTitle(input.getTitle());
 
-        product.setDescription(input
-                .getDescription()
-                .replaceAll("\\n", "<br/>")
-                .replaceAll("\\t", "&nbsp;&nbsp;&nbsp;")
-                .replaceAll(" ", "&nbsp;"));
+        if (input.getDescription() != null) {
+            product.setDescription(input
+                    .getDescription()
+                    .replaceAll("\\n", "<br/>")
+                    .replaceAll("\\t", "&nbsp;&nbsp;&nbsp;"));
+        }
+
         product.setProductOfDay(input.getProductOfDay());
         product.setNewProduct(input.getNewProduct());
         product.setPromo(input.getPromo());
@@ -168,10 +209,10 @@ public class ProductRepository {
             dao.add(product);
         }
 
-        Factory factory = factoryRepository.getFactoryById(input.getFactoryId());
-        if (factory != null) {
-            product.setFactory(factory);
-        }
+//        Factory factory = factoryRepository.getFactoryById(input.getFactoryId());
+//        if (factory != null) {
+//            product.setFactory(factory);
+//        }
         if (input.getImageInput() != null) {
             if (product.getImages() != null && !product.getImages().isEmpty()) {
                 Optional<Image> mainImage = product.getImages()
@@ -333,22 +374,79 @@ public class ProductRepository {
         });
     }
 
-    public List<ProductSimplifiedEntry> getSimplifiedProducts(List<Long> productIds) {
-        List<ProductSimplifiedEntry> entries = new LinkedList<>();
+    private List<ProductEntry> getProductsByIds(List<Long> productIds) {
+        if (productIds == null || productIds.isEmpty()) return new ArrayList<>();
         CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
         CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
         Root<Product> product = criteriaQuery.from(Product.class);
         criteriaQuery.where(product.get("id").in(productIds));
-        List<Product> products = dao.createQuery(criteriaQuery);
+        List<ProductEntry> entries = new ArrayList<>();
+        dao.createQuery(criteriaQuery).forEach(p -> {
+            entries.add(ProductEntry.fromProduct(p));
+        });
+        return entries;
+    }
+
+    public List<ProductSimplifiedEntry> getSimplifiedProducts(List<Long> productIds) {
+        List<ProductSimplifiedEntry> entries = new LinkedList<>();
+        List<ProductEntry> products = getProductsByIds(productIds);
         products.forEach(p -> {
             ProductSimplifiedEntry entry = new ProductSimplifiedEntry();
             entry.setId(p.getId());
-            Optional<Image> img = p.getImages().stream().filter(i -> i.isMainImage()).findAny();
-            img.ifPresent(i -> entry.setImageLink(i.getPreviewImageLink()));
-            entry.setPrice(p.getPrice());
+            ImageEntry img = p.getMainImage();
+            if (img != null) entry.setImageLink(img.getPreviewImageLink());
+            entry.setPrice(BigDecimal.valueOf(p.getPrice()));
             entry.setTitle(p.getTitle());
             entry.setAlias(p.getAlias());
             entries.add(entry);
+        });
+        return entries;
+    }
+
+    public List<ProductSimplifiedEntry> getSimplifiedProductsWithOffers(List<IdQtyEntry> inputs) {
+        List<ProductSimplifiedEntry> entries = new LinkedList<>();
+        List<ProductEntry> products = getProductsByIds(inputs.stream().map(IdToIdEntry::getPrimaryId).collect(Collectors.toList()));
+        fillSaleOffers(products);
+        inputs.forEach(i -> {
+            Optional<ProductEntry> product = products.stream().filter(p -> p.getId().equals(i.getPrimaryId())).findAny();
+            product.ifPresent(p -> {
+                ProductSimplifiedEntry entry = new ProductSimplifiedEntry();
+                entry.setId(p.getId());
+                ImageEntry img = p.getMainImage();
+
+                Float price = p.getPrice();
+                String title = p.getTitle();
+                if (i.getSecondaryId() != null) {
+                    Optional<SaleOfferEntry> currentSaleOffer = p
+                            .getSaleOffers()
+                            .stream()
+                            .filter(so -> so.getId().equals(i.getSecondaryId())).findAny();
+                    if (currentSaleOffer.isPresent()) {
+                        if (currentSaleOffer.get().getMainImage() != null) {
+                            img = currentSaleOffer.get().getMainImage();
+                        }
+                        price = currentSaleOffer.get().getPrice();
+                        title = p.getTitle() + " (" + currentSaleOffer.get().getOptionValue().getValue() + ")";
+                        entry.setCurrentSaleOfferId(currentSaleOffer.get().getId());
+                    }
+
+                }
+                if (img != null) entry.setImageLink(img.getPreviewImageLink());
+                if (price != null) {
+                    entry.setPrice(BigDecimal.valueOf(price));
+                }
+                entry.setTitle(title);
+                entry.setAlias(p.getAlias());
+                if (i.getQty() == null || i.getQty() < 1) {
+                    entry.setQty(1);
+                } else {
+                    entry.setQty(i.getQty());
+                }
+                if (entry.getQty() != null  && entry.getPrice() != null) {
+                    entry.setSum(entry.getPrice().multiply(BigDecimal.valueOf(entry.getQty())));
+                }
+                entries.add(entry);
+            });
         });
         return entries;
     }
