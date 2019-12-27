@@ -11,6 +11,7 @@ import {CategoryPageComponent} from "./category-page/category-page.component";
 import {PageComponent} from "./page/page.component";
 import {CatalogComponent} from "./catalog/catalog.component";
 import {CommonModule} from "@angular/common";
+import {BrandsComponent} from "./brands/brands.component";
 
 const routes: Routes = [
   {path: '', component: MainPageComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path: 'catalog', component: CatalogComponent },
   {path: 'catalog/:categoryAlias', component: CategoryPageComponent },
   {path: 'catalog/:parentCategoryAlias/:categoryAlias', component: CategoryPageComponent },
-  {path: 'page/:pageAlias', component: PageComponent }
+  {path: 'page/:pageAlias', component: PageComponent },
+  {path: 'brands', component: BrandsComponent }
 ];
 
 @NgModule({

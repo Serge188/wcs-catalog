@@ -5,13 +5,13 @@ import {ProductsService} from "../products.service";
 import {ProductEntry} from "../_models/product-entry";
 import {CatalogView} from "../_models/catalog-view";
 import {SaleOfferEntry} from "../_models/sale-offer-entry";
-import {BrandService} from "../brand.service";
 import {FactoryEntry} from "../_models/factory-entry";
 import {SideMenuComponent} from "../side-menu/side-menu.component";
 import {PageService} from "../page.service";
 import {PageEntry} from "../_models/page-entry";
 import {PhotoGalleryItemEntry} from "../_models/photo-gallery-item-entry";
 import {PhotoGalleryItemService} from "../photo-gallery-item.service";
+import {FactoriesService} from "../factories.service";
 declare var jQuery:any;
 declare var ymaps:any;
 declare var $:any;
@@ -45,7 +45,9 @@ export class MainPageComponent implements OnInit {
 
   constructor(private categoriesService: CategoriesService,
               private productsService: ProductsService,
-              private brandService: BrandService, private pageService: PageService, private photoGalleryItemService: PhotoGalleryItemService) { }
+              private brandService: FactoriesService,
+              private pageService: PageService,
+              private photoGalleryItemService: PhotoGalleryItemService) { }
 
   ngOnInit() {
     this.loadCategories();
@@ -130,8 +132,19 @@ export class MainPageComponent implements OnInit {
       for (let f of this.factories) {
         f.link = "/brands/" + f.alias;
       }
-      console.log(this.factories);
-    });
+      jQuery(document).ready(function () {
+        jQuery(".brands").owlCarousel({
+          // center: true,
+          items:8,
+          loop: true,
+          autoplay: true,
+          slideTransition: 'linear',
+          autoplayTimeout: 10000,
+          autoplaySpeed: 10000,
+          autoplayHoverPause: false
+        });
+      });
+    })
   }
 
   public setCurrentOffer(p: ProductEntry, currentOffer: SaleOfferEntry) {
@@ -171,7 +184,7 @@ export class MainPageComponent implements OnInit {
         if (p.showInSideMenu) this.sideMenuPages.push(p);
       }
       jQuery(document).ready(function(){
-        jQuery(".owl-carousel").owlCarousel({
+        jQuery(".slider-carousel").owlCarousel({
           center: true,
           items:1 ,
           loop:true,

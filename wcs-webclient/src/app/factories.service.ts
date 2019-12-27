@@ -17,6 +17,10 @@ export class FactoriesService {
     return this.http.get(this.apiUrl + `brands`).pipe();
   }
 
+  public getPopularBrands(): Observable<any> {
+    return this.http.get(this.apiUrl + 'brands/popular').pipe();
+  }
+
   public createFactory(factory: FactoryEntry): Observable<any> {
     return this.http.post(this.apiUrl + `brands`, factory).pipe();
   }

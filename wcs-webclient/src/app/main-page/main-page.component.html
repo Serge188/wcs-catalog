@@ -6,7 +6,7 @@
     <div class="centering">
       <div class="centeringin clearfix">
           <div class="gopro-banners owl-gopro-banners">
-            <div class="owl-carousel owl-theme">
+            <div class="owl-carousel owl-theme slider-carousel">
               <div class="gopro-banners__banner js-item item" *ngFor="let sp of sliderPages">
                 <div class="gopro-banners__background text" [ngStyle]="getSliderBackground(sp)" >
                 </div>
@@ -510,23 +510,25 @@
         <!-- /brands -->
 
         <!-- brands -->
-        <!--<div class="brandslistimgowl1 mainstyles" data-change-speed="2000" data-change-delay="8000" >-->
-          <!--<div class="title">-->
-            <!--<h3>-->
-              <!--<a href="/brands/">Бренды</a>-->
-            <!--</h3>-->
-          <!--</div>-->
-          <!--<div class="owl-carousel">-->
-            <!--<div class="item" *ngFor="let f of factories">-->
-              <!--<div class="in">-->
-                <!--<div class="pic">-->
-                  <!--<a class="brandslistimgowl1__block" href="{{f.link}}">-->
-                    <!--<img class="" src="{{f.image.baseImageLink}}" data-src="{{f.image.baseImageLink}}" alt="{{f.title}}" title="{{f.title}}" />-->
-                  <!--</a>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-        <!--&lt;!&ndash; shops &ndash;&gt;-->
+        <div class="brandslistimgowl1 mainstyles">
+          <div class="title">
+            <h3>
+              <a href="/brands">Бренды</a>
+            </h3>
+          </div>
+          <div class="owl-carousel brands">
+            <div class="item" *ngFor="let f of factories">
+              <div class="in">
+                <div class="pic">
+                  <a class="brandslistimgowl1__block" href="{{f.link}}" (click)="$event.preventDefault()">
+                    <img class="" src="{{f?.image?.originalImageLink}}" data-src="{{f?.image?.originalImageLink}}" alt="{{f.title}}" title="{{f.title}}" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- shops -->
 
         <div class="shops2">
 

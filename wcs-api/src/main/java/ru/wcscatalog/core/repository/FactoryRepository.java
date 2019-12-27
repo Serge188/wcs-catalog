@@ -9,7 +9,9 @@ import ru.wcscatalog.core.model.Factory;
 import ru.wcscatalog.core.model.Image;
 import ru.wcscatalog.core.utils.AliasChecker;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @Transactional
@@ -30,7 +32,7 @@ public class FactoryRepository {
         for (Factory p: factories) {
             entries.add(FactoryEntry.fromFactory(p));
         }
-        return entries;
+        return entries.stream().sorted(Comparator.comparing(FactoryEntry::getTitle)).collect(Collectors.toList());
     }
 
     public List<FactoryEntry> getPopularBrands() {
@@ -52,6 +54,7 @@ public class FactoryRepository {
         factory.setTitle(input.getTitle());
         factory.setAlias(aliasChecker.findUniqueAliasForEntity(factory.getClass(), input.getTitle()));
         factory.setDescription(input.getDescription());
+        factory.setPopular(input.getPopular());
         dao.add(factory);
         if (input.getImageInput() != null) {
             String data = ((String) input.getImageInput());
@@ -69,6 +72,7 @@ public class FactoryRepository {
         }
         factory.setTitle(input.getTitle());
         factory.setDescription(input.getDescription());
+        factory.setPopular(input.getPopular());
 
         if (input.getImageInput() != null) {
             String data = ((String) input.getImageInput());
