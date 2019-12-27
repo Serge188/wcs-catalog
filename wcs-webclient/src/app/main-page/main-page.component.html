@@ -520,7 +520,7 @@
             <div class="item" *ngFor="let f of factories">
               <div class="in">
                 <div class="pic">
-                  <a class="brandslistimgowl1__block" href="{{f.link}}" (click)="$event.preventDefault()">
+                  <a class="brandslistimgowl1__block" href="brands/{{f.alias}}">
                     <img class="" src="{{f?.image?.originalImageLink}}" data-src="{{f?.image?.originalImageLink}}" alt="{{f.title}}" title="{{f.title}}" />
                   </a>
                 </div>

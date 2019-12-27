@@ -1,0 +1,63 @@
+<app-header></app-header>
+
+<app-side-menu [hideMenu]="true"></app-side-menu>
+
+<div id="title" class="title">
+  <div class="centering">
+    <div class="centeringin clearfix">
+      <ul class="rsbreadcrumb list-unstyled" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+        <li id="bx_breadcrumb_0" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+          <a href="/" title="Главная" itemprop="item">
+            <span itemprop="name">Главная</span>
+          </a>
+        </li>
+        <li class="rsbreadcrumb__free"><span>/</span></li>
+        <li id="bx_breadcrumb_1" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+          <a href="/brands" title="Бренды" itemprop="item">
+            <span itemprop="name">Бренды</span>
+          </a>
+        </li>
+        <li class="rsbreadcrumb__free">
+          <span>/</span>
+        </li>
+        <li>{{factory?.title}}</li>
+      </ul>
+      <h1 class="pagetitle">{{factory?.title}}</h1>
+    </div>
+  </div>
+</div>
+
+<div id="content" class="content">
+  <div class="centering">
+    <div class="centeringin clearfix">
+
+
+      <div class="brand-detail">
+        <div class="brand-detail__desc">
+          <div class="brand-detail-block">
+
+            <div class="brand-detail-block__picture">
+              <img src="{{factory?.image?.originalImageLink}}" alt="{{factory?.title}}" title="">
+            </div>
+
+            <div class="brand-detail-block__desc">
+              <div class="brand-detail-block__desc-text">
+                {{factory?.description}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="brand-detail__collections"></div>
+      </div>
+      <h2 class="nice-block-title">Популярное в {{factory?.title}}</h2>
+      <div class="gopro-container">
+        <div class="list-showcase view-showcase row" id="view-showcase">
+          <app-products-list [products]="products"></app-products-list>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
+

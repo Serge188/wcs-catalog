@@ -100,4 +100,8 @@ export class ProductsService {
     ids.push(productId);
     localStorage.setItem(groupId, JSON.stringify(ids));
   }
+
+  public getProductsByFactory(factoryAlias: string): Observable<any> {
+    return this.http.get(this.apiUrl + `products/byFactory/${factoryAlias}`);
+  }
 }

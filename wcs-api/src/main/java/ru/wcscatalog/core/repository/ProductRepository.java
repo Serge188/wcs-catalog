@@ -57,6 +57,20 @@ public class ProductRepository {
         return entry;
     }
 
+    public List<ProductEntry> getProductByFactory(String factoryAlias) {
+        CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
+        CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
+        Root<Product> root = criteriaQuery.from(Product.class);
+        Join factoryJoin = root.join("factory");
+        criteriaQuery.where(criteriaBuilder.equal(factoryJoin.get("alias"), factoryAlias));
+        List<Product> products = dao.createQuery(criteriaQuery);
+
+        List<ProductEntry> entries = products.stream().map(ProductEntry::fromProduct).collect(Collectors.toList());
+        fillSaleOffers(entries);
+        fillOptions(entries);
+        return entries;
+    }
+
     public Product getProductByTitleAndCategory(String title, Long categoryId) {
         CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
         CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);

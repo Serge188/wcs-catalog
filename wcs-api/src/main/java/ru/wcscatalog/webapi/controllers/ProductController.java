@@ -122,4 +122,10 @@ public class ProductController {
         List<ProductSimplifiedEntry> entries = productRepository.getSimplifiedProductsWithOffers(inputs);
         return ResponseEntity.ok(entries);
     }
+
+    @GetMapping(value = "/byFactory/{factoryAlias}")
+    public ResponseEntity<?> getSimplifiedProductsWithOffers(@PathVariable("factoryAlias") String factoryAlias) {
+        List<ProductEntry> entries = productRepository.getProductByFactory(factoryAlias);
+        return ResponseEntity.ok(entries);
+    }
 }

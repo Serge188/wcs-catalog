@@ -440,6 +440,10 @@
                     <!--<span class="c-gruppedprops__prop-name">Производитель:</span>-->
                     <!--<span class="c-gruppedprops__prop-value">{{product.factory.title}}</span>-->
                   <!--</span>-->
+                  <span class="c-gruppedprops__prop">
+                    <span class="c-gruppedprops__prop-name">Производитель:</span>
+                    <span class="c-gruppedprops__prop-value"><a href="brands/{{product.factory.alias}}">{{product.factory.title}}</a></span>
+                  </span>
                   <span class="c-gruppedprops__prop" *ngFor="let o of product.options">
                     <span class="c-gruppedprops__prop-name">{{o.title}}:</span>
                     <span class="c-gruppedprops__prop-value">{{o.selectedValue.value}}</span>

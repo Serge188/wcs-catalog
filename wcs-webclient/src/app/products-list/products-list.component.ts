@@ -150,7 +150,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   public getOfferClass(p: ProductEntry, offer: SaleOfferEntry): string {
-    if (p.currentOffer.id == offer.id) {
+    if (p.currentOffer && p.currentOffer.id == offer.id) {
       return "selected";
     }
     return "";

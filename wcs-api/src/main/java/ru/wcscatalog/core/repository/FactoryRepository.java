@@ -88,6 +88,13 @@ public class FactoryRepository {
             imageRepository.removeFactoryImage(factory.getImage().getId());
             dao.remove(factory);
         }
+    }
 
+    public FactoryEntry getFactoryByAlias(String alias) {
+        Factory factory = dao.singleByProperty("alias", alias, Factory.class);
+        if (factory != null) {
+            return FactoryEntry.fromFactory(factory);
+        }
+        return null;
     }
 }

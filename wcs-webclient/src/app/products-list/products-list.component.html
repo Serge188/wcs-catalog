@@ -169,13 +169,13 @@
                     <div class="c-attributes__prop js-attributes__prop close" *ngIf="productHasOptions(p)" [ngClass]="getOptionsClass(p)">
                                 <span class="c-attributes__select js-attributes__select"><!-- name-current-value -->
                                   <span class="c-attributes__name-current-value">
-                                    <span class="c-attributes__name">{{p.currentOffer.offerOption.title}}: </span>
+                                    <span class="c-attributes__name">{{p?.currentOffer?.offerOption?.title}}: </span>
                                     <span class="c-attributes__current-value js-attributes__curent-value">
                                       <span class="c-attributes__current-value__pseudo-option">
                                         <span class="c-attributes__value-pic js-attributes__set-value-pic"
                                               style="background-image:url('/upload/uf/f5d/f5de333248c540c800face7a41d37b19.jpg');"
-                                              title="{{p.currentOffer.optionValue.value}}"></span>
-                                        <span class="c-attributes__value js-attributes__set-value-text">{{p.currentOffer.optionValue.value}}</span>
+                                              title="{{p?.currentOffer?.optionValue.value}}"></span>
+                                        <span class="c-attributes__value js-attributes__set-value-text">{{p.currentOffer?.optionValue?.value}}</span>
                                         <svg class="c-attributes__arrow svg-icon">
                                           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-linear-down"></use>
                                         </svg>

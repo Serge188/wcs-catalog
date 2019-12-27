@@ -32,4 +32,8 @@ export class FactoriesService {
   public removeFactory(id: number): Observable<any> {
     return this.http.delete(this.apiUrl + `brands/${id}`).pipe();
   }
+
+  public getBrandByAlias(alias: string) {
+    return this.http.get(this.apiUrl + `brands/byAlias/${alias}`).pipe();
+  }
 }

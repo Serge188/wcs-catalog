@@ -49,4 +49,10 @@ public class FactoryController {
         factoryRepository.removeFactory(id);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/byAlias/{alias}")
+    public ResponseEntity<?> removeFactory(@PathVariable("alias") String alias) {
+        FactoryEntry entry = factoryRepository.getFactoryByAlias(alias);
+        return ResponseEntity.ok(entry);
+    }
 }

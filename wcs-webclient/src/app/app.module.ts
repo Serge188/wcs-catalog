@@ -28,6 +28,7 @@ import { OwlModule } from 'ngx-owl-carousel';
 import { CatalogComponent } from './catalog/catalog.component';
 import { BottomPanelComponent } from './bottom-panel/bottom-panel.component';
 import { BrandsComponent } from './brands/brands.component';
+import { BrandPageComponent } from './brand-page/brand-page.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { BrandsComponent } from './brands/brands.component';
     PageEditorComponent,
     CatalogComponent,
     BottomPanelComponent,
-    BrandsComponent
+    BrandsComponent,
+    BrandPageComponent
   ],
   imports: [
     BrowserModule,
