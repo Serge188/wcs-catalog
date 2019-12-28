@@ -16,7 +16,9 @@ public class CategoriesRepository {
     private final ImageRepository imageRepository;
     private final Dao dao;
 
-    public CategoriesRepository(ImageRepository imageRepository, Dao dao) {
+    public CategoriesRepository(
+            ImageRepository imageRepository,
+            Dao dao) {
         this.imageRepository = imageRepository;
         this.dao = dao;
     }
@@ -140,27 +142,6 @@ public class CategoriesRepository {
             }
         });
         return optionsMap.values();
-    }
-
-    public List<Float> getPricesRange(long categoryId) {
-        CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
-        CriteriaQuery productsCriteria = criteriaBuilder.createQuery();
-        Root<Product> root = productsCriteria.from(Product.class);
-        Join categoryJoin = root.join("category");
-        productsCriteria.where(
-                criteriaBuilder.and(
-                        criteriaBuilder.equal(categoryJoin.get("id"), categoryId),
-                        criteriaBuilder.isNotNull(root.get("price"))
-                )
-        );
-        productsCriteria.select(root.get("price"));
-        List<Float> prices = dao.createQuery(productsCriteria);
-        List<Float> minMaxPrices = new ArrayList<>();
-        if (prices.size() >= 2) {
-            prices.stream().max(Comparator.comparing(Float::valueOf)).ifPresent(minMaxPrices::add);
-            prices.stream().min(Comparator.comparing(Float::valueOf)).ifPresent(minMaxPrices::add);
-        }
-        return minMaxPrices;
     }
 
     public List<FactoryEntry> getFactoriesForCategory(long categoryId) {

@@ -67,13 +67,15 @@ export class CategoryPageComponent implements OnInit {
           this.setCurrentOffer(p, p.saleOffers[0]);
         }
       }
-      if (!this.products.find(x => x.price == null)) {
-        this.minPrice = this.products[0].price;
-        for (let p of this.products) {
-          if (p.price < this.minPrice) this.minPrice = p.price;
+      if (this.products && this.products.length > 0) {
+        if (this.products && this.products.length > 0 && !this.products.find(x => x.price == null)) {
+          this.minPrice = this.products[0].price;
+          for (let p of this.products) {
+            if (p.price < this.minPrice) this.minPrice = p.price;
+          }
         }
+        this.maxPrice = this.products[0].price;
       }
-      this.maxPrice = this.products[0].price;
     });
   }
 

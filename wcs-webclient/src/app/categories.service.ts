@@ -43,7 +43,7 @@ export class CategoriesService {
   }
 
   public getPricesRange(categoryId: number): Observable<any> {
-    return this.http.get(this.apiUrl + `categories/pricesRange/${categoryId}`).pipe();
+    return this.http.get(this.apiUrl + `products/pricesRange/${categoryId}`).pipe();
   }
 
   public getFactoriesInCategory(categoryId: number): Observable<any> {

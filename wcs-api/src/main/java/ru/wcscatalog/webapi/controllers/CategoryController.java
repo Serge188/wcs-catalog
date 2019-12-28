@@ -81,12 +81,6 @@ public class CategoryController {
         return ResponseEntity.ok(options);
     }
 
-    @GetMapping("/pricesRange/{categoryId}")
-    public ResponseEntity<List<Float>> getPricesRange(@PathVariable("categoryId") Long categoryId) {
-        List<Float> prices = categoriesRepository.getPricesRange(categoryId);
-        return ResponseEntity.ok(prices);
-    }
-
     @GetMapping("/factories/{categoryId}")
     public ResponseEntity<List<FactoryEntry>> getFactoriesForCategory(@PathVariable("categoryId") Long categoryId) {
         List<FactoryEntry> factories = categoriesRepository.getFactoriesForCategory(categoryId);

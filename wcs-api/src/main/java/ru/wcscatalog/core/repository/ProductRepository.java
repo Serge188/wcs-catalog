@@ -157,14 +157,14 @@ public class ProductRepository {
             entries = entries
                     .stream()
                     .filter(e -> {
-                        if (filter.getMaxPrice() != null) {
+                        if (filter.getMaxPrice() != null && filter.getMaxPrice() > 0) {
                             return e.getPrice() != null
                                     || e.getSaleOffers().stream().anyMatch(so -> so.getPrice() <= filter.getMaxPrice());
                         }
                         return true;
                     })
                     .filter(e -> {
-                        if (filter.getMinPrice() != null) {
+                        if (filter.getMinPrice() != null && filter.getMinPrice() > 0) {
                             return e.getPrice() != null
                                     || e.getSaleOffers().stream().anyMatch(so -> so.getPrice() >= filter.getMinPrice());
                         }
@@ -463,5 +463,27 @@ public class ProductRepository {
             });
         });
         return entries;
+    }
+
+    public List<Float> getPricesRange(long categoryId) {
+        List<Float> prices = new ArrayList<>();
+        getProductsByCategory(categoryId, null)
+                .forEach(p -> {
+                    if (p.getPrice() != null) prices.add(p.getPrice());
+                    if (p.getDiscountPrice() != null) prices.add(p.getDiscountPrice());
+                    if (!p.getSaleOffers().isEmpty()) {
+                        p.getSaleOffers().forEach(so -> {
+                            if (so.getPrice() != null) prices.add(so.getPrice());
+                            if (so.getDiscountPrice() != null) prices.add(so.getDiscountPrice());
+                        });
+                    }
+                });
+        List<Float> minMaxPrices = new ArrayList<>();
+        List<Float> resultPrices = prices.stream().filter(p -> p != null).collect(Collectors.toList());
+        if (resultPrices.size() >= 2) {
+            resultPrices.stream().max(Comparator.comparing(Float::valueOf)).ifPresent(minMaxPrices::add);
+            resultPrices.stream().min(Comparator.comparing(Float::valueOf)).ifPresent(minMaxPrices::add);
+        }
+        return minMaxPrices;
     }
 }

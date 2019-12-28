@@ -118,7 +118,7 @@
                   <div class="list-showcase__rating">
                   </div>
                 </div>
-                <div class="list-showcase__prices" *ngIf="p.price || p.discountPrice">
+                <div class="list-showcase__prices" *ngIf="p && (p.price || p.discountPrice)">
                   <div class="c-prices js-prices view-list page-list product-alone multyprice-no">
                               <span class="c-prices__price   js-prices__price js-prices__price-code_BASE" data-pricecode="BASE">
                                 <span class="c-prices__name">Розничная цена:</span>
@@ -134,7 +134,7 @@
                               </span>
                   </div>
                 </div>
-                <div class="list-showcase__pay hidden-xs hidden-sm hidden-print" *ngIf="p.price || p.discountPrice">
+                <div class="list-showcase__pay hidden-xs hidden-sm hidden-print" *ngIf="p && (p.price || p.discountPrice)">
                   <!--noindex-->
                   <div class="b-pay">
                     <form class="b-pay__form js-pay__form js-buyform117 js-synchro clearfix"

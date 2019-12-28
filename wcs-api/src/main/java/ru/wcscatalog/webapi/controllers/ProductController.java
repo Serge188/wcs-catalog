@@ -128,4 +128,10 @@ public class ProductController {
         List<ProductEntry> entries = productRepository.getProductByFactory(factoryAlias);
         return ResponseEntity.ok(entries);
     }
+
+    @GetMapping("/pricesRange/{categoryId}")
+    public ResponseEntity<List<Float>> getPricesRange(@PathVariable("categoryId") Long categoryId) {
+        List<Float> prices = productRepository.getPricesRange(categoryId);
+        return ResponseEntity.ok(prices);
+    }
 }
