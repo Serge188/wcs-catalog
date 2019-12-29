@@ -43,7 +43,7 @@
           </ul>
         </div>
         <div id="title-search" class="searchinhead nowrap js-pseudo-focus-blur">
-          <form class="js-form" action="/search/" data-starthidden="N" data-showsearchbar="" data-window-width-jsopenser="">
+          <form class="js-form" (ngSubmit)="search()">
             <div class="searchinhead__flex">
               <label class="searchinhead__flexbox searchinhead__zoom js-pseudo-border-top js-pseudo-border-bottom js-pseudo-border-left" for="submit_search_title_wovmoB">
                 <svg class="svg-icon">
@@ -57,9 +57,15 @@
                   </use>
                 </svg>
               </label>
-              <div class="searchinhead__flexbox searchinhead__aroundtext js-pseudo-border-top js-pseudo-border-bottom"><input id="title-search-input" class="searchinhead__input js-pseudo-focus-blur-input" type="text" name="q" value="" size="40" maxlength="50" autocomplete="off" placeholder="Введите название товара или артикул" /></div>
+              <div class="searchinhead__flexbox searchinhead__aroundtext js-pseudo-border-top js-pseudo-border-bottom">
+                <input id="title-search-input" class="searchinhead__input js-pseudo-focus-blur-input" type="text" name="q" value="" size="40" maxlength="50" autocomplete="off" placeholder="Введите название товара или артикул"  [(ngModel)]="searchString" />
+              </div>
               <input class="nonep" type="submit" name="s" id="submit_search_title_wovmoB" value="Поиск" />
-              <label class="searchinhead__flexbox searchinhead__enter js-search-btn" for="submit_search_title_wovmoB"><svg class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-search"></use></svg></label>
+              <label class="searchinhead__flexbox searchinhead__enter js-search-btn" for="submit_search_title_wovmoB">
+                <svg class="svg-icon">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-search"></use>
+                </svg>
+              </label>
             </div>
           </form>
         </div>

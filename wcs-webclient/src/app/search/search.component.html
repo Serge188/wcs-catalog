@@ -1,0 +1,54 @@
+<app-header></app-header>
+
+<app-side-menu [hideMenu]="true"></app-side-menu>
+
+<div id="title" class="title">
+  <div class="centering">
+    <div class="centeringin clearfix">
+      <ul class="rsbreadcrumb list-unstyled" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+        <li id="bx_breadcrumb_0" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+          <meta itemprop="position" content="1">
+          <a href="/" title="Главная" itemprop="item">
+            <span itemprop="name">Главная</span></a>
+        </li>
+        <li class="rsbreadcrumb__free">
+          <span>/</span>
+        </li>
+        <li>Поиск</li>
+      </ul>
+      <h1 class="pagetitle">Поиск</h1>
+    </div>
+  </div>
+</div>
+
+<div id="content" class="content">
+  <div class="centering">
+    <div class="centeringin clearfix">
+      <div class="search_page clearfix">
+        <form action="" method="get" class="form_search" (ngSubmit)="loadProductsBySearchString()">
+          <input type="text" class="q" name="q" value="{{searchString}}" [(ngModel)]="searchString" size="40">
+          <input class="btn btn1" type="submit" value="Искать">
+        </form>
+      </div>
+      <div class="spage">
+        <div class="iblock">
+          <div class="sitem" *ngFor="let p of products">
+            <div class="name">
+              <a href="product/{{p.alias}}">
+                <b>{{p.title}}</b>
+              </a>
+            </div>
+            <!--<div class="description">-->
+
+            <!--</div>-->
+            <!--<div class="chain">-->
+
+            <!--</div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

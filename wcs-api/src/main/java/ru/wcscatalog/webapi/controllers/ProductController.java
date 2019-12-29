@@ -134,4 +134,10 @@ public class ProductController {
         List<Float> prices = productRepository.getPricesRange(categoryId);
         return ResponseEntity.ok(prices);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ProductSearchEntry>> getProductsBySearchString(@RequestParam("searchString") String searchString) {
+        List<ProductSearchEntry> entries = productRepository.getProductsBySearchString(searchString);
+        return ResponseEntity.ok(entries);
+    }
 }

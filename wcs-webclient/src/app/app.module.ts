@@ -29,6 +29,7 @@ import { CatalogComponent } from './catalog/catalog.component';
 import { BottomPanelComponent } from './bottom-panel/bottom-panel.component';
 import { BrandsComponent } from './brands/brands.component';
 import { BrandPageComponent } from './brand-page/brand-page.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { BrandPageComponent } from './brand-page/brand-page.component';
     CatalogComponent,
     BottomPanelComponent,
     BrandsComponent,
-    BrandPageComponent
+    BrandPageComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

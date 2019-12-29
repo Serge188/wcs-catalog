@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CategoryEntry} from "../_models/category-entry";
 import {CategoriesService} from "../categories.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-side-menu',
@@ -11,8 +12,9 @@ export class SideMenuComponent implements OnInit {
 
   @Input() hideMenu: boolean;
   public categories: CategoryEntry[] = [];
+  public searchString: string;
 
-  constructor(private categoriesService: CategoriesService) { }
+  constructor(private categoriesService: CategoriesService, private router: Router) { }
 
   ngOnInit() {
     this.loadCategories();
@@ -44,5 +46,9 @@ export class SideMenuComponent implements OnInit {
         }
       }
     });
+  }
+
+  public search() {
+    this.router.navigate(['/search', this.searchString]);
   }
 }

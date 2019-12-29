@@ -486,4 +486,17 @@ public class ProductRepository {
         }
         return minMaxPrices;
     }
+
+    public List<ProductSearchEntry> getProductsBySearchString(String searchString) {
+        CriteriaBuilder criteriaBuilder = dao.getCriteriaBuilder();
+        CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
+        Root<Product> root = criteriaQuery.from(Product.class);
+        criteriaQuery.where(criteriaBuilder.like(root.get("title"), "%" + searchString + "%"));
+        List<Product> products = dao.createQuery(criteriaQuery);
+        List<ProductSearchEntry> entries = new ArrayList<>();
+        products.forEach(p -> {
+          entries.add(new ProductSearchEntry(p.getTitle(), p.getAlias()));
+        });
+        return entries;
+    }
 }

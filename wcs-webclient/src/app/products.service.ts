@@ -104,4 +104,8 @@ export class ProductsService {
   public getProductsByFactory(factoryAlias: string): Observable<any> {
     return this.http.get(this.apiUrl + `products/byFactory/${factoryAlias}`);
   }
+
+  public getProductsBySearchString(searchString: string): Observable<any> {
+    return this.http.get(this.apiUrl + `products/search?searchString=${searchString}`)
+  }
 }
