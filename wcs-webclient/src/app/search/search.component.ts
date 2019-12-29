@@ -11,7 +11,7 @@ import {ProductSearchEntry} from "../_models/product-search-entry";
 })
 export class SearchComponent implements OnInit {
 
-  private searchString: string;
+  public searchString: string;
   public products: ProductSearchEntry;
 
   constructor(private route: ActivatedRoute, private productsService: ProductsService) {}
