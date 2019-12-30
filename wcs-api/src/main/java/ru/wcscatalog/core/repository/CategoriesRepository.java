@@ -25,6 +25,10 @@ public class CategoriesRepository {
 
     public List<CategoryEntry> getCategories() {
         List<Category> categories = dao.getAll(Category.class);
+        categories.forEach(c -> {
+            if (c.getOrderNumber() == null) c.setOrderNumber(0);
+        });
+        categories = categories.stream().sorted(Comparator.comparingInt(Category::getOrderNumber)).collect(Collectors.toList());
         return categories.stream().map(CategoryEntry::fromCategory).collect(Collectors.toList());
     }
 
@@ -192,5 +196,11 @@ public class CategoriesRepository {
         criteria.where(criteriaBuilder.isNull(root.get("parentCategory")));
         List<Category> categories = dao.createQuery(criteria);
         return categories.stream().map(CategoryEntry::fromCategory).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void updateCategoryOrderNumber(Long categoryId, Integer orderNumber) {
+        Category category = dao.byId(categoryId, Category.class);
+        if (category != null) category.setOrderNumber(orderNumber);
     }
 }

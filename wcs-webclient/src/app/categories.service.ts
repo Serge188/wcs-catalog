@@ -53,4 +53,8 @@ export class CategoriesService {
   public getTopLevelCategories(): Observable<any> {
     return this.http.get(this.apiUrl + `categories/topLevelCategories`);
   }
+
+  public updateCategoryOrderNumber(categoryId: number, orderNumber: number) {
+    return this.http.get(this.apiUrl + `categories/orderNumber?categoryId=${categoryId}&orderNumber=${orderNumber}`)
+  }
 }

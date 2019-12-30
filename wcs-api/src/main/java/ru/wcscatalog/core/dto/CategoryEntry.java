@@ -16,6 +16,7 @@ public class CategoryEntry {
     private String description;
     private List<CategoryEntry> childCategories;
     private Integer productsCount;
+    private Integer orderNumber;
 
     public Long getId() {
         return id;
@@ -105,6 +106,14 @@ public class CategoryEntry {
         this.productsCount = productsCount;
     }
 
+    public Integer getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(Integer orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
     public static CategoryEntry fromCategory(Category category) {
         if (category != null) {
             CategoryEntry entry = new CategoryEntry();
@@ -119,6 +128,7 @@ public class CategoryEntry {
             entry.setImage(ImageEntry.fromImage(category.getImage()));
             entry.setPopular(category.isPopular());
             entry.setDescription(category.getDescription());
+            entry.setOrderNumber(category.getOrderNumber());
             return entry;
         }
         return null;

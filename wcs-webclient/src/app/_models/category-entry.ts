@@ -22,4 +22,5 @@ export class CategoryEntry {
   imageInput?: any;
   imageChanged?: boolean;
   productsCount?: number;
+  orderNumber?: number;
 }

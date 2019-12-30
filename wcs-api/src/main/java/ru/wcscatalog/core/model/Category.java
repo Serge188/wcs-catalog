@@ -31,6 +31,9 @@ public class Category {
     @Column(name="description")
     private String description;
 
+    @Column(name="order_number")
+    private Integer orderNumber = 0;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parentCategory", fetch = FetchType.LAZY)
     private List<Category> childCategories;
 
@@ -101,5 +104,13 @@ public class Category {
 
     public void setChildCategories(List<Category> childCategories) {
         this.childCategories = childCategories;
+    }
+
+    public Integer getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(Integer orderNumber) {
+        this.orderNumber = orderNumber;
     }
 }

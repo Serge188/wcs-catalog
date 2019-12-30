@@ -92,4 +92,10 @@ public class CategoryController {
         List<CategoryEntry> categories = categoriesRepository.getTopLevelCategories();
         return ResponseEntity.ok(categories);
     }
+
+    @GetMapping("/orderNumber")
+    public ResponseEntity<?> updateCategoryOrderNumber(@RequestParam("categoryId") Long categoryId, @RequestParam("orderNumber") Integer orderNumber) {
+        categoriesRepository.updateCategoryOrderNumber(categoryId, orderNumber);
+        return ResponseEntity.ok().build();
+    }
 }
