@@ -80,4 +80,10 @@ public class OptionsController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/optionOrderNumber")
+    public ResponseEntity<?> updateOptionOrderNumber(@RequestParam("valueId") Long valueId, @RequestParam("orderNumber") Integer orderNumber) {
+        optionsRepository.updateOptionValueOrderNumber(valueId, orderNumber);
+        return ResponseEntity.ok().build();
+    }
+
 }

@@ -153,4 +153,13 @@ public class OptionsRepository {
         criteriaQuery.where(optionJoin.get("id").in(optionIds));
         return dao.createQuery(criteriaQuery);
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @Transactional
+    public void updateOptionValueOrderNumber(Long valueId, Integer orderNumber) {
+        OptionValue value = dao.byId(valueId, OptionValue.class);
+        if (value != null) {
+            value.setOrderNumber(orderNumber);
+        }
+    }
 }

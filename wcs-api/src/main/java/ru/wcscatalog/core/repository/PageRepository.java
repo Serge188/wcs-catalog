@@ -79,10 +79,12 @@ public class PageRepository {
         page.setSliderAnnotation(input.getSliderAnnotation());
 //        page.setContent(input.getContent());
 
-        page.setContent(input
-                .getContent()
-                .replaceAll("\\n", "<br/>")
-                .replaceAll("\\t", "&nbsp;&nbsp;&nbsp;"));
+        if (input.getContent() != null) {
+            page.setContent(input
+                    .getContent()
+                    .replaceAll("\\n", "<br/>")
+                    .replaceAll("\\t", "&nbsp;&nbsp;&nbsp;"));
+        }
         page.setShowInMainMenu(input.isShowInMainMenu());
         page.setShowInSideMenu(input.isShowInSideMenu());
         if (input.getParentPageId() != null) {

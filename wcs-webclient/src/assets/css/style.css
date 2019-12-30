@@ -17564,3 +17564,7 @@ div.bx-debug-summary {
   height: 3px;
   background-color: #7A6137 !important;
 }
+
+.danger-validation {
+  color: red;
+}

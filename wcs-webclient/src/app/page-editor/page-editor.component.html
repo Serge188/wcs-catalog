@@ -8,6 +8,7 @@
   <div class="form-group">
     <label for="titleInput">Заголовок</label>
     <input style="width:50%" type="text" class="form-control" id="titleInput" [(ngModel)]="page.title" name="title">
+    <span class="danger-validation" *ngIf="!page.title">Введите заголовок</span>
   </div>
   <div class="form-group">
     <textarea style="width:50%" rows="10" [(ngModel)]="page.content"></textarea>
@@ -63,7 +64,7 @@
   </div>
   <div class="btn-toolbar mt-3" role="toolbar" aria-label="Toolbar with button groups">
     <div class="btn-group mr-2" role="group" aria-label="First group">
-      <button type="button" class="btn btn-sm btn-primary" (click)="createPage()">Сохранить</button>
+      <button type="button" class="btn btn-sm btn-primary" [disabled]="!page.title" (click)="createPage()">Сохранить</button>
     </div>
     <!--<div class="btn-group mr-2" role="group" aria-label="Second group">-->
       <!--<button type="button" class="btn btn-sm btn-danger" (click)="removePage()">Удалить</button>-->

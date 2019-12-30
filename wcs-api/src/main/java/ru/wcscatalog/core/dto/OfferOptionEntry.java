@@ -3,6 +3,7 @@ package ru.wcscatalog.core.dto;
 import ru.wcscatalog.core.model.OfferOption;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -79,7 +80,12 @@ public class OfferOptionEntry {
             entry.setName(option.getName());
             entry.setType(option.getType());
             entry.setShowInFilter(option.getShowInFilter());
-            entry.setValues(option.getValues().stream().map(OptionValueEntry::fromOptionValue).collect(Collectors.toList()));
+            entry.setValues(option
+                    .getValues()
+                    .stream()
+                    .map(OptionValueEntry::fromOptionValue)
+                    .sorted(Comparator.comparingInt(OptionValueEntry::getOrderNumber))
+                    .collect(Collectors.toList()));
             return entry;
         }
         return null;

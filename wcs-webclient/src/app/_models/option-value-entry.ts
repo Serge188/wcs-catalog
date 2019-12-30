@@ -9,4 +9,5 @@ export class OptionValueEntry {
   editMode?: boolean;
   imageInput?: any;
   selected?: boolean;
+  orderNumber?: number;
 }

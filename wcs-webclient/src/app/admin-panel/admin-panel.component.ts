@@ -180,14 +180,16 @@ export class AdminPanelComponent implements OnInit {
 
   private expandCategory(category: CategoryEntry): void {
     category.expanded = true;
+    let count = 1;
     for (let cat of this.categories) {
       if (cat.parentCategoryId == category.id) {
         let index = this.itemsInList.indexOf(category, 0);
         if (index != -1) {
-          this.itemsInList.splice(index + 1, 0, cat);
+          this.itemsInList.splice(index + count, 0, cat);
           cat.level = category.level + 1;
           cat.expanded = false;
           cat.selected = false;
+          count++;
         }
       }
     }
@@ -251,10 +253,12 @@ export class AdminPanelComponent implements OnInit {
       this.newProduct.discountPrice = product.discountPrice;
       this.newProduct.title = product.title;
       // this.newProduct.description = product.description;
-      this.newProduct.description = product.description
-        .split("<br/>").join("\n")
-        .split("&nbsp;&nbsp;&nbsp;").join("\t")
-        .split("&nbsp;").join(" ");
+      if (product.description) {
+        this.newProduct.description = product.description
+          .split("<br/>").join("\n")
+          .split("&nbsp;&nbsp;&nbsp;").join("\t")
+          .split("&nbsp;").join(" ");
+      }
       this.newProduct.mainImage = product.mainImage;
       this.newProduct.images = product.images;
       this.newProduct.saleOffers = product.saleOffers;
@@ -317,6 +321,13 @@ export class AdminPanelComponent implements OnInit {
     }, () => toastr.error(this.SAVING_ERROR));
     this.newCategory = {};
     this.closeModal();
+  }
+
+  public updateCategoryOrderNumber(catId: number, orderNumber: number) {
+    this.categoriesService.updateCategoryOrderNumber(catId, orderNumber).subscribe(
+      () => {},
+      () => toastr.error(this.SAVING_ERROR),
+      () => toastr.success(this.SAVED_SUCCESSFULLY));
   }
 
   public addCategoryImageFile() {
@@ -385,6 +396,7 @@ export class AdminPanelComponent implements OnInit {
   }
 
   public createOrUpdateProduct(): void {
+    console.log(this.newProduct);
     let result: Observable<any>;
     if (this.newProduct.id) {
       result = this.productsService.updateProduct(this.newProduct);
@@ -757,5 +769,18 @@ export class AdminPanelComponent implements OnInit {
     reader.addEventListener('load', (event: any) => {
       this.productsService.uploadProductsFile(reader.result).subscribe(() => {});
     });
+  }
+
+  public saveProductButtonDisabled(): boolean {
+    return !this.newProduct.factoryId
+      || !this.newProduct.title
+      || !this.newProduct.categoryId
+      || !this.newProduct.priceType;
+  }
+
+  public updateValueOrderNumber(valueId: number, orderNumber: number) {
+    this.optionsService.updateOptionValueOrderNumber(valueId, orderNumber).subscribe(
+      () => {toastr.success(this.SAVED_SUCCESSFULLY);},
+      () => {toastr.error(this.SAVING_ERROR);})
   }
 }

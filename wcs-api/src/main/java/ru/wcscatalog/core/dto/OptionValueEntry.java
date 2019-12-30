@@ -8,6 +8,7 @@ public class OptionValueEntry {
     private String value;
     private String alias;
     private ImageEntry image;
+    private Integer orderNumber;
 
     public Long getId() {
         return id;
@@ -49,6 +50,14 @@ public class OptionValueEntry {
         this.image = image;
     }
 
+    public Integer getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(Integer orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
     public static OptionValueEntry fromOptionValue(OptionValue optionValue) {
         OptionValueEntry entry = new OptionValueEntry();
         entry.setId(optionValue.getId());
@@ -56,6 +65,11 @@ public class OptionValueEntry {
         entry.setValue(optionValue.getValue());
         entry.setAlias(optionValue.getAlias());
         entry.setImage(ImageEntry.fromImage(optionValue.getImage()));
+        if (optionValue.getOrderNumber() == null) {
+            entry.setOrderNumber(0);
+        } else {
+            entry.setOrderNumber(optionValue.getOrderNumber());
+        }
         return entry;
     }
 }

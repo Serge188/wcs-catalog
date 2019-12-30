@@ -29,4 +29,8 @@ export class OptionsService {
   public removeOption(optionId: number): Observable<any> {
     return this.http.delete(this.apiUrl + `options/option/${optionId}`).pipe();
   }
+
+  public updateOptionValueOrderNumber(valueId: number, orderNumber: number): Observable<any> {
+    return this.http.get(this.apiUrl + `options/optionOrderNumber?valueId=${valueId}&orderNumber=${orderNumber}`).pipe();
+  }
 }

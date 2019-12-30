@@ -40,11 +40,6 @@ public class AuthController {
         this.tokenProvider = tokenProvider;
     }
 
-    @GetMapping("/test")
-    public ResponseEntity<?> testApi() {
-        return ResponseEntity.ok("Test successful");
-    }
-
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
@@ -54,7 +49,6 @@ public class AuthController {
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         String jwt = tokenProvider.generateToken(authentication);
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }

@@ -20,6 +20,9 @@ public class OptionValue {
     @Column(name="alias")
     private String alias;
 
+    @Column(name="order_number")
+    private Integer orderNumber = 0;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="image_id")
     private Image image;
@@ -62,5 +65,13 @@ public class OptionValue {
 
     public void setImage(Image image) {
         this.image = image;
+    }
+
+    public Integer getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(Integer orderNumber) {
+        this.orderNumber = orderNumber;
     }
 }

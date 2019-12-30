@@ -3,14 +3,15 @@
     <h3>Редактирование категории</h3>
     <div class="form-group">
       <label for="parentCategorySelect">Вышестоящая категория</label>
-      <select class="form-control" id="parentCategorySelect" [(ngModel)]="newCategory.parentCategoryId" name="parentCategoryId">
+      <select class="form-control" id="parentCategorySelect" [(ngModel)]="newCategory.parentCategoryId" required name="parentCategoryId">
         <option [value]="null"></option>
         <option *ngFor="let cat of topLevelCategories" [value]="cat.id">{{cat.title}}</option>
       </select>
     </div>
     <div class="form-group">
       <label for="categoryTitleInput">Название</label>
-      <input type="text" style="width:50%" class="form-control" id="categoryTitleInput" [(ngModel)]="newCategory.title" name="title">
+      <input type="text" style="width:100%" class="form-control" required="required" id="categoryTitleInput" [(ngModel)]="newCategory.title" name="title">
+      <span class="danger-validation" *ngIf="!newCategory.title">Введите название</span>
     </div>
     <div class="form-group">
       <label for="categoryDescriptionArea">Описание</label>
@@ -31,7 +32,7 @@
     </div>
     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
       <div class="btn-group mr-2" role="group" aria-label="First group">
-        <button type="button" class="btn btn-primary" (click)="createOrUpdateCategory()">Сохранить</button>
+        <button type="button" class="btn btn-primary" [disabled]="!newCategory.title" (click)="createOrUpdateCategory()">Сохранить</button>
       </div>
       <div class="btn-group mr-2" role="group" aria-label="Second group">
         <button type="button" class="btn btn-danger" (click)="removeCategory(newCategory.id)">Удалить</button>
@@ -51,16 +52,19 @@
       <select class="form-control" id="parentCategoryForProductSelect" (change)="changeCategoryForProduct()" [(ngModel)]="newProduct.categoryId" name="categoryId">
         <option *ngFor="let cat of categories" [value]="cat.id">{{cat.title}} <span *ngIf="cat.parentCategoryTitle != null">({{cat.parentCategoryTitle}})</span></option>
       </select>
+      <span class="danger-validation" *ngIf="!newProduct.categoryId">Выберите категорию</span>
     </div>
     <div class="form-group" style="text-align: left">
       <label for="parentCategoryForProductSelect">Производитель</label>
       <select class="form-control" id="factorySelect" [(ngModel)]="newProduct.factoryId" name="categoryId">
         <option *ngFor="let factory of factories" [value]="factory.id">{{factory.title}}</option>
       </select>
+      <span class="danger-validation" *ngIf="!newProduct.factoryId">Выберите производителя</span>
     </div>
     <div class="form-group" style="text-align: left">
       <label for="categoryTitleInput">Название</label>
       <input type="text" style="width:50%" class="form-control" id="productTitleInput" [(ngModel)]="newProduct.title" name="title">
+      <span class="danger-validation" *ngIf="!newProduct.title">Введите название</span>
     </div>
     <div class="form-group" style="text-align: left">
       <label for="productMainImageUploader">Главное изображение</label>
@@ -104,6 +108,7 @@
         <option [value]="'FROM_TO'">от ... до ... руб.</option>
         <option [value]="'PRICE_FOR_SET'">руб. за комплект</option>
       </select>
+      <span class="danger-validation" *ngIf="!newProduct.priceType">Выберите тип цены</span>
     </div>
   </div>
   <div class="form-group" style="text-align: left">
@@ -222,7 +227,7 @@
   </div>
   <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
     <div class="btn-group mr-2" role="group" aria-label="First group">
-      <button type="button" class="btn btn-primary" (click)="createOrUpdateProduct()">Сохранить</button>
+      <button type="button" [disabled]="saveProductButtonDisabled()" class="btn btn-primary" (click)="createOrUpdateProduct()">Сохранить</button>
     </div>
     <div class="btn-group mr-2" role="group" aria-label="Second group">
       <button type="button" class="btn btn-danger" (click)="removeProduct(newProduct.id)">Удалить</button>
@@ -242,6 +247,13 @@
   <div class="form-group" style="text-align: left">
     <label for="categoryTitleInput">Название</label>
     <input type="text" style="width:50%" class="form-control" id="factoryTitleInput" [(ngModel)]="newFactory.title" name="title">
+    <span class="danger-validation" *ngIf="!newFactory.title">Введите название</span>
+  </div>
+  <div class="form-check mt-3 mb-3" style="text-align: left">
+    <input class="form-check-input" type="checkbox" value="" id="popularBrand" [(ngModel)]="newFactory.popular" name="showOnMainPage">
+    <label class="form-check-label" for="popularBrand">
+      Показывать на главной
+    </label>
   </div>
   <div class="form-group" style="text-align: left">
     <label for="productMainImageUploader">Изображение</label>
@@ -256,7 +268,7 @@
   </div>
   <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
     <div class="btn-group mr-2" role="group" aria-label="First group">
-      <button type="button" class="btn btn-primary" (click)="createOrUpdateFactory()">Сохранить</button>
+      <button type="button" class="btn btn-primary" [disabled]="!newFactory.title" (click)="createOrUpdateFactory()">Сохранить</button>
     </div>
     <div class="btn-group mr-2" role="group" aria-label="Second group">
       <button type="button" class="btn btn-danger" (click)="removeFactory(newFactory)">Удалить</button>
@@ -342,6 +354,9 @@
                 <span class="ion ion-md-arrow-dropdown" *ngIf="item.expanded"></span>
                 {{item.title}}
               </span>
+              <div>
+                <input type="number" style="color:black !important" [(ngModel)]="item.orderNumber" (change)="updateCategoryOrderNumber(item.id, item.orderNumber)"/>
+              </div>
               <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-secondary btn-sm" title="Редактировать категорию" (click)="openModalCategory($event, item, false)"><span class="ion ion-md-create"></span></button>
                 <button type="button" class="btn btn-secondary btn-sm" title="Создать категорию" (click)="openModalCategory($event, item, true)"><span class="ion ion-md-code-working"></span></button>
@@ -412,10 +427,12 @@
                   <div class="col-lg-5">
                     <label for="editingOptionTitle"><b>Название</b></label>
                     <input type="text" id="editingOptionTitle" [(ngModel)]="editingOption.title"/>
+                    <span class="danger-validation" *ngIf="!editingOption.title">Введите название</span>
                   </div>
                   <div class="col-lg-5">
                     <label for="editingOptionTitle"><b>Наименование</b></label>
                     <input type="text" id="editingOptionName" [(ngModel)]="editingOption.name"/>
+                    <span class="danger-validation" *ngIf="!editingOption.name">Введите наименование</span>
                   </div>
                   <div class="form-check mt-3">
                     <input class="form-check-input" type="checkbox" value="" id="showInFilter" [(ngModel)]="editingOption.showInFilter" name="showInFilter">
@@ -425,11 +442,12 @@
                   </div>
                 </div>
               </div>
-              <div class="card-body">
+              <div class="card-body" style="max-height: 350px; overflow-y: auto;">
                 <table class="table table-striped" *ngIf="!option.editMode">
                   <thead>
-                  <th class="col-lg-8">Значение</th>
+                  <th class="col-lg-4">Значение</th>
                   <th class="col-lg-4">Изображение</th>
+                  <th class="col-lg-4">Порядковый номер</th>
                   </thead>
                   <tbody>
                     <tr style="text-align: left" *ngFor="let optionValue of option.values">
@@ -441,13 +459,17 @@
                           <img src="{{optionValue?.image?.optionImageLink}}"/>
                         </div>
                       </td>
+                      <td>
+                        <span>{{optionValue.orderNumber}}</span>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
                 <table class="table table-striped" *ngIf="option.editMode">
                   <thead>
-                    <th class="col-lg-8">Значение</th>
+                    <th class="col-lg-4">Значение</th>
                     <th class="col-lg-4">Изображение</th>
+                    <th class="col-lg-4">Порядковый номер</th>
                   </thead>
                   <tbody>
                     <tr style="text-align: left" *ngFor="let optionValue of editingOption.values">
@@ -470,6 +492,9 @@
                           <span class="ion ion-md-attach"></span>
                           <input type="file" accept="image/*" style="display: none;" id="optionValueImageUploader_{{optionValue.id}}" (change)="addOptionValueImage(optionValue)"></label>
                       </td>
+                      <td>
+                        <input type="number" (change)="updateValueOrderNumber(optionValue.id, optionValue.orderNumber)" [(ngModel)]="optionValue.orderNumber"/>
+                      </td>
                     </tr>
                     <tr style="text-align: left">
                       <td><a href="" (click)="addNewOptionValue($event)">Добавить значение</a></td>
@@ -486,7 +511,7 @@
                 </div>
                 <div class="btn-toolbar" role="toolbar" *ngIf="option.editMode">
                   <div class="btn-group mr-2" role="group" aria-label="First group">
-                    <button type="button" class="btn btn-sm btn-primary" (click)="createOrUpdateOption(option)">Сохранить</button>
+                    <button type="button" class="btn btn-sm btn-primary" [disabled]="!editingOption.title || !editingOption.name" (click)="createOrUpdateOption(option)">Сохранить</button>
                   </div>
                   <div class="btn-group" role="group" aria-label="Third group">
                     <button type="button" class="btn btn-sm btn-secondary" (click)="cancelEditing(option)">Отмена</button>
@@ -508,7 +533,9 @@
         <div class="row">
           <div class="col-sm-12" *ngFor="let factory of factories">
             <div class="card mb-3">
-              <img style="width:100px; height:100px" class="card-img-left" src="{{factory?.image?.originalImageLink}}" alt="{{factory.title}}">
+              <div class=" mt-3 ml-1 col-sm-3">
+                <img style="width:100px;" class="card-img-left" src="{{factory?.image?.originalImageLink}}" alt="{{factory.title}}">
+              </div>
               <div class="card-body text-left">
                 <h5 class="card-title">{{factory.title}}</h5>
                 <p class="card-text">{{factory.description}}</p>
