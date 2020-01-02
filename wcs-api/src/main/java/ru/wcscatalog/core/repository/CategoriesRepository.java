@@ -49,7 +49,7 @@ public class CategoriesRepository {
             if (category != null && category.getChildCategories() != null) {
                 List<CategoryEntry> childCategories = new ArrayList<>();
                 category.getChildCategories().forEach(e -> childCategories.add(CategoryEntry.fromCategory(e)));
-                entry.setChildCategories(childCategories);
+                entry.setChildCategories(childCategories.stream().sorted(Comparator.comparingInt(CategoryEntry::getOrderNumber)).collect(Collectors.toList()));
             }
             return entry;
         }

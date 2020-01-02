@@ -85,7 +85,9 @@ public class FactoryRepository {
     public void removeFactory(Long id) {
         Factory factory = getFactoryById(id);
         if (factory != null) {
-            imageRepository.removeFactoryImage(factory.getImage().getId());
+            if (factory.getImage() != null) {
+                imageRepository.removeFactoryImage(factory.getImage().getId());
+            }
             dao.remove(factory);
         }
     }

@@ -36,7 +36,7 @@
         <div class="brand-detail__desc">
           <div class="brand-detail-block">
 
-            <div class="brand-detail-block__picture">
+            <div class="brand-detail-block__picture" style="max-width: 400px">
               <img src="{{factory?.image?.originalImageLink}}" alt="{{factory?.title}}" title="">
             </div>
 
@@ -51,9 +51,7 @@
       </div>
       <h2 class="nice-block-title">Популярное в {{factory?.title}}</h2>
       <div class="gopro-container">
-        <div class="list-showcase view-showcase row" id="view-showcase">
-          <app-products-list [products]="products"></app-products-list>
-        </div>
+        <app-products-list [products]="products"></app-products-list>
       </div>
     </div>
   </div>

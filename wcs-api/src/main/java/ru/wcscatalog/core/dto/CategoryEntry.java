@@ -128,7 +128,12 @@ public class CategoryEntry {
             entry.setImage(ImageEntry.fromImage(category.getImage()));
             entry.setPopular(category.isPopular());
             entry.setDescription(category.getDescription());
-            entry.setOrderNumber(category.getOrderNumber());
+            if (category.getOrderNumber() != null) {
+                entry.setOrderNumber(category.getOrderNumber());
+            } else {
+                entry.setOrderNumber(0);
+            }
+
             return entry;
         }
         return null;
