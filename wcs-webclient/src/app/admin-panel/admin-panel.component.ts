@@ -740,14 +740,16 @@ export class AdminPanelComponent implements OnInit {
   }
 
   public addImageToGalleryItem(item: PhotoGalleryItemEntry, index: number) {
-    let file  = (<HTMLInputElement>document.getElementById("galleryItemImageUploader_" + index)).files.item(0);
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener('load', (event: any) => {
-      this.photoGalleryItemService.addImageToGalleryItem(item.id, reader.result).subscribe(() => {
-        this.loadPhotoGalleryItems();
+    let files  = (<HTMLInputElement>document.getElementById("galleryItemImageUploader_" + index)).files;
+    for (let i = 0; i < files.length; i++) {
+      let reader = new FileReader();
+      reader.readAsDataURL(files.item(i));
+      reader.addEventListener('load', (event: any) => {
+        this.photoGalleryItemService.addImageToGalleryItem(item.id, reader.result).subscribe(() => {
+          this.loadPhotoGalleryItems();
+        });
       });
-    });
+    }
   }
 
   public addImageToFactory() {

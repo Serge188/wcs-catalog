@@ -205,8 +205,12 @@ export class MainPageComponent implements OnInit {
   private loadPhotoGalleryItems() {
     this.photoGalleryItemService.getPhotoGalleryItems().subscribe(result => {
       this.photoGalleryItems = result;
-
-      console.log(result);
+      this.photoGalleryItems.forEach(i => {
+        if (!i.mainImage && i.images && i.images.length > 0) {
+          i.mainImage = i.images[0];
+          i.images.splice(0, 1);
+        }
+      });
     });
   }
 
